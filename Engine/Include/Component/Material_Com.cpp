@@ -10,6 +10,8 @@
 
 #include "../Render/ShaderManager.h"
 
+JEONG_USING
+
 JEONG::SubsetMaterial::SubsetMaterial()
 {
 
@@ -111,6 +113,14 @@ void JEONG::Material_Com::Render(float DeltaTime)
 JEONG::Material_Com * JEONG::Material_Com::Clone()
 {
 	return new Material_Com(*this);
+}
+
+void JEONG::Material_Com::Save(BineryWrite & Writer)
+{
+}
+
+void JEONG::Material_Com::Load(BineryRead & Reader)
+{
 }
 
 void JEONG::Material_Com::SetMaterial(const Vector4 & Diffuse, int Container, int Subset)

@@ -67,6 +67,7 @@
 #define IDC_TILELOAD                    1061
 #define IDC_TILECLEAR                   1062
 #define IDC_CREATETILECOUNT             1065
+#define IDC_TILEROTATION                1066
 #define ID_GAMEOBJECT                   32771
 #define ID_GAMEOBJECT_32772             32772
 
@@ -76,7 +77,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        313
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1066
+#define _APS_NEXT_CONTROL_VALUE         1067
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

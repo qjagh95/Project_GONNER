@@ -608,3 +608,13 @@ void Stage2D_Com::SetSubImage(const Vector3 & Pos, const string & FileName, size
 
 	m_vecTile2DCom[Index]->AddSubTileImage(Path, ImageCount);
 }
+
+void Stage2D_Com::SetRotation(const Vector3& Pos, float Angle)
+{
+	int Index = GetTileIndex(Pos);
+
+	if (Index == -1)
+		return;
+
+	m_vecTile2DCom[Index]->GetTransform()->SetWorldRotZ(Angle);
+}

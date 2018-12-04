@@ -34,9 +34,9 @@ bool EditScene::Init()
 	KeyInput::Get()->AddKey("PrevTileTab", VK_OEM_3);
 	KeyInput::Get()->AddKey("CameraZero", VK_SPACE);
 	KeyInput::Get()->AddKey("Shift", VK_SHIFT);
+	KeyInput::Get()->AddKey("Angle", 'Q');
 
 	SAFE_RELEASE(BackObject);
-
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(Default);
 	SAFE_RELEASE(TileLayer);
@@ -72,6 +72,9 @@ int EditScene::Update(float DeltaTime)
 				editorForm->m_TileOptionBox.SetCurSel(0);
 		}
 	}
+
+	if (KeyInput::Get()->KeyDown("Angle"))
+		editorForm->OnEnChangeTilerotation();
 
 	if (KeyInput::Get()->KeyDown("TileTab"))
 	{

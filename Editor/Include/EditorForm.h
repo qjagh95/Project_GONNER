@@ -88,6 +88,7 @@ public:
 
 	CString m_ImageName;
 	int m_CreateTileCount;
+	int m_TileAngle;
 
 	STAGE2D_TILE_TYPE GetTileType() const;
 	TILE2D_OPTION GetTileOption() const;
@@ -126,6 +127,8 @@ public:
 	afx_msg void OnBnClickedTileload();
 	afx_msg void OnBnClickedTilesave();
 	afx_msg void OnEnChangeCreatetilecount();
+
+	afx_msg void OnEnChangeTilerotation();
 };
 
 

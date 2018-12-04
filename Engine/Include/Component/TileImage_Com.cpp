@@ -31,6 +31,7 @@ bool TileImage_Com::Init()
 
 int TileImage_Com::Input(float DeltaTime)
 {
+	
 	return 0;
 }
 
