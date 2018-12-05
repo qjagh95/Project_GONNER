@@ -13,6 +13,9 @@ struct JEONG_DLL SubsetMaterial
 	vector<JEONG::Texture*> vecDiffuseTexture;
 	vector<JEONG::Sampler*> vecDiffuseSampler;
 
+	void Save(BineryWrite& Writer);
+	void Load(BineryRead& Reader);
+
 	SubsetMaterial();
 	~SubsetMaterial();
 };
@@ -34,7 +37,7 @@ public:
 
 	void SetMaterial(const Vector4& Diffuse, int Container = 0, int Subset = 0);
 	void SetDiffuseTexture(int RegisterNumber, const string& KeyName, int Container = 0, int Subset = 0);
-	void SetDiffuseTexture(int RegisterNumber, const string& KeyName, const TCHAR* FileName,	const string& PathKey = TEXTURE_PATH, int Container = 0, int Subset = 0);
+	void SetDiffuseTexture(int RegisterNumber, const string& KeyName, const TCHAR* FileName, const string& PathKey = TEXTURE_PATH, int Container = 0, int Subset = 0);
 	void SetDiffuseTexture(int RegisterNumber, Texture* pTexture, int Container = 0, int Subset = 0);
 	void SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const TCHAR* FullPath, int Container = 0, int Subset = 0);
 	void SetSampler(int RegisterNumber, const string& KeyName, int Container = 0, int Subset = 0);

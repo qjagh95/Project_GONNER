@@ -9,7 +9,6 @@ JEONG_USING
 Texture::Texture()
 	:m_ShaderResourceView(NULLPTR)
 {
-	memset(m_FullPath, 0, sizeof(TCHAR) * MAX_PATH);
 }
 
 Texture::~Texture()
@@ -62,17 +61,17 @@ bool Texture::LoadTexture(const string & TextureName, const vector<const TCHAR*>
 
 		if (strcmp(ext, ".DDS") == 0)
 		{
-			if (FAILED(LoadFromDDSFile(m_FullPath, DDS_FLAGS_NONE, NULLPTR, *pImage)))
+			if (FAILED(LoadFromDDSFile(m_FullPath.c_str(), DDS_FLAGS_NONE, NULLPTR, *pImage)))
 				return false;
 		}
 		else if (strcmp(ext, ".TGA") == 0)
 		{
-			if (FAILED(LoadFromTGAFile(m_FullPath, NULLPTR, *pImage)))
+			if (FAILED(LoadFromTGAFile(m_FullPath.c_str(), NULLPTR, *pImage)))
 				return false;
 		}
 		else
 		{
-			if (FAILED(LoadFromWICFile(m_FullPath, WIC_FLAGS_NONE, NULLPTR, *pImage)))
+			if (FAILED(LoadFromWICFile(m_FullPath.c_str(), WIC_FLAGS_NONE, NULLPTR, *pImage)))
 				return false;
 		}
 
@@ -85,7 +84,7 @@ bool Texture::LoadTexture(const string & TextureName, const vector<const TCHAR*>
 bool Texture::LoadTextureFromFullPath(const string & TextureName, const TCHAR * FullPath)
 {
 	SetTag(TextureName);
-	lstrcpy(m_FullPath, FullPath);
+	m_FullPath = FullPath;
 
 	TCHAR Sep[_MAX_EXT] = {};
 	char mSep[_MAX_EXT] = {};
@@ -132,7 +131,7 @@ bool Texture::LoadTextureFromFullPath(const string & TextureName, const vector<c
 
 	for (size_t i = 0; i < FullPaths.size(); ++i)
 	{
-		memcpy(m_FullPath, FullPaths[i], sizeof(TCHAR) * MAX_PATH);
+		m_FullPath = FullPaths[i];
 
 		TCHAR strExt[_MAX_EXT] = {};
 		char ext[_MAX_EXT] = {};
@@ -149,18 +148,18 @@ bool Texture::LoadTextureFromFullPath(const string & TextureName, const vector<c
 
 		if (strcmp(ext, ".DDS") == 0)
 		{
-			if (FAILED(LoadFromDDSFile(m_FullPath, DDS_FLAGS_NONE, NULLPTR, *pImage)))
+			if (FAILED(LoadFromDDSFile(m_FullPath.c_str(), DDS_FLAGS_NONE, NULLPTR, *pImage)))
 				return false;
 		}
 
 		else if (strcmp(ext, ".TGA") == 0)
 		{
-			if (FAILED(LoadFromTGAFile(m_FullPath, NULLPTR, *pImage)))
+			if (FAILED(LoadFromTGAFile(m_FullPath.c_str(), NULLPTR, *pImage)))
 				return false;
 		}
 		else
 		{
-			if (FAILED(LoadFromWICFile(m_FullPath, WIC_FLAGS_NONE, NULLPTR, *pImage)))
+			if (FAILED(LoadFromWICFile(m_FullPath.c_str(), WIC_FLAGS_NONE, NULLPTR, *pImage)))
 				return false;
 		}
 
@@ -188,4 +187,24 @@ void Texture::SetShaderResource(int RegisterNumber)
 {
 	//픽셀쉐이더에 정보를 넘긴다.
 	Device::Get()->GetContext()->PSSetShaderResources(RegisterNumber, 1, &m_ShaderResourceView);
+}
+
+void Texture::Save(BineryWrite & Writer)
+{
+	Writer.WriteData(m_TagName);
+	Writer.WriteData(m_FullPath);
+	Writer.WriteData(m_vecImage.size());
+}
+
+void Texture::Load(BineryRead & Reader)
+{
+	Reader.ReadData(m_TagName);
+	Reader.ReadData(m_FullPath);
+
+	size_t getSize = -1;
+	Reader.ReadData(getSize);
+
+	for (size_t i = 0; i < getSize; i++)
+		LoadTexture(m_TagName, m_FullPath.c_str());
+
 }

@@ -17,6 +17,8 @@ public:
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
 	Transform_Com* Clone() override;
+	void Save(BineryWrite& Writer);
+	void Load(BineryRead& Reader);
 
 	Vector3 GetLocalSacle() const { return m_LocalScale; }
 	Vector3 GetLocalRotation() const { return m_LocalRotation; }

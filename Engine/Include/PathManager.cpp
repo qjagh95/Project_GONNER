@@ -64,20 +64,16 @@ const TCHAR * JEONG::PathManager::FindPath(const string & KeyName)
 	return FindIter->second.c_str();
 }
 
-const char * JEONG::PathManager::FindPathMultiByte(const string & KeyName)
+const string JEONG::PathManager::FindPathMultiByte(const string & KeyName)
 {
 	const TCHAR* mPath = FindPath(KeyName);
 
 	if (mPath == NULLPTR)
 		return NULLPTR;
 
-	memset(m_MultiBytePath, 0, sizeof(char) * MAX_PATH);
-
 	// 유니코드 문자열을 멀티바이트로 변환한다.
 #ifdef UNICODE
-	WideCharToMultiByte(CP_ACP, 0, mPath, -1, m_MultiBytePath, lstrlen(mPath) * 2, 0, 0);
-#else
-	memcpy(m_strPath, pPath, sizeof(TCHAR) * lstrlen(pPath));
+	m_MultiBytePath = CW2A(mPath);
 #endif	// UNICODE
 
 	return m_MultiBytePath;

@@ -19,6 +19,7 @@ public:
 	void Load(BineryRead& Reader) override;
 
 	void SetTexture(const string& KeyName, wchar_t* FileName, const string& PathKey = TEXTURE_PATH);
+	void SetDiffuseColor(const Vector4& Color);
 	void SetDistance(float Distance) { m_Distance = Distance; }
 	float GetDistance() const { return m_Distance; }
 

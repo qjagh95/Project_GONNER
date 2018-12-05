@@ -45,3 +45,14 @@ void Sampler::SetSamplerState(int RegisterNumber)
 {
 	Device::Get()->GetContext()->PSSetSamplers(RegisterNumber, 1, &m_SamplerState);
 }
+
+void Sampler::Save(BineryWrite & Writer)
+{
+	Writer.WriteData(m_TagName);
+}
+
+void Sampler::Load(BineryRead & Reader)
+{
+	Reader.ReadData(m_TagName);
+	CreateSampler(m_TagName);
+}

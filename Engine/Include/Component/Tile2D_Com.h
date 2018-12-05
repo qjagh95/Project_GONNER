@@ -6,6 +6,7 @@ JEONG_BEGIN
 class Shader;
 class Mesh;
 class TileImage_Com;
+class GameObject;
 class JEONG_DLL Tile2D_Com : public Component_Base
 {
 public:
@@ -28,10 +29,11 @@ public:
 	void SetMesh(const string& KeyName);
 	void SetWorldPos(const Vector3& Pos);
 
-	void AddMainTileImage(const string& FileName);
-	void AddSubTileImage(const string& FileName, size_t ImageCount);
+	void SetMainTileImage(const string& FileName, int Dir);
+	void SetSubTileImage(size_t ImageCount);
 	TileImage_Com* GetMainTileImage() const { return m_TileImage; }
 	TileImage_Com* GetSubTileImage(size_t index) const { return m_vecTileImage[index]; }
+	string GetImageFileName() const { return m_ImageFileName; }
 
 private:
 	TILE2D_OPTION m_TileOption;
@@ -40,7 +42,9 @@ private:
 	Mesh* m_Mesh;
 	ID3D11InputLayout* m_Layout;
 	bool  m_isLine;
+	string m_ImageFileName;
 
+	GameObject* m_TileImageObject;
 	TileImage_Com* m_TileImage;
 	vector<TileImage_Com*> m_vecTileImage;
 

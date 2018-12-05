@@ -10,6 +10,8 @@
 
 #include "../Render/ShaderManager.h"
 
+JEONG_USING
+
 JEONG::SubsetMaterial::SubsetMaterial()
 {
 
@@ -111,6 +113,29 @@ void JEONG::Material_Com::Render(float DeltaTime)
 JEONG::Material_Com * JEONG::Material_Com::Clone()
 {
 	return new Material_Com(*this);
+}
+
+void JEONG::Material_Com::Save(BineryWrite & Writer)
+{
+	Component_Base::Save(Writer);
+
+	Writer.WriteData(m_vecMaterial.size());
+
+	for (size_t i = 0; i < m_vecMaterial.size(); i++)
+	{
+		for (size_t j = 0; j < m_vecMaterial[i].size(); j++)
+		{
+			Writer.WriteData(&m_vecMaterial[i][j]->MatrialInfo, sizeof(MaterialCbuffer));
+			m_vecMaterial[i][j]->Save(Writer);
+		}
+	}
+
+}
+
+void JEONG::Material_Com::Load(BineryRead & Reader)
+{
+	Component_Base::Load(Reader);
+
 }
 
 void JEONG::Material_Com::SetMaterial(const Vector4 & Diffuse, int Container, int Subset)
@@ -271,4 +296,39 @@ JEONG::SubsetMaterial* JEONG::Material_Com::CreateSubSet()
 	newSubset->vecDiffuseSampler.push_back(ResourceManager::Get()->FindSampler(LINER_SAMPLER));
 
 	return newSubset;
+}
+
+
+void JEONG::SubsetMaterial::Save(BineryWrite& Writer)
+{
+	Writer.WriteData(vecDiffuseTexture.size());
+	Writer.WriteData(vecDiffuseSampler.size());
+
+	for (size_t i = 0; i < vecDiffuseTexture.size(); i++)
+		vecDiffuseTexture[i]->Save(Writer);
+
+	for (size_t i = 0; i < vecDiffuseSampler.size(); i++)
+		vecDiffuseSampler[i]->Save(Writer);
+
+}
+
+void JEONG::SubsetMaterial::Load(BineryRead& Reader)
+{
+	//юс╫ц
+	size_t tSize = -1;
+	size_t sSize = -1;
+
+	for (size_t i = 0; i < tSize; i++)
+	{
+		
+
+		vecDiffuseTexture[i]->Load(Reader);
+	}
+
+	for (size_t i = 0; i < sSize; i++)
+	{
+
+
+		vecDiffuseSampler[i]->Load(Reader);
+	}
 }

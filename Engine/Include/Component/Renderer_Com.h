@@ -18,6 +18,8 @@ public:
 	void Render(float DeltaTime) override;
 	Renderer_Com* Clone() override;
 	void AfterClone() override;
+	void Save(BineryWrite& Writer);
+	void Load(BineryRead& Reader);
 
 public:
 	void SetMesh(Mesh* mesh);

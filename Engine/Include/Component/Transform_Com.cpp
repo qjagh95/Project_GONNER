@@ -151,6 +151,58 @@ JEONG::Transform_Com * JEONG::Transform_Com::Clone()
 	return new JEONG::Transform_Com(*this);
 }
 
+void JEONG::Transform_Com::Save(BineryWrite& Writer)
+{
+	Component_Base::Save(Writer);
+
+	Writer.WriteData(m_MatLocalScale);
+	Writer.WriteData(m_MatLocalPos);
+	Writer.WriteData(m_MatLocalRotation);
+	Writer.WriteData(m_MatLocalRotationX);
+	Writer.WriteData(m_MatLocalRotationY);
+	Writer.WriteData(m_MatLocalRotationZ);
+	Writer.WriteData(m_MatLocal);
+
+	Writer.WriteData(m_MatWorldScale);
+	Writer.WriteData(m_MatWorldPos);
+	Writer.WriteData(m_MatWorldRotation);
+	Writer.WriteData(m_MatWorldRotationX);
+	Writer.WriteData(m_MatWorldRotationY);
+	Writer.WriteData(m_MatWorldRotationZ);
+	Writer.WriteData(m_MatWorld);
+	Writer.WriteData(m_MatParent);
+	Writer.WriteData(m_ParentScale);
+	Writer.WriteData(m_ParentPos);
+	Writer.WriteData(m_ParentRot);
+}
+
+void JEONG::Transform_Com::Load(BineryRead& Reader)
+{
+	Component_Base::Load(Reader);
+
+	Reader.ReadData(m_MatLocalScale);
+	Reader.ReadData(m_MatLocalPos);
+	Reader.ReadData(m_MatLocalRotation);
+	Reader.ReadData(m_MatLocalRotationX);
+	Reader.ReadData(m_MatLocalRotationY);
+	Reader.ReadData(m_MatLocalRotationZ);
+	Reader.ReadData(m_MatLocal);
+
+	Reader.ReadData(m_MatWorldScale);
+	Reader.ReadData(m_MatWorldPos);
+	Reader.ReadData(m_MatWorldRotation);
+	Reader.ReadData(m_MatWorldRotationX);
+	Reader.ReadData(m_MatWorldRotationY);
+	Reader.ReadData(m_MatWorldRotationZ);
+	Reader.ReadData(m_MatWorld);
+	Reader.ReadData(m_MatParent);
+	Reader.ReadData(m_ParentScale);
+	Reader.ReadData(m_ParentPos);
+	Reader.ReadData(m_ParentRot);
+
+	ComputeWorldAxis();
+}
+
 void JEONG::Transform_Com::SetLocalScale(const Vector3 & vScale)
 {
 	//크기값을 받는다

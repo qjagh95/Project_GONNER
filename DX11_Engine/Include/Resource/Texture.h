@@ -13,6 +13,9 @@ public:
 	bool LoadTextureFromFullPath(const string& TextureName, const vector<const TCHAR*>& FullPaths);
 	void SetShaderResource(int RegisterNumber);
 	size_t GetTextureCount() const { return m_vecImage.size(); }
+	
+	void Save(BineryWrite& Writer);
+	void Load(BineryRead& Reader);
 
 	size_t GetWidth() const { return m_vecImage[0]->GetImage(0, 0, 0)->width; }
 	size_t GetHeight()	const { return m_vecImage[0]->GetImage(0, 0, 0)->height; }
@@ -31,7 +34,7 @@ private:
 	///그 픽셀정보를 가져다가 쉐이더로 넘겨서 거기서 정보를 뜯어서 색상정보를 써야한다.
 	///그렇기때문에 아랫놈이 무조건 필요하다.
 	ID3D11ShaderResourceView* m_ShaderResourceView;
-	TCHAR m_FullPath[MAX_PATH];
+	wstring m_FullPath;
 
 private:	
 	Texture();

@@ -55,6 +55,11 @@ void JEONG::BineryWrite::WriteData(const double& Data)
 	m_WriteFile.write((char*)&Data, sizeof(double));
 }
 
+void JEONG::BineryWrite::WriteData(const size_t& Data)
+{
+	m_WriteFile.write((char*)&Data, sizeof(size_t));
+}
+
 void JEONG::BineryWrite::WriteData(const Vector2 & Data)
 {
 	m_WriteFile.write((char*)&Data, sizeof(Vector2));
@@ -106,3 +111,14 @@ void JEONG::BineryWrite::WriteData(const wchar_t * Data)
 	m_WriteFile.write((char*)&Datalen, sizeof(size_t));
 	m_WriteFile.write(Temp2.c_str(), Datalen);
 }
+
+void JEONG::BineryWrite::WriteData(const Matrix & Data)
+{
+	m_WriteFile.write((char*)&Data, sizeof(float) * 16);
+}
+
+void JEONG::BineryWrite::WriteData(const void * Data, size_t Size)
+{
+	m_WriteFile.write((char*)&Data, Size);
+}
+

@@ -34,7 +34,6 @@ private:
 
 public: 
 	friend class Scene;
-	friend class TileImage_Com;
 };
 
 JEONG_END

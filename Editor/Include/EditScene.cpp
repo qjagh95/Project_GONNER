@@ -34,9 +34,9 @@ bool EditScene::Init()
 	KeyInput::Get()->AddKey("PrevTileTab", VK_OEM_3);
 	KeyInput::Get()->AddKey("CameraZero", VK_SPACE);
 	KeyInput::Get()->AddKey("Shift", VK_SHIFT);
+	KeyInput::Get()->AddKey("Angle", 'Q');
 
 	SAFE_RELEASE(BackObject);
-
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(Default);
 	SAFE_RELEASE(TileLayer);
@@ -62,6 +62,17 @@ int EditScene::Update(float DeltaTime)
 		{
 			Vector3	MouseWorld = KeyInput::Get()->GetMouseWorldPos();
 			ChangeTile(MouseWorld, editorForm, TileStage);
+
+			CString Temp;
+			string Temp2 = "Tile//";
+
+			if (editorForm->m_TileImageBox.GetCurSel() != -1)
+			{
+				editorForm->m_TileImageBox.GetLBText(editorForm->m_TileImageBox.GetCurSel(), Temp);
+				Temp2 += CW2A(Temp);
+
+				TileStage->SetMainTileImage(MouseWorld, Temp2, editorForm->m_TileAngle);
+			}
 		}
 
 		if (KeyInput::Get()->KeyDown("TileOption"))
@@ -72,6 +83,9 @@ int EditScene::Update(float DeltaTime)
 				editorForm->m_TileOptionBox.SetCurSel(0);
 		}
 	}
+
+	if (KeyInput::Get()->KeyDown("Angle"))
+		editorForm->OnEnChangeTilerotation();
 
 	if (KeyInput::Get()->KeyDown("TileTab"))
 	{
@@ -90,12 +104,15 @@ int EditScene::Update(float DeltaTime)
 	{
 		int Index = editorForm->m_TileImageBox.GetCurSel();
 
-		if (editorForm->m_TileImageBox.GetCurSel() == 0)
-			editorForm->m_TileImageBox.SetCurSel(editorForm->m_TileImageBox.GetCount() - 1);
-		else
-			editorForm->m_TileImageBox.SetCurSel(Index - 1);
+		if (editorForm->m_TileImageBox.GetCurSel() != -1)
+		{
+			if (editorForm->m_TileImageBox.GetCurSel() == 0)
+				editorForm->m_TileImageBox.SetCurSel(editorForm->m_TileImageBox.GetCount() - 1);
+			else
+				editorForm->m_TileImageBox.SetCurSel(Index - 1);
 
-		editorForm->OnCbnSelchangeTileimageselect();
+			editorForm->OnCbnSelchangeTileimageselect();
+		}
 	}
 
 	if (KeyInput::Get()->KeyDown("CameraZero"))
@@ -123,6 +140,7 @@ void EditScene::ChangeTile(const Vector3 & mPos, EditorForm* form, Stage2D_Com* 
 
 				TileStage->SetMoveMesh(mPos, STT_TILE);
 				TileStage->SetTileOption(mPos, T2D_NORMAL);
+
 			}
 			else
 			{

@@ -15,6 +15,8 @@ public:
 	virtual void Render(float DeltaTime) override;
 	virtual UIBase_Com* Clone() override;
 	virtual void AfterClone() override {};
+	virtual void Save(BineryWrite& Writer) override {};
+	virtual void Load(BineryRead& Reader) override {};
 
 	UI_TYPE GetType() const { return m_UIType; }
 	void SetUIType(UI_TYPE eType) { m_UIType = eType; }

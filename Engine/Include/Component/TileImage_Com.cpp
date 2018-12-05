@@ -19,13 +19,15 @@ TileImage_Com::~TileImage_Com()
 
 bool TileImage_Com::Init()
 {
-	Renderer_Com* TileImageRender = m_Object->AddComponent<Renderer_Com>("ChildImageRender");
-	TileImageRender->SetMesh("TextureRect");
-	TileImageRender->SetRenderState(ALPHA_BLEND);
-	SAFE_RELEASE(TileImageRender);
+	Renderer_Com* newRender= m_Object->AddComponent<Renderer_Com>("TileImageRender");
+	newRender->SetMesh("TextureRect");
+	newRender->SetRenderState(ALPHA_BLEND);
+	SAFE_RELEASE(newRender);
 
-	m_Distance = 400;
-	m_Transform->SetWorldScale(Vector3(128.0f, 128.0f, 0.0f));
+	m_Distance = 400.0f;
+	m_Transform->SetWorldPivot(0.0f, -0.5f, 0.0f);
+	m_Transform->SetWorldScale(Vector3(128.0f, 128.0f, 1.0f));
+
 	return true;
 }
 
@@ -85,6 +87,7 @@ void TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const s
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetDiffuseTexture(0, KeyName, FileName);
+
 	SAFE_RELEASE(getMaterial);
 }
 
@@ -92,5 +95,6 @@ void TileImage_Com::SetDiffuseColor(const Vector4 & Color)
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetMaterial(Color);
+
 	SAFE_RELEASE(getMaterial);
 }

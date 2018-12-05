@@ -136,26 +136,10 @@ int Stage2D_Com::LateUpdate(float DeltaTime)
 
 void Stage2D_Com::Collision(float DeltaTime)
 {
-	for (int y = m_StartY; y < m_EndY; ++y)
-	{
-		for (int x = m_StartX; x < m_EndX; ++x)
-		{
-			int Index = y * m_TileCountX + x;
-			m_vecTileObject[Index]->Collision(DeltaTime);
-		}
-	}
 }
 
 void Stage2D_Com::CollisionLateUpdate(float DeltaTime)
 {
-	for (int y = m_StartY; y < m_EndY; ++y)
-	{
-		for (int x = m_StartX; x < m_EndX; ++x)
-		{
-			int Index = y * m_TileCountX + x;
-			m_vecTileObject[Index]->CollisionLateUpdate(DeltaTime);
-		}
-	}
 }
 
 void Stage2D_Com::Render(float DeltaTime)
@@ -575,7 +559,7 @@ Tile2D_Com * Stage2D_Com::GetTile2D(float X, float Y, float Z)
 	return m_vecTile2DCom[Index];
 }
 
-void Stage2D_Com::SetMainImage(const Vector3 & Pos, const string & FileName)
+void Stage2D_Com::SetMainTileImage(const Vector3 & Pos, const string & FileName, int Dir)
 {
 	int Index = GetTileIndex(Pos);
 
@@ -583,16 +567,13 @@ void Stage2D_Com::SetMainImage(const Vector3 & Pos, const string & FileName)
 		return;
 
 	//한번만 들어옴.
-	if (m_vecTile2DCom[Index]->GetMainTileImage() != NULLPTR)
+	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName)
 		return;
 
-	string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
-	Path += FileName;
-
-	m_vecTile2DCom[Index]->AddMainTileImage(Path);
+	m_vecTile2DCom[Index]->SetMainTileImage(FileName, Dir);
 }
 
-void Stage2D_Com::SetSubImage(const Vector3 & Pos, const string & FileName, size_t ImageCount)
+void Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & FileName, size_t ImageCount)
 {
 	int Index = GetTileIndex(Pos);
 
@@ -600,11 +581,18 @@ void Stage2D_Com::SetSubImage(const Vector3 & Pos, const string & FileName, size
 		return;
 
 	//한번만 들어옴.
-	if (m_vecTile2DCom[Index]->GetSubTileImage(ImageCount) != NULLPTR)
+	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName)
 		return;
 
-	string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
-	Path += FileName;
+	m_vecTile2DCom[Index]->SetSubTileImage(ImageCount);
+}
 
-	m_vecTile2DCom[Index]->AddSubTileImage(Path, ImageCount);
+void Stage2D_Com::SetRotation(const Vector3& Pos, float Angle)
+{
+	int Index = GetTileIndex(Pos);
+
+	if (Index == -1)
+		return;
+
+	m_vecTile2DCom[Index]->GetTransform()->SetWorldRotZ(Angle);
 }

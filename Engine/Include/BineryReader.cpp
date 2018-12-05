@@ -129,6 +129,14 @@ string JEONG::BineryRead::ReadString()
 	return string(getString);
 }
 
+size_t BineryRead::ReadSizeT()
+{
+	size_t Data;
+	m_ReadFile.read((char*)&Data, sizeof(Data));
+
+	return Data;
+}
+
 wstring JEONG::BineryRead::ReadWString()
 {
 	char getString[255];
@@ -197,4 +205,35 @@ void JEONG::BineryRead::ReadData(wstring & Data)
 	m_ReadFile.read(getData, DataLen);
 
 	Data = CA2W(getData);
+}
+
+void JEONG::BineryRead::ReadData(size_t & Data)
+{
+	m_ReadFile.read((char*)&Data, sizeof(Data));
+}
+
+void JEONG::BineryRead::ReadData(Matrix & Data)
+{
+	m_ReadFile.read((char*)&Data, sizeof(float) * 16);
+}
+
+void JEONG::BineryRead::ReadData(char* Data)
+{
+	size_t Lenth = -1;
+
+	m_ReadFile.read((char*)Lenth, sizeof(size_t));
+	m_ReadFile.read(Data, Lenth);
+}
+
+void JEONG::BineryRead::ReadData(wchar_t* Data)
+{
+	size_t Lenth = -1;
+
+	m_ReadFile.read((char*)Lenth, sizeof(size_t));
+	m_ReadFile.read((char*)Data, Lenth);
+}
+
+void JEONG::BineryRead::ReadData(void * Data, size_t Size)
+{
+	m_ReadFile.read((char*)&Data, Size);
 }

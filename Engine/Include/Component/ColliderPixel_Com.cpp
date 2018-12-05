@@ -120,10 +120,10 @@ ColliderPixel_Com * ColliderPixel_Com::Clone()
 
 void ColliderPixel_Com::SetInfo(const Vector3 & Min, const Pixel24 & OutColor, const char * FileName, const string & PathKey)
 {
-	const char* Path = PathManager::Get()->FindPathMultiByte(PathKey);
+	string Path = PathManager::Get()->FindPathMultiByte(PathKey);
 	string FullPath;
 
-	if (Path != NULLPTR)
+	if (Path.empty() == true)
 		FullPath = Path;
 
 	FullPath += FileName;

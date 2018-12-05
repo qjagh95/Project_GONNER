@@ -169,6 +169,17 @@ void JEONG::Renderer_Com::AfterClone()
 	m_Material = FindComponentFromType<JEONG::Material_Com>(CT_MATERIAL);
 }
 
+void JEONG::Renderer_Com::Save(BineryWrite & Writer)
+{
+	Component_Base::Save(Writer);
+}
+
+void JEONG::Renderer_Com::Load(BineryRead & Reader)
+{
+	Component_Base::Load(Reader);
+
+}
+
 void JEONG::Renderer_Com::SetMesh(JEONG::Mesh * mesh)
 {
 	SAFE_RELEASE(m_Mesh);

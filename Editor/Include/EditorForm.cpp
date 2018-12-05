@@ -41,6 +41,7 @@ EditorForm::EditorForm()
 	, m_isImageLoad(false)
 	, m_ImageName(_T(""))
 	, m_CreateTileCount(0)
+	, m_TileAngle(0)
 {
 	m_TileCountX = 0;
 	m_TileCountY = 0;
@@ -52,6 +53,7 @@ EditorForm::EditorForm()
 	m_StageTransform = NULLPTR;
 
 	m_Path = PathManager::Get()->FindPath(TEXTURE_PATH);
+	
 }
 
 EditorForm::~EditorForm()
@@ -95,6 +97,7 @@ void EditorForm::DoDataExchange(CDataExchange* pDX)
 	DDX_Check(pDX, IDC_LINEON, m_isLine);
 	DDX_CBString(pDX, IDC_TILEIMAGESELECT, m_ImageName);
 	DDX_Text(pDX, IDC_CREATETILECOUNT, m_CreateTileCount);
+	DDX_Text(pDX, IDC_TILEROTATION, m_TileAngle);
 
 	if (m_TileTypeBox.GetCurSel() == 0)
 	{
@@ -116,6 +119,7 @@ void EditorForm::DoDataExchange(CDataExchange* pDX)
 		GetDlgItem(IDC_LINEON)->EnableWindow(false);
 	else
 		GetDlgItem(IDC_LINEON)->EnableWindow(true);
+
 }
 
 BEGIN_MESSAGE_MAP(EditorForm, CFormView)
@@ -148,6 +152,7 @@ BEGIN_MESSAGE_MAP(EditorForm, CFormView)
 	ON_BN_CLICKED(IDC_TILESAVE, &EditorForm::OnBnClickedTilesave)
 	ON_WM_PAINT()
 	ON_EN_CHANGE(IDC_CREATETILECOUNT, &EditorForm::OnEnChangeCreatetilecount)
+	ON_EN_CHANGE(IDC_TILEROTATION, &EditorForm::OnEnChangeTilerotation)
 END_MESSAGE_MAP()
 
 // EditorForm 진단입니다.
@@ -983,20 +988,101 @@ void EditorForm::OnBnClickedTilesave()
 
 void EditorForm::OnDraw(CDC* pDC)
 {
-	m_TileImage.Destroy();
+	CImage image;
 
-	if(FAILED(m_TileImage.Load(m_Path.c_str())))
+	if (S_OK != image.Load(m_Path.c_str()))
 		return;
 
-	::SetStretchBltMode(pDC->m_hDC, COLORONCOLOR);
-	m_TileImage.StretchBlt(pDC->m_hDC, 240, 333, 128, 128, SRCCOPY);
+	int bpp = image.GetBPP();
+
+	//get pixel format:
+	HBITMAP hbmp = image.Detach();
+	Gdiplus::Bitmap* bmpTemp = Gdiplus::Bitmap::FromHBITMAP(hbmp, 0);
+	Gdiplus::PixelFormat pixel_format = bmpTemp->GetPixelFormat();
+
+	if (bpp == 32)
+		pixel_format = PixelFormat32bppARGB;
+
+	image.Attach(hbmp);
+
+	Gdiplus::Bitmap bmp(image.GetWidth(), image.GetHeight(), image.GetPitch(), pixel_format, (BYTE*)(image.GetBits()));
+	
+	switch (m_TileAngle)
+	{
+		case 0:
+			bmp.RotateFlip(Gdiplus::RotateNoneFlipXY);
+			break;
+		case 90:
+			bmp.RotateFlip(Gdiplus::Rotate90FlipNone);
+			break;
+		case -90:
+			bmp.RotateFlip(Gdiplus::Rotate90FlipX);
+			break;
+		case 180:
+			bmp.RotateFlip(Gdiplus::Rotate180FlipY);
+			break;
+	}
+
+	image.Destroy();
+
+	if (image.Create(bmp.GetWidth(), bmp.GetHeight(), 32, CImage::createAlphaChannel))
+	{
+		Gdiplus::Bitmap dst(image.GetWidth(), image.GetHeight(), image.GetPitch(), PixelFormat32bppARGB, (BYTE*)(image.GetBits()));
+		Gdiplus::Graphics graphics(&dst);
+		graphics.DrawImage(&bmp, 0, 0);
+
+		image.StretchBlt(pDC->m_hDC, 240, 333, 128, 128, SRCCOPY);
+	}
 }
 
 void EditorForm::OnEnChangeCreatetilecount()
 {
 	UpdateData(TRUE);
 
-	m_CreateTileCount = RandomRange(1, 4);
+	if (m_TileImageBox.GetCurSel() + 1 >= 9 && m_TileImageBox.GetCurSel() + 1 <= 23)
+		m_CreateTileCount = RandomRange(1, 4);
+	else
+		m_CreateTileCount = 0;
+
+	UpdateData(FALSE);
+}
+
+void EditorForm::OnEnChangeTilerotation()
+{
+	UpdateData(TRUE);
+
+	CString Temp = m_ImageName;
+
+	if (m_TileAngle == 0)
+	{
+		m_TileAngle = 90;
+
+		Temp += " 파일 타일 각도 90도 회전";
+		AddWorkText(Temp);
+	}
+	else if (m_TileAngle == 90)
+	{
+		m_TileAngle = -90;
+
+		Temp += " 파일 타일 각도 -90도 회전";
+		AddWorkText(Temp);
+	}
+	else if (m_TileAngle == -90)
+	{
+		m_TileAngle = 180;
+
+		Temp += " 파일 타일 각도 0도 회전";
+		AddWorkText(Temp);
+	}
+	else if (m_TileAngle == 180)
+	{
+		m_TileAngle = 0;
+
+		Temp += " 파일 타일 각도 0도 회전";
+		AddWorkText(Temp);
+	}
+
+	::RedrawWindow(this->m_hWnd, NULLPTR, NULLPTR, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ERASE);
 
 	UpdateData(FALSE);
 }

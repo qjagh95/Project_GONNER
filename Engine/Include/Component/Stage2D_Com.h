@@ -26,8 +26,9 @@ public:
 	void SetTileOption(const Vector3& Pos, TILE2D_OPTION option);
 	void SetNoMoveMesh(const Vector3& Pos, STAGE2D_TILE_TYPE TileType);
 	void SetMoveMesh(const Vector3& Pos, STAGE2D_TILE_TYPE TileType);
-	void SetMainImage(const Vector3& Pos, const string& FileName);
-	void SetSubImage(const Vector3& Pos, const string& FileName, size_t ImageCount);
+	void SetMainTileImage(const Vector3& Pos, const string& FileName, int Dir);
+	void SetSubTileImage(const Vector3& Pos, const string& FileName, size_t ImageCount);
+	void SetRotation(const Vector3& Pos, float Angle);
 
 	Tile2D_Com* GetTile2D(const Vector3& Pos);
 	Tile2D_Com* GetTile2D(float X, float Y, float Z);

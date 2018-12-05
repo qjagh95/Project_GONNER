@@ -8,6 +8,21 @@
 
 #include "Component/Transform_Com.h"
 #include "Component/Renderer_Com.h"
+#include "Component/Animation2D_Com.h"
+#include "Component/UIBase_Com.h"
+#include "Component/TitleBar_Com.h"
+#include "Component/Text_Com.h"
+#include "Component/Tile2D_Com.h"
+#include "Component/TileImage_Com.h"
+#include "Component/Stage2D_Com.h"
+#include "Component/BackColor_Com.h"
+#include "Component/Gravity_Com.h"
+#include "Component/Number_Com.h"
+#include "Component/ColliderCircle_Com.h"
+#include "Component/ColliderRect_Com.h"
+#include "Component/ColliderPixel_Com.h"
+#include "Component/ColliderPoint_Com.h"
+#include "Component/ColliderOBB2D_Com.h"
 
 JEONG_USING
 
@@ -373,7 +388,7 @@ JEONG::GameObject * JEONG::GameObject::CreateObject(const string & TagName, JEON
 
 		else
 		{
-			Scene* pScene = layer->GetScene();
+			JEONG::Scene* pScene = layer->GetScene();
 			newObject->SetScene(pScene);
 			newObject->SetLayer(layer);
 		}
@@ -569,12 +584,153 @@ void JEONG::GameObject::AddStaticObject()
 	StaticManager::Get()->AddStaticObject(this);
 }
 
-void GameObject::Save(BineryWrite & Writer)
+void JEONG::GameObject::Save(BineryWrite & Writer)
 {
+	Writer.WriteData(m_ComponentList.size());
+
+	list<JEONG::Component_Base*>::iterator StartIter = m_ComponentList.begin();
+	list<JEONG::Component_Base*>::iterator EndIter = m_ComponentList.end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		Writer.WriteData((*StartIter)->GetComType());
+		Writer.WriteData((*StartIter)->GetTag());
+
+		if ((*StartIter)->GetComType() == CT_COLLIDER)
+			Writer.WriteData(((Collider_Com*)(*StartIter))->GetCollType());
+
+		(*StartIter)->Save(Writer);
+	}
 }
 
-void GameObject::Load(BineryRead & Reader)
+void JEONG::GameObject::Load(BineryRead & Reader)
 {
+	size_t getSize;
+	Reader.ReadData(getSize);
+
+	for (size_t i = 0; i < getSize; i++)
+	{
+		COMPONENT_TYPE getType;
+		string getTag;
+		Reader.ReadData((size_t&)getType);
+		Reader.ReadData(getTag);
+
+		switch (getType)
+		{
+			case CT_TRANSFORM:
+			{
+				Transform_Com* newTrans = AddComponent<Transform_Com>(getTag);
+				newTrans->Load(Reader);
+			}
+				break;
+			case CT_RENDER:
+			{
+				Renderer_Com* newRender = AddComponent<Renderer_Com>(getTag);
+				newRender->Load(Reader);
+			}
+				break;
+			case CT_MATERIAL:
+			{
+				Material_Com* newMater = AddComponent<Material_Com>(getTag);
+				newMater->Load(Reader);
+			}
+				break;
+			case CT_ANIMATION2D:
+			{
+				Animation2D_Com* newAni = AddComponent<Animation2D_Com>(getTag);
+				newAni->Load(Reader);
+			}
+				break;
+			case CT_COLLIDER:
+			{
+				COLLIDER_TYPE getColType;
+				Reader.ReadData((int&)getColType);
+				
+				switch (getColType)
+				{
+					case CT_RECT:
+					{
+						ColliderRect_Com* getRect = AddComponent<ColliderRect_Com>(getTag);
+						getRect->Load(Reader);
+					}
+						break;
+					case CT_POINT:
+					{
+						ColliderPoint_Com* getPoint = AddComponent<ColliderPoint_Com>(getTag);
+						getPoint->Load(Reader);
+					}
+						break;
+					case CT_CIRCLE:
+					{
+						ColliderCircle_Com* getCircle = AddComponent<ColliderCircle_Com>(getTag);
+						getCircle->Load(Reader);
+					}
+						break;
+					case CT_OBB2D:
+					{
+						ColliderOBB2D_Com* getOBB2D = AddComponent<ColliderOBB2D_Com>(getTag);
+						getOBB2D->Load(Reader);
+					}
+						break;
+					case CT_PIXEL:
+					{
+						ColliderPixel_Com* getPixel = AddComponent<ColliderPixel_Com>(getTag);
+						getPixel->Load(Reader);
+					}
+						break;
+				}
+			}
+				break;
+			case CT_TITLEBAR:
+			{
+				TitleBar_Com* newTitle = AddComponent<TitleBar_Com>(getTag);
+				newTitle->Load(Reader);
+			}
+				break;
+			case CT_TEXT:
+			{
+				Text_Com* newText = AddComponent<Text_Com>(getTag);
+				newText->Load(Reader);
+			}
+				break;
+			case CT_TILE2D:
+			{
+				Tile2D_Com* newTile = AddComponent<Tile2D_Com>(getTag);
+				newTile->Load(Reader);
+			}
+				break;
+			case CT_TILEIMAGE:
+			{
+				TileImage_Com* newTileImage = AddComponent<TileImage_Com>(getTag);
+				newTileImage->Load(Reader);
+			}
+				break;
+			case CT_STAGE2D:
+			{
+				Stage2D_Com* newStage = AddComponent<Stage2D_Com>(getTag);
+				newStage->Load(Reader);
+			}
+				break;
+			case CT_BACKCOLOR:
+			{
+				BackColor_Com* newBackColor = AddComponent<BackColor_Com>(getTag);
+				newBackColor->Load(Reader);
+			}
+				break;
+			case CT_GARVITY:
+			{
+				Gravity_Com* newGravity = AddComponent<Gravity_Com>(getTag);
+				newGravity->Load(Reader);
+			}
+				break;
+			case CT_NUMBER:
+			{
+				Number_Com* newNumber = AddComponent<Number_Com>(getTag);
+				newNumber->Load(Reader);
+			}
+				break;
+		}
+	}
 }
 
 const list<JEONG::Component_Base*>* JEONG::GameObject::FindComponentFromTag(const string& TagName)
