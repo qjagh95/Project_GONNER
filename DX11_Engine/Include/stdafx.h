@@ -95,6 +95,9 @@ using namespace libxl;
 #include "Component/Camera_Com.h"
 #include "Component/Collider_Com.h"
 #include "Component/Bar_Com.h"
+#include "Component/Stage2D_Com.h"
+#include "Component/Tile2D_Com.h"
+#include "Component/TileImage_Com.h"
 
 #include "UserComponent/UserComponent_Base.h"
 

@@ -34,6 +34,7 @@ public:
 	TileImage_Com* GetMainTileImage() const { return m_TileImage; }
 	TileImage_Com* GetSubTileImage(size_t index) const { return m_vecTileImage[index]; }
 	string GetImageFileName() const { return m_ImageFileName; }
+	int GetDir() const { return m_Dir; }
 
 private:
 	TILE2D_OPTION m_TileOption;
@@ -47,6 +48,7 @@ private:
 	GameObject* m_TileImageObject;
 	TileImage_Com* m_TileImage;
 	vector<TileImage_Com*> m_vecTileImage;
+	int m_Dir;
 
 protected:
 	Tile2D_Com();

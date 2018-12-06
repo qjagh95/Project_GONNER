@@ -23,6 +23,7 @@ public:
 	void SetDistance(float Distance) { m_Distance = Distance; }
 	float GetDistance() const { return m_Distance; }
 
+
 private:
 	float m_Distance;
 

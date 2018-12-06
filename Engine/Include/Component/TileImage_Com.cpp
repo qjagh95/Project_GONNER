@@ -75,6 +75,8 @@ void TileImage_Com::Save(BineryWrite & Writer)
 	Component_Base::Save(Writer);
 
 	Writer.WriteData(m_Distance);
+	Writer.WriteData(m_Transform->GetWorldPos());
+	Writer.WriteData(m_Transform->GetWorldScale());
 }
 
 void TileImage_Com::Load(BineryRead & Reader)
@@ -82,13 +84,21 @@ void TileImage_Com::Load(BineryRead & Reader)
 	Component_Base::Load(Reader);
 
 	Reader.ReadData(m_Distance);
+
+	Vector3 Pos;
+	Vector3 Scale;
+	Reader.ReadData(Pos);
+	Reader.ReadData(Scale);
+
+	m_Transform->SetWorldPos(Pos);
+	m_Transform->SetWorldScale(Scale);
 }
 
 void TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const string & PathKey)
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetDiffuseTexture(0, KeyName, FileName);
-
+	
 	SAFE_RELEASE(getMaterial);
 }
 
@@ -99,3 +109,4 @@ void TileImage_Com::SetDiffuseColor(const Vector4 & Color)
 
 	SAFE_RELEASE(getMaterial);
 }
+

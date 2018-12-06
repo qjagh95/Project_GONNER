@@ -8,7 +8,8 @@
 JEONG_USING
 
 Tile2D_Com::Tile2D_Com()
-	:m_Shader(NULLPTR), m_Mesh(NULLPTR), m_Layout(NULLPTR), m_TileImage(NULLPTR), m_TileImageObject(NULLPTR)
+	:m_Shader(NULLPTR), m_Mesh(NULLPTR), m_Layout(NULLPTR), m_TileImage(NULLPTR), m_TileImageObject(NULLPTR),
+	m_Dir(0)
 {
 	m_ComType = CT_STAGE2D;
 	SetTag("Stage2D");
@@ -159,7 +160,12 @@ void Tile2D_Com::Save(BineryWrite & Writer)
 
 	Writer.WriteData((int)m_TileType);
 	Writer.WriteData((int)m_TileOption);
-	//Writer.WriteData(m_ImageFileName);
+	Writer.WriteData(m_ImageFileName);
+	Writer.WriteData(m_Dir);
+	
+	if (m_TileImage != NULLPTR)
+		m_TileImage->Save(Writer);
+
 	//Writer.WriteData(m_vecTileImage.size());
 
 	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
@@ -205,7 +211,13 @@ void Tile2D_Com::Load(BineryRead & Reader)
 		break;
 	}
 
-	//Reader.ReadData(m_ImageFileName);
+	Reader.ReadData(m_ImageFileName);
+	Reader.ReadData(m_Dir);
+
+	SetMainTileImage(m_ImageFileName, m_Dir);
+
+	if(m_TileImage != NULLPTR)
+		m_TileImage->Load(Reader);
 
 	//size_t SubImageSize;
 	//Reader.ReadData(SubImageSize);
@@ -255,7 +267,22 @@ void Tile2D_Com::SetWorldPos(const Vector3 & Pos)
 
 void Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 {
+	m_Dir = Dir;
 	m_ImageFileName = FileName;
+
+	if (FileName.empty() == true)
+	{
+		if (m_TileImage != NULLPTR && m_TileImageObject != NULLPTR)
+		{
+			m_TileImage->SetIsActive(false);
+			m_TileImageObject->SetIsActive(false);
+		}
+		
+		SAFE_RELEASE(m_TileImage);
+		SAFE_RELEASE(m_TileImageObject);
+		return;
+	}
+
 	SAFE_RELEASE(m_TileImage);
 	SAFE_RELEASE(m_TileImageObject);
 
@@ -265,48 +292,94 @@ void Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	m_TileImageObject->SetLayer(m_Layer);
 
 	m_TileImage->SetTexture(FileName, CA2W(FileName.c_str()));
-	m_TileImageObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
 
-	//switch넘겨준 방향에따라서 ....
+	Vector3 TilePos = m_Transform->GetWorldPos();
+	Vector3 TileScale = m_Transform->GetWorldScale();
+
+	m_TileImageObject->GetTransform()->SetWorldPos(TilePos);
+
+	switch (Dir)
+	{
+		case 90:
+			m_TileImageObject->GetTransform()->SetWorldRotZ(-90.0f);
+			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
+			m_TileImage->SetDistance(300.0f);
+			break;
+		case -90:
+			m_TileImageObject->GetTransform()->SetWorldRotZ(90.0f);
+			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y, 0.0f);
+			m_TileImage->SetDistance(200.0f);
+			break;
+		case 180:
+			m_TileImageObject->GetTransform()->SetWorldRotZ(180.0f);
+			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y + TileScale.y, 0.0f);
+			m_TileImage->SetDistance(100.0f);
+			break;
+	}
 }
 
 void Tile2D_Com::SetSubTileImage(size_t ImageCount)
 {
-	//string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
-	//Path += m_ImageFileName;
+	string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
+	Path += m_ImageFileName;
 
-	//for (size_t i = 0; i < ImageCount; i++)
-	//{
-	//	GameObject* newTileImageObject = GameObject::CreateObject("TileImageObject");
-	//	TileImage_Com* newImage = newTileImageObject->AddComponent<TileImage_Com>("TileImage");
-	//	newTileImageObject->SetScene(m_Scene);
-	//	newTileImageObject->SetLayer(m_Layer);
-	//	
-	//	//float RandomAngle = RandomRange(-45, 45);
-	//	//Vector2 rRange = Vector2(RandomRange(-45, 45), RandomRange(-45, 45));
+	for (size_t i = 0; i < ImageCount; i++)
+	{
+		GameObject* newImageObject = GameObject::CreateObject("TileImageObject");
+		TileImage_Com* newImage = newImageObject->AddComponent<TileImage_Com>("TileImage");
+		newImageObject->SetScene(m_Scene);
+		newImageObject->SetLayer(m_Layer);
 
-	//	switch (i)
-	//	{
-	//		case 0:
-	//		{
-	//			newImage->SetDistance(300.0f);
-	//			newImage->SetTexture(m_ImageFileName, CA2W(Path.c_str()));
-	//		}
-	//			break;
-	//		case 1:
-	//		{
-	//			newImage->SetDistance(200.0f);
-	//			newImage->SetTexture(m_ImageFileName, CA2W(Path.c_str()));
-	//		}
-	//			break;
-	//		case 2:
-	//		{
-	//			newImage->SetDistance(100.0f);
-	//			newImage->SetTexture(m_ImageFileName, CA2W(Path.c_str()));
-	//		}
-	//			break;
-	//	}
-	//	m_vecTileImage.push_back(newImage);
-	//	SAFE_RELEASE(newTileImageObject);
-	//}
+		Vector3 TilePos = m_Transform->GetWorldPos();
+		Vector3 TileScale = m_Transform->GetWorldScale();
+
+		newImage->SetTexture(m_ImageFileName, CA2W(Path.c_str()));
+
+		float RandomAngle = (float)(RandomRange(-45, 45));
+
+		switch (m_Dir)
+		{
+			case 0:
+			{
+				Vector3 rRange = Vector3(TilePos.x, (float)RandomRange((int)TilePos.y, (int)(TilePos.y - TileScale.y)), 0.0f);
+
+				newImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
+				newImageObject->GetTransform()->SetWorldRotZ(RandomAngle);
+			}
+				break;
+			case 90:
+			{
+				//Vector3 rRange = Vector3((float)RandomRange((int)TilePos.x, (int)(TilePos.x - TileScale.x)), TilePos.y + TileScale.y, 0.0f);
+
+				//newImageObject->GetTransform()->SetWorldRotZ(-90.0f + RandomAngle);
+				//newImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
+
+				//m_TileImage->SetDistance(300.0f);
+			}
+				break;
+			case -90:
+			{
+				//Vector3 rRange = Vector3((float)RandomRange((int)(TilePos.x + TileScale.x), (int)(TilePos.x - TileScale.x)), TilePos.y + TileScale.y, 0.0f);
+
+				//newImageObject->GetTransform()->SetWorldRotZ(90.0f + RandomAngle);
+				//newImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y, 0.0f);
+
+				//m_TileImage->SetDistance(200.0f);
+			}
+				break;
+			case 180:
+			{
+				//Vector3 rRange = Vector3(TilePos.x + TileScale.x, (float)RandomRange((int)TilePos.y, (int)(TilePos.y + TileScale.y)), 0.0f);
+
+				//newImageObject->GetTransform()->SetWorldRotZ(180.0f + RandomAngle);
+				//newImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y + TileScale.y, 0.0f);
+
+				//m_TileImage->SetDistance(100.0f);
+			}
+				break;
+		}
+
+		m_vecTileImage.push_back(newImage);
+		SAFE_RELEASE(newImageObject);
+	}
 }

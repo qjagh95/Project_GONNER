@@ -93,6 +93,7 @@ public:
 	STAGE2D_TILE_TYPE GetTileType() const;
 	TILE2D_OPTION GetTileOption() const;
 
+	void NULLImage();
 	virtual void OnDraw(CDC* pDC);
 	virtual void OnInitialUpdate();
 	afx_msg void OnEnChangeScalex();

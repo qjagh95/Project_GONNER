@@ -35,6 +35,7 @@ bool EditScene::Init()
 	KeyInput::Get()->AddKey("CameraZero", VK_SPACE);
 	KeyInput::Get()->AddKey("Shift", VK_SHIFT);
 	KeyInput::Get()->AddKey("Angle", 'Q');
+	KeyInput::Get()->AddKey("ImageInit", 'R');
 
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(BackLayer);
@@ -72,7 +73,13 @@ int EditScene::Update(float DeltaTime)
 				Temp2 += CW2A(Temp);
 
 				TileStage->SetMainTileImage(MouseWorld, Temp2, editorForm->m_TileAngle);
+				
+				//if(editorForm->m_CreateTileCount != 0)
+					//TileStage->SetSubTileImage(MouseWorld, Temp2, editorForm->m_CreateTileCount, editorForm->m_TileAngle);
+
 			}
+			else
+				TileStage->SetMainTileImage(MouseWorld, "", 0);
 		}
 
 		if (KeyInput::Get()->KeyDown("TileOption"))
@@ -123,6 +130,12 @@ int EditScene::Update(float DeltaTime)
 		getFree->GetTransform()->SetWorldPos(0.0f, 0.0f, 0.0f);
 
 		SAFE_RELEASE(getFree);
+	}
+
+	if (KeyInput::Get()->KeyDown("ImageInit"))
+	{
+		editorForm->m_TileImageBox.SetCurSel(-1);
+		editorForm->OnCbnSelchangeTileimageselect();
 	}
 
 	return 0;

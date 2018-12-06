@@ -530,17 +530,25 @@ void EditorForm::OnCbnSelchangeTileimageselect()
 {
 	UpdateData(TRUE);
 
-	CString Buffer;
-	m_TileImageBox.GetLBText(m_TileImageBox.GetCurSel(), Buffer);
-	Buffer += " 타일 이미지 선택";
+	if (m_TileImageBox.GetCurSel() != -1)
+	{
+		CString Buffer;
+		m_TileImageBox.GetLBText(m_TileImageBox.GetCurSel(), Buffer);
+		Buffer += " 타일 이미지 선택";
 
-	string Temp2 = CW2A(m_ImageName);
+		string Temp2 = CW2A(m_ImageName);
 
-	m_Path = PathManager::Get()->FindPath(TEXTURE_PATH);
-	m_Path += L"Tile\\";
-	m_Path += CA2W(Temp2.c_str());
+		m_Path = PathManager::Get()->FindPath(TEXTURE_PATH);
+		m_Path += L"Tile\\";
+		m_Path += CA2W(Temp2.c_str());
 
-	AddWorkText(Buffer);
+		AddWorkText(Buffer);
+	}
+	else
+	{
+		AddWorkText("이미지 선택 해제");
+		m_Path = L"";
+	}
 
 	//윈도우 다시그리기 함수
 	::RedrawWindow(this->m_hWnd, NULLPTR, NULLPTR, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ERASE);
@@ -1010,7 +1018,7 @@ void EditorForm::OnDraw(CDC* pDC)
 	switch (m_TileAngle)
 	{
 		case 0:
-			bmp.RotateFlip(Gdiplus::RotateNoneFlipXY);
+			bmp.RotateFlip(Gdiplus::Rotate180FlipY);
 			break;
 		case 90:
 			bmp.RotateFlip(Gdiplus::Rotate90FlipNone);
@@ -1019,7 +1027,10 @@ void EditorForm::OnDraw(CDC* pDC)
 			bmp.RotateFlip(Gdiplus::Rotate90FlipX);
 			break;
 		case 180:
-			bmp.RotateFlip(Gdiplus::Rotate180FlipY);
+			bmp.RotateFlip(Gdiplus::Rotate180FlipX);
+			break;
+		default:
+			bmp.RotateFlip(Gdiplus::RotateNoneFlipNone);
 			break;
 	}
 

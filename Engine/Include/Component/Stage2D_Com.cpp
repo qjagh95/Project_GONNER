@@ -567,21 +567,20 @@ void Stage2D_Com::SetMainTileImage(const Vector3 & Pos, const string & FileName,
 		return;
 
 	//한번만 들어옴.
-	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName)
+	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName && m_vecTile2DCom[Index]->GetDir() == Dir)
 		return;
 
 	m_vecTile2DCom[Index]->SetMainTileImage(FileName, Dir);
 }
 
-void Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & FileName, size_t ImageCount)
+void Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & FileName, size_t ImageCount, int Dir)
 {
 	int Index = GetTileIndex(Pos);
 
 	if (Index == -1)
 		return;
 
-	//한번만 들어옴.
-	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName)
+	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName && m_vecTile2DCom[Index]->GetDir() == Dir)
 		return;
 
 	m_vecTile2DCom[Index]->SetSubTileImage(ImageCount);
