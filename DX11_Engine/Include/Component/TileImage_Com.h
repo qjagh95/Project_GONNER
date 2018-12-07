@@ -22,10 +22,14 @@ public:
 	void SetDiffuseColor(const Vector4& Color);
 	void SetDistance(float Distance) { m_Distance = Distance; }
 	float GetDistance() const { return m_Distance; }
-
+	void SetSavePos(const Vector3& Pos) { m_SavePos = Pos; }
+	bool GetIsMove() const { return m_isMove; }
+	void SetIsMove(bool Value) { m_isMove = Value; }
 
 private:
 	float m_Distance;
+	Vector3 m_SavePos;
+	bool m_isMove;
 
 protected:
 	TileImage_Com();

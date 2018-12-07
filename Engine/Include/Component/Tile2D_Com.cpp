@@ -7,22 +7,22 @@
 
 JEONG_USING
 
-Tile2D_Com::Tile2D_Com()
+JEONG::Tile2D_Com::Tile2D_Com()
 	:m_Shader(NULLPTR), m_Mesh(NULLPTR), m_Layout(NULLPTR), m_TileImage(NULLPTR), m_TileImageObject(NULLPTR),
-	m_Dir(0)
+	m_Dir(0), m_ImageCount(0)
 {
 	m_ComType = CT_STAGE2D;
 	SetTag("Stage2D");
 	m_isLine = true;
 }
 
-Tile2D_Com::Tile2D_Com(const Tile2D_Com& CopyData)
+JEONG::Tile2D_Com::Tile2D_Com(const Tile2D_Com& CopyData)
 	:Component_Base(CopyData)
 {
 	*this = CopyData;
 }
 
-Tile2D_Com::~Tile2D_Com()
+JEONG::Tile2D_Com::~Tile2D_Com()
 {
 	SAFE_RELEASE(m_Mesh);
 	SAFE_RELEASE(m_Shader);
@@ -30,9 +30,10 @@ Tile2D_Com::~Tile2D_Com()
 	SAFE_RELEASE(m_TileImageObject);
 
 	Safe_Release_VecList(m_vecTileImage);
+	Safe_Release_VecList(m_vecImage);
 }
 
-bool Tile2D_Com::Init()
+bool JEONG::Tile2D_Com::Init()
 {
 	m_TileOption = T2D_NORMAL;
 
@@ -40,69 +41,53 @@ bool Tile2D_Com::Init()
 	m_Shader = ShaderManager::Get()->FindShader(COLLIDER_SHADER);
 
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
-	m_vecTileImage.resize(3);
+	m_vecTileImage.reserve(4);
 
 	return true;
 }
 
-int Tile2D_Com::Input(float DeltaTime)
+int JEONG::Tile2D_Com::Input(float DeltaTime)
 {
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//{
-	//	m_vecTileImage[i]->Input(DeltaTime);
-	//}
-
 	return 0;
 }
 
-int Tile2D_Com::Update(float DeltaTime)
+int JEONG::Tile2D_Com::Update(float DeltaTime)
 {
 	if (m_TileImageObject != NULLPTR)
 		m_TileImageObject->Update(DeltaTime);
 
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//{
-	//	m_vecTileImage[i]->Update(DeltaTime);
-	//}
+	for (size_t i = 0; i < m_vecTileImage.size(); i++)
+		m_vecTileImage[i]->Update(DeltaTime);
 
 	return 0;
 }
 
-int Tile2D_Com::LateUpdate(float DeltaTime)
+int JEONG::Tile2D_Com::LateUpdate(float DeltaTime)
 {
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//{
-	//	m_vecTileImage[i]->LateUpdate(DeltaTime);
-	//}
+	if (m_TileImageObject != NULLPTR)
+		m_TileImageObject->LateUpdate(DeltaTime);
+
+	for (size_t i = 0; i < m_vecTileImage.size(); i++)
+		m_vecTileImage[i]->LateUpdate(DeltaTime);
+
 	return 0;
 }
 
-void Tile2D_Com::Collision(float DeltaTime)
+void JEONG::Tile2D_Com::Collision(float DeltaTime)
 {
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//{
-	//	m_vecTileImage[i]->Collision(DeltaTime);
-	//}
 }
 
-void Tile2D_Com::CollisionLateUpdate(float DeltaTime)
+void JEONG::Tile2D_Com::CollisionLateUpdate(float DeltaTime)
 {
-
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//{
-	//	m_vecTileImage[i]->CollisionLateUpdate(DeltaTime);
-	//}
 }
 
-void Tile2D_Com::Render(float DeltaTime)
+void JEONG::Tile2D_Com::Render(float DeltaTime)
 {
 	if (m_TileImageObject != NULLPTR)
 		m_TileImageObject->Render(DeltaTime);
 
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//{
-	//	m_vecTileImage[i]->Render(DeltaTime);
-	//}
+	for (size_t i = 0; i < m_vecTileImage.size(); i++)
+		m_vecTileImage[i]->Render(DeltaTime);
 
 	if (m_isLine == false)
 		return;
@@ -145,16 +130,16 @@ void Tile2D_Com::Render(float DeltaTime)
 	m_Mesh->Render();
 }
 
-Tile2D_Com * Tile2D_Com::Clone()
+JEONG::Tile2D_Com * JEONG::Tile2D_Com::Clone()
 {
 	return new Tile2D_Com(*this);
 }
 
-void Tile2D_Com::AfterClone()
+void JEONG::Tile2D_Com::AfterClone()
 {
 }
 
-void Tile2D_Com::Save(BineryWrite & Writer)
+void JEONG::Tile2D_Com::Save(BineryWrite & Writer)
 {
 	Component_Base::Save(Writer);
 
@@ -173,7 +158,7 @@ void Tile2D_Com::Save(BineryWrite & Writer)
 
 }
 
-void Tile2D_Com::Load(BineryRead & Reader)
+void JEONG::Tile2D_Com::Load(BineryRead & Reader)
 {
 	Component_Base::Load(Reader);
 
@@ -228,7 +213,7 @@ void Tile2D_Com::Load(BineryRead & Reader)
 	//}
 }
 
-void Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
+void JEONG::Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
 {
 	m_TileType = type;
 	
@@ -249,37 +234,28 @@ void Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
 	m_Layout = ShaderManager::Get()->FindInputLayOut(POS_LAYOUT);
 }
 
-void Tile2D_Com::SetMesh(const string & KeyName)
+void JEONG::Tile2D_Com::SetMesh(const string & KeyName)
 {
 	SAFE_RELEASE(m_Mesh);
 
 	m_Mesh = ResourceManager::Get()->FindMesh(KeyName);
 }
 
-void Tile2D_Com::SetWorldPos(const Vector3 & Pos)
+void JEONG::Tile2D_Com::SetWorldPos(const Vector3 & Pos)
 {
 	m_Transform->SetWorldPos(Pos);
 	m_TileImage->GetTransform()->SetWorldPos(Pos);
-
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//	m_vecTileImage[i]->GetTransform()->SetWorldPos(Pos);
 }
 
-void Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
+void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 {
 	m_Dir = Dir;
 	m_ImageFileName = FileName;
 
-	if (FileName.empty() == true)
+	if (m_ImageFileName.empty() == true)
 	{
-		if (m_TileImage != NULLPTR && m_TileImageObject != NULLPTR)
-		{
-			m_TileImage->SetIsActive(false);
-			m_TileImageObject->SetIsActive(false);
-		}
-		
-		SAFE_RELEASE(m_TileImage);
-		SAFE_RELEASE(m_TileImageObject);
+		m_TileImage = NULLPTR;
+		m_TileImageObject = NULLPTR;
 		return;
 	}
 
@@ -297,29 +273,30 @@ void Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	Vector3 TileScale = m_Transform->GetWorldScale();
 
 	m_TileImageObject->GetTransform()->SetWorldPos(TilePos);
+	m_TileImage->SetSavePos(TilePos);
 
 	switch (Dir)
 	{
 		case 90:
 			m_TileImageObject->GetTransform()->SetWorldRotZ(-90.0f);
 			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
-			m_TileImage->SetDistance(300.0f);
 			break;
 		case -90:
 			m_TileImageObject->GetTransform()->SetWorldRotZ(90.0f);
 			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y, 0.0f);
-			m_TileImage->SetDistance(200.0f);
 			break;
 		case 180:
 			m_TileImageObject->GetTransform()->SetWorldRotZ(180.0f);
 			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y + TileScale.y, 0.0f);
-			m_TileImage->SetDistance(100.0f);
 			break;
 	}
 }
 
-void Tile2D_Com::SetSubTileImage(size_t ImageCount)
+void JEONG::Tile2D_Com::SetSubTileImage(size_t ImageCount)
 {
+	if (m_TileImage == NULLPTR)
+		return;
+
 	string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
 	Path += m_ImageFileName;
 
@@ -335,26 +312,43 @@ void Tile2D_Com::SetSubTileImage(size_t ImageCount)
 
 		newImage->SetTexture(m_ImageFileName, CA2W(Path.c_str()));
 
-		float RandomAngle = (float)(RandomRange(-45, 45));
+		switch (i)
+		{
+			case 0:
+				newImage->SetDistance(300.0f);
+				break;
+			case 1:
+				newImage->SetDistance(200.0f);
+				break;
+			case 2:
+				newImage->SetDistance(100.0f);
+				break;
+			case 3:
+				newImage->SetDistance(50.0);
+				break;
+		}
+
+		float RandomAngle = (float)(RandomRange(-20, 20));
 
 		switch (m_Dir)
 		{
 			case 0:
 			{
-				Vector3 rRange = Vector3(TilePos.x, (float)RandomRange((int)TilePos.y, (int)(TilePos.y - TileScale.y)), 0.0f);
+				Vector3 rRange = Vector3(TilePos.x, (float)RandomRange((int)(TilePos.y - TileScale.y + 50.0f), (int)TilePos.y), 0.0f);
 
-				newImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
+				newImageObject->GetTransform()->SetWorldPos(TilePos.x, rRange.y, 0.0f);
+				newImage->SetSavePos(rRange);
 				newImageObject->GetTransform()->SetWorldRotZ(RandomAngle);
 			}
 				break;
 			case 90:
 			{
-				//Vector3 rRange = Vector3((float)RandomRange((int)TilePos.x, (int)(TilePos.x - TileScale.x)), TilePos.y + TileScale.y, 0.0f);
+				Vector3 rRange = Vector3((float)RandomRange((int)TilePos.x, (int)(TilePos.x - TileScale.x)), TilePos.y + TileScale.y, 0.0f);
 
-				//newImageObject->GetTransform()->SetWorldRotZ(-90.0f + RandomAngle);
-				//newImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
+				newImageObject->GetTransform()->SetWorldRotZ(-90.0f + RandomAngle);
+				newImageObject->GetTransform()->SetWorldPos(rRange);
 
-				//m_TileImage->SetDistance(300.0f);
+				m_TileImage->SetDistance(300.0f);
 			}
 				break;
 			case -90:
@@ -379,7 +373,44 @@ void Tile2D_Com::SetSubTileImage(size_t ImageCount)
 				break;
 		}
 
-		m_vecTileImage.push_back(newImage);
-		SAFE_RELEASE(newImageObject);
+		m_vecTileImage.push_back(newImageObject);
+		m_vecImage.push_back(newImage);
 	}
+}
+
+GameObject * JEONG::Tile2D_Com::GetSubTileImageObject(size_t index) const
+{
+	if (m_vecTileImage.empty())
+		return NULLPTR;
+
+	return m_vecTileImage[index];
+}
+
+void JEONG::Tile2D_Com::ClearSubImage()
+{
+	for (size_t i = 0; i < m_vecTileImage.size(); i++)
+		m_vecTileImage[i]->SetIsActive(false);
+	
+	for (size_t i = 0; i < m_vecImage.size(); i++)
+		m_vecImage[i]->SetIsActive(false);
+
+	Safe_Release_VecList(m_vecImage);
+	Safe_Release_VecList(m_vecTileImage);
+
+	m_vecImage.clear();
+	m_vecTileImage.clear();
+
+	m_ImageFileName.clear();
+}
+
+void JEONG::Tile2D_Com::ClearMainImage()
+{
+	if (m_TileImage != NULLPTR && m_TileImageObject != NULLPTR)
+	{
+		m_TileImage->SetIsActive(false);
+		m_TileImageObject->SetIsActive(false);
+	}
+
+	SAFE_RELEASE(m_TileImage);
+	SAFE_RELEASE(m_TileImageObject);
 }

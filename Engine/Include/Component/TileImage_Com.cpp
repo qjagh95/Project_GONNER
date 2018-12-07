@@ -3,21 +3,21 @@
 
 JEONG_USING
 
-TileImage_Com::TileImage_Com()
+JEONG::TileImage_Com::TileImage_Com()
 {
 	m_ComType = CT_TILEIMAGE;
 }
 
-TileImage_Com::TileImage_Com(const TileImage_Com & CopyData)
+JEONG::TileImage_Com::TileImage_Com(const TileImage_Com & CopyData)
 	:Component_Base(CopyData)
 {
 }
 
-TileImage_Com::~TileImage_Com()
+JEONG::TileImage_Com::~TileImage_Com()
 {
 }
 
-bool TileImage_Com::Init()
+bool JEONG::TileImage_Com::Init()
 {
 	Renderer_Com* newRender= m_Object->AddComponent<Renderer_Com>("TileImageRender");
 	newRender->SetMesh("TextureRect");
@@ -31,46 +31,46 @@ bool TileImage_Com::Init()
 	return true;
 }
 
-int TileImage_Com::Input(float DeltaTime)
+int JEONG::TileImage_Com::Input(float DeltaTime)
 {
 	
 	return 0;
 }
 
-int TileImage_Com::Update(float DeltaTime)
+int JEONG::TileImage_Com::Update(float DeltaTime)
 {
 	//오브젝트 리스트 돌려서 Distance비교 확대, 축소 로테이션...
 
 	return 0;
 }
 
-int TileImage_Com::LateUpdate(float DeltaTime)
+int JEONG::TileImage_Com::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void TileImage_Com::Collision(float DeltaTime)
+void JEONG::TileImage_Com::Collision(float DeltaTime)
 {
 }
 
-void TileImage_Com::CollisionLateUpdate(float DeltaTime)
+void JEONG::TileImage_Com::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void TileImage_Com::Render(float DeltaTime)
+void JEONG::TileImage_Com::Render(float DeltaTime)
 {
 }
 
-TileImage_Com * TileImage_Com::Clone()
+JEONG::TileImage_Com * JEONG::TileImage_Com::Clone()
 {
-	return new TileImage_Com(*this);
+	return new JEONG::TileImage_Com(*this);
 }
 
-void TileImage_Com::AfterClone()
+void JEONG::TileImage_Com::AfterClone()
 {
 }
 
-void TileImage_Com::Save(BineryWrite & Writer)
+void JEONG::TileImage_Com::Save(BineryWrite & Writer)
 {
 	Component_Base::Save(Writer);
 
@@ -79,7 +79,7 @@ void TileImage_Com::Save(BineryWrite & Writer)
 	Writer.WriteData(m_Transform->GetWorldScale());
 }
 
-void TileImage_Com::Load(BineryRead & Reader)
+void JEONG::TileImage_Com::Load(BineryRead & Reader)
 {
 	Component_Base::Load(Reader);
 
@@ -87,6 +87,7 @@ void TileImage_Com::Load(BineryRead & Reader)
 
 	Vector3 Pos;
 	Vector3 Scale;
+
 	Reader.ReadData(Pos);
 	Reader.ReadData(Scale);
 
@@ -94,7 +95,7 @@ void TileImage_Com::Load(BineryRead & Reader)
 	m_Transform->SetWorldScale(Scale);
 }
 
-void TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const string & PathKey)
+void JEONG::TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const string & PathKey)
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetDiffuseTexture(0, KeyName, FileName);
@@ -102,7 +103,7 @@ void TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const s
 	SAFE_RELEASE(getMaterial);
 }
 
-void TileImage_Com::SetDiffuseColor(const Vector4 & Color)
+void JEONG::TileImage_Com::SetDiffuseColor(const Vector4 & Color)
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetMaterial(Color);

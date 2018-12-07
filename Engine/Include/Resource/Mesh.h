@@ -15,6 +15,7 @@ struct JEONG_DLL VertexBuffer
 	VertexBuffer() : vBuffer(NULLPTR), vInfo(NULLPTR), vCount(0), vSize(0), vUsage(D3D11_USAGE_DEFAULT) {}
 };
 
+
 struct JEONG_DLL IndexBuffer
 {
 	ID3D11Buffer* iBuffer;		///¹öÆÛ°´Ã¼
@@ -46,8 +47,7 @@ public:
 	void Render();
 	void Render(int Container, int Subset);
 
-	string GetShaderKey() const { return m_ShaderKeyName; }
-	string GetLayOutKey() const { return m_LayOutKeyName; }
+	string GetShaderKey() const { return m_ShaderKeyName; }	string GetLayOutKey() const { return m_LayOutKeyName; }
 	void* GetVertexInfo(int Index) const { return m_vecMeshContainer[Index]->vertexBuffer.vInfo; }
 
 	void UpdateVertexBuffer(void* vertexInfo, int ContainerIndex = 0);

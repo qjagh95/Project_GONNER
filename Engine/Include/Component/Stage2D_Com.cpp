@@ -4,7 +4,7 @@
 
 JEONG_USING
 
-Stage2D_Com::Stage2D_Com()
+JEONG::Stage2D_Com::Stage2D_Com()
 	:m_vecTile2DCom(NULLPTR), m_vecTileObject(NULLPTR),
 	m_TileObjectCapacity(10), m_TileObjectSize(0),m_Tile2DComCapacity(10), m_Tile2DComSize(0)
 {
@@ -13,13 +13,13 @@ Stage2D_Com::Stage2D_Com()
 	m_isLineOn = true;
 }
 
-Stage2D_Com::Stage2D_Com(const Stage2D_Com& CopyData)
+JEONG::Stage2D_Com::Stage2D_Com(const Stage2D_Com& CopyData)
 	:Component_Base(CopyData)
 {
 	*this = CopyData;
 }
 
-Stage2D_Com::~Stage2D_Com()
+JEONG::Stage2D_Com::~Stage2D_Com()
 {
 	for (size_t i = 0; i < m_Tile2DComSize; i++)
 		SAFE_RELEASE(m_vecTileObject[i]);
@@ -30,17 +30,17 @@ Stage2D_Com::~Stage2D_Com()
 	SAFE_DELETE_ARRARY(m_vecTileObject);
 }
 
-bool Stage2D_Com::Init()
+bool JEONG::Stage2D_Com::Init()
 {
 	return true;
 }
 
-int Stage2D_Com::Input(float DeltaTime)
+int JEONG::Stage2D_Com::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int Stage2D_Com::Update(float DeltaTime)
+int JEONG::Stage2D_Com::Update(float DeltaTime)
 {
 	Transform_Com* pMainCameraTr = m_Scene->GetMainCameraTransform();
 	Vector3	CameraPos = pMainCameraTr->GetWorldPos();
@@ -120,7 +120,7 @@ int Stage2D_Com::Update(float DeltaTime)
 	return 0;
 }
 
-int Stage2D_Com::LateUpdate(float DeltaTime)
+int JEONG::Stage2D_Com::LateUpdate(float DeltaTime)
 {
 	for (int y = m_StartY; y < m_EndY; ++y)
 	{
@@ -134,15 +134,15 @@ int Stage2D_Com::LateUpdate(float DeltaTime)
 	return 0;
 }
 
-void Stage2D_Com::Collision(float DeltaTime)
+void JEONG::Stage2D_Com::Collision(float DeltaTime)
 {
 }
 
-void Stage2D_Com::CollisionLateUpdate(float DeltaTime)
+void JEONG::Stage2D_Com::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void Stage2D_Com::Render(float DeltaTime)
+void JEONG::Stage2D_Com::Render(float DeltaTime)
 {
 	for (int y = m_StartY; y < m_EndY; ++y)
 	{
@@ -154,16 +154,16 @@ void Stage2D_Com::Render(float DeltaTime)
 	}
 }
 
-Stage2D_Com * Stage2D_Com::Clone()
+JEONG::Stage2D_Com * Stage2D_Com::Clone()
 {
 	return new Stage2D_Com(*this);
 }
 
-void Stage2D_Com::AfterClone()
+void JEONG::Stage2D_Com::AfterClone()
 {
 }
 
-void Stage2D_Com::Save(BineryWrite & Writer)
+void JEONG::Stage2D_Com::Save(BineryWrite & Writer)
 {
 	Component_Base::Save(Writer);
 	
@@ -188,7 +188,7 @@ void Stage2D_Com::Save(BineryWrite & Writer)
 	}
 }
 
-void Stage2D_Com::Load(BineryRead & Reader)
+void JEONG::Stage2D_Com::Load(BineryRead & Reader)
 {
 	Component_Base::Load(Reader);
 
@@ -241,7 +241,7 @@ void Stage2D_Com::Load(BineryRead & Reader)
 	}
 }
 
-int Stage2D_Com::GetTileIndex(const Vector3 & Pos)
+int JEONG::Stage2D_Com::GetTileIndex(const Vector3 & Pos)
 {
 	switch (m_TileType)
 	{
@@ -255,7 +255,7 @@ int Stage2D_Com::GetTileIndex(const Vector3 & Pos)
 	return -1;
 }
 
-void Stage2D_Com::CreateTileMap(int TileCountX, int TileCountY, const Vector3& StartPos, const Vector3& TileScale, STAGE2D_TILE_TYPE tileType, const string& KeyName, const TCHAR* FileName, const string& PathKey)
+void JEONG::Stage2D_Com::CreateTileMap(int TileCountX, int TileCountY, const Vector3& StartPos, const Vector3& TileScale, STAGE2D_TILE_TYPE tileType, const string& KeyName, const TCHAR* FileName, const string& PathKey)
 {
 	m_StartPos = StartPos;
 	m_TileCountX = TileCountX;
@@ -290,7 +290,25 @@ void Stage2D_Com::CreateTileMap(int TileCountX, int TileCountY, const Vector3& S
 
 }
 
-void Stage2D_Com::CreateTile(const Vector3& StartPos, const Vector3& TileScale, const string& KeyName, const TCHAR* FileName, const string& PathKey)
+void JEONG::Stage2D_Com::ClearImage()
+{
+	ClearMainImage();
+	ClearSubImage();
+}
+
+void JEONG::Stage2D_Com::ClearSubImage()
+{
+	for (size_t i = 0; i < m_Tile2DComSize; i++)
+		m_vecTile2DCom[i]->ClearSubImage();
+}
+
+void JEONG::Stage2D_Com::ClearMainImage()
+{
+	for (size_t i = 0; i < m_Tile2DComSize; i++)
+		m_vecTile2DCom[i]->ClearMainImage();
+}
+
+void JEONG::Stage2D_Com::CreateTile(const Vector3& StartPos, const Vector3& TileScale, const string& KeyName, const TCHAR* FileName, const string& PathKey)
 {
 	for (int y = 0; y < m_TileCountY; ++y)
 	{
@@ -355,7 +373,7 @@ void Stage2D_Com::CreateTile(const Vector3& StartPos, const Vector3& TileScale, 
 	}//for(y)
 }
 
-void Stage2D_Com::CreateIsoTile(const Vector3& StartPos, const Vector3& TileScale, const string& KeyName , const TCHAR* FileName, const string& PathKey)
+void JEONG::Stage2D_Com::CreateIsoTile(const Vector3& StartPos, const Vector3& TileScale, const string& KeyName , const TCHAR* FileName, const string& PathKey)
 {
 	Vector3 sPos;
 	sPos.x = (m_TileCountX * TileScale.x) * 0.5f;
@@ -431,7 +449,7 @@ void Stage2D_Com::CreateIsoTile(const Vector3& StartPos, const Vector3& TileScal
 	}//for(y)
 }
 
-void Stage2D_Com::SetTileOption(const Vector3& Pos, TILE2D_OPTION option)
+void JEONG::Stage2D_Com::SetTileOption(const Vector3& Pos, TILE2D_OPTION option)
 {
 	int Index = GetTileIndex(Pos);
 
@@ -442,7 +460,7 @@ void Stage2D_Com::SetTileOption(const Vector3& Pos, TILE2D_OPTION option)
 		m_vecTile2DCom[Index]->SetTileOption(option);
 }
 
-void Stage2D_Com::SetLineOn(bool Value)
+void JEONG::Stage2D_Com::SetLineOn(bool Value)
 {
 	m_isLineOn = Value;
 
@@ -450,7 +468,7 @@ void Stage2D_Com::SetLineOn(bool Value)
 		m_vecTile2DCom[i]->SetLineOn(m_isLineOn);
 }
 
-int Stage2D_Com::GetRectTileIndex(const Vector3 & Pos)
+int JEONG::Stage2D_Com::GetRectTileIndex(const Vector3 & Pos)
 {
 	//사각타일 인덱스 구하기. Pos / Size 의 값을 int로 형변환
 	int	x = (int)((Pos.x - m_StartPos.x) / m_TileScale.x);
@@ -466,7 +484,7 @@ int Stage2D_Com::GetRectTileIndex(const Vector3 & Pos)
 	return y * m_TileCountX + x;
 }
 
-int Stage2D_Com::GetIsoTileIndex(const Vector3 & Pos)
+int JEONG::Stage2D_Com::GetIsoTileIndex(const Vector3 & Pos)
 {
 	Vector3 sPos;
 	sPos.y = (m_TileCountY * m_TileScale.y) * 0.5f;
@@ -481,7 +499,7 @@ int Stage2D_Com::GetIsoTileIndex(const Vector3 & Pos)
 	return YIndex * m_TileCountX + XIndex;
 }
 
-Vector2 Stage2D_Com::GetIsoTileIndexVec(const Vector3 & Pos)
+Vector2 JEONG::Stage2D_Com::GetIsoTileIndexVec(const Vector3 & Pos)
 {
 	Vector3 sPos;
 	sPos.x = (m_TileCountX * m_TileScale.x) * 0.5f;
@@ -497,9 +515,9 @@ Vector2 Stage2D_Com::GetIsoTileIndexVec(const Vector3 & Pos)
 	return Vector2((float)XIndex, (float)YIndex);
 }
 
-void Stage2D_Com::SetNoMoveMesh(const Vector3 & Pos, STAGE2D_TILE_TYPE TileType)
+void JEONG::Stage2D_Com::SetNoMoveMesh(const Vector3 & Pos, STAGE2D_TILE_TYPE TileType)
 {
-	Tile2D_Com* getTile = GetTile2D(Pos);
+	JEONG::Tile2D_Com* getTile = GetTile2D(Pos);
 
 	switch (TileType)
 	{
@@ -518,9 +536,9 @@ void Stage2D_Com::SetNoMoveMesh(const Vector3 & Pos, STAGE2D_TILE_TYPE TileType)
 	}
 }
 
-void Stage2D_Com::SetMoveMesh(const Vector3 & Pos, STAGE2D_TILE_TYPE TileType)
+void JEONG::Stage2D_Com::SetMoveMesh(const Vector3 & Pos, STAGE2D_TILE_TYPE TileType)
 {
-	Tile2D_Com* getTile = GetTile2D(Pos);
+	JEONG::Tile2D_Com* getTile = GetTile2D(Pos);
 
 	switch (TileType)
 	{
@@ -539,7 +557,7 @@ void Stage2D_Com::SetMoveMesh(const Vector3 & Pos, STAGE2D_TILE_TYPE TileType)
 	}
 }
 
-Tile2D_Com * Stage2D_Com::GetTile2D(const Vector3 & Pos)
+JEONG::Tile2D_Com * JEONG::Stage2D_Com::GetTile2D(const Vector3 & Pos)
 {		
 	int Index = GetTileIndex(Pos);
 
@@ -549,7 +567,7 @@ Tile2D_Com * Stage2D_Com::GetTile2D(const Vector3 & Pos)
 	return m_vecTile2DCom[Index];
 }
 
-Tile2D_Com * Stage2D_Com::GetTile2D(float X, float Y, float Z)
+JEONG::Tile2D_Com * JEONG::Stage2D_Com::GetTile2D(float X, float Y, float Z)
 {
 	int Index = GetTileIndex(Vector3(X, Y, Z));
 
@@ -559,7 +577,7 @@ Tile2D_Com * Stage2D_Com::GetTile2D(float X, float Y, float Z)
 	return m_vecTile2DCom[Index];
 }
 
-void Stage2D_Com::SetMainTileImage(const Vector3 & Pos, const string & FileName, int Dir)
+void JEONG::Stage2D_Com::SetMainTileImage(const Vector3 & Pos, const string & FileName, int Dir)
 {
 	int Index = GetTileIndex(Pos);
 
@@ -573,20 +591,20 @@ void Stage2D_Com::SetMainTileImage(const Vector3 & Pos, const string & FileName,
 	m_vecTile2DCom[Index]->SetMainTileImage(FileName, Dir);
 }
 
-void Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & FileName, size_t ImageCount, int Dir)
+void JEONG::Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & FileName, size_t ImageCount, int Dir)
 {
 	int Index = GetTileIndex(Pos);
 
 	if (Index == -1)
 		return;
 
-	if (m_vecTile2DCom[Index]->GetImageFileName() == FileName && m_vecTile2DCom[Index]->GetDir() == Dir)
+	if (m_vecTile2DCom[Index]->GetSubTileImageObject(0) != NULLPTR)
 		return;
 
 	m_vecTile2DCom[Index]->SetSubTileImage(ImageCount);
 }
 
-void Stage2D_Com::SetRotation(const Vector3& Pos, float Angle)
+void JEONG::Stage2D_Com::SetRotation(const Vector3& Pos, float Angle)
 {
 	int Index = GetTileIndex(Pos);
 
@@ -594,4 +612,30 @@ void Stage2D_Com::SetRotation(const Vector3& Pos, float Angle)
 		return;
 
 	m_vecTile2DCom[Index]->GetTransform()->SetWorldRotZ(Angle);
+}
+
+void JEONG::Stage2D_Com::ClearImage(const Vector3& Pos)
+{
+	ClearMainImage(Pos);
+	ClearSubImage(Pos);
+}
+
+void JEONG::Stage2D_Com::ClearMainImage(const Vector3& Pos)
+{
+	int Index = GetTileIndex(Pos);
+
+	if (Index == -1)
+		return;
+
+	m_vecTile2DCom[Index]->ClearMainImage();
+}
+
+void JEONG::Stage2D_Com::ClearSubImage(const Vector3& Pos)
+{
+	int Index = GetTileIndex(Pos);
+
+	if (Index == -1)
+		return;
+
+	m_vecTile2DCom[Index]->ClearSubImage();
 }

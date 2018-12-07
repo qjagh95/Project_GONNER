@@ -36,6 +36,9 @@ bool EditScene::Init()
 	KeyInput::Get()->AddKey("Shift", VK_SHIFT);
 	KeyInput::Get()->AddKey("Angle", 'Q');
 	KeyInput::Get()->AddKey("ImageInit", 'R');
+	KeyInput::Get()->AddKey("RandomTile", VK_SHIFT);
+	KeyInput::Get()->AddKey("TileClear", VK_F1);
+
 
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(BackLayer);
@@ -59,9 +62,10 @@ int EditScene::Update(float DeltaTime)
 
 	if (TileStage != NULLPTR)
 	{
+		Vector3	MouseWorld = KeyInput::Get()->GetMouseWorldPos();
+
 		if (KeyInput::Get()->KeyPress("LButton"))
 		{
-			Vector3	MouseWorld = KeyInput::Get()->GetMouseWorldPos();
 			ChangeTile(MouseWorld, editorForm, TileStage);
 
 			CString Temp;
@@ -69,18 +73,26 @@ int EditScene::Update(float DeltaTime)
 
 			if (editorForm->m_TileImageBox.GetCurSel() != -1)
 			{
-				editorForm->m_TileImageBox.GetLBText(editorForm->m_TileImageBox.GetCurSel(), Temp);
-				Temp2 += CW2A(Temp);
+				if (editorForm->m_isRandomTile == TRUE)
+				{
+					int Range = RandomRange(editorForm->m_RandomRange1, editorForm->m_RandomRange2 - 1);
+					editorForm->m_TileImageBox.GetLBText(Range, Temp);
+				}
 
+				else
+					editorForm->m_TileImageBox.GetLBText(editorForm->m_TileImageBox.GetCurSel(), Temp);
+				
+				Temp2 += CW2A(Temp);
 				TileStage->SetMainTileImage(MouseWorld, Temp2, editorForm->m_TileAngle);
 				
-				//if(editorForm->m_CreateTileCount != 0)
-					//TileStage->SetSubTileImage(MouseWorld, Temp2, editorForm->m_CreateTileCount, editorForm->m_TileAngle);
+				if(editorForm->m_CreateTileCount != 0)
+					TileStage->SetSubTileImage(MouseWorld, Temp2, editorForm->m_CreateTileCount, editorForm->m_TileAngle);
 
 			}
-			else
-				TileStage->SetMainTileImage(MouseWorld, "", 0);
 		}
+		else if (KeyInput::Get()->KeyPress("RButton"))
+			TileStage->ClearImage(MouseWorld);
+
 
 		if (KeyInput::Get()->KeyDown("TileOption"))
 		{
@@ -137,6 +149,13 @@ int EditScene::Update(float DeltaTime)
 		editorForm->m_TileImageBox.SetCurSel(-1);
 		editorForm->OnCbnSelchangeTileimageselect();
 	}
+
+	if (KeyInput::Get()->KeyDown("RandomTile"))
+		editorForm->OnBnClickedCheck1();
+
+	if (KeyInput::Get()->KeyDown("TileClear"))
+		TileStage->ClearImage();
+		
 
 	return 0;
 }

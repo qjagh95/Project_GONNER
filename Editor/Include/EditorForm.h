@@ -25,20 +25,8 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV 지원입니다.
 
 	DECLARE_MESSAGE_MAP()
-public:
-	Vector3 m_Scale;
-	Vector3 m_Rot;
-	Vector3 m_Pos;
-	int m_ScaleX;
-	int m_ScaleY;
-	int m_ScaleZ;
-	int m_RotationX;
-	int m_RotationY;
-	int m_RotationZ;
-	int m_PosX;
-	int m_PosY;
-	int m_PosZ;
 
+public:
 	CString m_TagName;
 	int m_TileCountX;
 	int m_TileCountY;
@@ -80,6 +68,9 @@ public:
 	CEdit m_StartPosYControl;
 	CEdit m_StartPosZControl;
 
+	CEdit m_Range1Edit;
+	CEdit m_Range2Edit;
+
 	CImage m_TileImage;
 	wstring m_Path;
 
@@ -90,21 +81,15 @@ public:
 	int m_CreateTileCount;
 	int m_TileAngle;
 
+	BOOL m_isRandomTile;
+	int m_RandomRange1;
+	int m_RandomRange2;
+
 	STAGE2D_TILE_TYPE GetTileType() const;
 	TILE2D_OPTION GetTileOption() const;
 
-	void NULLImage();
 	virtual void OnDraw(CDC* pDC);
 	virtual void OnInitialUpdate();
-	afx_msg void OnEnChangeScalex();
-	afx_msg void OnEnChangeRotationx();
-	afx_msg void OnEnChangePositionx();
-	afx_msg void OnEnChangeScaley();
-	afx_msg void OnEnChangeRotationy();
-	afx_msg void OnEnChangePositiony();
-	afx_msg void OnEnChangeScalez();
-	afx_msg void OnEnChangeRotationz();
-	afx_msg void OnEnChangePositionz();
 	afx_msg void OnCbnSelchangeTileselect();
 	afx_msg void OnCbnSelchangeTileoptionselect();
 	afx_msg void OnCbnSelchangeTileimageselect();
@@ -121,7 +106,6 @@ public:
 	afx_msg void OnEnChangeTilecounty();
 	afx_msg void OnEnChangeTilesizex();
 	afx_msg void OnEnChangeTilesizey();
-	afx_msg void OnEnChangeTagname();
 	afx_msg void OnBnClickedTileclear();
 
 	afx_msg void OnBnClickedLineon();
@@ -130,6 +114,11 @@ public:
 	afx_msg void OnEnChangeCreatetilecount();
 
 	afx_msg void OnEnChangeTilerotation();
+
+	afx_msg void OnBnClickedCheck1();
+	afx_msg void OnEnChangeEdit1();
+	afx_msg void OnEnChangeEdit2();
+
 };
 
 

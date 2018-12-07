@@ -20,16 +20,6 @@ EditorForm::EditorForm()
 	, m_TileCountY(0)
 	, m_TileSizeX(0)
 	, m_TileSizeY(0)
-	, m_TagName(_T(""))
-	, m_ScaleX(0)
-	, m_ScaleY(0)
-	, m_ScaleZ(0)
-	, m_RotationX(0)
-	, m_RotationY(0)
-	, m_RotationZ(0)
-	, m_PosX(0)
-	, m_PosY(0)
-	, m_PosZ(0)
 	, m_StartPosX(0)
 	, m_StartPosY(0)
 	, m_BackColorR(0)
@@ -42,6 +32,9 @@ EditorForm::EditorForm()
 	, m_ImageName(_T(""))
 	, m_CreateTileCount(0)
 	, m_TileAngle(0)
+	, m_isRandomTile(FALSE)
+	, m_RandomRange1(0)
+	, m_RandomRange2(0)
 {
 	m_TileCountX = 0;
 	m_TileCountY = 0;
@@ -53,7 +46,6 @@ EditorForm::EditorForm()
 	m_StageTransform = NULLPTR;
 
 	m_Path = PathManager::Get()->FindPath(TEXTURE_PATH);
-	
 }
 
 EditorForm::~EditorForm()
@@ -70,21 +62,10 @@ void EditorForm::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_TILESELECT, m_TileTypeBox);
 	DDX_Control(pDX, IDC_TILEOPTIONSELECT, m_TileOptionBox);
 	DDX_Control(pDX, IDC_TILEIMAGESELECT, m_TileImageBox);
-
 	DDX_Text(pDX, IDC_SCALEX2, m_TileCountX);
 	DDX_Text(pDX, IDC_SCALEX3, m_TileCountY);
 	DDX_Text(pDX, IDC_SCALEX4, m_TileSizeX);
 	DDX_Text(pDX, IDC_SCALEX5, m_TileSizeY);
-	DDX_Text(pDX, IDC_TAGNAME, m_TagName);
-	DDX_Text(pDX, IDC_SCALEX, m_ScaleX);
-	DDX_Text(pDX, IDC_SCALEY, m_ScaleY);
-	DDX_Text(pDX, IDC_SCALEZ, m_ScaleZ);
-	DDX_Text(pDX, IDC_ROTATIONX, m_RotationX);
-	DDX_Text(pDX, IDC_ROTATIONY, m_RotationY);
-	DDX_Text(pDX, IDC_ROTATIONZ, m_RotationZ);
-	DDX_Text(pDX, IDC_POSITIONX, m_PosX);
-	DDX_Text(pDX, IDC_POSITIONY, m_PosY);
-	DDX_Text(pDX, IDC_POSITIONZ, m_PosZ);
 	DDX_Control(pDX, IDC_WORK, m_WorkList);
 	DDX_Text(pDX, IDC_STARTPOSX, m_StartPosX);
 	DDX_Text(pDX, IDC_STARTPOSY, m_StartPosY);
@@ -98,6 +79,11 @@ void EditorForm::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_TILEIMAGESELECT, m_ImageName);
 	DDX_Text(pDX, IDC_CREATETILECOUNT, m_CreateTileCount);
 	DDX_Text(pDX, IDC_TILEROTATION, m_TileAngle);
+	DDX_Check(pDX, IDC_CHECK1, m_isRandomTile);
+	DDX_Text(pDX, IDC_EDIT1, m_RandomRange1);
+	DDX_Text(pDX, IDC_EDIT2, m_RandomRange2);
+	DDX_Control(pDX, IDC_EDIT1, m_Range1Edit);
+	DDX_Control(pDX, IDC_EDIT2, m_Range2Edit);
 
 	if (m_TileTypeBox.GetCurSel() == 0)
 	{
@@ -120,18 +106,20 @@ void EditorForm::DoDataExchange(CDataExchange* pDX)
 	else
 		GetDlgItem(IDC_LINEON)->EnableWindow(true);
 
+	if (m_isRandomTile == FALSE)
+	{
+		GetDlgItem(IDC_EDIT1)->EnableWindow(false);
+		GetDlgItem(IDC_EDIT2)->EnableWindow(false);
+	}
+	else
+	{
+		GetDlgItem(IDC_EDIT1)->EnableWindow(true);
+		GetDlgItem(IDC_EDIT2)->EnableWindow(true);
+	}
+
 }
 
 BEGIN_MESSAGE_MAP(EditorForm, CFormView)
-	ON_EN_CHANGE(IDC_SCALEX, &EditorForm::OnEnChangeScalex)
-	ON_EN_CHANGE(IDC_ROTATIONX, &EditorForm::OnEnChangeRotationx)
-	ON_EN_CHANGE(IDC_POSITIONX, &EditorForm::OnEnChangePositionx)
-	ON_EN_CHANGE(IDC_SCALEY, &EditorForm::OnEnChangeScaley)
-	ON_EN_CHANGE(IDC_ROTATIONY, &EditorForm::OnEnChangeRotationy)
-	ON_EN_CHANGE(IDC_POSITIONY, &EditorForm::OnEnChangePositiony)
-	ON_EN_CHANGE(IDC_SCALEZ, &EditorForm::OnEnChangeScalez)
-	ON_EN_CHANGE(IDC_ROTATIONZ, &EditorForm::OnEnChangeRotationz)
-	ON_EN_CHANGE(IDC_POSITIONZ, &EditorForm::OnEnChangePositionz)
 	ON_CBN_SELCHANGE(IDC_TILESELECT, &EditorForm::OnCbnSelchangeTileselect)
 	ON_CBN_SELCHANGE(IDC_TILEOPTIONSELECT, &EditorForm::OnCbnSelchangeTileoptionselect)
 	ON_CBN_SELCHANGE(IDC_TILEIMAGESELECT, &EditorForm::OnCbnSelchangeTileimageselect)
@@ -145,7 +133,6 @@ BEGIN_MESSAGE_MAP(EditorForm, CFormView)
 	ON_EN_CHANGE(IDC_TILECOUNTY, &EditorForm::OnEnChangeTilecounty)
 	ON_EN_CHANGE(IDC_TILESIZEX, &EditorForm::OnEnChangeTilesizex)
 	ON_EN_CHANGE(IDC_TILESIZEY, &EditorForm::OnEnChangeTilesizey)
-	ON_EN_CHANGE(IDC_TAGNAME, &EditorForm::OnEnChangeTagname)
 	ON_BN_CLICKED(IDC_TILECLEAR, &EditorForm::OnBnClickedTileclear)
 	ON_BN_CLICKED(IDC_LINEON, &EditorForm::OnBnClickedLineon)
 	ON_BN_CLICKED(IDC_TILELOAD, &EditorForm::OnBnClickedTileload)
@@ -153,6 +140,9 @@ BEGIN_MESSAGE_MAP(EditorForm, CFormView)
 	ON_WM_PAINT()
 	ON_EN_CHANGE(IDC_CREATETILECOUNT, &EditorForm::OnEnChangeCreatetilecount)
 	ON_EN_CHANGE(IDC_TILEROTATION, &EditorForm::OnEnChangeTilerotation)
+	ON_BN_CLICKED(IDC_CHECK1, &EditorForm::OnBnClickedCheck1)
+	ON_EN_CHANGE(IDC_EDIT1, &EditorForm::OnEnChangeEdit1)
+	ON_EN_CHANGE(IDC_EDIT2, &EditorForm::OnEnChangeEdit2)
 END_MESSAGE_MAP()
 
 // EditorForm 진단입니다.
@@ -356,130 +346,6 @@ void EditorForm::OnInitialUpdate()
 		m_TileImageBox.AddString(Temp.c_str());
 	}
 }
-
-void EditorForm::OnEnChangeScalex()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"SacleX : %d 변경", m_ScaleX);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangeScaley()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"SacleY : %d 변경", m_ScaleY);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangeScalez()
-{
-	UpdateData(TRUE);
-
-	if (RenderManager::Get()->GetGameMode() == GM_2D)
-	{
-		m_ScaleZ = 0;
-
-		wchar_t Buffer[255];
-		wsprintf(Buffer, L"Error! 2D 모드일땐 ScaleZ값 변경불가");
-		AddWorkText(Buffer);
-
-		UpdateData(FALSE);
-		return;
-	}
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"SacleZ : %d 변경", m_ScaleZ);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangeRotationx()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"RotationX : %d 변경", m_RotationX);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangeRotationy()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"RotationY : %d 변경", m_RotationY);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangeRotationz()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"RotationZ : %d 변경", m_RotationZ);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangePositionx()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"PosX : %d 변경", m_PosX);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangePositiony()
-{
-	UpdateData(TRUE);
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"PosY : %d 변경", m_PosY);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
-void EditorForm::OnEnChangePositionz()
-{
-	UpdateData(TRUE);
-
-	if (RenderManager::Get()->GetGameMode() == GM_2D)
-	{
-		m_PosZ = 0;
-
-		wchar_t Buffer[255];
-		wsprintf(Buffer, L"Error! 2D 모드일땐 PosZ값 변경불가");
-		AddWorkText(Buffer);
-
-		UpdateData(FALSE);
-		return;
-	}
-
-	wchar_t Buffer[255];
-	wsprintf(Buffer, L"PosZ : %d 변경", m_PosZ);
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
 
 //컨트롤박스
 ////////////////////////////////////////////////////////////////////////
@@ -838,20 +704,6 @@ void EditorForm::OnEnChangeTilesizey()
 	UpdateData(FALSE);
 }
 
-void EditorForm::OnEnChangeTagname()
-{
-	UpdateData(TRUE);
-
-	CString Buffer;
-	Buffer = "TagName : ";
-	Buffer += m_TagName;
-	Buffer += " 설정";
-
-	AddWorkText(Buffer);
-
-	UpdateData(FALSE);
-}
-
 
 void EditorForm::OnBnClickedTileclear()
 {
@@ -1042,7 +894,7 @@ void EditorForm::OnDraw(CDC* pDC)
 		Gdiplus::Graphics graphics(&dst);
 		graphics.DrawImage(&bmp, 0, 0);
 
-		image.StretchBlt(pDC->m_hDC, 240, 333, 128, 128, SRCCOPY);
+		image.StretchBlt(pDC->m_hDC, 11, 30, 128, 128, SRCCOPY);
 	}
 }
 
@@ -1051,7 +903,7 @@ void EditorForm::OnEnChangeCreatetilecount()
 	UpdateData(TRUE);
 
 	if (m_TileImageBox.GetCurSel() + 1 >= 9 && m_TileImageBox.GetCurSel() + 1 <= 23)
-		m_CreateTileCount = RandomRange(1, 4);
+			m_CreateTileCount = RandomRange(1, 4);
 	else
 		m_CreateTileCount = 0;
 
@@ -1094,6 +946,190 @@ void EditorForm::OnEnChangeTilerotation()
 	}
 
 	::RedrawWindow(this->m_hWnd, NULLPTR, NULLPTR, RDW_INVALIDATE | RDW_UPDATENOW | RDW_ERASE);
+
+	UpdateData(FALSE);
+}
+
+//void EditorForm::OnEnChangeScalex()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"SacleX : %d 변경", m_ScaleX);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangeScaley()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"SacleY : %d 변경", m_ScaleY);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangeScalez()
+//{
+//	UpdateData(TRUE);
+//
+//	if (RenderManager::Get()->GetGameMode() == GM_2D)
+//	{
+//		m_ScaleZ = 0;
+//
+//		wchar_t Buffer[255];
+//		wsprintf(Buffer, L"Error! 2D 모드일땐 ScaleZ값 변경불가");
+//		AddWorkText(Buffer);
+//
+//		UpdateData(FALSE);
+//		return;
+//	}
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"SacleZ : %d 변경", m_ScaleZ);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangeRotationx()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"RotationX : %d 변경", m_RotationX);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangeRotationy()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"RotationY : %d 변경", m_RotationY);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangeRotationz()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"RotationZ : %d 변경", m_RotationZ);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangePositionx()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"PosX : %d 변경", m_PosX);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangePositiony()
+//{
+//	UpdateData(TRUE);
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"PosY : %d 변경", m_PosY);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//
+//void EditorForm::OnEnChangePositionz()
+//{
+//	UpdateData(TRUE);
+//
+//	if (RenderManager::Get()->GetGameMode() == GM_2D)
+//	{
+//		m_PosZ = 0;
+//
+//		wchar_t Buffer[255];
+//		wsprintf(Buffer, L"Error! 2D 모드일땐 PosZ값 변경불가");
+//		AddWorkText(Buffer);
+//
+//		UpdateData(FALSE);
+//		return;
+//	}
+//
+//	wchar_t Buffer[255];
+//	wsprintf(Buffer, L"PosZ : %d 변경", m_PosZ);
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+//void EditorForm::OnEnChangeTagname()
+//{
+//	UpdateData(TRUE);
+//
+//	CString Buffer;
+//	Buffer = "TagName : ";
+//	Buffer += m_TagName;
+//	Buffer += " 설정";
+//
+//	AddWorkText(Buffer);
+//
+//	UpdateData(FALSE);
+//}
+
+void EditorForm::OnBnClickedCheck1()
+{
+	UpdateData(TRUE);
+
+	if (m_isRandomTile == TRUE)
+		m_isRandomTile = FALSE;
+	else
+		m_isRandomTile = TRUE;
+
+	UpdateData(FALSE);
+}
+
+//랜덤범위
+void EditorForm::OnEnChangeEdit1()
+{
+	UpdateData(TRUE);
+
+	if (m_RandomRange1 < 0)
+		m_RandomRange1 = 0;
+	else if (m_RandomRange1 > m_RandomRange2)
+	{
+		m_RandomRange1 = 0;
+		AddWorkText("Error! 최대보다 더 적은 값을 입력해주세요.");
+	}
+	else if (m_RandomRange1 > m_TileImageBox.GetCount())
+		m_RandomRange1 = m_TileImageBox.GetCount();
+
+	UpdateData(FALSE);
+}
+
+//랜덤범위
+void EditorForm::OnEnChangeEdit2()
+{
+	UpdateData(TRUE);
+
+	if (m_RandomRange2 < 0)
+		m_RandomRange2 = 0;
+	else if (m_RandomRange2 < m_RandomRange1)
+	{
+		m_RandomRange2 = 0;
+		AddWorkText("Error! 최소보다 더 많은 값을 입력해주세요.");
+	}
+	else if (m_RandomRange2 > m_TileImageBox.GetCount())
+		m_RandomRange2 = m_TileImageBox.GetCount();
 
 	UpdateData(FALSE);
 }

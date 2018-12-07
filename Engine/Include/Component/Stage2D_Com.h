@@ -43,8 +43,14 @@ public:
 	void SetLineOn(bool Value);
 
 	void CreateTileMap(int TileCountX, int TileCountY, const Vector3& StartPos, const Vector3& TileScale, STAGE2D_TILE_TYPE tileType, const string& KeyName = "", const TCHAR* FileName = NULLPTR, const string& PathKey = TEXTURE_PATH);
+	void ClearImage();
+	void ClearImage(const Vector3& Pos);
 
 private:
+	void ClearSubImage();
+	void ClearMainImage();
+	void ClearSubImage(const Vector3& Pos);
+	void ClearMainImage(const Vector3& Pos);
 	void CreateTile(const Vector3& StartPos, const Vector3& TileScale, const string& KeyName = "", const TCHAR* FileName = NULLPTR,	const string& PathKey = TEXTURE_PATH);
 	void CreateIsoTile(const Vector3& StartPos, const Vector3& TileScale, const string& KeyName = "", const TCHAR* FileName = NULLPTR, const string& PathKey = TEXTURE_PATH);
 
