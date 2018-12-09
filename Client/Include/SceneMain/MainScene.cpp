@@ -98,24 +98,6 @@ bool MainScene::Init()
 	SAFE_RELEASE(BoomObject);
 	SAFE_RELEASE(bulletBoom_Com);
 
-	GameObject*	TestPixelColl = GameObject::CreateObject("PixelColl", Default);
-	Renderer_Com* PixelRenderer = TestPixelColl->AddComponent<Renderer_Com>("PixelCollRenderer");
-	PixelRenderer->SetMesh("TextureRect");
-
-	Material_Com* pixelMaterial = TestPixelColl->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	pixelMaterial->SetDiffuseTexture(0, "TestPixelColl", TEXT("PixelCollider.bmp"));
-
-	ColliderPixel_Com* ColliderPixel = TestPixelColl->AddComponent<ColliderPixel_Com>("TestPixel");
-	Pixel24	tPixel = { 255, 0, 255 };
-	ColliderPixel->SetInfo(Vector3(0.0f, 0.0f, 0.0f), tPixel, "PixelCollider.bmp");
-	Transform_Com* pTransform = TestPixelColl->GetTransform();
-	pTransform->SetWorldPos(500.0f, 200.0f, 0.0f);
-	pTransform->SetWorldScale(200.0f, 50.0f, 1.0f);
-	SAFE_RELEASE(PixelRenderer);
-	SAFE_RELEASE(pixelMaterial);
-	SAFE_RELEASE(ColliderPixel);
-	SAFE_RELEASE(TestPixelColl);
-
 	GameObject* BarObject = GameObject::CreateObject("TestBar", UILayer);
 	BarObject->GetTransform()->SetWorldPos(200.0f, 600.0f, 0.0f);
 

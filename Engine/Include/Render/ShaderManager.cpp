@@ -157,6 +157,14 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
+	Entry[ST_VERTEX] = "FadeVS";
+	Entry[ST_PIXEL] = "FadePS";
+	if (LoadShader(FADE_SHADER, TEXT("FadeShader.fx"), Entry) == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
 	//상수버퍼 Create
 	CreateCBuffer("Transform", sizeof(TransformCBuffer), 0, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("Material", sizeof(MaterialCbuffer), 1, CST_VERTEX | CST_PIXEL);
@@ -167,6 +175,7 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("BarCBuffer", sizeof(BarCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("CheckBoxCBuffer", sizeof(CheckBoxCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("AlphaBatCBuffer", sizeof(AlphaBatCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("FadeCBuffer", sizeof(FadeCBuffer), 9, CST_VERTEX | CST_PIXEL);
 
 	return true;
 }

@@ -1,14 +1,22 @@
 #include "ClientHeader.h"
 #include "LogoScene.h"
 #include <Component/BackColor_Com.h>
+
 #include <UserComponent/LogoAlphaBat_Com.h>
+
+
+#include <SceneMain/MenuScene.h>
 
 LogoScene::LogoScene()
 {
+	m_NextTime = 8.0f;
+	m_NextTimeVar = 0.0f;
+	m_FadeCom = NULLPTR;
 }
 
 LogoScene::~LogoScene()
 {
+	SAFE_RELEASE(m_FadeCom);
 }
 
 bool LogoScene::Init()
@@ -32,6 +40,11 @@ bool LogoScene::Init()
 	SAFE_RELEASE(UILayer);
 	SAFE_RELEASE(mainCamera);
 
+	//·çÇÁ
+	auto LogoBGM = SoundManager::Get()->FindSoundEffect("LogoBGM")->CreateInstance();
+	LogoBGM->Play(true);
+	SoundManager::Get()->CreateBGMList("LogoBGM", move(LogoBGM));
+
 	return true;
 }
 
@@ -42,6 +55,30 @@ int LogoScene::Input(float DeltaTime)
 
 int LogoScene::Update(float DeltaTime)
 {
+	m_NextTimeVar += DeltaTime;
+
+	Layer* uiLayer = m_Scene->FindLayer("UI");
+
+	if (m_NextTimeVar >= m_NextTime)
+	{
+		m_NextTimeVar = 0.0f;
+
+		GameObject* newFade = GameObject::CreateObject("Fade", uiLayer);
+		m_FadeCom = newFade->AddComponent<Fade_Com>("Fade");
+		m_FadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_INOUT);
+		m_FadeCom->Start();
+
+		SAFE_RELEASE(newFade);
+
+	}
+	SAFE_RELEASE(uiLayer);
+
+	if (m_FadeCom != NULLPTR && m_FadeCom->GetIsOver() == true)
+	{	
+		SceneManager::Get()->CreateNextScene();
+		SceneManager::Get()->AddSceneComponent<MenuScene>("MenuScene", false);
+	}
+
 	return 0;
 }
 

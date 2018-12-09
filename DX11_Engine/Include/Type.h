@@ -185,7 +185,15 @@ struct JEONG_DLL AlphaBatCBuffer
 	Vector4 Light;
 	float RangeX;
 	float RangeY;
-	float Radious;
+	Vector2 Empty;
+};
+
+struct JEONG_DLL FadeCBuffer
+{
+	Vector4 Light;
+	bool isStart;
+	float Speed;
+	bool isFadeIn;
 	float Empty;
 };
 

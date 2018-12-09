@@ -16,6 +16,8 @@ public:
 	MenuEnemy_Com* Clone() override;
 	void AfterClone() override;
 
+private:
+
 protected:
 	MenuEnemy_Com();
 	MenuEnemy_Com(const MenuEnemy_Com& CopyData);

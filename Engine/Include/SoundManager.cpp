@@ -26,6 +26,7 @@ bool SoundManager::Init()
 
 	CreateSoundEffect("BGM", TEXT("bgm_Dnf.wav"));
 	CreateSoundEffect("Effect", TEXT("teleporter_send.wav"));
+	CreateSoundEffect("LogoBGM", TEXT("Over the top (short intro).wav"));
 
 	return true;
 }
@@ -57,7 +58,7 @@ void SoundManager::CreateSoundEffect(const string & KeyName, const wstring & Fil
 		FullPath = pPath;
 
 	FullPath += FileName;
-	
+
 	unique_ptr<SoundEffect> newSoundEffect = make_unique<SoundEffect>(m_AudioEngine.get(), FullPath.c_str());
 	m_SoundEffectMap.insert(make_pair(KeyName, move(newSoundEffect)));
 }

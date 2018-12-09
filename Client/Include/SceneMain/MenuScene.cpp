@@ -20,6 +20,7 @@
 #include "Component/Button_Com.h"
 #include "Component/CheckBox_Com.h"
 #include "Component/RadioButton_Com.h"
+#include "Component/BackColor_Com.h"
 
 MenuScene::MenuScene()
 {
@@ -47,23 +48,20 @@ bool MenuScene::Init()
 	buttonCom->SetStateColor(BS_CLICK, Vector4::Red);
 	buttonCom->SetStateColor(BS_MOUSEOVER, Vector4::White * 2.0f);
 
-	GameObject* newCheck = GameObject::CreateObject("CheckBox", UILayer);
-	newCheck->GetTransform()->SetWorldPos(300.0f, 360.0f, 0.0f);
-	CheckBox_Com* CheckCom = newCheck->AddComponent<CheckBox_Com>("CheckBox");
+	GameObject* newColorObject = GameObject::CreateObject("BackColor", UILayer);
+	BackColor_Com* newColorCom = newColorObject->AddComponent<BackColor_Com>("BackColor");
 
-	GameObject* newRadio = GameObject::CreateObject("CheckBox", UILayer);
-	RadioButton_Com* RadioCom = newRadio->AddComponent<RadioButton_Com>("CheckBox");
-	RadioCom->CreateRadioGroup("Group1", 30, 10, newRadio->GetTransform()->GetWorldPos());
+	Vector4 Color = ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0);
+	newColorCom->SetBackColor(Color);
 
-	SAFE_RELEASE(newRadio);
-	SAFE_RELEASE(RadioCom);
+	SAFE_RELEASE(newColorCom);
+	SAFE_RELEASE(newColorObject);
+
 	SAFE_RELEASE(Default);
 	SAFE_RELEASE(UILayer);
 	SAFE_RELEASE(newButton);
 	SAFE_RELEASE(buttonCom);
 	SAFE_RELEASE(mainCamera);
-	SAFE_RELEASE(newCheck);
-	SAFE_RELEASE(CheckCom);
 
 	return true;
 }

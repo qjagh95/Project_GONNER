@@ -35,6 +35,7 @@
 #define STANDARD_UV_STATIC_SHADER "StandardUVStaticShader"
 #define STANDARD_INSTANCE_SHADER "StandardInstanceShader"
 #define ALPHABAT_SHADER "AlphaBatShader"
+#define FADE_SHADER "FadeShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"

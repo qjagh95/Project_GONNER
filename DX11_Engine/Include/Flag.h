@@ -187,4 +187,11 @@ enum LOGO_ALPHABAT
 	LA_SPACAL,
 };
 
+enum FADE_OPTION
+{
+	FO_IN,
+	FO_OUT,
+	FO_INOUT,
+};
+
 JEONG_END

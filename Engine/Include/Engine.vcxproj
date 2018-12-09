@@ -253,6 +253,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="Flag.h" />
+    <ClInclude Include="UserComponent\Fade_Com.h" />
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h" />
     <ClInclude Include="UserComponent\MenuEnemy_Com.h" />
     <ClInclude Include="UserComponent\UserComponent_Base.h" />
@@ -326,6 +327,7 @@
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="UserComponent\Fade_Com.cpp" />
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp" />
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp" />
     <ClCompile Include="UserComponent\UserComponent_Base.cpp" />
@@ -414,6 +416,16 @@
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\FadeShader.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">FadeVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">FadeVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">FadeVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">FadeVS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Share.fx">

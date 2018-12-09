@@ -244,6 +244,9 @@
     <Filter Include="Core\08. Object\Component\UserComponent\02. MenuEnemy_Com">
       <UniqueIdentifier>{000acea0-0d1a-4763-83a1-b1a27b31d12e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\03. Fade">
+      <UniqueIdentifier>{c52762dc-eece-4642-8e30-f523e66f2f5d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -459,6 +462,9 @@
     <ClInclude Include="UserComponent\MenuEnemy_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy_Com</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\Fade_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Fade</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -664,6 +670,9 @@
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy_Com</Filter>
     </ClCompile>
+    <ClCompile Include="UserComponent\Fade_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Fade</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
@@ -701,6 +710,9 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\AlphaBatShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\FadeShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

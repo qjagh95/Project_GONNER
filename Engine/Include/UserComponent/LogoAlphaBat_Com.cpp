@@ -24,16 +24,13 @@ bool LogoAlphaBat_Com::Init()
 	AlphabatRender->SetMesh("TextureRect");
 	AlphabatRender->SetRenderState(ALPHA_BLEND);
 	AlphabatRender->SetShader(ALPHABAT_SHADER);
-	AlphabatRender->CreateRendererCBuffer("AlphaBatCBuffer", sizeof(AlphaBatCBuffer));
-
 	AlphabatRender->SetScreenRender(true);
+	AlphabatRender->CreateRendererCBuffer("AlphaBatCBuffer", sizeof(AlphaBatCBuffer));
 	SAFE_RELEASE(AlphabatRender);
 
 	m_Transform->SetWorldScale(150.0f, 300.0f, 1.0f);
 	m_CBuffer.Light = Vector4::White;
-	m_CBuffer.RangeX = 0.0f;
-	m_CBuffer.RangeY = 0.0f;
-	m_CBuffer.Radious = 0.5f;
+
 
 	return true;
 }
@@ -74,7 +71,6 @@ int LogoAlphaBat_Com::Update(float DeltaTime)
 	if (m_Transform->GetWorldRotationZ() <= -2.0f)
 	{
 		m_isReturn = true;
-		m_Count++;
 	}
 	else if (m_Transform->GetWorldRotationZ() >= 2.0f)
 	{
@@ -89,12 +85,10 @@ int LogoAlphaBat_Com::Update(float DeltaTime)
 
 	if (m_Count >= 5)
 	{
-		m_AlphaAngle += 10.0f * DeltaTime;
+		m_AlphaAngle += 0.4f * DeltaTime;
 
-		m_CBuffer.RangeX = abs(cosf(DegreeToRadian(-m_AlphaAngle)));
-		m_CBuffer.RangeY = abs(sinf(DegreeToRadian(m_AlphaAngle)));
-
-		cout << m_CBuffer.RangeX << endl;
+		m_CBuffer.RangeX = m_AlphaAngle;
+		m_CBuffer.RangeY = m_AlphaAngle;
 	}
 
 	return 0;
@@ -134,6 +128,7 @@ void LogoAlphaBat_Com::AfterClone()
 void LogoAlphaBat_Com::SetLogoAlphaBat(LOGO_ALPHABAT Data)
 {
 	Material_Com* getMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	getMat->SetDiffuseTexture(1, "CircleAlpha", TEXT("CircleAlphaMap.png"));
 
 	switch (Data)
 	{
