@@ -9,7 +9,7 @@ JEONG_USING
 
 JEONG::Tile2D_Com::Tile2D_Com()
 	:m_Shader(NULLPTR), m_Mesh(NULLPTR), m_Layout(NULLPTR), m_TileImage(NULLPTR), m_TileImageObject(NULLPTR),
-	m_Dir(0), m_ImageCount(0)
+	m_Dir(0)
 {
 	m_ComType = CT_STAGE2D;
 	SetTag("Stage2D");
@@ -151,11 +151,15 @@ void JEONG::Tile2D_Com::Save(BineryWrite & Writer)
 	if (m_TileImage != NULLPTR)
 		m_TileImage->Save(Writer);
 
-	//Writer.WriteData(m_vecTileImage.size());
+	Writer.WriteData(m_vecImage.empty());
 
-	//for (size_t i = 0; i < m_vecTileImage.size(); i++)
-	//	m_vecTileImage[i]->Save(Writer);
+	if (m_vecImage.empty() == true)
+		return;
 
+	Writer.WriteData(m_vecImage.size());
+
+	for (size_t i = 0; i < m_vecImage.size(); i++)
+		m_vecImage[i]->Save(Writer);
 }
 
 void JEONG::Tile2D_Com::Load(BineryRead & Reader)
@@ -204,13 +208,18 @@ void JEONG::Tile2D_Com::Load(BineryRead & Reader)
 	if(m_TileImage != NULLPTR)
 		m_TileImage->Load(Reader);
 
-	//size_t SubImageSize;
-	//Reader.ReadData(SubImageSize);
+	bool Temp;
+	Reader.ReadData(Temp);
 
-	//for (size_t i = 0; i < SubImageSize; i++)
-	//{
-	//	
-	//}
+	if (Temp == true)
+		return;
+
+	size_t SubImageSize = 0;
+	Reader.ReadData(SubImageSize);
+	SetSubTileImage(m_ImageFileName ,SubImageSize);
+
+	for (size_t i = 0; i < SubImageSize; i++)
+		m_vecImage[i]->Load(Reader);
 }
 
 void JEONG::Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
@@ -292,10 +301,13 @@ void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	}
 }
 
-void JEONG::Tile2D_Com::SetSubTileImage(size_t ImageCount)
+void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCount)
 {
-	if (m_TileImage == NULLPTR)
+	if (m_TileImage == NULLPTR || m_ImageFileName.empty() == true)
 		return;
+
+	if (FileName != m_ImageFileName)
+		m_ImageFileName = FileName;
 
 	string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
 	Path += m_ImageFileName;
@@ -343,32 +355,32 @@ void JEONG::Tile2D_Com::SetSubTileImage(size_t ImageCount)
 				break;
 			case 90:
 			{
-				Vector3 rRange = Vector3((float)RandomRange((int)TilePos.x, (int)(TilePos.x - TileScale.x)), TilePos.y + TileScale.y, 0.0f);
-
+				Vector3 rRange = Vector3((float)RandomRange((int)TilePos.x, (int)(TilePos.x - (TileScale.x / 2.0f))), TilePos.y + TileScale.y, 0.0f);
+				
 				newImageObject->GetTransform()->SetWorldRotZ(-90.0f + RandomAngle);
-				newImageObject->GetTransform()->SetWorldPos(rRange);
+				newImageObject->GetTransform()->SetWorldPos(rRange.x , TilePos.y + TileScale.y , 0.0f);
 
 				m_TileImage->SetDistance(300.0f);
 			}
 				break;
 			case -90:
 			{
-				//Vector3 rRange = Vector3((float)RandomRange((int)(TilePos.x + TileScale.x), (int)(TilePos.x - TileScale.x)), TilePos.y + TileScale.y, 0.0f);
+				int RandomPos = RandomRange(0, (int)TileScale.x);
+				newImageObject->GetTransform()->SetWorldRotZ(90.0f + RandomAngle);
+				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPos, TilePos.y, 0.0f);
 
-				//newImageObject->GetTransform()->SetWorldRotZ(90.0f + RandomAngle);
-				//newImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y, 0.0f);
-
-				//m_TileImage->SetDistance(200.0f);
+				m_TileImage->SetDistance(200.0f);
 			}
 				break;
 			case 180:
 			{
-				//Vector3 rRange = Vector3(TilePos.x + TileScale.x, (float)RandomRange((int)TilePos.y, (int)(TilePos.y + TileScale.y)), 0.0f);
+				int RandomPosX = RandomRange(0, (int)TileScale.x);
+				int RandomPosY = RandomRange(0, (int)TileScale.y);
 
-				//newImageObject->GetTransform()->SetWorldRotZ(180.0f + RandomAngle);
-				//newImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y + TileScale.y, 0.0f);
+				newImageObject->GetTransform()->SetWorldRotZ(180.0f + RandomAngle);
+				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPosX, TilePos.y + RandomPosY, 0.0f);
 
-				//m_TileImage->SetDistance(100.0f);
+				m_TileImage->SetDistance(100.0f);
 			}
 				break;
 		}

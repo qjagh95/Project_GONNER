@@ -1,8 +1,7 @@
 #include "ClientHeader.h"
-#include "StartScene.h"
+#include "MenuScene.h"
 #include "GameObject.h"
 #include "MainScene.h"
-#include "LoadingScene.h"
 #include "Device.h"
 
 #include "Thread.h"
@@ -22,15 +21,15 @@
 #include "Component/CheckBox_Com.h"
 #include "Component/RadioButton_Com.h"
 
-StartScene::StartScene()
+MenuScene::MenuScene()
 {
 }
 
-StartScene::~StartScene()
+MenuScene::~MenuScene()
 {
 }
 
-bool StartScene::Init()
+bool MenuScene::Init()
 {
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
@@ -44,7 +43,7 @@ bool StartScene::Init()
 	newButton->GetTransform()->SetWorldScale(200.0f, 50.0f, 0.0f);
 
 	Button_Com* buttonCom = newButton->AddComponent<Button_Com>("StartButton");
-	buttonCom->SetCallBack(&StartScene::StartButtonActive, this);
+	buttonCom->SetCallBack(&MenuScene::StartButtonActive, this);
 	buttonCom->SetStateColor(BS_CLICK, Vector4::Red);
 	buttonCom->SetStateColor(BS_MOUSEOVER, Vector4::White * 2.0f);
 
@@ -69,37 +68,37 @@ bool StartScene::Init()
 	return true;
 }
 
-int StartScene::Input(float DeltaTime)
+int MenuScene::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int StartScene::Update(float DeltaTime)
+int MenuScene::Update(float DeltaTime)
 {
 	return 0;
 }
 
-int StartScene::LateUpdate(float DeltaTime)
+int MenuScene::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void StartScene::Collision(float DeltaTime)
+void MenuScene::Collision(float DeltaTime)
 {
 
 }
 
-void StartScene::CollisionLateUpdate(float DeltaTime)
+void MenuScene::CollisionLateUpdate(float DeltaTime)
 {
 
 }
 
-void StartScene::Render(float DeltaTime)
+void MenuScene::Render(float DeltaTime)
 {
 
 }
 
-void StartScene::StartButtonActive(float DeltaTime)
+void MenuScene::StartButtonActive(float DeltaTime)
 {
 	SceneManager::Get()->CreateNextScene();
 	SceneManager::Get()->AddSceneComponent<MainScene>("MainScene", false);

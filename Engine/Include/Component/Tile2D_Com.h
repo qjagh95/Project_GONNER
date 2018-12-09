@@ -30,13 +30,14 @@ public:
 	void SetWorldPos(const Vector3& Pos);
 
 	void SetMainTileImage(const string& FileName, int Dir);
-	void SetSubTileImage(size_t ImageCount);
+	void SetSubTileImage(const string& FileName ,size_t ImageCount);
 	TileImage_Com* GetMainTileImage() const { return m_TileImage; }
 	GameObject* GetSubTileImageObject(size_t index) const;
 	string GetImageFileName() const { return m_ImageFileName; }
 	int GetDir() const { return m_Dir; }
 	void ClearSubImage();
 	void ClearMainImage();
+	size_t GetSubSize() const { return m_vecTileImage.size(); }
 
 private:
 	TILE2D_OPTION m_TileOption;
@@ -52,7 +53,6 @@ private:
 	vector<GameObject*> m_vecTileImage;
 	vector<TileImage_Com*> m_vecImage;		//Release용 벡터 아무것도안함.
 	int m_Dir;
-	size_t m_ImageCount;
 
 protected:
 	Tile2D_Com();

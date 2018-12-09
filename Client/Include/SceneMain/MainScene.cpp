@@ -1,12 +1,11 @@
 #include "ClientHeader.h"
 #include "MainScene.h"
-#include "StartScene.h"
+#include "MenuScene.h"
 #include "StaticTestScene.h"
 #include "GameObject.h"
 
 #include "Thread.h"
 #include "ThreadManager.h"
-#include "LoadingThread.h"
 
 #include "Scene/Scene.h"
 #include "scene/Layer.h"
@@ -41,8 +40,6 @@ MainScene::~MainScene()
 
 bool MainScene::Init()
 {
-	//LoadingThread* loadThread = (LoadingThread*)ThreadManager::Get()->FindThread("LoadingThread");
-
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
 	mainCamera->SetNear(0.0f);
@@ -54,28 +51,24 @@ bool MainScene::Init()
 	Layer* UILayer = m_Scene->FindLayer("UI");
 	Layer* TileLayer = m_Scene->FindLayer("Tile");
 
-	GameObject* BackObject = GameObject::CreateObject("BackObject", BackLayer);
-	BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
-
-	Vector4 A = ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0);
-	BackCom->SetBackColor(ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0));
+	//GameObject* BackObject = GameObject::CreateObject("BackObject", BackLayer);
+	//BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
+	//BackCom->SetBackColor(ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0));
 
 	ExcelManager::Get()->ReadVector4Data("BaclColor", 0, 0);
 
-	SAFE_RELEASE(BackCom);
-	SAFE_RELEASE(BackObject);
+	//SAFE_RELEASE(BackCom);
+	//SAFE_RELEASE(BackObject);
 
 	GameObject*	pStageObj = GameObject::CreateObject("StageObj", TileLayer);
 	Stage2D_Com* pStage = pStageObj->AddComponent<Stage2D_Com>("Stage");
 	pStage->CreateTileMap(100, 100, Vector3::Zero, Vector3(160.0f, 80.0f, 1.0f), STT_ISO);
 	pStage->SetLineOn(true);
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(pStage);
 	SAFE_RELEASE(pStageObj);
 
 	GameObject* MonsterObject = GameObject::CreateObject("Monster", Default);
 	Monster_Com* monster_Com = MonsterObject->AddComponent<Monster_Com>("Monster_Com");
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(MonsterObject);
 	SAFE_RELEASE(monster_Com);
 
@@ -86,29 +79,22 @@ bool MainScene::Init()
 		SAFE_RELEASE(player_Com);
 	}
 
-	//loadThread->AddLoadingCount();
-	//loadThread->AddLoadingCount();
-	//loadThread->AddLoadingCount();
-
 	mainCamera->SetTarget(PlayerObject);
 	SAFE_RELEASE(mainCamera);
 	SAFE_RELEASE(PlayerObject);
 
 	GameObject* BulletObject = GameObject::CreateProtoType("Bullet_Clone", false);
 	Bullet_Com* bullet_Com = BulletObject->AddComponent<Bullet_Com>("Bullet_Com");
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(bullet_Com);
 	SAFE_RELEASE(BulletObject);
 
 	GameObject* BulletObject2 = GameObject::CreateProtoType("BulletRot_Clone", false);
 	BulletRot_Com* bullet_Com2 = BulletObject2->AddComponent<BulletRot_Com>("BulletRot_Com");
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(BulletObject2);
 	SAFE_RELEASE(bullet_Com2);
 
 	GameObject* BoomObject = GameObject::CreateProtoType("Boom", false);
 	BulletBoom_Com* bulletBoom_Com = BoomObject->AddComponent<BulletBoom_Com>("Boom_Com");
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(BoomObject);
 	SAFE_RELEASE(bulletBoom_Com);
 
@@ -137,7 +123,6 @@ bool MainScene::Init()
 	m_TestBar->SetDir(BD_LEFT);
 	m_TestBar->SetValue(100.0f);
 	m_TestBar->SetScale(100.0f, 30.0f, 0.0f);
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(BarObject);
 
 	GameObject* SlotObject1 = GameObject::CreateObject("Slot1", UILayer);
@@ -146,9 +131,6 @@ bool MainScene::Init()
 	SlotObject1->GetTransform()->SetWorldPos(Vector3(1030.0f, 300.0f, 0.0f));
 	SlotObject2->GetTransform()->SetWorldPos(Vector3(1060.0f, 300.0f, 0.0f));
 	SlotObject3->GetTransform()->SetWorldPos(Vector3(1090.0f, 300.0f, 0.0f));
-	//loadThread->AddLoadingCount();
-	//loadThread->AddLoadingCount();
-	//loadThread->AddLoadingCount();
 
 	IconSlot_Com* SlotCom1 = SlotObject1->AddComponent<IconSlot_Com>("Slot1");
 	SlotCom1->SetSlotIndex(0);
@@ -168,8 +150,6 @@ bool MainScene::Init()
 	GameObject* IconObject2 = GameObject::CreateObject("Icon2", UILayer);
 	IconObject1->GetTransform()->SetWorldPos(Vector3(400.0f, 100.0f, 0.0f));
 	IconObject2->GetTransform()->SetWorldPos(Vector3(500.0f, 100.0f, 0.0f));
-	//loadThread->AddLoadingCount();
-	//loadThread->AddLoadingCount();
 
 	UICon_Com* IconCom1 = IconObject1->AddComponent<UICon_Com>("Icon1");
 	UICon_Com* IconCom2 = IconObject2->AddComponent<UICon_Com>("Icon2");
@@ -191,13 +171,11 @@ bool MainScene::Init()
 	m_TestText->SetRenderArea(0, 0, 200, 200);
 	m_TestText->SetIsShow(true);
 	TextObject1->GetTransform()->SetWorldPos(Vector3(300.0f, 300.0f, 0));
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(TextObject1);
 
 	GameObject* newCheck = GameObject::CreateObject("CheckBox", UILayer);
 	newCheck->GetTransform()->SetWorldPos(300.0f, 360.0f, 0.0f);
 	CheckBox_Com* CheckCom = newCheck->AddComponent<CheckBox_Com>("CheckBox");
-	//loadThread->AddLoadingCount();
 	SAFE_RELEASE(newCheck);
 	SAFE_RELEASE(CheckCom);
 

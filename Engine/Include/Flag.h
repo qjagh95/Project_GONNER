@@ -175,4 +175,16 @@ enum TILE2D_OPTION
 	T2D_NOMOVE,
 };
 
+enum LOGO_ALPHABAT
+{
+	LA_A,
+	LA_R,
+	LA_T,
+	LA_I,
+	LA_N,
+	LA_H,
+	LA_E,
+	LA_SPACAL,
+};
+
 JEONG_END

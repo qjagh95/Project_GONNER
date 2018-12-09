@@ -46,6 +46,14 @@ bool JEONG::ExcelManager::Init()
 		c.push_back(ReadVector4Data("Temp2", Vector2(0.0f, i + 35)));
 	}
 	*/
+
+	//string Path = PathManager::Get()->FindPathMultiByte(TEXTURE_PATH);
+	//Path += "LogoAlphaBat\\";
+	//Path += "AIH_WHITE_sprite_00";
+
+	//for (size_t i = 0; i < 8; i++)
+	//	WriteData("LogoFileName", 0, i, Path + to_string(i + 1) + ".png");
+
 	return true;
 }
 

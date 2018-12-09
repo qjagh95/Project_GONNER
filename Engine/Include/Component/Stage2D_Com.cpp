@@ -156,7 +156,7 @@ void JEONG::Stage2D_Com::Render(float DeltaTime)
 
 JEONG::Stage2D_Com * Stage2D_Com::Clone()
 {
-	return new Stage2D_Com(*this);
+	return new JEONG::Stage2D_Com(*this);
 }
 
 void JEONG::Stage2D_Com::AfterClone()
@@ -598,10 +598,10 @@ void JEONG::Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & Fil
 	if (Index == -1)
 		return;
 
-	if (m_vecTile2DCom[Index]->GetSubTileImageObject(0) != NULLPTR)
+	if (m_vecTile2DCom[Index]->GetSubSize() == ImageCount)
 		return;
 
-	m_vecTile2DCom[Index]->SetSubTileImage(ImageCount);
+	m_vecTile2DCom[Index]->SetSubTileImage(FileName ,ImageCount);
 }
 
 void JEONG::Stage2D_Com::SetRotation(const Vector3& Pos, float Angle)

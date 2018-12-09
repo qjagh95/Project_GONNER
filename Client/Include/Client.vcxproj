@@ -226,10 +226,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SceneMain\LoadingScene.cpp" />
-    <ClCompile Include="SceneMain\LoadingThread.cpp" />
+    <ClCompile Include="SceneMain\LogoScene.cpp" />
     <ClCompile Include="SceneMain\MainScene.cpp" />
-    <ClCompile Include="SceneMain\StartScene.cpp" />
+    <ClCompile Include="SceneMain\MenuScene.cpp" />
     <ClCompile Include="SceneMain\StaticTestScene.cpp" />
     <ClCompile Include="UserComponent\BulletBoom_Com.cpp" />
     <ClCompile Include="UserComponent\BulletRot_Com.cpp" />
@@ -242,10 +241,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHeader.h" />
-    <ClInclude Include="SceneMain\LoadingScene.h" />
-    <ClInclude Include="SceneMain\LoadingThread.h" />
+    <ClInclude Include="SceneMain\LogoScene.h" />
     <ClInclude Include="SceneMain\MainScene.h" />
-    <ClInclude Include="SceneMain\StartScene.h" />
+    <ClInclude Include="SceneMain\MenuScene.h" />
     <ClInclude Include="SceneMain\StaticTestScene.h" />
     <ClInclude Include="UserComponent\BulletBoom_Com.h" />
     <ClInclude Include="UserComponent\BulletRot_Com.h" />

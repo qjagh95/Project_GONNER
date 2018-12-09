@@ -151,7 +151,7 @@ void JEONG::Material_Com::SetMaterial(const Vector4 & Diffuse, int Container, in
 		m_vecMaterial[Container].push_back(CreateSubSet());
 
 	//색상정보셋팅
-	m_vecMaterial[Container][Subset]->MatrialInfo.Diffuse = Diffuse;
+	m_vecMaterial[Container][Subset]->MatrialInfo.Diffuse = Vector4(Diffuse.x, Diffuse.y , Diffuse.z , Diffuse.w );
 }
 
 void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & KeyName, int Container, int Subset)
@@ -220,6 +220,52 @@ void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, Texture * pTextu
 		getMaterial->vecDiffuseTexture.resize(RegisterNumber + 1);
 
 	getMaterial->vecDiffuseTexture[RegisterNumber] = pTexture;
+}
+
+void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const string & FileFullPath, int Container, int Subset)
+{
+	if (Container >= m_vecMaterial.size())
+	{
+		vector<JEONG::SubsetMaterial*> newVec;
+		m_vecMaterial.push_back(newVec);
+	}
+
+	if (Subset >= m_vecMaterial[Container].size())
+	{
+		JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+		m_vecMaterial[Container].push_back(newMaterial);
+	}
+
+	JEONG::SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
+	ResourceManager::Get()->CreateTextureFromFullPath(KeyName, CA2W(FileFullPath.c_str()));
+
+	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
+		getMaterial->vecDiffuseTexture.resize(RegisterNumber + 1);
+
+	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
+}
+
+void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const wstring & FileFullPath, int Container, int Subset)
+{
+	if (Container >= m_vecMaterial.size())
+	{
+		vector<JEONG::SubsetMaterial*> newVec;
+		m_vecMaterial.push_back(newVec);
+	}
+
+	if (Subset >= m_vecMaterial[Container].size())
+	{
+		JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+		m_vecMaterial[Container].push_back(newMaterial);
+	}
+
+	JEONG::SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
+	ResourceManager::Get()->CreateTextureFromFullPath(KeyName, FileFullPath.c_str());
+
+	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
+		getMaterial->vecDiffuseTexture.resize(RegisterNumber + 1);
+
+	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
 }
 
 void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string & KeyName, const TCHAR * FullPath, int Container, int Subset)

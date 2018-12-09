@@ -34,6 +34,7 @@
 #define FULLSCREEN_SHADER "FullScreenShader"
 #define STANDARD_UV_STATIC_SHADER "StandardUVStaticShader"
 #define STANDARD_INSTANCE_SHADER "StandardInstanceShader"
+#define ALPHABAT_SHADER "AlphaBatShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"

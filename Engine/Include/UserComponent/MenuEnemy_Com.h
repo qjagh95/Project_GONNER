@@ -1,9 +1,9 @@
 #pragma once
-#include "Scene\SceneComponent.h"
+#include "UserComponent_Base.h"
 
-JEONG_USING
+JEONG_BEGIN
 
-class StartScene : public SceneComponent
+class JEONG_DLL MenuEnemy_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -13,11 +13,17 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
+	MenuEnemy_Com* Clone() override;
+	void AfterClone() override;
 
-	void StartButtonActive(float DeltaTime);
+protected:
+	MenuEnemy_Com();
+	MenuEnemy_Com(const MenuEnemy_Com& CopyData);
+	~MenuEnemy_Com();
 
 public:
-	StartScene();
-	~StartScene();
+	friend class GameObject;
 };
+
+JEONG_END
 

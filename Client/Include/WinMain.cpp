@@ -6,13 +6,14 @@
 #include "Scene/Scene.h"
 
 #include "SceneMain/MainScene.h"
-#include "SceneMain/StartScene.h"
+#include "SceneMain/MenuScene.h"
+#include "SceneMain/LogoScene.h"
 
 JEONG_USING
 
 int APIENTRY wWinMain(_In_ HINSTANCE hIstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 {
-	if (Core::Get()->Init(hIstance, 1280, 720, TEXT("JeongRealEngine"), TEXT("JeongRealEngine"), IDI_ICON1, IDI_ICON1) == false)
+	if (Core::Get()->Init(hIstance, 1920, 1080, TEXT("JeongRealEngine"), TEXT("JeongRealEngine"), IDI_ICON1, IDI_ICON1) == false)
 	{
 		Core::Delete();
 		return 0;
@@ -22,7 +23,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hIstance, _In_opt_ HINSTANCE hPrevInstance,
 	Core::Get()->SetGameMode(GM_2D);
 
 	//MainScene추가
-	SceneManager::Get()->AddSceneComponent<StartScene>("StartScene");
+	SceneManager::Get()->AddSceneComponent<LogoScene>("LogoScene");
 
 	//Run에서 메세지 무한루프를(로직) 돈다.
 	//꺼지면 Delete, Result = 0

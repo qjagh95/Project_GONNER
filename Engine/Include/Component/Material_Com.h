@@ -39,6 +39,9 @@ public:
 	void SetDiffuseTexture(int RegisterNumber, const string& KeyName, int Container = 0, int Subset = 0);
 	void SetDiffuseTexture(int RegisterNumber, const string& KeyName, const TCHAR* FileName, const string& PathKey = TEXTURE_PATH, int Container = 0, int Subset = 0);
 	void SetDiffuseTexture(int RegisterNumber, Texture* pTexture, int Container = 0, int Subset = 0);
+
+	void SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const string& FileFullPath, int Container = 0, int Subset = 0);
+	void SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const wstring& FileFullPath, int Container = 0, int Subset = 0);
 	void SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const TCHAR* FullPath, int Container = 0, int Subset = 0);
 	void SetSampler(int RegisterNumber, const string& KeyName, int Container = 0, int Subset = 0);
 	void SetShader(int Container = 0, int Subset = 0);

@@ -235,6 +235,15 @@
     <Filter Include="Core\08. Object\Component\BaseComponent\15. Number">
       <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\Base">
+      <UniqueIdentifier>{1a8c0607-87ad-4974-b685-ecca3ee3ed3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\01. LogoAlphaBat">
+      <UniqueIdentifier>{aa1f1ba4-efc3-4332-8b25-072de2d50328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MenuEnemy_Com">
+      <UniqueIdentifier>{000acea0-0d1a-4763-83a1-b1a27b31d12e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -308,9 +317,6 @@
     </ClInclude>
     <ClInclude Include="KeyInput.h">
       <Filter>Core\04. Key</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\UserComponent_Base.h">
-      <Filter>Core\08. Object\Component\UserComponent</Filter>
     </ClInclude>
     <ClInclude Include="Component\Camera_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\05. Camera</Filter>
@@ -444,6 +450,15 @@
     <ClInclude Include="Component\Number_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\15. Number</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\UserComponent_Base.h">
+      <Filter>Core\08. Object\Component\UserComponent\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\LogoAlphaBat_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\MenuEnemy_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy_Com</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -507,9 +522,6 @@
     </ClCompile>
     <ClCompile Include="KeyInput.cpp">
       <Filter>Core\04. Key</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\UserComponent_Base.cpp">
-      <Filter>Core\08. Object\Component\UserComponent</Filter>
     </ClCompile>
     <ClCompile Include="Component\Camera_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\05. Camera</Filter>
@@ -643,6 +655,15 @@
     <ClCompile Include="Component\Number_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\15. Number</Filter>
     </ClCompile>
+    <ClCompile Include="UserComponent\UserComponent_Base.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\MenuEnemy_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy_Com</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
@@ -677,6 +698,9 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\BackColorShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\AlphaBatShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

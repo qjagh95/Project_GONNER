@@ -17,7 +17,7 @@ public:
 	BackColor_Com* Clone() override;
 	void AfterClone() override;
 
-	void SetBackColor(const Vector4& Color) { m_Color = Color / 255.0f; }
+	void SetBackColor(const Vector4& Color) { m_Color = Color; }
 
 private:
 	Material_Com* m_Material;

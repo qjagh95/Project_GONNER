@@ -180,4 +180,13 @@ struct JEONG_DLL BarCBuffer
 	Vector4 Light;
 };
 
+struct JEONG_DLL AlphaBatCBuffer
+{
+	Vector4 Light;
+	float RangeX;
+	float RangeY;
+	float Radious;
+	float Empty;
+};
+
 JEONG_END
