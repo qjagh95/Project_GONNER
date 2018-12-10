@@ -34,7 +34,7 @@ bool Fade_Com::Init()
 
 	m_CBuffer.isStart = false;
 	m_CBuffer.Light = Vector4(1.0f, 1.0f, 1.0f, 0.0f);
-	m_CBuffer.Speed = 0.5f;
+	m_CBuffer.Speed = 0.3f;
 
 	return true;
 }

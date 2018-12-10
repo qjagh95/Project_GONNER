@@ -18,13 +18,7 @@ public:
 	void Render(float DeltaTime) override;
 	Player_Com* Clone() override;
 
-	void PixelHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
-
 private:
-	bool isCharge;
-	bool isAlive;
-	float ScaleVar;
-	GameObject* BaseBullet;
 	Animation2D_Com* myAnimation;
 
 protected:

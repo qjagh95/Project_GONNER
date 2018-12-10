@@ -24,6 +24,7 @@ struct VS_OUTPUT_COLOR
 };
 
 /////////////////////////////////////////////////////////////////////
+
 struct VS_INPUT_POS
 {
     float3 vPos : POSITION; 
@@ -35,6 +36,7 @@ struct VS_OUTPUT_POS
 };
 
 /////////////////////////////////////////////////////////////////////
+
 struct VS_INPUT_UV
 {
     float3 vPos : POSITION; //ºäÆ÷Æ® Pos
@@ -46,6 +48,15 @@ struct VS_OUTPUT_UV
     float4 vPos : SV_POSITION;
     float2 vUV : TEXCOORD;
 };
+
+/////////////////////////////////////////////////////////////////////
+
+struct VS_OUTPUT_CLAMP_UV
+{
+
+};
+
+/////////////////////////////////////////////////////////////////////
 
 struct PS_OUTPUT_SINGLE
 {
@@ -106,6 +117,7 @@ cbuffer Componeent : register(b2)
 
 Texture2D Diffuse : register(t0);
 SamplerState DiffuseSampler : register(s0);
+SamplerState ClampSampler : register(s1);
 Texture2D TargetDiffuse : register(t10);
 
 /////////////////////////////////////////////////////////////////////

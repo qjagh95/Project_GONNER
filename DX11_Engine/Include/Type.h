@@ -129,7 +129,8 @@ struct JEONG_DLL Animation2DCBuffer
 	Vector2 LeftTopUV;
 	Vector2 RightBottomUV; 
 	int Frame;
-	Vector3 Empty;
+	bool isFlip;
+	Vector2 Empty;
 };
 
 //이걸 또 선언해주는 이유는 위에선언된 2DCBuffer를 void*로 넘겨주기위함이다.
@@ -195,6 +196,20 @@ struct JEONG_DLL FadeCBuffer
 	float Speed;
 	bool isFadeIn;
 	float Empty;
+};
+
+struct JEONG_DLL LogoCBuffer
+{
+	Vector4 Light;
+	float UVSpeed;
+	Vector3 Empty;
+};
+
+struct JEONG_DLL FireCBuffer
+{
+	Vector4 Light;
+	float UVSpeed;
+	Vector3 Empty;
 };
 
 JEONG_END

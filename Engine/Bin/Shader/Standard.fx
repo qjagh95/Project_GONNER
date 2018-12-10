@@ -6,7 +6,8 @@ cbuffer Animation2D : register(b8)
     float2 g_LeftTopUV;
     float2 g_RightBottomUV;
     int g_Frame;
-    float3 g_Empty3;
+    bool g_isFlip;
+    float2 g_Empty3;
 }
 
 //////////////////////////////////ColorShader//////////////////////////

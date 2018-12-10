@@ -36,7 +36,8 @@ bool JEONG::Scene::Init()
 	AddLayer("BackGround", INT_MIN);
 	AddLayer("Tile", 0);
 	AddLayer("Default", 2);
-	AddLayer("UI", INT_MAX);
+	AddLayer("UI", INT_MAX - 1);
+	AddLayer("Fade", INT_MAX);
 
 	m_MainCameraObject = CreateCamera("MainCamera", Vector3(0.0f, 0.0f, -5.0f), CT_ORTHO, (float)Device::Get()->GetWinSize().Width, (float)Device::Get()->GetWinSize().Height, 60.0f, 0.03f, 1000.0f);
 	m_MainCameraTransform = m_MainCameraObject->GetTransform();

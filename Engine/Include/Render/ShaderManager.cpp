@@ -165,6 +165,22 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
+	Entry[ST_VERTEX] = "LogoVS";
+	Entry[ST_PIXEL] = "LogoPS";
+	if (LoadShader(LOGO_SHADER, TEXT("LogoShader.fx"), Entry) == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
+	//Entry[ST_VERTEX] = "FireVS";
+	//Entry[ST_PIXEL] = "FirePS";
+	//if (LoadShader(LOGO_SHADER, TEXT("FireShader.fx"), Entry) == false)
+	//{
+	//	TrueAssert(true);
+	//	return false;
+	//}
+
 	//상수버퍼 Create
 	CreateCBuffer("Transform", sizeof(TransformCBuffer), 0, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("Material", sizeof(MaterialCbuffer), 1, CST_VERTEX | CST_PIXEL);
@@ -176,6 +192,8 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("CheckBoxCBuffer", sizeof(CheckBoxCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("AlphaBatCBuffer", sizeof(AlphaBatCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("FadeCBuffer", sizeof(FadeCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("LogoCBuffer", sizeof(LogoCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	//CreateCBuffer("FireCBuffer", sizeof(FireCBuffer), 9, CST_VERTEX | CST_PIXEL);
 
 	return true;
 }

@@ -57,21 +57,21 @@ int LogoScene::Update(float DeltaTime)
 {
 	m_NextTimeVar += DeltaTime;
 
-	Layer* uiLayer = m_Scene->FindLayer("UI");
+	Layer* FadeLayer = m_Scene->FindLayer("Fade");
 
 	if (m_NextTimeVar >= m_NextTime)
 	{
 		m_NextTimeVar = 0.0f;
 
-		GameObject* newFade = GameObject::CreateObject("Fade", uiLayer);
+		GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer);
 		m_FadeCom = newFade->AddComponent<Fade_Com>("Fade");
-		m_FadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_INOUT);
+		m_FadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_IN);
 		m_FadeCom->Start();
 
 		SAFE_RELEASE(newFade);
 
 	}
-	SAFE_RELEASE(uiLayer);
+	SAFE_RELEASE(FadeLayer);
 
 	if (m_FadeCom != NULLPTR && m_FadeCom->GetIsOver() == true)
 	{	

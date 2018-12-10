@@ -25,8 +25,6 @@ private:
 	//위의 것을 설정해주고 디바이스나 컨텍스트로 보내줄 변수가 필요하다.
 	ID3D11SamplerState* m_SamplerState;
 
-
-
 private:
 	Sampler();
 	~Sampler();

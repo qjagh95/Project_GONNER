@@ -56,6 +56,11 @@ Animation2D_Com::~Animation2D_Com()
 
 bool Animation2D_Com::Init()
 {
+	m_CBuffer.Frame = 0;
+	m_CBuffer.isFlip = false;
+	m_CBuffer.LeftTopUV = 0.0f;
+	m_CBuffer.RightBottomUV = 0.0f;
+
 	return true;
 }
 
@@ -103,27 +108,26 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 
 	if (getRender != NULLPTR)
 	{
-		Animation2DCBuffer aCBuffer = {};
-		aCBuffer.Frame = m_CurClip->Frame;
+		m_CBuffer.Frame = m_CurClip->Frame;
 
 		if (m_CurClip->AnimationType == A2D_ATLS)
 		{
 			//프레임추출 (이미지 한장한장 사이즈를 전부 벡터에 넣었다)
 			Clip2DFrame& FrameRect = m_CurClip->vecFrame[m_CurClip->Frame];
 			//UV를 값을 추출한다. (이미지좌표 / 전체사이즈)
-			aCBuffer.LeftTopUV.x = FrameRect.LeftTop.x / m_CurClip->TextureWidth;
-			aCBuffer.LeftTopUV.y = FrameRect.LeftTop.y / m_CurClip->TextureHeight;
-			aCBuffer.RightBottomUV.x = FrameRect.RightBottom.x / m_CurClip->TextureWidth;
-			aCBuffer.RightBottomUV.y = FrameRect.RightBottom.y / m_CurClip->TextureHeight;
+			m_CBuffer.LeftTopUV.x = FrameRect.LeftTop.x / m_CurClip->TextureWidth;
+			m_CBuffer.LeftTopUV.y = FrameRect.LeftTop.y / m_CurClip->TextureHeight;
+			m_CBuffer.RightBottomUV.x = FrameRect.RightBottom.x / m_CurClip->TextureWidth;
+			m_CBuffer.RightBottomUV.y = FrameRect.RightBottom.y / m_CurClip->TextureHeight;
 		}
 		else
 		{
 			//프레임 이미지의 경우 UV는 0부터 1까지 
-			aCBuffer.LeftTopUV = Vector2(0.0f, 0.0f);
-			aCBuffer.RightBottomUV = Vector2(1.0f, 1.0f);
+			m_CBuffer.LeftTopUV = Vector2(0.0f, 0.0f);
+			m_CBuffer.RightBottomUV = Vector2(1.0f, 1.0f);
 		}
 		//쉐이더로 넘겨준다.(RendererCBuffer에 memcpy만한다)
-		getRender->UpdateRendererCBuffer("Animation2D", &aCBuffer, sizeof(Animation2DCBuffer));
+		getRender->UpdateRendererCBuffer("Animation2D", &m_CBuffer, sizeof(Animation2DCBuffer));
 
 		SAFE_RELEASE(getRender);
 	}

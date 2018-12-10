@@ -8,7 +8,6 @@ cbuffer AlphaBat : register(b9)
     float2 Empty;
 };
 
-Texture2D CircleDiffuse;
 
 VS_OUTPUT_UV AlphaBatVS(VS_INPUT_UV input)
 {
@@ -28,7 +27,8 @@ PS_OUTPUT_SINGLE AlphaBatPS(VS_OUTPUT_UV input)
 
     output.vTarget0 = Diffuse.Sample(DiffuseSampler, input.vUV) * g_Light;
 
-    if(input.vUV.x > g_RangeX)
+
+    if (input.vUV.x >= g_RangeX)
     {
         if (input.vUV.y >= g_RangeY)
             output.vTarget0.a = 0.0f;

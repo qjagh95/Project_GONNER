@@ -31,6 +31,8 @@ bool LogoAlphaBat_Com::Init()
 	m_Transform->SetWorldScale(150.0f, 300.0f, 1.0f);
 	m_CBuffer.Light = Vector4::White;
 
+	m_CBuffer.RangeX = 0.0f;
+	m_CBuffer.RangeY = 0.0f;
 
 	return true;
 }
@@ -128,33 +130,40 @@ void LogoAlphaBat_Com::AfterClone()
 void LogoAlphaBat_Com::SetLogoAlphaBat(LOGO_ALPHABAT Data)
 {
 	Material_Com* getMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	getMat->SetDiffuseTexture(1, "CircleAlpha", TEXT("CircleAlphaMap.png"));
 
 	switch (Data)
 	{
 		case LA_A:
-			getMat->SetDiffuseTextureFromFullPath(0 ,"AlphaBatA", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 5));
+			//getMat->SetDiffuseTextureFromFullPath(0 ,"AlphaBatA", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 5));
+			getMat->SetDiffuseTexture(0, "AlphaBatA", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_006.png"));
 			break;
 		case LA_R:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatR", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 6));
+			getMat->SetDiffuseTexture(0, "AlphaBatR", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_007.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatR", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 6));
 			break;
 		case LA_T:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatT", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 7));
+			getMat->SetDiffuseTexture(0, "AlphaBatT", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_008.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatT", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 7));
 			break;
 		case LA_I:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatI", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 1));
+			getMat->SetDiffuseTexture(0, "AlphaBatI", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_002.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatI", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 1));
 			break;
 		case LA_N:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatN", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 2));
+			getMat->SetDiffuseTexture(0, "AlphaBatN", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_003.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatN", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 2));
 			break;
 		case LA_H:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatH", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 3));
+			getMat->SetDiffuseTexture(0, "AlphaBatH", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_004.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatH", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 3));
 			break;
 		case LA_E:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatE", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 4));
+			getMat->SetDiffuseTexture(0, "AlphaBatE", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_005.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatE", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 4));
 			break;
 		case LA_SPACAL:
-			getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatS", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 0));
+			getMat->SetDiffuseTexture(0, "AlphaBatSp", TEXT("LogoAlphaBat\\AIH_WHITE_sprite_001.png"));
+			//getMat->SetDiffuseTextureFromFullPath(0, "AlphaBatS", ExcelManager::Get()->ReadStringData("LogoFileName", 0, 0));
 			break;
 	}
 

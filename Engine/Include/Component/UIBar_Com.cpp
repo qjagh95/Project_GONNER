@@ -13,7 +13,6 @@ JEONG_USING
 UIBar_Com::UIBar_Com()
 	:m_RectCollider(NULLPTR)
 {
-	m_UIType = UT_BAR;
 	SetTag("Bar");
 	m_Percent = 0.0f;
 }

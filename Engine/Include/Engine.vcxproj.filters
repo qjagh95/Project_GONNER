@@ -241,11 +241,17 @@
     <Filter Include="Core\08. Object\Component\UserComponent\01. LogoAlphaBat">
       <UniqueIdentifier>{aa1f1ba4-efc3-4332-8b25-072de2d50328}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\02. MenuEnemy_Com">
-      <UniqueIdentifier>{000acea0-0d1a-4763-83a1-b1a27b31d12e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\03. Fade">
       <UniqueIdentifier>{c52762dc-eece-4642-8e30-f523e66f2f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MenuEnemy">
+      <UniqueIdentifier>{000acea0-0d1a-4763-83a1-b1a27b31d12e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\04. MenuLogo">
+      <UniqueIdentifier>{283b014c-30a5-4766-a2ff-f8b568211378}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\05. Fire">
+      <UniqueIdentifier>{75a4810f-7ee1-4569-bc13-ae42c74e26e1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -460,10 +466,16 @@
       <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\MenuEnemy_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy_Com</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Fade_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Fade</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\MenuLogo_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\04. MenuLogo</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Fire_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\05. Fire</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -668,10 +680,16 @@
       <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy_Com</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Fade_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Fade</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\MenuLogo_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\04. MenuLogo</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Fire_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\05. Fire</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -713,6 +731,12 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\FadeShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\LogoShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\FireShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

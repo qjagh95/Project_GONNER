@@ -36,6 +36,8 @@
 #define STANDARD_INSTANCE_SHADER "StandardInstanceShader"
 #define ALPHABAT_SHADER "AlphaBatShader"
 #define FADE_SHADER "FadeShader"
+#define LOGO_SHADER "LogoShader"
+#define FIRE_SHADER "FireShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"
@@ -45,6 +47,8 @@
 
 //Sampler
 #define LINER_SAMPLER "Linear"
+#define CLAMP_SAMPLER "Clamp"
+
 
 //AlphaBlend
 #define ALPHA_BLEND "AlphaBlend"

@@ -27,6 +27,7 @@ private:
 	AnimationClip2D* m_CurClip;
 	string m_DefaultClipName;
 	bool m_isEnd;
+	Animation2DCBuffer m_CBuffer;
 
 private:
 	AnimationClip2D* FindClip(const string& KeyName);

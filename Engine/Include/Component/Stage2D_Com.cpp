@@ -598,7 +598,7 @@ void JEONG::Stage2D_Com::SetSubTileImage(const Vector3 & Pos, const string & Fil
 	if (Index == -1)
 		return;
 
-	if (m_vecTile2DCom[Index]->GetSubSize() == ImageCount)
+	if (m_vecTile2DCom[Index]->GetSubTileImageObject(0) != NULLPTR)
 		return;
 
 	m_vecTile2DCom[Index]->SetSubTileImage(FileName ,ImageCount);

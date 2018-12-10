@@ -20,6 +20,7 @@ public:
 	void SetFadeColor(const Vector3& Color, FADE_OPTION Option);
 	void SetFadeSpeed(float Speed) { m_CBuffer.Speed = Speed; }
 	bool GetIsOver() const { return m_isOver; }
+	bool GetIsInOut() const { return m_isInOut; }
 
 private:
 	void FadeIn(float DeltaTime);

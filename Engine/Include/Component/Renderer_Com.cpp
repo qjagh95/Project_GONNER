@@ -129,7 +129,7 @@ void JEONG::Renderer_Com::Render(float DeltaTime)
 	}
 	////////////////////////////////////////////////////////////////////////////////////////////
 	//여기서 아틀라스이미지의 UV값을 쉐이더로 보낸다.
-	unordered_map<string, RendererCBuffer*>::iterator StartIter = m_CBufferMap.begin();
+	unordered_map<string, RendererCBuffer*>::iterator StartIter = m_CBufferMap.begin();   
 	unordered_map<string, RendererCBuffer*>::iterator EndIter = m_CBufferMap.end();
 
 	for (; StartIter != EndIter ; StartIter++)
@@ -146,7 +146,6 @@ void JEONG::Renderer_Com::Render(float DeltaTime)
 	{
 		for (size_t j = 0; j < m_Mesh->GetSubsetCount((int)i); j++)
 		{
-
 			m_Material->SetShader((int)i, (int)j);
  			m_Mesh->Render((int)i, (int)j);
 		}
