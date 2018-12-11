@@ -3,6 +3,7 @@
 
 JEONG_BEGIN
 
+class Animation2D_Com;
 class JEONG_DLL MenuEnemy_Com : public UserComponent_Base
 {
 public:
@@ -16,7 +17,21 @@ public:
 	MenuEnemy_Com* Clone() override;
 	void AfterClone() override;
 
+	void SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, float Rot = 0.0f);
+
 private:
+	Animation2D_Com* m_Animation;
+	MENU_ENEMY_TYPE m_Type;
+	Vector3 m_ResultScale;
+
+	bool m_isRight;
+	float m_ColorChangeTime;
+	float m_ChangeStartTime;
+
+	float m_ChangeStartTimeVar;
+	float m_ColorChangeTimeVar;
+
+	bool m_isStart;
 
 protected:
 	MenuEnemy_Com();

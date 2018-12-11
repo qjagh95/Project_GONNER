@@ -119,7 +119,7 @@ struct JEONG_DLL AnimationClip2D
 	float TextureHeight;				
 	vector<Clip2DFrame>	vecFrame;		///이미지위치(프레임위치)
 	int Frame;							///현재프레임
-	float PlayTime;						///애니메이션 진행 시간
+	float PlayTime;						///애니메Animation2DCBuffer이션 진행 시간
 	float PlayLimitTime;				///모든 애니메이션 완료 시간.
 };
 
@@ -128,9 +128,8 @@ struct JEONG_DLL Animation2DCBuffer
 {
 	Vector2 LeftTopUV;
 	Vector2 RightBottomUV; 
-	int Frame;
-	bool isFlip;
-	Vector2 Empty;
+	int isRight;
+	Vector3 Empty;
 };
 
 //이걸 또 선언해주는 이유는 위에선언된 2DCBuffer를 void*로 넘겨주기위함이다.
@@ -210,6 +209,12 @@ struct JEONG_DLL FireCBuffer
 	Vector4 Light;
 	float UVSpeed;
 	Vector3 Empty;
+};
+
+struct JEONG_DLL AtlasOneCBuffer
+{
+	Vector2 LeftTopUV;
+	Vector2 RightBottomUV;
 };
 
 JEONG_END

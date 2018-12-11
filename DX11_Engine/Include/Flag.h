@@ -63,14 +63,6 @@ enum RENDER_STATE
 	RS_END
 };
 
-enum MOVE_DIR
-{
-	MD_RIGHT = 1,
-	MD_LEFT = -1,
-	MD_UP = 1,
-	MD_DOWN = -1
-};
-
 enum ANIMATION2D_TYPE
 {
 	A2D_ATLS,
@@ -194,18 +186,29 @@ enum FADE_OPTION
 	FO_INOUT,
 };
 
+enum MOVE_DIR
+{
+	MD_LEFT,
+	MD_RIGHT,
+};
+
 enum MENU_ENEMY_TYPE
 {
-	ME_HEART,
-	ME_SPACAL,
-	ME_FIREBALL,
-	ME_TULLBO,
-	ME_POINT,
 	ME_M1,
 	ME_M2,
-	ME_BULLET,
-	ME_SCULL,
-	ME_GUN,
+	ME_M3,
+	ME_M4,
+	ME_M5,
+	ME_M6,
+	ME_M7,
+	ME_M8,
+	ME_M9,
+	ME_M10,
+	ME_M11,
+	ME_M12,
+	ME_M13,
+	ME_M14,
+	ME_M15,
 };
 
 JEONG_END

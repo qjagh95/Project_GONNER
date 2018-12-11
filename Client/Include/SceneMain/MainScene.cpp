@@ -30,14 +30,11 @@
 
 
 MainScene::MainScene()
-	:m_TestBar(NULLPTR)
 {
 }
 
 MainScene::~MainScene()
 {
-	SAFE_RELEASE(m_TestBar);
-	SAFE_RELEASE(m_TestText);
 }
 
 bool MainScene::Init()
@@ -57,7 +54,7 @@ bool MainScene::Init()
 	//BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
 	//BackCom->SetBackColor(ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0));
 
-	ExcelManager::Get()->ReadVector4Data("BaclColor", 0, 0);
+	//ExcelManager::Get()->ReadVector4Data("BaclColor", 0, 0);
 
 	//SAFE_RELEASE(BackCom);
 	//SAFE_RELEASE(BackObject);
@@ -96,16 +93,6 @@ bool MainScene::Init()
 
 int MainScene::Input(float DeltaTime)
 {
-	if (GetAsyncKeyState(VK_F7) & 0x8000)
-		m_TestBar->AddValue(-40.0f * DeltaTime);
-	if (GetAsyncKeyState(VK_F8) & 0x8000)
-		m_TestBar->AddValue(40.0f * DeltaTime);
-
-	//if (GetAsyncKeyState(VK_F5) & 0x8000)
-	//	m_TestBar->LightOff();
-	//if (GetAsyncKeyState(VK_F6) & 0x8000)
-	//	m_TestBar->LightOn();
-
 	////루프
 	//if (GetAsyncKeyState(VK_NUMPAD1) & 0x8000)
 	//{
@@ -117,15 +104,6 @@ int MainScene::Input(float DeltaTime)
 	////단발
 	//if (GetAsyncKeyState(VK_NUMPAD0) & 0x8000)
 	//	SoundManager::Get()->FindSoundEffect("Effect")->Play();
-
-	//if (GetAsyncKeyState(VK_RIGHT) & 0x8000)
-	//	m_TestText->GetTransform()->Move(Vector3(1.0f, 0.0f, 0.0f), 300.0f, DeltaTime);
-	//if (GetAsyncKeyState(VK_LEFT) & 0x8000)
-	//	m_TestText->GetTransform()->Move(Vector3(-1.0f, 0.0f, 0.0f), 300.0f, DeltaTime);
-	//if (GetAsyncKeyState(VK_UP) & 0x8000)
-	//	m_TestText->GetTransform()->Move(Vector3(0.0f, 1.0f, 0.0f), 300.0f, DeltaTime);
-	//if (GetAsyncKeyState(VK_DOWN) & 0x8000)
-	//	m_TestText->GetTransform()->Move(Vector3(0.0f, -1.0f, 0.0f), 300.0f, DeltaTime);
 
 	if (GetAsyncKeyState(VK_HOME) & 0x8000)
 	{

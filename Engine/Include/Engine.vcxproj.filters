@@ -220,9 +220,6 @@
     <Filter Include="Core\14. ExcelManager">
       <UniqueIdentifier>{04100240-63b6-4673-b131-5f185849d76c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\BaseComponent\14. Gravity">
-      <UniqueIdentifier>{400b20a6-b35f-4e74-a924-4bb4036751df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\07. UI\BackColor">
       <UniqueIdentifier>{ec5d490a-a726-4eee-a95d-6b87f2b7bea7}</UniqueIdentifier>
     </Filter>
@@ -231,9 +228,6 @@
     </Filter>
     <Filter Include="Core\03. Header">
       <UniqueIdentifier>{642d290c-399b-4462-9eda-78d5c20537d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\BaseComponent\15. Number">
-      <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\Base">
       <UniqueIdentifier>{1a8c0607-87ad-4974-b685-ecca3ee3ed3d}</UniqueIdentifier>
@@ -252,6 +246,15 @@
     </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\05. Fire">
       <UniqueIdentifier>{75a4810f-7ee1-4569-bc13-ae42c74e26e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\14. Gravity%28__%29">
+      <UniqueIdentifier>{400b20a6-b35f-4e74-a924-4bb4036751df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\15. Number%28__%29">
+      <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com">
+      <UniqueIdentifier>{07f17435-ce98-41ad-a82d-57f59ed0145b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -442,7 +445,7 @@
       <Filter>Core\14. ExcelManager</Filter>
     </ClInclude>
     <ClInclude Include="Component\Gravity_Com.h">
-      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity%28__%29</Filter>
     </ClInclude>
     <ClInclude Include="Component\BackColor_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\BackColor</Filter>
@@ -457,7 +460,7 @@
       <Filter>Core\08. Object\Component\BaseComponent\12. Tile2D</Filter>
     </ClInclude>
     <ClInclude Include="Component\Number_Com.h">
-      <Filter>Core\08. Object\Component\BaseComponent\15. Number</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\UserComponent_Base.h">
       <Filter>Core\08. Object\Component\UserComponent\Base</Filter>
@@ -476,6 +479,9 @@
     </ClInclude>
     <ClInclude Include="UserComponent\Fire_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\05. Fire</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\AtlasOneImage_Com.h">
+      <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -656,7 +662,7 @@
       <Filter>Core\14. ExcelManager</Filter>
     </ClCompile>
     <ClCompile Include="Component\Gravity_Com.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity%28__%29</Filter>
     </ClCompile>
     <ClCompile Include="Component\BackColor_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\BackColor</Filter>
@@ -671,7 +677,7 @@
       <Filter>Core\08. Object\Component\BaseComponent\12. Tile2D</Filter>
     </ClCompile>
     <ClCompile Include="Component\Number_Com.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\15. Number</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\UserComponent_Base.cpp">
       <Filter>Core\08. Object\Component\UserComponent\Base</Filter>
@@ -690,6 +696,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\Fire_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\05. Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\AtlasOneImage_Com.cpp">
+      <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -737,6 +746,9 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\FireShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\AtlasOneShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

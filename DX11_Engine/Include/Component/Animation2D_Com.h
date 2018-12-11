@@ -21,13 +21,15 @@ public:
 	void SetDefaultClip(const string& ClipName);
 	void ChangeClip(const string& AnimationName);
 	bool GetIsEnd() const { return m_isEnd; }
+	void ChangeDir();
+	void SetDir(bool isRight);
 
 private:
 	unordered_map<string, AnimationClip2D*> m_ClipMap;
 	AnimationClip2D* m_CurClip;
 	string m_DefaultClipName;
-	bool m_isEnd;
 	Animation2DCBuffer m_CBuffer;
+	bool m_isEnd;
 
 private:
 	AnimationClip2D* FindClip(const string& KeyName);

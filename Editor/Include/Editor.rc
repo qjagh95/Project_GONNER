@@ -109,7 +109,7 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    POPUP "GameObject"
+    POPUP "MosnterTool"
     BEGIN
         MENUITEM "마 좀 기다리라",                    ID_GAMEOBJECT_32772
     END

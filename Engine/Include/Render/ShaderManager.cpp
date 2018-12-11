@@ -173,6 +173,14 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
+	//Entry[ST_VERTEX] = "AtlasOneVS";
+	//Entry[ST_PIXEL] = "AtlasOnePS";
+	//if (LoadShader(ATLASONE_SHADER, TEXT("AtlasOneShader.fx"), Entry) == false)
+	//{
+	//	TrueAssert(true);
+	//	return false;
+	//}
+
 	//Entry[ST_VERTEX] = "FireVS";
 	//Entry[ST_PIXEL] = "FirePS";
 	//if (LoadShader(LOGO_SHADER, TEXT("FireShader.fx"), Entry) == false)
@@ -193,6 +201,7 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("AlphaBatCBuffer", sizeof(AlphaBatCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("FadeCBuffer", sizeof(FadeCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("LogoCBuffer", sizeof(LogoCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	//CreateCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	//CreateCBuffer("FireCBuffer", sizeof(FireCBuffer), 9, CST_VERTEX | CST_PIXEL);
 
 	return true;

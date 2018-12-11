@@ -56,8 +56,7 @@ Animation2D_Com::~Animation2D_Com()
 
 bool Animation2D_Com::Init()
 {
-	m_CBuffer.Frame = 0;
-	m_CBuffer.isFlip = false;
+	m_CBuffer.isRight = true;
 	m_CBuffer.LeftTopUV = 0.0f;
 	m_CBuffer.RightBottomUV = 0.0f;
 
@@ -108,8 +107,6 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 
 	if (getRender != NULLPTR)
 	{
-		m_CBuffer.Frame = m_CurClip->Frame;
-
 		if (m_CurClip->AnimationType == A2D_ATLS)
 		{
 			//프레임추출 (이미지 한장한장 사이즈를 전부 벡터에 넣었다)
@@ -205,6 +202,19 @@ void Animation2D_Com::ChangeClip(const string & AnimationName)
 		getMeterial->SetDiffuseTexture(0, m_CurClip->CurTexture);
 		SAFE_RELEASE(getMeterial);
 	}
+}
+
+void Animation2D_Com::ChangeDir()
+{
+	if (m_CBuffer.isRight == 1)
+		m_CBuffer.isRight = 0;
+	else
+		m_CBuffer.isRight = 1;
+}
+
+void Animation2D_Com::SetDir(bool isRight)
+{
+	m_CBuffer.isRight = isRight;
 }
 
 AnimationClip2D * Animation2D_Com::FindClip(const string & KeyName)

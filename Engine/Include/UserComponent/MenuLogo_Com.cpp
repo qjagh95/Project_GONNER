@@ -36,9 +36,7 @@ bool MenuLogo_Com::Init()
 	m_Transform->SetWorldScale(1013.0f, 500.0f, 1.0f);
 	m_Transform->SetWorldPos(Vector3::Zero);
 
-	m_CBuffer.Light = Vector4::White;
-	m_CBuffer.UVSpeed = 0.1f;
-
+	m_CBuffer.UVSpeed = 0.0f;
 	return true;
 }
 

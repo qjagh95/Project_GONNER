@@ -5,9 +5,8 @@ cbuffer Animation2D : register(b8)
 {
     float2 g_LeftTopUV;
     float2 g_RightBottomUV;
-    int g_Frame;
-    bool g_isFlip;
-    float2 g_Empty3;
+    bool g_isRight;
+    float3 g_Empty1234;
 }
 
 //////////////////////////////////ColorShader//////////////////////////
@@ -45,13 +44,15 @@ VS_OUTPUT_UV Standard_UV_VS(VS_INPUT_UV input)
     //API때 했던 중심점공식 (newPos = Pos - Size * Pivot)이거랑 똑같음.
     //버텍스의 투영공간변환 전 좌표가 0.n상태에서 중심점을 잡는다.
     float3 TempPos = input.vPos - (g_Pivot * g_Length);
-
     output.vPos = mul(float4(TempPos, 1.0f), g_WVP);
 
     //애니메이션이 있다면 UV조절 후 출력 (UV값은 CPU연산 후 들어온다)
     //없다면 그냥 출력
     if (g_Animation2DEnable == 1)
     {
+        //if (g_isRight == 0)
+            //input.vUV.x = 1.0f - input.vUV.x;
+
         if (input.vUV.x == 0.0f)
             output.vUV.x = g_LeftTopUV.x;
         else
@@ -61,6 +62,7 @@ VS_OUTPUT_UV Standard_UV_VS(VS_INPUT_UV input)
             output.vUV.y = g_LeftTopUV.y;
         else
             output.vUV.y = g_RightBottomUV.y;
+      
     }
     else
         output.vUV = input.vUV;

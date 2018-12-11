@@ -62,7 +62,8 @@ bool Player_Com::Init()
 	m_Transform->SetWorldPos(0.0f, 0.0f, 1.0f);
 
 	myAnimation = m_Object->AddComponent<Animation2D_Com>("PlayerAnimation");
-		
+	myAnimation->SetDir(1);
+
 	vector<Clip2DFrame>	vecClipFrame;
 	Clip2DFrame	tFrame = {};
 
