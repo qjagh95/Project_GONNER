@@ -173,6 +173,14 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
+	Entry[ST_VERTEX] = "MenuEnemyVS";
+	Entry[ST_PIXEL] = "MenuEnemyPS";
+	if (LoadShader(MENUENEMY_SHADER, TEXT("MenuEnemyShader.fx"), Entry) == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
 	//Entry[ST_VERTEX] = "AtlasOneVS";
 	//Entry[ST_PIXEL] = "AtlasOnePS";
 	//if (LoadShader(ATLASONE_SHADER, TEXT("AtlasOneShader.fx"), Entry) == false)
@@ -192,7 +200,7 @@ bool JEONG::ShaderManager::Init()
 	//상수버퍼 Create
 	CreateCBuffer("Transform", sizeof(TransformCBuffer), 0, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("Material", sizeof(MaterialCbuffer), 1, CST_VERTEX | CST_PIXEL);
-	CreateCBuffer("Animation2D", sizeof(Animation2DCBuffer), 8, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("Animation2D", sizeof(Animation2DCBuffer), 10, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("Component", sizeof(ComponentCBuffer), 2, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("Collider", sizeof(Vector4), 8, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("ButtonCBuffer", sizeof(ButtonCBuffer), 9, CST_VERTEX | CST_PIXEL);
@@ -201,6 +209,8 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("AlphaBatCBuffer", sizeof(AlphaBatCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("FadeCBuffer", sizeof(FadeCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("LogoCBuffer", sizeof(LogoCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("MenuEnemyCBuffer", sizeof(MenuEnemyCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	
 	//CreateCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	//CreateCBuffer("FireCBuffer", sizeof(FireCBuffer), 9, CST_VERTEX | CST_PIXEL);
 

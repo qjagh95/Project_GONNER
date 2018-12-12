@@ -195,6 +195,7 @@
     <ClInclude Include="Component\FreeCamera_Com.h" />
     <ClInclude Include="Component\Gravity_Com.h" />
     <ClInclude Include="Component\IconSlot_Com.h" />
+    <ClInclude Include="Component\NButton_Com.h" />
     <ClInclude Include="Component\Number_Com.h" />
     <ClInclude Include="Component\Stage2D_Com.h" />
     <ClInclude Include="Component\Text_Com.h" />
@@ -272,6 +273,7 @@
     <ClCompile Include="Component\FreeCamera_Com.cpp" />
     <ClCompile Include="Component\Gravity_Com.cpp" />
     <ClCompile Include="Component\IconSlot_Com.cpp" />
+    <ClCompile Include="Component\NButton_Com.cpp" />
     <ClCompile Include="Component\Number_Com.cpp" />
     <ClCompile Include="Component\Stage2D_Com.cpp" />
     <ClCompile Include="Component\Text_Com.cpp" />
@@ -466,6 +468,16 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">LogoVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\MenuEnemyShader.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MenuEnemyVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MenuEnemyVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">MenuEnemyVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">MenuEnemyVS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\Share.fx">

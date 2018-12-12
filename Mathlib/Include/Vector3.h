@@ -106,6 +106,38 @@ union MATH_DLL Vector3
 	bool operator == (float ValArr[3]) const;
 	bool operator == (int ValArr[3]) const;
 
+	bool operator >= (const Vector3& vec)	const;
+	bool operator >= (const XMVECTOR& Xmvec) const;
+	bool operator >= (const XMFLOAT3& XmFloat) const;
+	bool operator >= (float Val) const;
+	bool operator >= (int Val) const;
+	bool operator >= (float ValArr[3]) const;
+	bool operator >= (int ValArr[3]) const;
+
+	bool operator <= (const Vector3& vec)	const;
+	bool operator <= (const XMVECTOR& Xmvec) const;
+	bool operator <= (const XMFLOAT3& XmFloat) const;
+	bool operator <= (float Val) const;
+	bool operator <= (int Val) const;
+	bool operator <= (float ValArr[3]) const;
+	bool operator <= (int ValArr[3]) const;
+
+	bool operator > (const Vector3& vec)	const;
+	bool operator > (const XMVECTOR& Xmvec) const;
+	bool operator > (const XMFLOAT3& XmFloat) const;
+	bool operator > (float Val) const;
+	bool operator > (int Val) const;
+	bool operator > (float ValArr[3]) const;
+	bool operator > (int ValArr[3]) const;
+
+	bool operator < (const Vector3& vec)	const;
+	bool operator < (const XMVECTOR& Xmvec) const;
+	bool operator < (const XMFLOAT3& XmFloat) const;
+	bool operator < (float Val) const;
+	bool operator < (int Val) const;
+	bool operator < (float ValArr[3]) const;
+	bool operator < (int ValArr[3]) const;
+
 	bool operator != (const Vector3& vec)	const;
 	bool operator != (const XMVECTOR& Xmvec) const;
 	bool operator != (const XMFLOAT3& XmFloat) const;
@@ -154,6 +186,7 @@ union MATH_DLL Vector3
 	void Convert(const XMVECTOR & Xmvec);
 
 	static Vector3 Nomallize(const Vector3& vec);
+	static Vector3 Lerp(const Vector3& Start, const Vector3& End, float Time);
 
 	static Vector3 Axis[3];
 	static Vector3 Zero;

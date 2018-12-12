@@ -41,6 +41,7 @@ bool MainScene::Init()
 {
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
+	mainCamera->SetCameraPosInfo(Vector3(5000.0f, 5000.0f, 0.0f), 300.0f);
 	mainCamera->SetNear(0.0f);
 
 	KeyInput::Get()->SetShowCursor(false);

@@ -26,6 +26,10 @@ JEONG::Camera_Com::Camera_Com(const Camera_Com & camera)
 
 bool JEONG::Camera_Com::Init()
 {
+	m_Amount = 0.0f;
+
+	m_WinSize.x = (float)Device::Get()->GetWinSize().Width;
+	m_WinSize.y = (float)Device::Get()->GetWinSize().Height;
 
 	return true;
 }
@@ -41,17 +45,31 @@ int JEONG::Camera_Com::Update(float DeltaTime)
 
 	if (m_Target != NULLPTR)
 	{
-		Vector3	Move = m_Target->GetDeltaMove();
+		Vector3 WorldPos = m_Transform->GetWorldPos();
+		Vector3 TargetPos = m_Target->GetTransform()->GetWorldPos();
+		Vector3 Move = m_Target->GetDeltaMove();
+		Vector3 WinSize = Device::Get()->GetWinSizeVector2();
+		Vector3 ResultPos = TargetPos - WorldPos;
 
-		if (Move != Vector3::Zero)
-			m_Transform->Move(Move);
+		if (ResultPos.x < 0.0f)
+			ResultPos.x = 0.0f;
+		else if (ResultPos.x + WinSize.x >= m_MaxPos.x)
+			ResultPos.x = m_MaxPos.x - ResultPos.x;
+
+		if (ResultPos.y < 0.0f)
+			ResultPos.y = 0.0f;
+		else if (ResultPos.y + WinSize.y >= m_MaxPos.y)
+			ResultPos.y = m_MaxPos.y - ResultPos.y;
+
+		m_Transform->SetWorldPos(ResultPos);
+
+		//Vector3 Lerp = Vector3::Lerp(WorldPos, TargetPos, DeltaTime);
+		//m_Transform->SetWorldPos(Lerp);
 	}
 
-	//memcpy 41 ~ 43위치 == Pos위치임.
-	Vector3 TempPos = m_Transform->GetWorldPos();
-	TempPos *= -1.0f;
-
-	memcpy(&m_View[3][0], &TempPos, sizeof(Vector3));
+	Vector3 Temp = m_Transform->GetWorldPos();
+	Temp *= -1.0f;
+	memcpy(&m_View[3][0], &Temp, sizeof(Vector3));
 
 	return 0;
 }
@@ -185,4 +203,10 @@ void JEONG::Camera_Com::SetTarget(JEONG::GameObject* pTarget)
 void JEONG::Camera_Com::SetTarget(JEONG::Component_Base* pTarget)
 {
 	m_Target = pTarget->GetTransform();
+}
+
+void JEONG::Camera_Com::SetCameraPosInfo(const Vector3& MaxPos, float Amount)
+{
+	m_MaxPos = MaxPos;
+	m_Amount = Amount;
 }

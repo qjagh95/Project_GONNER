@@ -187,3 +187,12 @@ Vector2 JEONG::Device::GetWindowToDeviceRatio() const
 
 	return Vector2((float)m_WinSize.Width / (float)DeviceSize.right , (float)m_WinSize.Height/ (float)DeviceSize.bottom);
 }
+
+Vector2 JEONG::Device::GetWinSizeVector2() const
+{
+	Vector2 Temp;
+	Temp.x = m_WinSize.Width;
+	Temp.y = m_WinSize.Height;
+
+	return Temp;
+}

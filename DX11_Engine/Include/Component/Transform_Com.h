@@ -77,6 +77,11 @@ public:
 	void Move(const Vector3& vDir, float Speed);
 	void Move(const Vector3& vDir, float Speed, float DeltaTime);
 	void Move(const Vector3& vMove);
+	
+	void AddScaleX(float Speed, float DeltaTime);
+	void AddScaleY(float Speed, float DeltaTime);
+	void AddScaleXY(float Speed, float DeltaTime);
+
 	void RotationX(float x);
 	void RotationX(float x, float DeltaTime);
 	void RotationY(float y);

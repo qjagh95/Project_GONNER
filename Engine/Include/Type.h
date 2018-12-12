@@ -217,4 +217,9 @@ struct JEONG_DLL AtlasOneCBuffer
 	Vector2 RightBottomUV;
 };
 
+struct JEONG_DLL MenuEnemyCBuffer
+{
+	Vector4 Light;
+};
+
 JEONG_END

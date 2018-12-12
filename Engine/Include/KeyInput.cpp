@@ -85,7 +85,7 @@ void JEONG::KeyInput::Update(float DeltaTime)
 		for (size_t i = 0; i < StartIter->second->vecKey.size(); ++i)
 		{
 			if (GetAsyncKeyState((int)StartIter->second->vecKey[i]) & 0x8000)
-				++iCount;
+				iCount++;
 		}
 
 		if (iCount == StartIter->second->vecKey.size())

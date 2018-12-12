@@ -11,6 +11,7 @@ public:
 	ID3D11DeviceContext* GetContext() const { return m_Context; }
 	IDXGISwapChain* GetSwapChain() const { return m_SwapChain; }
 	WinSize GetWinSize() const { return m_WinSize; }
+	Vector2 GetWinSizeVector2() const;
 	Vector2 GetWindowToDeviceRatio() const;
 	ID2D1RenderTarget* Get2DRenderTarget() const { return m_2DTarget; }
 

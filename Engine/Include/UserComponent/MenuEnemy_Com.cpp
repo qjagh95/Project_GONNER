@@ -12,6 +12,8 @@ MenuEnemy_Com::MenuEnemy_Com()
 	m_ScaleStartTimeVar = 0.0f;
 	m_ColorChangeTime = 0.0f;
 	m_ColorChangeTimeVar = 0.0f;
+	m_LightChangeTimeVar = 0.0f;
+	m_LightChangeTime = 0.0f;
 	m_isScaleStart = false;
 	m_isColorStart = false;
 }
@@ -19,44 +21,79 @@ MenuEnemy_Com::MenuEnemy_Com()
 MenuEnemy_Com::MenuEnemy_Com(const MenuEnemy_Com & CopyData)
 	:UserComponent_Base(CopyData)
 {
-	SAFE_RELEASE(m_Animation);
 }
 
 MenuEnemy_Com::~MenuEnemy_Com()
 {
+	SAFE_RELEASE(m_Animation);
 }
 
 bool MenuEnemy_Com::Init()
 {
-	m_ScaleStartTime = (float)RandomRange(3, 10);
+	m_ScaleStartTime = (float)RandomRange(1, 10);
 	m_ColorChangeTime = (float)RandomRange(2, 4);
+
+	int Random = RandomRange(1, 4);
+	switch (Random)
+	{
+		case 1:
+			m_LightChangeTime = 0.1f;
+			break;
+		case 2:
+			m_LightChangeTime = 0.2f;
+			break;
+		case 3:
+			m_LightChangeTime = 0.3f;
+			break;
+		case 4:
+			m_LightChangeTime = 0.4f;
+			break;
+	}
 
 	Renderer_Com* EnemyRender = m_Object->AddComponent<Renderer_Com>("MenuEnemyRender");
 	EnemyRender->SetMesh("TextureRect");
 	EnemyRender->SetRenderState(ALPHA_BLEND);
+	EnemyRender->SetShader(MENUENEMY_SHADER);
+	EnemyRender->CreateRendererCBuffer("MenuEnemyCBuffer", sizeof(MenuEnemyCBuffer));
 	SAFE_RELEASE(EnemyRender);
 
-	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
+	Material_Com* getMater = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	getMater->SetMaterial(Vector4(31.0f / 255.0f, 71.0f / 255.0f, 67.0f / 255.0f, 1.0f));
+	SAFE_RELEASE(getMater);
 
+	m_CBuffer.Light = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+
+	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
 	return true;
 }
 
 int MenuEnemy_Com::Input(float DeltaTime)
 {
+	m_LightChangeTimeVar += DeltaTime;
 
-	if(m_isScaleStart == false)
+	if (m_isScaleStart == false)
+	{
 		m_ScaleStartTimeVar += DeltaTime;
 
-	if (m_ScaleStartTimeVar >= m_ScaleStartTime)
-	{
-		m_ScaleStartTimeVar = 0.0f;
+		if (m_ScaleStartTimeVar >= m_ScaleStartTime)
+		{
+			m_ScaleStartTimeVar = 0.0f;
 
-		m_isScaleStart = true;
-		m_isColorStart = true;
+			m_isScaleStart = true;
+		}
 	}
 
 	if (m_isScaleStart == true)
 	{
+		Vector3 worldScale = m_Transform->GetWorldScale();
+		
+		if (worldScale.x >= m_ResultScale.x && worldScale.x >= m_ResultScale.x)
+			m_isScaleStart = false;
+		else
+		{
+			m_Transform->AddScaleXY(100.0f, DeltaTime);
+			m_isColorStart = true;
+		}
 
 	}
 
@@ -67,34 +104,44 @@ int MenuEnemy_Com::Input(float DeltaTime)
 	{
 		m_ColorChangeTimeVar = 0.0f;
 
-		Material_Com* getMat = m_Object->FindComponentFromType< Material_Com>(CT_MATERIAL);
-		int RanColor = RandomRange(1, 4);
+		Material_Com* getMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+		int RanColor = RandomRange(1, 6);
 
 		switch (RanColor)
 		{
 			case 1:
-			{
-				getMat->SetMaterial(Vector4());
-			}
+				getMat->SetMaterial(Vector4(76.0f / 255.0f, 83.0f / 255.0f, 45.0f / 255.0f, 1.0f));
 				break;
 			case 2:
-			{
-				getMat->SetMaterial(Vector4());
-			}
+				getMat->SetMaterial(Vector4(75.0f / 255.0f, 70.0f / 255.0f, 43.0f / 255.0f, 1.0f));
 				break;
 			case 3:
-			{
-				getMat->SetMaterial(Vector4());
-			}
+				getMat->SetMaterial(Vector4(31.0f / 255.0f, 66.0f / 255.0f, 64.0f / 255.0f, 1.0f));
 				break;
 			case 4:
-			{
-				getMat->SetMaterial(Vector4());
-			}
+				getMat->SetMaterial(Vector4(42.0f / 255.0f, 44.0f / 255.0f, 92.0f / 255.0f, 1.0f));
+				break;
+			case 5:
+				getMat->SetMaterial(Vector4(30.0f / 255.0f, 58.0f / 255.0f, 71.0f / 255.0f, 1.0f));
+				break;
+				case 6:
+				getMat->SetMaterial(Vector4(76.0f / 255.0f, 40.0f / 255.0f, 43.0f / 255.0f, 1.0f));
 				break;
 		}
 		SAFE_RELEASE(getMat);
 	}
+
+
+	if (m_LightChangeTimeVar >= m_LightChangeTime)
+	{
+		m_LightChangeTimeVar = 0.0f;
+
+		if (m_CBuffer.Light == Vector4::One)
+			m_CBuffer.Light = Vector4(1.1f, 1.1f, 1.1f, 1.1f);
+		else
+			m_CBuffer.Light = Vector4::One;
+	}
+
 	return 0;
 }
 
@@ -118,6 +165,10 @@ void MenuEnemy_Com::CollisionLateUpdate(float DeltaTime)
 
 void MenuEnemy_Com::Render(float DeltaTime)
 {
+	Renderer_Com* getRender = m_Object->FindComponentFromType< Renderer_Com>(CT_RENDER);
+	getRender->UpdateRendererCBuffer("MenuEnemyCBuffer", &m_CBuffer, sizeof(MenuEnemyCBuffer));
+
+	SAFE_RELEASE(getRender);
 }
 
 MenuEnemy_Com * MenuEnemy_Com::Clone()
@@ -129,10 +180,9 @@ void MenuEnemy_Com::AfterClone()
 {
 }
 
-void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool isRight ,float Rot)
+void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, MOVE_DIR Dir ,float Rot)
 {
 	Material_Com* getMater = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	getMater->SetMaterial(Vector4::White);
 
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("MenuMonster");
 
@@ -159,7 +209,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy1" , TEXT("Monster\\HUD_sheet.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy1", L"Monster\\HUD_sheet.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy1", L"Monster\\HUD_sheet.png");
 
 			m_ResultScale = Vector3(128.0f, 128.0f, 1.0f);
 			vecClipFrame.clear();
@@ -176,7 +226,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy2", TEXT("Monster\\smallenemies.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy2", L"Monster\\smallenemies.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy2", L"Monster\\smallenemies.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -193,24 +243,25 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy3", TEXT("Monster\\smallenemies.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy3", L"Monster\\smallenemies.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy3", L"Monster\\smallenemies.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
 		}
 			break;
+			//
 		case JEONG::ME_M4:
 		{
 			for (size_t i = 0; i < 6; i++)
 			{
-				tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 544.0f);
+				tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 512.0f);
 				tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 576.0f);
 
 				vecClipFrame.push_back(tFrame);
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy4", TEXT("Monster\\player.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy4", L"Monster\\player.png.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy4", L"Monster\\player.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -227,7 +278,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy5", TEXT("Monster\\player.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy5" , L"Monster\\player.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy5" , L"Monster\\player.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -244,7 +295,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy6" , TEXT("Monster\\player.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy6", L"Monster\\player.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy6", L"Monster\\player.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -261,7 +312,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy7", TEXT("Monster\\player.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy8", L"Monster\\player.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy8", L"Monster\\player.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -278,7 +329,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy8", TEXT("Monster\\player.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy8", L"Monster\\player.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy8", L"Monster\\player.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -295,7 +346,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			}
 
 			getMater->SetDiffuseTexture(0, "MenuEnemy9", TEXT("Monster\\player.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy9" , L"Monster\\player.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy9" , L"Monster\\player.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -303,7 +354,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			break;
 		case JEONG::ME_M10:
 		{
-			for (size_t i = 0; i < 10; i++)
+			for (size_t i = 0; i < 6; i++)
 			{
 				tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 0.0f);
 				tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 64.0f);
@@ -311,7 +362,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 				vecClipFrame.push_back(tFrame);
 			}
 			getMater->SetDiffuseTexture(0, "MenuEnemy10", TEXT("Monster\\sprites.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy10", L"Monster\\sprites.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy10", L"Monster\\sprites.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -322,12 +373,12 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 			for (size_t i = 0; i < 6; i++)
 			{
 				tFrame.LeftTop = Vector2(128.0f + i * 64.0f, 384.0f);
-				tFrame.RightBottom = Vector2(128.0f + i * 64.0f, 448.0f);
+				tFrame.RightBottom = Vector2(128.0f + (i + 1) * 64.0f, 448.0f);
 
 				vecClipFrame.push_back(tFrame);
 			}
 			getMater->SetDiffuseTexture(0, "MenuEnemy11" , TEXT("Monster\\sprites.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy11", L"Monster\\sprites.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy11", L"Monster\\sprites.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -343,7 +394,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 				vecClipFrame.push_back(tFrame);
 			}
 			getMater->SetDiffuseTexture(0, "MenuEnemy12" , TEXT("Monster\\sprites.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy12", L"Monster\\sprites.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy12", L"Monster\\sprites.png");
 			m_ResultScale = Vector3(64.0f, 64.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -359,7 +410,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 				vecClipFrame.push_back(tFrame);
 			}
 			getMater->SetDiffuseTexture(0, "MenuEnemy13", TEXT("Monster\\bigsprites.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy13" , L"Monster\\bigsprites.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy13" , L"Monster\\bigsprites.png");
 			m_ResultScale = Vector3(128.0f, 128.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -375,7 +426,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 				vecClipFrame.push_back(tFrame);
 			}
 			getMater->SetDiffuseTexture(0, "MenuEnemy14" , TEXT("Monster\\bigsprites3.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy14", L"Monster\\bigsprites3.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy14", L"Monster\\bigsprites3.png");
 			m_ResultScale = Vector3(128.0f, 128.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -391,7 +442,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 				vecClipFrame.push_back(tFrame);
 			}
 			getMater->SetDiffuseTexture(0, "MenuEnemy15" , TEXT("Monster\\bigsprites3.png"));
-			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "MenuEnemy15", L"Monster\\bigsprites3.png");
+			m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "MenuEnemy15", L"Monster\\bigsprites3.png");
 			m_ResultScale = Vector3(128.0f, 128.0f, 1.0f);
 
 			vecClipFrame.clear();
@@ -400,7 +451,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool 
 	}
 
 	m_Animation->ChangeClip("Idle");
-	m_Animation->SetDir(isRight);
+	m_Animation->SetDir((int)Dir);
 
 	m_Transform->SetWorldPos(Pos);
 	m_Transform->RotationZ(Rot);

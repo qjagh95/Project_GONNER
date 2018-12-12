@@ -229,9 +229,6 @@
     <Filter Include="Core\03. Header">
       <UniqueIdentifier>{642d290c-399b-4462-9eda-78d5c20537d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\Base">
-      <UniqueIdentifier>{1a8c0607-87ad-4974-b685-ecca3ee3ed3d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\01. LogoAlphaBat">
       <UniqueIdentifier>{aa1f1ba4-efc3-4332-8b25-072de2d50328}</UniqueIdentifier>
     </Filter>
@@ -255,6 +252,12 @@
     </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com">
       <UniqueIdentifier>{07f17435-ce98-41ad-a82d-57f59ed0145b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\00. Base">
+      <UniqueIdentifier>{1a8c0607-87ad-4974-b685-ecca3ee3ed3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\17. NButton">
+      <UniqueIdentifier>{090ca834-eab9-433c-b175-bfb3b58db50e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -463,7 +466,7 @@
       <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\UserComponent_Base.h">
-      <Filter>Core\08. Object\Component\UserComponent\Base</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
@@ -482,6 +485,9 @@
     </ClInclude>
     <ClInclude Include="Component\AtlasOneImage_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\NButton_Com.h">
+      <Filter>Core\08. Object\Component\BaseComponent\17. NButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -680,7 +686,7 @@
       <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\UserComponent_Base.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\Base</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
@@ -699,6 +705,9 @@
     </ClCompile>
     <ClCompile Include="Component\AtlasOneImage_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\NButton_Com.cpp">
+      <Filter>Core\08. Object\Component\BaseComponent\17. NButton</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -749,6 +758,9 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\AtlasOneShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\MenuEnemyShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

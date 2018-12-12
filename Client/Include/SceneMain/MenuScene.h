@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene\SceneComponent.h"
+#include <Component/NButton_Com.h>
 
 JEONG_USING
 
@@ -15,6 +16,16 @@ public:
 	void Render(float DeltaTime) override;
 
 	void StartButtonActive(float DeltaTime);
+	void ExitButtonActive(float DeltaTime);
+
+private:
+	vector<NButton_Com*> m_vecButton;
+
+private:
+	void EnemyInit(Layer *UILayer);
+
+private:
+	int m_Index;
 
 public:
 	MenuScene();

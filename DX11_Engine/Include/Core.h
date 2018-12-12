@@ -15,6 +15,8 @@ public:
 	HWND GetHwnd() const { return m_hWnd; }
 	HINSTANCE GetHinstance() const { return m_hIstance; }
 
+	void ShotDown() { m_isLoop = false; }
+
 private:
 	int Input(float DeltaTime);
 	int Update(float DeltaTime);

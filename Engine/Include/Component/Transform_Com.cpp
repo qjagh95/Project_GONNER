@@ -590,3 +590,29 @@ void JEONG::Transform_Com::ZoomScale()
 
 	m_isUpdate = true;
 }
+void JEONG::Transform_Com::AddScaleX(float Speed, float DeltaTime)
+{
+	m_WorldScale.x += Speed * DeltaTime;
+
+	m_MatWorldScale.Scaling(m_WorldScale);
+
+	m_isUpdate = true;
+}
+
+void JEONG::Transform_Com::AddScaleY(float Speed, float DeltaTime)
+{
+	m_WorldScale.y += Speed * DeltaTime;
+
+	m_MatWorldScale.Scaling(m_WorldScale);
+
+	m_isUpdate = true;
+}
+
+void JEONG::Transform_Com::AddScaleXY(float Speed, float DeltaTime)
+{
+	m_WorldScale += Speed * DeltaTime;
+
+	m_MatWorldScale.Scaling(m_WorldScale);
+
+	m_isUpdate = true;
+}

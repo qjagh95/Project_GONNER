@@ -17,18 +17,22 @@ public:
 	MenuEnemy_Com* Clone() override;
 	void AfterClone() override;
 
-	void SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, bool isRight ,float Rot = 0.0f);
+	void SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, MOVE_DIR Dir ,float Rot = 0.0f);
 
 private:
 	Animation2D_Com* m_Animation;
 	MENU_ENEMY_TYPE m_Type;
 	Vector3 m_ResultScale;
+	MenuEnemyCBuffer m_CBuffer;
 
 	float m_ScaleStartTime;
 	float m_ScaleStartTimeVar;
 
 	float m_ColorChangeTime;
 	float m_ColorChangeTimeVar;
+
+	float m_LightChangeTimeVar;
+	float m_LightChangeTime;
 
 	bool m_isScaleStart;
 	bool m_isColorStart;

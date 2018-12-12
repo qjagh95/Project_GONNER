@@ -513,6 +513,7 @@ void Vector3::operator-=(int ValArr[3])
 	Src -= Dest;
 	Convert(Src);
 }
+
 ////////////////////////////////////////////////////////////////////////////////
 void Vector3::operator*=(const Vector3 & vec)
 {
@@ -717,6 +718,178 @@ bool Vector3::operator==(int ValArr[3]) const
 
 	return Temp.x == x && Temp.y == y && Temp.z == z;
 }
+/////////////////////////////////////////////////////////////////////////
+
+bool Vector3::operator>=(const Vector3 & vec) const
+{
+	return x >= vec.x && y >= vec.y && z >= vec.z;
+}
+bool Vector3::operator>=(const XMVECTOR & Xmvec) const
+{
+	Vector3 Temp = Vector3(Xmvec);
+
+	return x >= Temp.x && y >= Temp.y && z >= Temp.z;
+}
+bool Vector3::operator>=(const XMFLOAT3 & XmFloat) const
+{
+	Vector3 Temp = Vector3(XmFloat);
+
+	return x >= Temp.x && y >= Temp.y && z >= Temp.z;
+}
+bool Vector3::operator>=(float Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x >= Temp.x && y >= Temp.y && z >= Temp.z;
+}
+bool Vector3::operator>=(int Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x >= Temp.x && y >= Temp.y && z >= Temp.z;
+}
+bool Vector3::operator>=(float ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x >= Temp.x && y >= Temp.y && z >= Temp.z;
+}
+bool Vector3::operator>=(int ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x >= Temp.x && y >= Temp.y && z >= Temp.z;
+}
+bool Vector3::operator<=(const Vector3 & vec) const
+{
+	return x <= vec.x && y <= vec.y && z <= vec.z;
+}
+bool Vector3::operator<=(const XMVECTOR & Xmvec) const
+{
+	Vector3 Temp = Vector3(Xmvec);
+
+	return x <= Temp.x && y <= Temp.y && z <= Temp.z;
+}
+bool Vector3::operator<=(const XMFLOAT3 & XmFloat) const
+{
+	Vector3 Temp = Vector3(XmFloat);
+
+	return x <= Temp.x && y <= Temp.y && z <= Temp.z;
+}
+bool Vector3::operator<=(float Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x <= Temp.x && y <= Temp.y && z <= Temp.z;
+}
+bool Vector3::operator<=(int Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x <= Temp.x && y <= Temp.y && z <= Temp.z;
+}
+bool Vector3::operator<=(float ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x <= Temp.x && y <= Temp.y && z <= Temp.z;
+}
+bool Vector3::operator<=(int ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x <= Temp.x && y <= Temp.y && z <= Temp.z;
+}
+
+bool Vector3::operator>(const Vector3 & vec) const
+{
+	return x > vec.x && y > vec.y && z > vec.z;
+}
+
+bool Vector3::operator>(const XMVECTOR & Xmvec) const
+{
+	Vector3 Temp = Vector3(Xmvec);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+bool Vector3::operator>(const XMFLOAT3 & XmFloat) const
+{
+	Vector3 Temp = Vector3(XmFloat);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+bool Vector3::operator>(float Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+bool Vector3::operator>(int Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+bool Vector3::operator>(float ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+bool Vector3::operator>(int ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
+bool Vector3::operator<(const Vector3 & vec) const
+{
+	return x < vec.x && y < vec.y && z < vec.z;
+}
+
+bool Vector3::operator<(const XMVECTOR & Xmvec) const
+{
+	Vector3 Temp = Vector3(Xmvec);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
+bool Vector3::operator<(const XMFLOAT3 & XmFloat) const
+{
+	Vector3 Temp = Vector3(XmFloat);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
+bool Vector3::operator<(float Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
+bool Vector3::operator<(int Val) const
+{
+	Vector3 Temp = Vector3(Val);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
+bool Vector3::operator<(float ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
+bool Vector3::operator<(int ValArr[3]) const
+{
+	Vector3 Temp = Vector3(ValArr);
+
+	return x > Temp.x && y > Temp.y && z > Temp.z;
+}
+
 /////////////////////////////////////////////////////////////////////////
 bool Vector3::operator!=(const Vector3 & vec) const
 {
@@ -1031,3 +1204,12 @@ void Vector3::AddCameraZoom(const Vector2& Amount)
 	CameraZoom.y += Amount.y;
 }
 
+Vector3 Vector3::Lerp(const Vector3& Start, const Vector3& End, float Time)
+{
+	XMVECTOR x1 = XMLoadFloat3((XMFLOAT3*)&Start);
+	XMVECTOR x2 = XMLoadFloat3((XMFLOAT3*)&End);
+	XMVECTOR X = XMVectorLerp(x1, x2, Time);
+
+	Vector3 result = Vector3(X);
+	return result;
+}

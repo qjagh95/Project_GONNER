@@ -53,16 +53,13 @@ bool Player_Com::Init()
 	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(100.0f, 100.0f, 0.0f));
 	RectColl->SetMyTypeName("Player");
 	SAFE_RELEASE(RectColl);
-	
-	TitleBar_Com* TitleCom = m_Object->AddComponent<TitleBar_Com>("TitleBar");
-	SAFE_RELEASE(TitleCom);
 
 	m_Transform->SetWorldScale(300.0f, 300.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
 	m_Transform->SetWorldPos(0.0f, 0.0f, 1.0f);
 
 	myAnimation = m_Object->AddComponent<Animation2D_Com>("PlayerAnimation");
-	myAnimation->SetDir(1);
+	myAnimation->SetDir((int)MD_RIGHT);
 
 	vector<Clip2DFrame>	vecClipFrame;
 	Clip2DFrame	tFrame = {};
@@ -91,9 +88,6 @@ bool Player_Com::Init()
 
 int Player_Com::Input(float DeltaTime)
 {
-	if (myAnimation == NULLPTR)
-		myAnimation = m_Object->FindComponentFromType<Animation2D_Com>(CT_ANIMATION2D);
-
 	if (KeyInput::Get()->KeyPress("MoveLeft"))
 		m_Transform->RotationZ(180.0f, DeltaTime);
 	else if (KeyInput::Get()->KeyPress("MoveRight"))

@@ -56,7 +56,11 @@ Animation2D_Com::~Animation2D_Com()
 
 bool Animation2D_Com::Init()
 {
-	m_CBuffer.isRight = true;
+	Renderer_Com* getRender = FindComponentFromType<Renderer_Com>(CT_RENDER);
+	getRender->CreateRendererCBuffer("Animation2D", sizeof(Animation2DCBuffer));
+	SAFE_RELEASE(getRender);
+
+	m_CBuffer.isRight = MD_RIGHT;
 	m_CBuffer.LeftTopUV = 0.0f;
 	m_CBuffer.RightBottomUV = 0.0f;
 
@@ -206,10 +210,10 @@ void Animation2D_Com::ChangeClip(const string & AnimationName)
 
 void Animation2D_Com::ChangeDir()
 {
-	if (m_CBuffer.isRight == 1)
-		m_CBuffer.isRight = 0;
+	if (m_CBuffer.isRight == MD_RIGHT)
+		m_CBuffer.isRight = MD_LEFT;
 	else
-		m_CBuffer.isRight = 1;
+		m_CBuffer.isRight = MD_RIGHT;
 }
 
 void Animation2D_Com::SetDir(bool isRight)

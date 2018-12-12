@@ -38,7 +38,7 @@
 #define FADE_SHADER "FadeShader"
 #define LOGO_SHADER "LogoShader"
 #define FIRE_SHADER "FireShader"
-#define ATLASONE_SHADER "AtlasOneShader"
+#define MENUENEMY_SHADER "MenuEnemyShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"

@@ -1,12 +1,12 @@
 #include "Share.fx"
 //fx파일은 버텍스와 픽셀쉐이더 두개 동시에 처리가 가능하다.
 
-cbuffer Animation2D : register(b8)
+cbuffer Animation2D : register(b10)
 {
     float2 g_LeftTopUV;
     float2 g_RightBottomUV;
-    bool g_isRight;
-    float3 g_Empty1234;
+    int g_isRight;  
+    float3 g_Empty1234; 
 }
 
 //////////////////////////////////ColorShader//////////////////////////
@@ -50,8 +50,8 @@ VS_OUTPUT_UV Standard_UV_VS(VS_INPUT_UV input)
     //없다면 그냥 출력
     if (g_Animation2DEnable == 1)
     {
-        //if (g_isRight == 0)
-            //input.vUV.x = 1.0f - input.vUV.x;
+        if (g_isRight == 0)
+            input.vUV.x = 1.0f - input.vUV.x;
 
         if (input.vUV.x == 0.0f)
             output.vUV.x = g_LeftTopUV.x;
@@ -73,7 +73,7 @@ VS_OUTPUT_UV Standard_UV_VS(VS_INPUT_UV input)
 PS_OUTPUT_SINGLE Standard_UV_PS(VS_OUTPUT_UV input)
 {
     PS_OUTPUT_SINGLE output = (PS_OUTPUT_SINGLE)0;
-    
+
     //Diffuse(Texture2D)에 SampleState(재질정보와 UV)를 넣어주고 색상정보를 곱한다
     output.vTarget0 = Diffuse.Sample(DiffuseSampler, input.vUV) * g_MaterialDiffuse;
 
