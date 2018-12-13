@@ -23,6 +23,9 @@ public:
 	GameObject* FindObject(const string& TagName);
 
 private:
+	static bool YSort(GameObject* Left, GameObject* Right);
+
+private:
 	Scene* m_Scene;
 	int m_ZOrder;
 

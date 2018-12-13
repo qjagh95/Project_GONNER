@@ -39,7 +39,6 @@ bool EditScene::Init()
 	KeyInput::Get()->AddKey("RandomTile", VK_SHIFT);
 	KeyInput::Get()->AddKey("TileClear", VK_F1);
 
-
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(Default);
@@ -47,6 +46,8 @@ bool EditScene::Init()
 	SAFE_RELEASE(UILayer);
 
 	RenderManager::Get()->SetIsZoomMode(true);
+
+	ShowCursor(TRUE);
 
 	return true;
 }
@@ -56,13 +57,16 @@ int EditScene::Update(float DeltaTime)
 	MainFrame* mainFrame = (MainFrame*)AfxGetMainWnd();
 	EditorForm*	editorForm = mainFrame->GetEditorForm();
 
+	KeyInput::Get()->SetCurSorPos(DeltaTime);
+
 	m_BackColorCom->SetBackColor(Vector4((float)editorForm->m_BackColorR, (float)editorForm->m_BackColorG, (float)editorForm->m_BackColorB, (float)editorForm->m_BackColorA));
 
 	Stage2D_Com* TileStage = editorForm->GetStageComponent();
 
 	if (TileStage != NULLPTR)
-	{
+	{ 
 		Vector3	MouseWorld = KeyInput::Get()->GetMouseWorldPos();
+		MouseWorld.y -= 720.0f;
 
 		if (KeyInput::Get()->KeyPress("LButton"))
 		{

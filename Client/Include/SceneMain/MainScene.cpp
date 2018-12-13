@@ -51,19 +51,22 @@ bool MainScene::Init()
 	Layer* UILayer = m_Scene->FindLayer("UI");
 	Layer* TileLayer = m_Scene->FindLayer("Tile");
 
-	//GameObject* BackObject = GameObject::CreateObject("BackObject", BackLayer);
-	//BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
-	//BackCom->SetBackColor(ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0));
+	GameObject* BackObject = GameObject::CreateObject("BackObject", BackLayer);
+	BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
+	BackCom->SetBackColor(ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0));
 
-	//ExcelManager::Get()->ReadVector4Data("BaclColor", 0, 0);
+	ExcelManager::Get()->ReadVector4Data("BaclColor", 0, 0);
 
-	//SAFE_RELEASE(BackCom);
-	//SAFE_RELEASE(BackObject);
+	SAFE_RELEASE(BackCom);
+	SAFE_RELEASE(BackObject);
+
+	BineryRead Reader = BineryRead("TileInfo.tInfo");
 
 	GameObject*	pStageObj = GameObject::CreateObject("StageObj", TileLayer);
 	Stage2D_Com* pStage = pStageObj->AddComponent<Stage2D_Com>("Stage");
-	pStage->CreateTileMap(100, 100, Vector3::Zero, Vector3(160.0f, 80.0f, 1.0f), STT_ISO);
-	pStage->SetLineOn(true);
+	pStage->Load(Reader);
+	pStage->SetLineOn(false);
+
 	SAFE_RELEASE(pStage);
 	SAFE_RELEASE(pStageObj);
 

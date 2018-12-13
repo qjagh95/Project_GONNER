@@ -58,10 +58,6 @@ bool MenuScene::Init()
 
 	EnemyInit(UILayer);
 
-	GameObject* newLogoObject = GameObject::CreateObject("Logo", UILayer, false);
-	MenuLogo_Com* newLogo = newLogoObject->AddComponent<MenuLogo_Com>("Logo");
-	newLogoObject->GetTransform()->SetWorldPos(Device::Get()->GetWinSize().Width / 2.0f - 500.0f, Device::Get()->GetWinSize().Height - 400.0f, 0.0f);
-
 	GameObject* newButton = GameObject::CreateObject("StartButton", UILayer);
 	newButton->GetTransform()->SetWorldPos(WinSize.x / 2.0f, 400.0f, 0.0f);
 	newButton->GetTransform()->SetWorldScale(100.0f, 30.0f, 0.0f);
@@ -87,6 +83,10 @@ bool MenuScene::Init()
 	buttonCom2->SetSaveScale(Vector3(50.0f, 30.0f, 1.0f));
 
 	m_vecButton.push_back(buttonCom2);
+
+	GameObject* newLogoObject = GameObject::CreateObject("Logo", UILayer, false);
+	MenuLogo_Com* newLogo = newLogoObject->AddComponent<MenuLogo_Com>("Logo");
+	newLogoObject->GetTransform()->SetWorldPos(Device::Get()->GetWinSize().Width / 2.0f - 500.0f, Device::Get()->GetWinSize().Height - 400.0f, 0.0f);
 
 	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer, false);
 	Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");

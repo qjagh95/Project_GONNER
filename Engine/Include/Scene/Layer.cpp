@@ -147,6 +147,9 @@ void JEONG::Layer::CollisionLateUpdate(float DeltaTime)
 
 void JEONG::Layer::Render(float DeltaTime)
 {
+	if(m_TagName != "UI")
+		m_ObjectList.sort(Layer::YSort);
+
 	list<JEONG::GameObject*>::iterator StartIter = m_ObjectList.begin();
 	list<JEONG::GameObject*>::iterator EndIter = m_ObjectList.end();
 
@@ -198,4 +201,12 @@ JEONG::GameObject * JEONG::Layer::FindObject(const string & TagName)
 		}
 	}
 	return NULLPTR;
+}
+
+bool JEONG::Layer::YSort(GameObject * Left, GameObject * Right)
+{
+	Vector3 LeftPos = Left->GetTransform()->GetWorldPos();
+	Vector3 RightPos = Right->GetTransform()->GetWorldPos();
+
+	return LeftPos.y < RightPos.y;
 }

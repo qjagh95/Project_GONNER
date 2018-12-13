@@ -15,19 +15,19 @@
 #include "../UserComponent/BulletRot_Com.h"
 
 Player_Com::Player_Com()
-	: myAnimation(NULLPTR)
+	: m_Animation(NULLPTR)
 {
 }
 
 Player_Com::Player_Com(const Player_Com & userCom)
 	:UserComponent_Base(userCom)
 {
-	myAnimation = NULLPTR;
+	m_Animation = NULLPTR;
 }
 
 Player_Com::~Player_Com()
 {
-	SAFE_RELEASE(myAnimation);
+	SAFE_RELEASE(m_Animation);
 }
 
 bool Player_Com::Init()
@@ -56,10 +56,10 @@ bool Player_Com::Init()
 
 	m_Transform->SetWorldScale(300.0f, 300.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
-	m_Transform->SetWorldPos(0.0f, 0.0f, 1.0f);
+	m_Transform->SetWorldPos(300.0f, 100.0f, 1.0f);
 
-	myAnimation = m_Object->AddComponent<Animation2D_Com>("PlayerAnimation");
-	myAnimation->SetDir((int)MD_RIGHT);
+	m_Animation = m_Object->AddComponent<Animation2D_Com>("PlayerAnimation");
+	m_Animation->SetDir((int)MD_RIGHT);
 
 	vector<Clip2DFrame>	vecClipFrame;
 	Clip2DFrame	tFrame = {};
@@ -71,7 +71,7 @@ bool Player_Com::Init()
 		vecClipFrame.push_back(tFrame);
 	}
 
- 	myAnimation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
+	m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
 	vecClipFrame.clear();
 
 	for (int i = 0; i < 21; ++i)
@@ -81,21 +81,15 @@ bool Player_Com::Init()
 		vecClipFrame.push_back(tFrame);
 	}
 
-	myAnimation->AddClip("Attack", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
+	m_Animation->AddClip("Attack", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
 
 	return true;
 }
 
 int Player_Com::Input(float DeltaTime)
 {
-	if (KeyInput::Get()->KeyPress("MoveLeft"))
-		m_Transform->RotationZ(180.0f, DeltaTime);
-	else if (KeyInput::Get()->KeyPress("MoveRight"))
-		m_Transform->RotationZ(-180.0f, DeltaTime);
-	if (KeyInput::Get()->KeyPress("MoveUp"))
-		m_Transform->Move(AXIS_Y, 1000.0f, DeltaTime);
-	else if (KeyInput::Get()->KeyPress("MoveDown"))
-		m_Transform->Move(AXIS_Y, -1000.0f, DeltaTime);
+	Move(DeltaTime);
+	DirCheck();
 
 	return 0;
 }
@@ -125,5 +119,29 @@ void Player_Com::Render(float DeltaTime)
 Player_Com * Player_Com::Clone()
 {
 	return new Player_Com(*this);
+}
+
+void Player_Com::Move(float DeltaTime)
+{
+	if (KeyInput::Get()->KeyPress("MoveRight"))
+		m_Transform->Move(AXIS_X, 1000.0f, DeltaTime);
+	else if (KeyInput::Get()->KeyPress("MoveLeft"))
+		m_Transform->Move(AXIS_X, -1000.0f, DeltaTime);
+}
+
+void Player_Com::ChangeState(GONNER_STATE State)
+{
+	m_PrevState = m_State;
+	m_State = State;
+
+	m_Animation->ChangeClip(m_AniName[m_State]);
+}
+
+void Player_Com::DirCheck()
+{
+	if (KeyInput::Get()->KeyPress("MoveRight"))
+		m_Animation->SetDir(MD_RIGHT);
+	else if (KeyInput::Get()->KeyPress("MoveLeft"))
+		m_Animation->SetDir(MD_LEFT);
 }
 

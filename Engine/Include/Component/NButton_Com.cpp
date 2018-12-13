@@ -73,21 +73,6 @@ void NButton_Com::Collision(float DeltaTime)
 
 void NButton_Com::CollisionLateUpdate(float DeltaTime)
 {
-	if (m_ButtonState == BS_MOUSEOVER || m_ButtonState == BS_CLICK)
-	{
-		if (KeyInput::Get()->KeyPress("LButton"))
-		{
-			if (m_isMouse == true)
-				m_ButtonState = BS_CLICK;
-		}
-
-		else if (KeyInput::Get()->KeyUp("LButton"))
-		{
-			if(m_isMouse == true)
-				m_ButtonCallBack(DeltaTime);
-		}
-	}
-
 	switch (m_ButtonState)
 	{
 		case BS_NORMAL:
@@ -139,20 +124,10 @@ void NButton_Com::SetStateColor(BUTTON_STATE eState, unsigned char r, unsigned c
 
 void NButton_Com::MouseHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "MouseWindow")
-	{
-		m_ButtonState = BS_MOUSEOVER;
-		m_isMouse = true;
-	}
 }
 
 void NButton_Com::MouseOut(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "MouseWindow")
-	{
-		m_ButtonState = BS_NORMAL;
-		m_isMouse = false;
-	}
 }
 
 void NButton_Com::SetTexture(const string& KeyName,const TCHAR* FileName)

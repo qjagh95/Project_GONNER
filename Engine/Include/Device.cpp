@@ -191,8 +191,8 @@ Vector2 JEONG::Device::GetWindowToDeviceRatio() const
 Vector2 JEONG::Device::GetWinSizeVector2() const
 {
 	Vector2 Temp;
-	Temp.x = m_WinSize.Width;
-	Temp.y = m_WinSize.Height;
+	Temp.x = (float)m_WinSize.Width;
+	Temp.y = (float)m_WinSize.Height;
 
 	return Temp;
 }

@@ -5,6 +5,8 @@ JEONG_USING
 
 Gravity_Com::Gravity_Com()
 {
+	m_Gravity = 0.0f;
+	m_Stage = NULLPTR;
 }
 
 Gravity_Com::Gravity_Com(const Gravity_Com & CopyData)
@@ -19,11 +21,18 @@ Gravity_Com::~Gravity_Com()
 
 bool Gravity_Com::Init()
 {
+	m_Gravity = 300.0f;
+
 	return true;
 }
 
 int Gravity_Com::Input(float DeltaTime)
 {
+	Vector3 Pos = m_Object->GetTransform()->GetWorldPos();
+
+	if(m_Stage->GetTile2D(Pos)->GetTileOption() != T2D_NOMOVE)
+		m_Object->GetTransform()->Move(AXIS_Y, -m_Gravity);
+	
 	return 0;
 }
 

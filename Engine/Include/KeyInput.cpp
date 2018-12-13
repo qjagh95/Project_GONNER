@@ -67,7 +67,9 @@ bool JEONG::KeyInput::Init()
 	m_MouseWorldPoint = m_MouseObject->AddComponent<ColliderPoint_Com>("MouseWorld");
 	m_MouseWorldPoint->SetMyTypeName("MouseWorld");
 
-	ShowCursor(TRUE);
+	ShowCursor(FALSE);
+	m_ShowCursor = true;
+
 	return true;
 }
 
@@ -112,9 +114,7 @@ void JEONG::KeyInput::Update(float DeltaTime)
 	}
 
 	POINT tempPos;
-	RECT ScreenRect;
-
-	GetClientRect(Core::Get()->GetHwnd(), &ScreenRect);
+	
 	GetCursorPos(&tempPos);
 	ScreenToClient(Core::Get()->GetHwnd(), &tempPos);
 
@@ -138,19 +138,16 @@ void JEONG::KeyInput::Update(float DeltaTime)
 	m_MouseObject->GetTransform()->SetWorldPos((float)m_MouseScreenPos.x, (float)m_MouseScreenPos.y, 0.0f);
 	m_MouseObject->Update(DeltaTime);
 
-	if (m_isMosueShow == false)
+	if (m_ShowCursor == false && (m_MouseScreenPos.x < 0.0f || m_MouseScreenPos.x > Device::Get()->GetWinSize().Width || m_MouseScreenPos.y < 0.0f || m_MouseScreenPos.y > Device::Get()->GetWinSize().Height))
 	{
-		if (m_ShowCursor == false && (m_MouseScreenPos.x <= 0.0f && m_MouseScreenPos.x >= Device::Get()->GetWinSize().Width || m_MouseScreenPos.y <= 0.0f && m_MouseScreenPos.y >= Device::Get()->GetWinSize().Height))
-		{
-			m_ShowCursor = true;
-			while (ShowCursor(TRUE) != 0) {}
-		}
+		m_ShowCursor = true;
+		while (ShowCursor(TRUE) != 0) {}
+	}
 
-		else if (m_ShowCursor == true && m_MouseScreenPos.x >= 0.0f && m_MouseScreenPos.x <= Device::Get()->GetWinSize().Width && m_MouseScreenPos.y >= 0.0f && m_MouseScreenPos.y <= Device::Get()->GetWinSize().Height)
-		{
-			m_ShowCursor = false;
-			while (ShowCursor(FALSE) >= 0) {}
-		}
+	else if (m_ShowCursor && m_MouseScreenPos.x >= 0.0f && m_MouseScreenPos.x <= Device::Get()->GetWinSize().Width && m_MouseScreenPos.y >= 0.0f && m_MouseScreenPos.y <= Device::Get()->GetWinSize().Height)
+	{
+		m_ShowCursor = false;
+		while (ShowCursor(FALSE) > 0) {}
 	}
 
 	SAFE_RELEASE(curScene);
@@ -161,7 +158,7 @@ void JEONG::KeyInput::RenderMouse(float DeltaTime)
 	m_MouseObject->Render(DeltaTime);
 }
 
-Vector3 KeyInput::GetMouseWorldPos() const
+Vector3 JEONG::KeyInput::GetMouseWorldPos() const
 {
 	return Vector3(m_MouseWorldPos.x, m_MouseWorldPos.y, 0.0f);
 }
@@ -229,4 +226,13 @@ void JEONG::KeyInput::ResetEquipObject()
 		m_EquipObject = NULLPTR;
 		m_isEquip = false;
 	}
+}
+
+void JEONG::KeyInput::SetCurSorPos(float DeltaTime)
+{
+	POINT tempPos;
+	GetCursorPos(&tempPos);
+
+	m_MouseObject->GetTransform()->SetWorldPos((float)m_MouseScreenPos.x, (float)m_MouseScreenPos.y - 720.0f, 0.0f);
+	m_MouseObject->Update(DeltaTime);
 }

@@ -15,6 +15,15 @@ public:
 	void Render(float DeltaTime) override;
 	Gravity_Com* Clone() override;
 	void AfterClone() override;
+	
+	void SetGravity(float Gravity) { m_Gravity = Gravity; }
+	float GetGravity() const { return m_Gravity; }
+	void SetStage(Stage2D_Com* stage) { m_Stage = stage; }
+	Stage2D_Com* GetStage() const { return m_Stage; }
+
+private:
+	float m_Gravity;
+	Stage2D_Com* m_Stage;
 
 protected:
 	Gravity_Com();

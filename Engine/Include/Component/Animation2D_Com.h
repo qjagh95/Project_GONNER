@@ -23,6 +23,7 @@ public:
 	bool GetIsEnd() const { return m_isEnd; }
 	void ChangeDir();
 	void SetDir(bool isRight);
+	int GetFrame() const { return m_CurClip->Frame; }
 
 private:
 	unordered_map<string, AnimationClip2D*> m_ClipMap;

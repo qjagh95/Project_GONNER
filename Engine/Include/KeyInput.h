@@ -35,6 +35,7 @@ public:
 	void ResetEquipObject();
 	bool GetisEquipObject() const { return m_isEquip; }
 	void SetShowCursor(bool Value) { m_isMosueShow = Value; }
+	void SetCurSorPos(float DeltaTime);
 
 	template <typename T>
 	bool AddKey(const T& value)
