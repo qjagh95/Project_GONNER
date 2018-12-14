@@ -235,7 +235,7 @@
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Monster_Com.cpp" />
-    <ClCompile Include="UserComponent\Player_Com.cpp">
+    <ClCompile Include="UserComponent\Gonner_Com.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
@@ -249,7 +249,7 @@
     <ClInclude Include="UserComponent\BulletRot_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Monster_Com.h" />
-    <ClInclude Include="UserComponent\Player_Com.h" />
+    <ClInclude Include="UserComponent\Gonner_Com.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DirectXTK\DirectXTK_Desktop_2017_Win10.vcxproj" />

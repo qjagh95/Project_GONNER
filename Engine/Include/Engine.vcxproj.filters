@@ -244,9 +244,6 @@
     <Filter Include="Core\08. Object\Component\UserComponent\05. Fire">
       <UniqueIdentifier>{75a4810f-7ee1-4569-bc13-ae42c74e26e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\BaseComponent\14. Gravity%28__%29">
-      <UniqueIdentifier>{400b20a6-b35f-4e74-a924-4bb4036751df}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\15. Number%28__%29">
       <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
@@ -258,6 +255,9 @@
     </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\17. NButton">
       <UniqueIdentifier>{090ca834-eab9-433c-b175-bfb3b58db50e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\14. Gravity">
+      <UniqueIdentifier>{400b20a6-b35f-4e74-a924-4bb4036751df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -448,7 +448,7 @@
       <Filter>Core\14. ExcelManager</Filter>
     </ClInclude>
     <ClInclude Include="Component\Gravity_Com.h">
-      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity%28__%29</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity</Filter>
     </ClInclude>
     <ClInclude Include="Component\BackColor_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\BackColor</Filter>
@@ -668,7 +668,7 @@
       <Filter>Core\14. ExcelManager</Filter>
     </ClCompile>
     <ClCompile Include="Component\Gravity_Com.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity%28__%29</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\14. Gravity</Filter>
     </ClCompile>
     <ClCompile Include="Component\BackColor_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\BackColor</Filter>
@@ -761,6 +761,9 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\MenuEnemyShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\ScreenShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

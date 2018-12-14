@@ -181,6 +181,15 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
+	Entry[ST_VERTEX] = "ScreenVS";
+	Entry[ST_PIXEL] = "ScreenPS";
+	if (LoadShader(SCREEN_SHADER, TEXT("ScreenShader.fx"), Entry) == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
+
 	//Entry[ST_VERTEX] = "AtlasOneVS";
 	//Entry[ST_PIXEL] = "AtlasOnePS";
 	//if (LoadShader(ATLASONE_SHADER, TEXT("AtlasOneShader.fx"), Entry) == false)
@@ -210,7 +219,10 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("FadeCBuffer", sizeof(FadeCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("LogoCBuffer", sizeof(LogoCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("MenuEnemyCBuffer", sizeof(MenuEnemyCBuffer), 9, CST_VERTEX | CST_PIXEL);
-	
+	CreateCBuffer("PublicCBuffer", sizeof(PublicCBuffer), 11, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("PlayerUVCBuffer", sizeof(PlayerUVCBuffer), 12, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("WaveCBuffer", sizeof(WaveCBuffer), 9, CST_VERTEX | CST_PIXEL);
+
 	//CreateCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	//CreateCBuffer("FireCBuffer", sizeof(FireCBuffer), 9, CST_VERTEX | CST_PIXEL);
 

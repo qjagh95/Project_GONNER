@@ -1,7 +1,7 @@
 #include "ClientHeader.h"
 #include "StaticTestScene.h"
 #include "MainScene.h"
-#include "UserComponent/Player_Com.h"
+#include "UserComponent/Gonner_Com.h"
 
 StaticTestScene::StaticTestScene()
 {

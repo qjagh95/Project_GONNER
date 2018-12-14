@@ -19,14 +19,10 @@
 #include "Component/Tile2D_Com.h"
 #include "Component/CheckBox_Com.h"
 #include "Component/BackColor_Com.h"
+#include "Component/Gravity_Com.h"
 
-#include "../UserComponent/Player_Com.h"
-#include "../UserComponent/Bullet_Com.h"
-#include "../UserComponent/BulletRot_Com.h"
-#include "../UserComponent/BulletBoom_Com.h"
-
+#include "../UserComponent/Gonner_Com.h"
 #include "../UserComponent/Monster_Com.h"
-#include <UserComponent/Fade_Com.h>
 
 
 MainScene::MainScene()
@@ -41,10 +37,9 @@ bool MainScene::Init()
 {
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
-	mainCamera->SetCameraPosInfo(Vector3(5000.0f, 5000.0f, 0.0f), 300.0f);
+	mainCamera->GetTransform()->SetWorldPos(Vector3(0.0f, 500.0f, 0.0f));
+	mainCamera->SetCameraPosInfo(Vector3(5000.0f, 3000.0f, 0.0f));
 	mainCamera->SetNear(0.0f);
-
-	KeyInput::Get()->SetShowCursor(false);
 
 	Layer* BackLayer = m_Scene->FindLayer("BackGround");
 	Layer* Default = m_Scene->FindLayer("Default");
@@ -55,38 +50,29 @@ bool MainScene::Init()
 	BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
 	BackCom->SetBackColor(ExcelManager::Get()->ReadVector4Data("BackColor", 0, 0));
 
-	ExcelManager::Get()->ReadVector4Data("BaclColor", 0, 0);
-
-	SAFE_RELEASE(BackCom);
-	SAFE_RELEASE(BackObject);
-
 	BineryRead Reader = BineryRead("TileInfo.tInfo");
 
 	GameObject*	pStageObj = GameObject::CreateObject("StageObj", TileLayer);
 	Stage2D_Com* pStage = pStageObj->AddComponent<Stage2D_Com>("Stage");
 	pStage->Load(Reader);
-	pStage->SetLineOn(false);
-
-	SAFE_RELEASE(pStage);
-	SAFE_RELEASE(pStageObj);
-
-	GameObject* MonsterObject = GameObject::CreateObject("Monster", Default);
-	Monster_Com* monster_Com = MonsterObject->AddComponent<Monster_Com>("Monster_Com");
-	SAFE_RELEASE(MonsterObject);
-	SAFE_RELEASE(monster_Com);
+	pStage->SetLineOn(true);
 
 	GameObject* PlayerObject = GameObject::CreateObject("Player", Default, true);
 	if (PlayerObject->EmptyComponent() == true)
 	{
-		Player_Com* player_Com = PlayerObject->AddComponent<Player_Com>("Player_Com");
+		Gonner_Com* player_Com = PlayerObject->AddComponent<Gonner_Com>("Player_Com");
+		player_Com->SetStage(pStage);
 		SAFE_RELEASE(player_Com);
 	}
 
 	mainCamera->SetTarget(PlayerObject);
 
+	SAFE_RELEASE(BackCom);
+	SAFE_RELEASE(BackObject);
+	SAFE_RELEASE(pStage);
+	SAFE_RELEASE(pStageObj);
 	SAFE_RELEASE(mainCamera);
 	SAFE_RELEASE(PlayerObject);
-
 	SAFE_RELEASE(Default);
 	SAFE_RELEASE(UILayer);
 	SAFE_RELEASE(TileLayer);

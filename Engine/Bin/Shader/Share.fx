@@ -112,6 +112,19 @@ cbuffer Componeent : register(b2)
     float3 g_Empty;
 }
 
+cbuffer Public : register(b11)
+{
+    float g_PlusedDeltaTime;
+    float g_DeltaTime;
+    float2 g_Empty123132;
+}
+
+cbuffer PlayerScreenUV : register(b12)
+{
+    float2 PlayerUV;
+    float2 g_Empty12314123;
+}
+
 //변수라인
 /////////////////////////////////////////////////////////////////////
 

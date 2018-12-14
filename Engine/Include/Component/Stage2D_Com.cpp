@@ -21,7 +21,7 @@ JEONG::Stage2D_Com::Stage2D_Com(const Stage2D_Com& CopyData)
 
 JEONG::Stage2D_Com::~Stage2D_Com()
 {
-	for (size_t i = 0; i < m_Tile2DComSize; i++)
+	for (size_t i = 0; i < m_TileObjectSize; i++)
 		SAFE_RELEASE(m_vecTileObject[i]);
 	for (size_t i = 0; i < m_Tile2DComSize; i++)
 		SAFE_RELEASE(m_vecTile2DCom[i]);
@@ -287,7 +287,6 @@ void JEONG::Stage2D_Com::CreateTileMap(int TileCountX, int TileCountY, const Vec
 			CreateIsoTile(StartPos, TileScale, KeyName, FileName, PathKey);
 			break;
 	}
-
 }
 
 void JEONG::Stage2D_Com::ClearImage()

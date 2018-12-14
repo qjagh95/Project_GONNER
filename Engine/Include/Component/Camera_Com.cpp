@@ -26,7 +26,6 @@ JEONG::Camera_Com::Camera_Com(const Camera_Com & camera)
 
 bool JEONG::Camera_Com::Init()
 {
-	m_Amount = 0.0f;
 
 	m_WinSize.x = (float)Device::Get()->GetWinSize().Width;
 	m_WinSize.y = (float)Device::Get()->GetWinSize().Height;
@@ -44,39 +43,26 @@ int JEONG::Camera_Com::Update(float DeltaTime)
 	m_View.Identity();
 
 	Vector3 WorldPos = m_Transform->GetWorldPos();
-	Vector3 WinSize = Device::Get()->GetWinSizeVector2();
 
 	if (m_Target != NULLPTR)
 	{
 		Vector3 TargetPos = m_Target->GetTransform()->GetWorldPos();
-		Vector3 CameraCenter = WorldPos + WinSize * 0.5f;
-		Vector3 TargetScreenPos = TargetPos - WorldPos;
-		Vector3 TargetScreenPos2 = TargetPos - CameraCenter;
 
-		if (TargetScreenPos.x < WinSize.x / 4.0f)
-			m_Transform->Move(Vector3(1.0f, 0.0f, 0.0f), TargetScreenPos2.x, DeltaTime * 1.5f);
-		else if (TargetScreenPos.x > (WinSize.x * 3.0f) / 4.0f)
-			m_Transform->Move(Vector3(1.0f, 0.0f, 0.0f), TargetScreenPos2.x, DeltaTime * 1.5f);
-		
-		if (TargetScreenPos.y < WinSize.y / 4.0f)
-			m_Transform->Move(Vector3(0.0f, 1.0f, 0.0f), TargetScreenPos2.y, DeltaTime * 2.0f);
-		else if (TargetScreenPos.y > (WinSize.y * 3.0f) / 4.0f)
-			m_Transform->Move(Vector3(0.0f, 1.0f, 0.0f), TargetScreenPos2.y, DeltaTime * 2.0f);
+		Vector3 Lerp = Vector3::Lerp(WorldPos, Vector3(TargetPos.x - m_WinSize.x * 0.4f, TargetPos.y - m_WinSize.x * 0.2f, -5.0f), DeltaTime * 2.0f);
+
+		if (Lerp.x < 0.0f)
+			Lerp.x = 0.0f;
+		else if (Lerp.x + m_WinSize.x >= m_MaxPos.x)
+			Lerp.x = m_MaxPos.x - m_WinSize.x;
+
+		if (Lerp.y < 0.0f)
+			Lerp.y = 0.0f;
+		else if (Lerp.y + m_WinSize.y >= m_MaxPos.y)
+			Lerp.y = m_MaxPos.y - m_WinSize.y;
+
+		m_Transform->SetWorldPos(Lerp);
 
 		Vector3 Temp = m_Transform->GetWorldPos();
-
-		if (Temp.x < 0.0f)
-			Temp.x = 0.0f;
-		else if (Temp.x + WinSize.x >= m_MaxPos.x)
-			Temp.x = m_MaxPos.x - WinSize.x;
-
-		if (Temp.y < 0.0f)
-			Temp.y = 0.0f;
-		else if (Temp.y + WinSize.y >= m_MaxPos.y)
-			Temp.y = m_MaxPos.y - WinSize.y;
-
-		m_Transform->SetWorldPos(Temp);
-
 		Temp *= -1.0f;
 		memcpy(&m_View[3][0], &Temp, sizeof(Vector3));
 	}
@@ -221,8 +207,7 @@ void JEONG::Camera_Com::SetTarget(JEONG::Component_Base* pTarget)
 	m_Target = pTarget->GetTransform();
 }
 
-void JEONG::Camera_Com::SetCameraPosInfo(const Vector3& MaxPos, float Amount)
+void JEONG::Camera_Com::SetCameraPosInfo(const Vector3& MaxPos)
 {
 	m_MaxPos = MaxPos;
-	m_Amount = Amount;
 }

@@ -21,6 +21,7 @@ using namespace DirectX::PackedVector;
 float MATH_DLL RadianToDegree(float radian);
 float MATH_DLL DegreeToRadian(float degree);
 int MATH_DLL RandomRange(int R1, int R2);
+float MATH_DLL Lerp(float Start, float End, float DeltaTime);
 
 #include "Vector2.h"
 #include "Vector3.h"

@@ -17,3 +17,8 @@ int MATH_DLL RandomRange(int R1, int R2)
 
 	return (int)(rand() % (R2 - R1 + 1)) + R1;
 }
+
+float Lerp(float Start, float End, float DeltaTime)
+{
+	return Start + DeltaTime * (End - Start);
+}

@@ -129,54 +129,58 @@ void RenderTarget::ResetTarget()
 
 void RenderTarget::Render(float DeltaTime)
 {
-	if (m_isDebugDraw == false)
-		return;
+	m_CBuffer.PlusedDeltaTime += DeltaTime;
+	m_CBuffer.DeltaTime = DeltaTime;
 
-	TransformCBuffer tTransform = {};
-	Matrix	matPos, matScale;
-	matScale.Scaling(m_Scale);
-	matPos.Translation(m_Pos);
+	ShaderManager::Get()->UpdateCBuffer("PublicCBuffer", &m_CBuffer);
+	
+	//if (m_isDebugDraw == false)
+	//	return;
 
-	Scene* pScene = SceneManager::Get()->GetCurScene();
-	Camera_Com*	pCamera = pScene->GetUICamera();
+	//TransformCBuffer tTransform = {};
+	//Matrix	matPos, matScale;
+	//matScale.Scaling(m_Scale);
+	//matPos.Translation(m_Pos);
 
-	SAFE_RELEASE(pScene);
+	//Scene* pScene = SceneManager::Get()->GetCurScene();
+	//Camera_Com*	pCamera = pScene->GetUICamera();
 
-	Matrix	matView, matProj;
-	matView = pCamera->GetViewMatrix();
-	matProj = pCamera->GetProjection();
+	//SAFE_RELEASE(pScene);
 
-	tTransform.World = matScale * matPos;
-	tTransform.View = matView;
-	tTransform.Projection = matProj;
-	tTransform.WV = tTransform.World * matView;
-	tTransform.WVP = tTransform.WV * matProj;
-	tTransform.Lenth = m_Mesh->GetLenth();
+	//Matrix	matView, matProj;
+	//matView = pCamera->GetViewMatrix();
+	//matProj = pCamera->GetProjection();
 
-	tTransform.World.Transpose();
-	tTransform.View.Transpose();
-	tTransform.Projection.Transpose();
-	tTransform.WV.Transpose();
-	tTransform.WVP.Transpose();
+	//tTransform.World = matScale * matPos;
+	//tTransform.View = matView;
+	//tTransform.Projection = matProj;
+	//tTransform.WV = tTransform.World * matView;
+	//tTransform.WVP = tTransform.WV * matProj;
+	//tTransform.Lenth = m_Mesh->GetLenth();
 
-	ShaderManager::Get()->UpdateCBuffer("Transform", &tTransform);
+	//tTransform.World.Transpose();
+	//tTransform.View.Transpose();
+	//tTransform.Projection.Transpose();
+	//tTransform.WV.Transpose();
+	//tTransform.WVP.Transpose();
 
-	m_DepthState->SetState();
-	{
-		if (m_Sampler != NULLPTR)
-			m_Sampler->SetSamplerState(0);
+	//ShaderManager::Get()->UpdateCBuffer("Transform", &tTransform);
 
-		Device::Get()->GetContext()->IASetInputLayout(m_Layout);
-		Device::Get()->GetContext()->PSSetShaderResources(0, 1, &m_TargetShaderResourceView);
+	//m_DepthState->SetState();
+	//{
+	//	if (m_Sampler != NULLPTR)
+	//		m_Sampler->SetSamplerState(0);
 
-		m_Shader->SetShader();
-		m_Mesh->Render();
+	//	Device::Get()->GetContext()->IASetInputLayout(m_Layout);
+	//	Device::Get()->GetContext()->PSSetShaderResources(0, 1, &m_TargetShaderResourceView);
 
-		ID3D11ShaderResourceView* pSRV = NULLPTR;
-		Device::Get()->GetContext()->PSSetShaderResources(0, 1, &pSRV);
-	}
-	m_DepthState->ResetState();
+	//	m_Shader->SetShader();
+	//	m_Mesh->Render();
 
+	//	ID3D11ShaderResourceView* pSRV = NULLPTR;
+	//	Device::Get()->GetContext()->PSSetShaderResources(0, 1, &pSRV);
+	//}
+	//m_DepthState->ResetState();
 }
 
 void RenderTarget::RenderFullScreen()
@@ -185,7 +189,7 @@ void RenderTarget::RenderFullScreen()
 		m_FullScreenShader = ShaderManager::Get()->FindShader(FULLSCREEN_SHADER);
 
 	m_DepthState->SetState();
-	{			
+	{
 		if (m_Sampler != NULLPTR)
 			m_Sampler->SetSamplerState(0);
 
@@ -217,12 +221,8 @@ void RenderTarget::SetShader(int Register)
 void RenderTarget::SetDrawDebug(bool isDraw)
 {
 	m_isDebugDraw = isDraw;
-
-	if (m_isDebugDraw == true)
-	{
-		m_DepthState = (DepthStancilState*)RenderManager::Get()->FindRenderState(DEPTH_DISABLE);
-		m_Mesh = ResourceManager::Get()->FindMesh("TextureRect");
-		m_Shader = ShaderManager::Get()->FindShader(STANDARD_UV_STATIC_SHADER);
-		m_Layout = ShaderManager::Get()->FindInputLayOut(POS_UV_LAYOUT);
-	}
+	m_DepthState = (DepthStancilState*)RenderManager::Get()->FindRenderState(DEPTH_DISABLE);
+	m_Mesh = ResourceManager::Get()->FindMesh("TextureRect");
+	m_Shader = ShaderManager::Get()->FindShader(STANDARD_UV_STATIC_SHADER);
+	m_Layout = ShaderManager::Get()->FindInputLayOut(POS_UV_LAYOUT);
 }

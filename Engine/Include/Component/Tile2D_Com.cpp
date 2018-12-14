@@ -216,6 +216,7 @@ void JEONG::Tile2D_Com::Load(BineryRead & Reader)
 
 	size_t SubImageSize = 0;
 	Reader.ReadData(SubImageSize);
+
 	SetSubTileImage(m_ImageFileName ,SubImageSize);
 
 	for (size_t i = 0; i < SubImageSize; i++)
@@ -287,16 +288,16 @@ void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	switch (Dir)
 	{
 		case 90:
-			m_TileImageObject->GetTransform()->SetWorldRotZ(-90.0f);
 			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x, TilePos.y + TileScale.y, 0.0f);
+			m_TileImageObject->GetTransform()->SetWorldRotZ(-90.0f);
 			break;
 		case -90:
-			m_TileImageObject->GetTransform()->SetWorldRotZ(90.0f);
 			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y, 0.0f);
+			m_TileImageObject->GetTransform()->SetWorldRotZ(90.0f);
 			break;
 		case 180:
-			m_TileImageObject->GetTransform()->SetWorldRotZ(180.0f);
 			m_TileImageObject->GetTransform()->SetWorldPos(TilePos.x + TileScale.x, TilePos.y + TileScale.y, 0.0f);
+			m_TileImageObject->GetTransform()->SetWorldRotZ(180.0f);
 			break;
 	}
 }
@@ -349,8 +350,8 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				Vector3 rRange = Vector3(TilePos.x, (float)RandomRange((int)(TilePos.y - TileScale.y + 50.0f), (int)TilePos.y), 0.0f);
 
 				newImageObject->GetTransform()->SetWorldPos(TilePos.x, rRange.y, 0.0f);
-				newImage->SetSavePos(rRange);
 				newImageObject->GetTransform()->SetWorldRotZ(RandomAngle);
+				newImage->SetSavePos(rRange);
 			}
 				break;
 			case 90:
@@ -360,16 +361,19 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				newImageObject->GetTransform()->SetWorldRotZ(-90.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(rRange.x , TilePos.y + TileScale.y , 0.0f);
 
-				m_TileImage->SetDistance(300.0f);
+				newImage->SetDistance(300.0f);
+				newImage->SetSavePos(rRange);
 			}
 				break;
 			case -90:
 			{
 				int RandomPos = RandomRange(0, (int)TileScale.x);
+
 				newImageObject->GetTransform()->SetWorldRotZ(90.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPos, TilePos.y, 0.0f);
 
-				m_TileImage->SetDistance(200.0f);
+				newImage->SetDistance(200.0f);
+				newImage->SetSavePos(newImageObject->GetTransform()->GetWorldPos());
 			}
 				break;
 			case 180:
@@ -380,7 +384,8 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				newImageObject->GetTransform()->SetWorldRotZ(180.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPosX, TilePos.y + RandomPosY, 0.0f);
 
-				m_TileImage->SetDistance(100.0f);
+				newImage->SetDistance(100.0f);
+				newImage->SetSavePos(newImageObject->GetTransform()->GetWorldPos());
 			}
 				break;
 		}

@@ -222,4 +222,27 @@ struct JEONG_DLL MenuEnemyCBuffer
 	Vector4 Light;
 };
 
+struct JEONG_DLL PublicCBuffer
+{
+	float PlusedDeltaTime;
+	float DeltaTime;
+	Vector2 Empty;
+
+	PublicCBuffer() : PlusedDeltaTime(0.0f), DeltaTime(0.0f) {}
+};
+
+struct JEONG_DLL PlayerUVCBuffer
+{
+	Vector2 UV;
+	Vector2 EMPTY;
+};
+
+struct JEONG_DLL WaveCBuffer
+{
+	float LiveTime;
+	Vector3 Empty;
+
+	WaveCBuffer() : LiveTime(0.0f) {}
+};
+
 JEONG_END

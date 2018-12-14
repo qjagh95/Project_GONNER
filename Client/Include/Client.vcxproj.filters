@@ -55,9 +55,6 @@
     <ClCompile Include="UserComponent\Monster_Com.cpp">
       <Filter>Scene\03. MainScene\Component</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\Player_Com.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\BulletBoom_Com.cpp">
       <Filter>Scene\03. MainScene\Component</Filter>
     </ClCompile>
@@ -76,6 +73,9 @@
     <ClCompile Include="SceneMain\MenuScene.cpp">
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
     </ClCompile>
+    <ClCompile Include="UserComponent\Gonner_Com.cpp">
+      <Filter>Scene\03. MainScene\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHeader.h">
@@ -93,9 +93,6 @@
     <ClInclude Include="UserComponent\Monster_Com.h">
       <Filter>Scene\03. MainScene\Component</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\Player_Com.h">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClInclude>
     <ClInclude Include="SceneMain\MainScene.h">
       <Filter>Scene\03. MainScene\SceneMain</Filter>
     </ClInclude>
@@ -107,6 +104,9 @@
     </ClInclude>
     <ClInclude Include="SceneMain\MenuScene.h">
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Gonner_Com.h">
+      <Filter>Scene\03. MainScene\Component</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

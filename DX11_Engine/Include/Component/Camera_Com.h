@@ -18,7 +18,7 @@ public:
 
 	void SetCameraType(CAMERA_TYPE eType);
 	void SetCameraInfo(CAMERA_TYPE eType, float Width, float Height, float ViewAngle, float Near, float Far);
-	void SetCameraPosInfo(const Vector3& MaxPos, float Amount);
+	void SetCameraPosInfo(const Vector3& MaxPos);
 	void SetWidth(float Width);
 	void SetHeight(float Height);
 	void SetViewAngle(float Angle);
@@ -41,7 +41,6 @@ private:
 	float m_Near;
 	float m_Far;
 
-	float m_Amount;
 	Vector3 m_MaxPos;
 	Vector2 m_WinSize;
 

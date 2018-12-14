@@ -39,6 +39,7 @@
 #define LOGO_SHADER "LogoShader"
 #define FIRE_SHADER "FireShader"
 #define MENUENEMY_SHADER "MenuEnemyShader"
+#define SCREEN_SHADER "ScreenShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"

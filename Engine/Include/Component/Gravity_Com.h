@@ -16,14 +16,20 @@ public:
 	Gravity_Com* Clone() override;
 	void AfterClone() override;
 	
-	void SetGravity(float Gravity) { m_Gravity = Gravity; }
-	float GetGravity() const { return m_Gravity; }
+	static void SetGravity(float Gravity) { m_Gravity = Gravity; }
+	static float GetGravity() { return m_Gravity; }
+	void SetForce(float Force) { m_Force = Force;}
+	float GetForce() { return m_Force; }
+
 	void SetStage(Stage2D_Com* stage) { m_Stage = stage; }
 	Stage2D_Com* GetStage() const { return m_Stage; }
 
 private:
-	float m_Gravity;
+	static float m_Gravity;
+	float m_Force;
 	Stage2D_Com* m_Stage;
+	Vector3 m_ObjectScale;
+	bool m_isJump;
 
 protected:
 	Gravity_Com();

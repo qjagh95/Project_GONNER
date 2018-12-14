@@ -148,7 +148,7 @@ JEONG::RenderTarget * JEONG::RenderManager::FindRenderTarget(const string & KeyN
 
 void JEONG::RenderManager::AddRenderObject(JEONG::GameObject * object)
 {
-	if (m_GameMode == GM_3D) 
+	if (m_GameMode == GM_3D)
 	{
 	}
 	else
