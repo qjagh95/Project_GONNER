@@ -12,6 +12,7 @@ JEONG_USING
 JEONG::Component_Base::Component_Base()
 	:m_Scene(NULLPTR), m_Layer(NULLPTR), m_Object(NULLPTR), m_Transform(NULLPTR), m_ComType(CT_NONE)
 {
+	m_isUserComponent = false;
 }
 
 JEONG::Component_Base::Component_Base(const Component_Base & copyObject)

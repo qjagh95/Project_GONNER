@@ -4,6 +4,8 @@
 #include "Transform_Com.h"
 JEONG_USING
 
+Vector2 JEONG::Camera_Com::CameraZoom = Vector2::Zero;
+
 JEONG::Camera_Com::Camera_Com()
 {
 	m_ComType = CT_CAMERA;
@@ -47,8 +49,13 @@ int JEONG::Camera_Com::Update(float DeltaTime)
 	if (m_Target != NULLPTR)
 	{
 		Vector3 TargetPos = m_Target->GetTransform()->GetWorldPos();
+		Vector3 CameraCenter = WorldPos + m_WinSize * 0.5f;
+		Vector3 TargetScreenPos = TargetPos - WorldPos;
+		Vector3 TargetScreenPos2 = TargetPos - CameraCenter;
 
-		Vector3 Lerp = Vector3::Lerp(WorldPos, Vector3(TargetPos.x - m_WinSize.x * 0.4f, TargetPos.y - m_WinSize.x * 0.2f, -5.0f), DeltaTime * 2.0f);
+		Vector3 Lerp;
+
+		Lerp = Vector3::Lerp(WorldPos, Vector3(TargetPos.x - m_WinSize.x * 0.4f, TargetPos.y - m_WinSize.x * 0.2f, -5.0f), DeltaTime * 2.0f);
 
 		if (Lerp.x < 0.0f)
 			Lerp.x = 0.0f;
@@ -140,7 +147,7 @@ void JEONG::Camera_Com::SetCameraType(CAMERA_TYPE eType)
 
 			//여기서 Pos가 뒤집어진 결과가 나온다. 
 			//그래서 인덱스를 반대로 돌려줘야 정상적인 출력이 가능하다. (좌상단으로 좌표를 잡았을경우)
-			m_Projection = XMMatrixOrthographicOffCenterLH(0.0f, m_Width, 0.0f, m_Height, m_Near, m_Far);
+			m_Projection = XMMatrixOrthographicOffCenterLH(CameraZoom.x, m_Width, CameraZoom.y, m_Height, m_Near, m_Far);
 			break;
 			//투영공식을 위 공식을 통하여 내보내겠다는 뜻.
 	}
@@ -210,4 +217,16 @@ void JEONG::Camera_Com::SetTarget(JEONG::Component_Base* pTarget)
 void JEONG::Camera_Com::SetCameraPosInfo(const Vector3& MaxPos)
 {
 	m_MaxPos = MaxPos;
+}
+
+void JEONG::Camera_Com::AddZoom(float Value)
+{
+	CameraZoom += Value;
+
+	if (CameraZoom.x <= 0.0f)
+		CameraZoom.x = 0.0f;
+	if (CameraZoom.y <= 0.0f)
+		CameraZoom.y = 0.0f;
+
+	m_Projection = XMMatrixOrthographicOffCenterLH(CameraZoom.x, m_Width, CameraZoom.y, m_Height, m_Near, m_Far);
 }

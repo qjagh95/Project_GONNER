@@ -195,6 +195,7 @@
     <ClInclude Include="Component\FreeCamera_Com.h" />
     <ClInclude Include="Component\Gravity_Com.h" />
     <ClInclude Include="Component\IconSlot_Com.h" />
+    <ClInclude Include="Component\Light_Com.h" />
     <ClInclude Include="Component\NButton_Com.h" />
     <ClInclude Include="Component\Number_Com.h" />
     <ClInclude Include="Component\Stage2D_Com.h" />
@@ -227,6 +228,7 @@
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="Macro.h" />
     <ClInclude Include="PathManager.h" />
+    <ClInclude Include="Ready.h" />
     <ClInclude Include="RefCount.h" />
     <ClInclude Include="Render\BlendState.h" />
     <ClInclude Include="Render\DepthStancilState.h" />
@@ -273,6 +275,7 @@
     <ClCompile Include="Component\FreeCamera_Com.cpp" />
     <ClCompile Include="Component\Gravity_Com.cpp" />
     <ClCompile Include="Component\IconSlot_Com.cpp" />
+    <ClCompile Include="Component\Light_Com.cpp" />
     <ClCompile Include="Component\NButton_Com.cpp" />
     <ClCompile Include="Component\Number_Com.cpp" />
     <ClCompile Include="Component\Stage2D_Com.cpp" />
@@ -304,6 +307,7 @@
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="KeyInput.cpp" />
     <ClCompile Include="PathManager.cpp" />
+    <ClCompile Include="Ready.cpp" />
     <ClCompile Include="RefCount.cpp" />
     <ClCompile Include="Render\BlendState.cpp" />
     <ClCompile Include="Render\DepthStancilState.cpp" />
@@ -511,6 +515,16 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">StandardColorVS</EntryPointName>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Effect</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\TileImageShader.fx">
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">TileImageVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">TileImageVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">TileImageVS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">TileImageVS</EntryPointName>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\TileShader.fx">

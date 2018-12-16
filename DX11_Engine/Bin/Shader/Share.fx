@@ -51,13 +51,6 @@ struct VS_OUTPUT_UV
 
 /////////////////////////////////////////////////////////////////////
 
-struct VS_OUTPUT_CLAMP_UV
-{
-
-};
-
-/////////////////////////////////////////////////////////////////////
-
 struct PS_OUTPUT_SINGLE
 {
     float4 vTarget0 : SV_Target;
@@ -129,8 +122,9 @@ cbuffer PlayerScreenUV : register(b12)
 /////////////////////////////////////////////////////////////////////
 
 Texture2D Diffuse : register(t0);
+Texture2D Light : register(t1);
+Texture2D TargetTex : register(t10);
 SamplerState DiffuseSampler : register(s0);
 SamplerState ClampSampler : register(s1);
-Texture2D TargetDiffuse : register(t10);
 
 /////////////////////////////////////////////////////////////////////

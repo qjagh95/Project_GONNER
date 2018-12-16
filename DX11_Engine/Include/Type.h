@@ -240,9 +240,17 @@ struct JEONG_DLL PlayerUVCBuffer
 struct JEONG_DLL WaveCBuffer
 {
 	float LiveTime;
-	Vector3 Empty;
+	Vector3 InputUV;
+	float Range;
+	Vector3 Empty1233456;
 
 	WaveCBuffer() : LiveTime(0.0f) {}
+};
+
+struct JEONG_DLL TileImageCBuffer
+{
+	Vector4 Light;
+	Vector4 ColorPercent;
 };
 
 JEONG_END

@@ -55,8 +55,11 @@ public:
 	Transform_Com* GetUICameraTransform() const { return m_UICameraTransform; }
 	Camera_Com* GetUICamera() const { return m_UICamera; }
 
+	void CreateWave(const Vector3& Pos, float LiveTime, float Range);
+
 private:
 	class GameObject* FindCamera(const string& TagName);
+	void UpdateWaveCBuffer(float DeltaTime);
 
 private:
 	list<Layer*> m_LayerList;
@@ -70,6 +73,9 @@ private:
 	Camera_Com* m_UICamera;
 	Transform_Com* m_UICameraTransform;
 	GameObject* m_UICameraObject;
+
+	WaveCBuffer m_WaveCBuffer;
+	Vector2 m_WinSize;
 
 private:
 	Scene();

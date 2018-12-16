@@ -51,6 +51,8 @@ bool JEONG::Scene::Init()
 
 	SortLayer();
 
+	m_WinSize = Device::Get()->GetWinSizeVector2();
+
 	return true;
 }
 
@@ -291,6 +293,9 @@ void JEONG::Scene::CollisionLateUpdate(float DeltaTime)
 
 void JEONG::Scene::Render(float DeltaTime)
 {
+	if (m_WaveCBuffer.LiveTime > 0.0f)
+		UpdateWaveCBuffer(DeltaTime);
+
 	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
 	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
 
@@ -477,4 +482,27 @@ JEONG::GameObject * JEONG::Scene::FindCamera(const string & TagName)
 		return NULLPTR;
 
 	return FindIter->second;
+}
+
+void JEONG::Scene::CreateWave(const Vector3 & Pos, float LiveTime, float Range)
+{
+	Vector3 pScreenPos;
+	Vector3 cPos = m_MainCameraTransform->GetWorldPos();
+	pScreenPos = Vector3(Pos.x, Pos.y, 0.0f) - cPos;
+
+	m_WaveCBuffer.LiveTime = LiveTime;
+	m_WaveCBuffer.InputUV.x = pScreenPos.x / m_WinSize.x;
+	m_WaveCBuffer.InputUV.y = pScreenPos.y / m_WinSize.y;
+	m_WaveCBuffer.Range = Range;
+}
+
+void JEONG::Scene::UpdateWaveCBuffer(float DeltaTime)
+{
+	m_WaveCBuffer.LiveTime -= DeltaTime;
+	m_WaveCBuffer.Range -= DeltaTime / 3.0f;
+
+	ShaderManager::Get()->UpdateCBuffer("WaveCBuffer", &m_WaveCBuffer);
+
+	if (m_WaveCBuffer.LiveTime <= 0.0f)
+		m_WaveCBuffer.LiveTime = 0.0f;
 }

@@ -185,30 +185,48 @@ void RenderTarget::Render(float DeltaTime)
 
 void RenderTarget::RenderFullScreen()
 {
-	if (m_FullScreenShader == NULLPTR)
-		m_FullScreenShader = ShaderManager::Get()->FindShader(FULLSCREEN_SHADER);
+	TransformCBuffer tTransform = {};
+	Matrix	matPos, matScale;
+	matScale.Scaling(Device::Get()->GetWinSizeVector2().x, Device::Get()->GetWinSizeVector2().y, 1.0f);
+	matPos.Translation(m_Pos);
+
+	Scene* pScene = SceneManager::Get()->GetCurScene();
+	Camera_Com*	pCamera = pScene->GetUICamera();
+
+	SAFE_RELEASE(pScene);
+
+	Matrix	matView, matProj;
+	matView = pCamera->GetViewMatrix();
+	matProj = pCamera->GetProjection();
+
+	tTransform.World = matScale * matPos;
+	tTransform.View = matView;
+	tTransform.Projection = matProj;
+	tTransform.WV = tTransform.World * matView;
+	tTransform.WVP = tTransform.WV * matProj;
+	tTransform.Lenth = m_Mesh->GetLenth();
+
+	tTransform.World.Transpose();
+	tTransform.View.Transpose();
+	tTransform.Projection.Transpose();
+	tTransform.WV.Transpose();
+	tTransform.WVP.Transpose();
+
+	ShaderManager::Get()->UpdateCBuffer("Transform", &tTransform);
 
 	m_DepthState->SetState();
 	{
 		if (m_Sampler != NULLPTR)
 			m_Sampler->SetSamplerState(0);
 
-		Device::Get()->GetContext()->PSSetShaderResources(0, 1, &m_TargetShaderResourceView);
-		m_FullScreenShader->SetShader();
+		Device::Get()->GetContext()->IASetInputLayout(m_Layout);
+		Device::Get()->GetContext()->PSSetShaderResources(10, 1, &m_TargetShaderResourceView);
 
-		//NULL Buffer를 이용한 출력준비.
-		//NULL Buffer로 전체 화면크기의 사각형을 출력한다.
-		Device::Get()->GetContext()->IASetInputLayout(NULLPTR);
+		m_Shader->SetShader();
+		m_Mesh->Render();
 
-		UINT Offset = 0;
-		Device::Get()->GetContext()->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLESTRIP);
-		Device::Get()->GetContext()->IASetVertexBuffers(0, 0, NULLPTR, 0, &Offset);
-		Device::Get()->GetContext()->IASetIndexBuffer(0, DXGI_FORMAT_UNKNOWN, 0);
-		Device::Get()->GetContext()->Draw(4, 0);
-
-		//NULLBUFFER 사용 후 반드시 NULL로 초기화 해줘야한다.
 		ID3D11ShaderResourceView* pSRV = NULLPTR;
-		Device::Get()->GetContext()->PSSetShaderResources(0, 1, &pSRV);
+		Device::Get()->GetContext()->PSSetShaderResources(10, 1, &pSRV);
 	}
 	m_DepthState->ResetState();
 }
@@ -223,6 +241,6 @@ void RenderTarget::SetDrawDebug(bool isDraw)
 	m_isDebugDraw = isDraw;
 	m_DepthState = (DepthStancilState*)RenderManager::Get()->FindRenderState(DEPTH_DISABLE);
 	m_Mesh = ResourceManager::Get()->FindMesh("TextureRect");
-	m_Shader = ShaderManager::Get()->FindShader(STANDARD_UV_STATIC_SHADER);
+	m_Shader = ShaderManager::Get()->FindShader(SCREEN_SHADER);
 	m_Layout = ShaderManager::Get()->FindInputLayOut(POS_UV_LAYOUT);
 }

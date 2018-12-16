@@ -5,6 +5,7 @@ JEONG_USING
 
 UserComponent_Base::UserComponent_Base()
 {
+	m_isUserComponent = true;
 }
 
 UserComponent_Base::UserComponent_Base(const UserComponent_Base & userCom)

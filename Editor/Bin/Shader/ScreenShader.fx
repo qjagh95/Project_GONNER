@@ -3,6 +3,8 @@
 cbuffer Wave : register(b9)
 {
     float g_LiveTime;
+    float3 g_InputUV;
+    float g_Range;
     float3 g_Empty1233456;
 }
 
@@ -26,35 +28,59 @@ PS_OUTPUT_SINGLE ScreenPS(VS_OUTPUT_UV input)
 
     if (g_LiveTime > 0.0f)
     {
-        float2 Fixed = float2(UV.x, UV.y - 1.0f);
+        //float2 Fixed = float2(UV.x, UV.y - 1.0f);
    
-        Fixed.x -= PlayerUV.x;
-        Fixed.y += PlayerUV.y;
+        //Fixed.x -= g_InputUV.x;
+        //Fixed.y += g_InputUV.y;
 
-        float Lenth = sqrt(pow(Fixed.x, 2) + pow(Fixed.y, 2));
-        float2 ResultUV = UV + (Fixed / Lenth) * cos(Lenth * 10.0f + g_PlusedDeltaTime * 10.0f) * 0.005f;
-
-        if (Lenth < 0.3f)
-        {
-            float4 diffuse = Diffuse.Sample(DiffuseSampler, ResultUV);
-            output.vTarget0 = diffuse;
+        //float Lenth = sqrt(pow(Fixed.x, 2) + pow(Fixed.y, 2));
+        //float2 ResultUV = UV + (Fixed / Lenth) * abs(cos(Lenth * 15.0f + g_PlusedDeltaTime * 15.0f)) * 0.005f;
+  
+        //if (Lenth < g_Range)
+        //{
+        //    float4 diffuse = Diffuse.Sample(DiffuseSampler, ResultUV);
+        //    output.vTarget0 = diffuse;
     
+        //    return output;
+        //}
+        //else
+        //{
+        //    float4 diffuse = Diffuse.Sample(DiffuseSampler, input.vUV);
+        //    output.vTarget0 = diffuse;
+
+        //    return output;
+        //}
+         
+        float2 Fixed = float2(UV.x, UV.y - 1.0f);
+       
+        Fixed.x -= g_InputUV.x;
+        Fixed.y += g_InputUV.y;
+
+        float lenth = length(Fixed);
+        float2 dir = normalize(Fixed);
+
+        if (lenth < g_Range)
+        {
+            float Value = abs(cos(g_PlusedDeltaTime * 5.0f)) * 0.03f;
+            float2 ResultUV = UV + dir * (Value / -1.0f);
+
+            float4 ResultColor = TargetTex.Sample(DiffuseSampler, ResultUV);
+            output.vTarget0 = ResultColor;
             return output;
         }
         else
         {
-            float4 diffuse = Diffuse.Sample(DiffuseSampler, input.vUV);
-            output.vTarget0 = diffuse;
-    
+            float4 ResultColor = TargetTex.Sample(DiffuseSampler, input.vUV);
+            output.vTarget0 = ResultColor;
             return output;
         }
+
     }
     else
     {
-        float4 diffuse = Diffuse.Sample(DiffuseSampler, input.vUV);
+        float4 diffuse = TargetTex.Sample(DiffuseSampler, input.vUV);
         output.vTarget0 = diffuse;
-    
+
         return output;
     }
 }
-

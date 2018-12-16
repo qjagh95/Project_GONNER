@@ -10,6 +10,7 @@
 #include "Component/Renderer_Com.h"
 #include "Component/Material_Com.h"
 #include "Component/TitleBar_Com.h"
+#include <Scene/Scene.h>
 
 
 #include "../UserComponent/Bullet_Com.h"
@@ -21,7 +22,7 @@ Gonner_Com::Gonner_Com()
 }
 
 Gonner_Com::Gonner_Com(const Gonner_Com & userCom)
-	:UserComponent_Base(userCom)
+	:Ready(userCom)
 {
 	m_Animation = NULLPTR;
 }
@@ -43,15 +44,13 @@ bool Gonner_Com::Init()
 
 	KeyInput::Get()->AddKey("Jump", VK_SPACE);
 
-	Renderer_Com* playerRender = m_Object->AddComponent<Renderer_Com>("PlayerRender");
-	playerRender->SetMesh("TextureRect");
-	playerRender->SetRenderState(ALPHA_BLEND);
-	SAFE_RELEASE(playerRender);
+	m_Renderer = m_Object->AddComponent<Renderer_Com>("PlayerRender");
+	m_Renderer->SetMesh("TextureRect");
+	m_Renderer->SetRenderState(ALPHA_BLEND);
 
-	Material_Com* playerMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	playerMat->SetDiffuseTexture(0, "Player", TEXT("Player.png"));
-	playerMat->SetMaterial(Vector4::White);
-	SAFE_RELEASE(playerMat);
+	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "Player", TEXT("Player.png"));
+	m_Material->SetMaterial(Vector4::BlueViolet);
 
 	ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("PlayerBody");
 	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(128.0f, 128.0f, 0.0f));
@@ -105,36 +104,35 @@ int Gonner_Com::Update(float DeltaTime)
 {
 	m_Pos = m_Transform->GetWorldPos();
 
-	JumpFunction(DeltaTime);
-
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
 		m_GravityCom->SetForce(1000.0f);
-		m_WaveCBuffer.LiveTime = 0.5f;
+		m_Scene->CreateWave(m_Pos, 0.8f, 0.1f);
 	}
+
 
 	return 0;
 }
 
 int Gonner_Com::LateUpdate(float DeltaTime)
 {
-
+	
 	return 0;
 }
 
 void Gonner_Com::Collision(float DeltaTime)
 {
+
 }
 
 void Gonner_Com::CollisionLateUpdate(float DeltaTime)
 {
+	
 }
 
 void Gonner_Com::Render(float DeltaTime)
 {
 	
-	
-	SendUV(DeltaTime);
 }
 
 Gonner_Com * Gonner_Com::Clone()
@@ -188,24 +186,4 @@ void Gonner_Com::SetStage(Stage2D_Com * stage)
 {
 	m_Stage = stage;
 	m_GravityCom->SetStage(m_Stage);
-}
-
-void Gonner_Com::JumpFunction(float DeltaTime)
-{
-}
-
-void Gonner_Com::SendUV(float DeltaTime)
-{
-	Vector3 pScreenPos = m_Transform->GetWorldPos() - m_Scene->GetMainCamera()->GetTransform()->GetWorldPos();
-
-	m_CBuffer.UV.x = pScreenPos.x / m_WinSize.x;
-	m_CBuffer.UV.y = pScreenPos.y / m_WinSize.y;
-
-	ShaderManager::Get()->UpdateCBuffer("PlayerUVCBuffer", &m_CBuffer);
-
-	if (m_WaveCBuffer.LiveTime > 0.0f)
-	{
-		m_WaveCBuffer.LiveTime -= DeltaTime;
-		ShaderManager::Get()->UpdateCBuffer("WaveCBuffer", &m_WaveCBuffer);
-	}
 }

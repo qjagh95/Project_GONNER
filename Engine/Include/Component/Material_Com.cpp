@@ -336,6 +336,11 @@ void JEONG::Material_Com::SetShader(int Container, int Subset)
 	}
 }
 
+Vector4 JEONG::Material_Com::GetDiffuseLight() const
+{
+	return m_vecMaterial[0][0]->MatrialInfo.Diffuse;
+}
+
 JEONG::SubsetMaterial* JEONG::Material_Com::CreateSubSet()
 {
 	JEONG::SubsetMaterial* newSubset = new JEONG::SubsetMaterial();
@@ -343,7 +348,6 @@ JEONG::SubsetMaterial* JEONG::Material_Com::CreateSubSet()
 
 	return newSubset;
 }
-
 
 void JEONG::SubsetMaterial::Save(BineryWrite& Writer)
 {

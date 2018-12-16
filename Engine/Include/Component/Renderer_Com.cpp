@@ -310,7 +310,7 @@ void JEONG::Renderer_Com::UpdateTransform()
 
 RendererCBuffer * JEONG::Renderer_Com::FindCBuffer(const string & KeyName)
 {
-	unordered_map<string, RendererCBuffer*>::iterator FindIter = m_CBufferMap.find(KeyName);
+ 	unordered_map<string, RendererCBuffer*>::iterator FindIter = m_CBufferMap.find(KeyName);
 
 	if (FindIter == m_CBufferMap.end())
 		return NULLPTR;

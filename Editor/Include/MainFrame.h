@@ -43,7 +43,6 @@ protected:
 	EditorView* m_EditorView;
 	EditorForm* m_EditorForm;
 
-
 // 생성된 메시지 맵 함수
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);

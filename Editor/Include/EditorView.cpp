@@ -98,8 +98,6 @@ EditorDoc* EditorView::GetDocument() const // 디버그되지 않은 버전은 인라인으로 
 }
 #endif //_DEBUG
 
-//이 클래스에서 Window를 띄운다.
-
 //TODO
 // EditorView 메시지 처리기
 void EditorView::OnInitialUpdate()
@@ -112,41 +110,19 @@ BOOL EditorView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	// TODO: 여기에 메시지 처리기 코드를 추가 및/또는 기본값을 호출합니다.
 	MainFrame* mainFrame = (MainFrame*)AfxGetMainWnd();
 	EditorForm*	editorForm = mainFrame->GetEditorForm();
-
+	
 	Scene* getScene = SceneManager::Get()->GetCurScene();
 	Camera_Com* getCamera = getScene->GetMainCamera();
-
-	Vector3 CameraNormal = Vector3::Nomallize(getCamera->GetTransform()->GetWorldPos());
-	Vector3 MouseNormal = Vector3::Nomallize(KeyInput::Get()->GetMouseWorldPos());
-
-	Vector3 CameraPos = getCamera->GetTransform()->GetWorldPos();
-	Vector3 MousePos = KeyInput::Get()->GetMouseWorldPos();
 
 	if (KeyInput::Get()->KeyPress("Shift"))
 	{
 		if (zDelta <= 0) //휠 다운
 		{
-			if (Vector3::CameraZoom.x <= 0.0f && Vector3::CameraZoom.y <= 0.0f)
-				editorForm->AddWorkText("Error! 0%이하로 줄일 수 없습니다");
-			else
-			{
-				getCamera->GetTransform()->Move(Vector3(Device::Get()->GetWinSize().Width * -0.1f, Device::Get()->GetWinSize().Height * -0.1f, 0.0f));
-				editorForm->AddWorkText("20% 감소...");
-			}
-		
-			Vector3::AddCameraZoom(Vector3(-0.2f, -0.2f, 0.0f));
+			getCamera->AddZoom(-50.0f);
 		}
 		else //휠업
 		{
-			if ((Vector3::CameraZoom.x >= 1.0f && Vector3::CameraZoom.y >= 1.0f) && (Vector3::CameraZoom.x < 5.0f && Vector3::CameraZoom.y < 5.0f))
-			{
-				editorForm->AddWorkText("20% 증가...");
-				getCamera->GetTransform()->Move(Vector3(Device::Get()->GetWinSize().Width * 0.1f, Device::Get()->GetWinSize().Height * 0.1f, 0.0f));
-			}
-			if(Vector3::CameraZoom.x >= 5.0f && Vector3::CameraZoom.y >= 5.0f)
-				editorForm->AddWorkText("Error! 500% 이상으로 늘릴 수 없습니다.");
-
-			Vector3::AddCameraZoom(Vector3(0.2f, 0.2f, 0.0f));
+			getCamera->AddZoom(50.0f);
 		}
 	}
 

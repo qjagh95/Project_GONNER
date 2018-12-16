@@ -11,7 +11,7 @@ cbuffer Animation2D : register(b10)
 
 cbuffer MenuEnemy : register(b9)
 {
-    float4 Light;
+    float4 Color;
 };
 
 VS_OUTPUT_UV MenuEnemyVS(VS_INPUT_UV input)
@@ -47,7 +47,7 @@ PS_OUTPUT_SINGLE MenuEnemyPS(VS_OUTPUT_UV input)
 {
     PS_OUTPUT_SINGLE output = (PS_OUTPUT_SINGLE) 0;
 
-    output.vTarget0 = Diffuse.Sample(DiffuseSampler, input.vUV) * g_MaterialDiffuse * Light;
+    output.vTarget0 = Diffuse.Sample(DiffuseSampler, input.vUV) * g_MaterialDiffuse * Color;
 
     return output;
 }

@@ -58,6 +58,7 @@ protected:
 	GameObject* m_Object;
 	Transform_Com* m_Transform;
 	COMPONENT_TYPE m_ComType;
+	bool m_isUserComponent;
 
 protected:
 	Component_Base();

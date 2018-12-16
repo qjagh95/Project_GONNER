@@ -259,6 +259,12 @@
     <Filter Include="Core\08. Object\Component\BaseComponent\14. Gravity">
       <UniqueIdentifier>{400b20a6-b35f-4e74-a924-4bb4036751df}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\18. Light">
+      <UniqueIdentifier>{4059bda5-1739-47e1-b2b4-e051851fe2fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\00. Ready">
+      <UniqueIdentifier>{7f7bf50c-90d1-4861-b29c-2576051351f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -489,6 +495,12 @@
     <ClInclude Include="Component\NButton_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\17. NButton</Filter>
     </ClInclude>
+    <ClInclude Include="Component\Light_Com.h">
+      <Filter>Core\08. Object\Component\BaseComponent\18. Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Ready.h">
+      <Filter>Core\08. Object\Component\UserComponent\00. Ready</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -709,6 +721,12 @@
     <ClCompile Include="Component\NButton_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\17. NButton</Filter>
     </ClCompile>
+    <ClCompile Include="Component\Light_Com.cpp">
+      <Filter>Core\08. Object\Component\BaseComponent\18. Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Ready.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\00. Ready</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon1.ico">
@@ -764,6 +782,9 @@
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
     <FxCompile Include="..\Bin\Shader\ScreenShader.fx">
+      <Filter>Core\09. Render\05. HLSLSorce</Filter>
+    </FxCompile>
+    <FxCompile Include="..\Bin\Shader\TileImageShader.fx">
       <Filter>Core\09. Render\05. HLSLSorce</Filter>
     </FxCompile>
   </ItemGroup>

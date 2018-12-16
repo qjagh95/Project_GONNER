@@ -3,6 +3,8 @@
 
 JEONG_BEGIN
 
+class Material_Com;
+class Renderer_Com;
 class JEONG_DLL TileImage_Com : public Component_Base
 {
 public:
@@ -26,10 +28,20 @@ public:
 	bool GetIsMove() const { return m_isMove; }
 	void SetIsMove(bool Value) { m_isMove = Value; }
 
+	Material_Com* GetMaterial() const { return m_Material; }
+	Renderer_Com* GetRenderer() const { return m_Renderer; }
+	void SetPercentColor(const Vector4& Color);
+
 private:
 	float m_Distance;
 	Vector3 m_SavePos;
 	bool m_isMove;
+
+	float m_ColorChangeTime;
+	float m_ColorChangeTimeVar;
+	Material_Com* m_Material;
+	Renderer_Com* m_Renderer;
+	TileImageCBuffer m_CBuffer;
 
 protected:
 	TileImage_Com();

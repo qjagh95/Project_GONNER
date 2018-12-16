@@ -1,5 +1,5 @@
 #pragma once
-#include "UserComponent/UserComponent_Base.h"
+#include <Ready.h>
 
 #include "Component/Animation2D_Com.h"
 #include "Component/Collider_Com.h"
@@ -19,7 +19,7 @@ enum GONNER_STATE
 
 JEONG_USING
 
-class Gonner_Com : public UserComponent_Base
+class Gonner_Com : public Ready
 {
 public:
 	bool Init() override;
@@ -45,9 +45,6 @@ public:
 
 	void SetStage(Stage2D_Com* stage);
 	Stage2D_Com* GetStage() const { return m_Stage; }
-	void JumpFunction(float DeltaTime);
-
-	void SendUV(float DeltaTime);
 
 private:
 	Animation2D_Com* m_Animation;

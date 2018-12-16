@@ -131,7 +131,6 @@ int MenuEnemy_Com::Input(float DeltaTime)
 		SAFE_RELEASE(getMat);
 	}
 
-
 	if (m_LightChangeTimeVar >= m_LightChangeTime)
 	{
 		m_LightChangeTimeVar = 0.0f;

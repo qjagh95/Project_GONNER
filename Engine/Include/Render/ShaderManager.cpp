@@ -189,6 +189,13 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
+	Entry[ST_VERTEX] = "TileImageVS";
+	Entry[ST_PIXEL] = "TileImagePS";
+	if (LoadShader(TILEIMAGE_SHADER, TEXT("TileImageShader.fx"), Entry) == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
 
 	//Entry[ST_VERTEX] = "AtlasOneVS";
 	//Entry[ST_PIXEL] = "AtlasOnePS";
@@ -222,6 +229,7 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("PublicCBuffer", sizeof(PublicCBuffer), 11, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("PlayerUVCBuffer", sizeof(PlayerUVCBuffer), 12, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("WaveCBuffer", sizeof(WaveCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("TileImageCBuffer", sizeof(TileImageCBuffer), 10, CST_VERTEX | CST_PIXEL);
 
 	//CreateCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	//CreateCBuffer("FireCBuffer", sizeof(FireCBuffer), 9, CST_VERTEX | CST_PIXEL);

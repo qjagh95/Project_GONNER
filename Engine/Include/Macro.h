@@ -40,6 +40,7 @@
 #define FIRE_SHADER "FireShader"
 #define MENUENEMY_SHADER "MenuEnemyShader"
 #define SCREEN_SHADER "ScreenShader"
+#define TILEIMAGE_SHADER "TileImageShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"

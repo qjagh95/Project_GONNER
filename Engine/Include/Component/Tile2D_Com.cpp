@@ -278,7 +278,7 @@ void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	m_TileImageObject->SetLayer(m_Layer);
 
 	m_TileImage->SetTexture(FileName, CA2W(FileName.c_str()));
-
+	m_TileImage->SetDiffuseColor(Vector4(1.0f, 0.5f, 0.5f, 1.0f));
 	Vector3 TilePos = m_Transform->GetWorldPos();
 	Vector3 TileScale = m_Transform->GetWorldScale();
 
@@ -323,21 +323,26 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 		Vector3 TilePos = m_Transform->GetWorldPos();
 		Vector3 TileScale = m_Transform->GetWorldScale();
 
+		newImage->SetDiffuseColor(m_TileImage->GetMaterial()->GetDiffuseLight());
 		newImage->SetTexture(m_ImageFileName, CA2W(Path.c_str()));
 
 		switch (i)
 		{
 			case 0:
-				newImage->SetDistance(300.0f);
+				newImage->SetDistance(350.0f);
+				newImage->SetPercentColor(Vector4(0.6f, 0.6f, 0.6f, 1.0f));
 				break;
 			case 1:
-				newImage->SetDistance(200.0f);
+				newImage->SetDistance(250.0f);
+				newImage->SetPercentColor(Vector4(0.5f, 0.5f, 0.5f, 1.0f));
 				break;
 			case 2:
-				newImage->SetDistance(100.0f);
+				newImage->SetDistance(150.0f);
+				newImage->SetPercentColor(Vector4(0.4f, 0.4f, 0.4f, 1.0f));
 				break;
 			case 3:
 				newImage->SetDistance(50.0);
+				newImage->SetPercentColor(Vector4(0.3f, 0.3f, 0.3f, 1.0f));
 				break;
 		}
 

@@ -26,7 +26,6 @@ bool MenuLogo_Com::Init()
 	LogoRender->CreateRendererCBuffer("LogoCBuffer", sizeof(LogoCBuffer));
 
 	Material_Com* LogoMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	LogoMat->SetDiffuseTexture(1, "Noise", TEXT("8017-bump.jpg")); //멀티텍스쳐는 위에다가.....
 	LogoMat->SetDiffuseTexture(0, "Logo", TEXT("Gonner_Headerv2_bg_small.png"));
 	LogoMat->SetSampler(1, CLAMP_SAMPLER);
 

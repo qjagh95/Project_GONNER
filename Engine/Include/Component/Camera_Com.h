@@ -31,6 +31,8 @@ public:
 	void SetTarget(GameObject* pTarget);
 	void SetTarget(Component_Base* pTarget);
 
+	void AddZoom(float Value);
+
 private:
 	Matrix m_View;
 	Matrix m_Projection;
@@ -45,6 +47,7 @@ private:
 	Vector2 m_WinSize;
 
 	Transform_Com* m_Target;
+	static Vector2 CameraZoom;
 
 protected:
 	Camera_Com();
