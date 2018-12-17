@@ -7,6 +7,9 @@
 
 enum GONNER_STATE
 {
+	GS_BUGIDLE,
+	GS_BUGMOVE,
+	GS_BUGDOWN,
 	GS_IDLE,
 	GS_RUN,
 	GS_ATTACK,
@@ -40,22 +43,24 @@ public:
 	//void GS_KNIGHT(float DeltaTime);
 
 	void Move(float DeltaTime);
-	void ChangeState(GONNER_STATE State);
+	void BugMove(float DeltaTime);
 	void DirCheck();
 
 	void SetStage(Stage2D_Com* stage);
 	Stage2D_Com* GetStage() const { return m_Stage; }
 
 private:
+	void BasicInit();
+	void AnimationInit();
+
+private:
 	Animation2D_Com* m_Animation;
 	string m_AniName[GS_MAX];
-	GONNER_STATE m_State;
-	GONNER_STATE m_PrevState;
 	Vector3 m_Pos;
 	Vector3 m_Scale;
 	PlayerUVCBuffer m_CBuffer;
 	Vector2 m_WinSize;
-
+	
 	Gravity_Com* m_GravityCom;
 	Stage2D_Com* m_Stage;
 

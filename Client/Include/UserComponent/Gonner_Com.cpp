@@ -34,61 +34,11 @@ Gonner_Com::~Gonner_Com()
 }
 
 bool Gonner_Com::Init()
-{				   
-	m_WinSize = Device::Get()->GetWinSizeVector2();
-
-	KeyInput::Get()->AddKey("S1", VK_F1);
-	KeyInput::Get()->AddKey("S2", VK_F2);
-	KeyInput::Get()->AddKey("S3", VK_F3);
-	KeyInput::Get()->AddKey("S4", VK_F4);
-
-	KeyInput::Get()->AddKey("Jump", VK_SPACE);
-
-	m_Renderer = m_Object->AddComponent<Renderer_Com>("PlayerRender");
-	m_Renderer->SetMesh("TextureRect");
-	m_Renderer->SetRenderState(ALPHA_BLEND);
-
-	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	m_Material->SetDiffuseTexture(0, "Player", TEXT("Player.png"));
-	m_Material->SetMaterial(Vector4::BlueViolet);
-
-	ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("PlayerBody");
-	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(128.0f, 128.0f, 0.0f));
-	RectColl->SetMyTypeName("Player");
-	SAFE_RELEASE(RectColl);
-
-	m_Transform->SetWorldScale(128.0f, 128.0f, 1.0f);
-	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
-	m_Transform->SetWorldPos(500.0f, 1500.0f, 1.0f);
-
-	m_Scale = Vector3(128.0f, 128.0f, 1.0f);
-
-	m_Animation = m_Object->AddComponent<Animation2D_Com>("PlayerAnimation");
-	m_Animation->SetDir((int)MD_RIGHT);
-
-	vector<Clip2DFrame>	vecClipFrame;
-	Clip2DFrame	tFrame = {};
-
-	for (int i = 0; i < 14; ++i)
-	{
-		tFrame.LeftTop = Vector2(0.0f + i * 45.0f, 60.f);
-		tFrame.RightBottom = Vector2(45.0f + i * 45.0f, 120.f);
-		vecClipFrame.push_back(tFrame);
-	}
-
-	m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
-	vecClipFrame.clear();
-
-	for (int i = 0; i < 21; ++i)
-	{
-		tFrame.LeftTop = Vector2(0.0f + i * 45.0f, 180.0f);
-		tFrame.RightBottom = Vector2(45.0f + i * 45.0f, 240.0f);
-		vecClipFrame.push_back(tFrame);
-	}
-
-	m_Animation->AddClip("Attack", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
-
+{
+	BasicInit();
+	AnimationInit();
 	m_GravityCom = m_Object->AddComponent<Gravity_Com>("Gravity");
+
 	return true;
 }
 
@@ -103,6 +53,26 @@ int Gonner_Com::Input(float DeltaTime)
 int Gonner_Com::Update(float DeltaTime)
 {
 	m_Pos = m_Transform->GetWorldPos();
+
+	switch (m_State)
+	{
+		case GS_IDLE:
+			break;
+		case GS_RUN:
+			break;
+		case GS_ATTACK:
+			break;
+		case GS_JUMP:
+			break;
+		case GS_DOUBLEJUMP:
+			break;
+		case GS_WALLSTOP:
+			break;
+		case GS_KNIGHT:
+			break;
+		case GS_MAX:
+			break;
+	}
 
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
@@ -166,12 +136,30 @@ void Gonner_Com::Move(float DeltaTime)
 	}
 }
 
-void Gonner_Com::ChangeState(GONNER_STATE State)
+void Gonner_Com::BugMove(float DeltaTime)
 {
-	m_PrevState = m_State;
-	m_State = State;
+	if (KeyInput::Get()->KeyPress("MoveRight"))
+	{
+		Vector3 Pos;
+		Pos.x = m_Pos.x + m_Transform->GetWorldScale().x * 0.5f;
+		Pos.y = m_Pos.y + m_Transform->GetWorldScale().y * 0.5f;
 
-	m_Animation->ChangeClip(m_AniName[m_State]);
+		Tile2D_Com* nextTile = m_Stage->GetTile2D(Pos);
+
+		if (nextTile != NULLPTR && nextTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, 500.0f, DeltaTime);
+	}
+	else if (KeyInput::Get()->KeyPress("MoveLeft"))
+	{
+		Vector3 Pos;
+		Pos.x = m_Pos.x - m_Transform->GetWorldScale().x * 0.5f;
+		Pos.y = m_Pos.y + m_Transform->GetWorldScale().y * 0.5f;
+
+		Tile2D_Com* nextTile = m_Stage->GetTile2D(Pos);
+
+		if (nextTile != NULLPTR && nextTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, -500.0f, DeltaTime);
+	}
 }
 
 void Gonner_Com::DirCheck()
@@ -186,4 +174,63 @@ void Gonner_Com::SetStage(Stage2D_Com * stage)
 {
 	m_Stage = stage;
 	m_GravityCom->SetStage(m_Stage);
+}
+
+void Gonner_Com::BasicInit()
+{
+	m_WinSize = Device::Get()->GetWinSizeVector2();
+
+	KeyInput::Get()->AddKey("S1", VK_F1);
+	KeyInput::Get()->AddKey("S2", VK_F2);
+	KeyInput::Get()->AddKey("S3", VK_F3);
+	KeyInput::Get()->AddKey("S4", VK_F4);
+
+	KeyInput::Get()->AddKey("Jump", VK_SPACE);
+
+	m_Renderer = m_Object->AddComponent<Renderer_Com>("PlayerRender");
+	m_Renderer->SetMesh("TextureRect");
+	m_Renderer->SetRenderState(ALPHA_BLEND);
+
+	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "Player", TEXT("Player.png"));
+	m_Material->SetMaterial(Vector4::BlueViolet);
+
+	ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("PlayerBody");
+	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 0.0f));
+	RectColl->SetMyTypeName("Player");
+	SAFE_RELEASE(RectColl);
+
+	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
+	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
+	m_Transform->SetWorldPos(500.0f, 1500.0f, 1.0f);
+
+	m_Scale = Vector3(64.0f, 64.0f, 1.0f);
+}
+
+void Gonner_Com::AnimationInit()
+{
+	m_Animation = m_Object->AddComponent<Animation2D_Com>("PlayerAnimation");
+	m_Animation->SetDir((int)MD_RIGHT);
+
+	vector<Clip2DFrame>	vecClipFrame;
+	Clip2DFrame	tFrame = {};
+
+	for (int i = 0; i < 14; ++i)
+	{
+		tFrame.LeftTop = Vector2(0.0f + i * 45.0f, 60.f);
+		tFrame.RightBottom = Vector2(45.0f + i * 45.0f, 120.f);
+		vecClipFrame.push_back(tFrame);
+	}
+
+	m_Animation->AddClip("Idle", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
+	vecClipFrame.clear();
+
+	for (int i = 0; i < 21; ++i)
+	{
+		tFrame.LeftTop = Vector2(0.0f + i * 45.0f, 180.0f);
+		tFrame.RightBottom = Vector2(45.0f + i * 45.0f, 240.0f);
+		vecClipFrame.push_back(tFrame);
+	}
+
+	m_Animation->AddClip("Attack", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Player", L"Player.png");
 }

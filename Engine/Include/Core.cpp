@@ -37,6 +37,7 @@ Core::~Core()
 	StaticManager::Delete();
 	RenderManager::Delete();
 	ExcelManager::Delete();
+	NumberManager::Delete();
 
 	CoUninitialize();
 }
@@ -109,6 +110,12 @@ bool Core::Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Hei
 	}
 
 	if (SceneManager::Get()->Init() == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
+	if (NumberManager::Get()->Init() == false)
 	{
 		TrueAssert(true);
 		return false;
@@ -242,6 +249,7 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 int Core::Input(float DeltaTime)
 {
 	KeyInput::Get()->Update(DeltaTime);
+	NumberManager::Get()->Input(DeltaTime);
 	SceneManager::Get()->Input(DeltaTime);
 	return 0;
 }

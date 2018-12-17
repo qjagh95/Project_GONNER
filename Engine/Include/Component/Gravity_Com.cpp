@@ -60,6 +60,7 @@ int Gravity_Com::Update(float DeltaTime)
 	else if (m_Stage->GetTile2D(uPos)->GetTileOption() == T2D_NOMOVE)
 	{
 		float Amount = 2.0f;
+
 		while (true)
 		{
 			m_Object->GetTransform()->Move(AXIS_Y, -Amount);

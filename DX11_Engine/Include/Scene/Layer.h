@@ -37,6 +37,7 @@ private:
 
 public: 
 	friend class Scene;
+	friend class Tile2D_Com;
 };
 
 JEONG_END

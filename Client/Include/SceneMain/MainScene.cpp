@@ -65,8 +65,13 @@ bool MainScene::Init()
 		SAFE_RELEASE(player_Com);
 	}
 
+	GameObject* monsterObject = GameObject::CreateObject("Monster", Default, true);
+	Monster_Com* newMonster = monsterObject->AddComponent< Monster_Com>("monster");
+
 	mainCamera->SetTarget(PlayerObject);
 
+	SAFE_RELEASE(monsterObject);
+	SAFE_RELEASE(newMonster);
 	SAFE_RELEASE(BackCom);
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(pStage);

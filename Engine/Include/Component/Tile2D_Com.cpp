@@ -9,7 +9,7 @@ JEONG_USING
 
 JEONG::Tile2D_Com::Tile2D_Com()
 	:m_Shader(NULLPTR), m_Mesh(NULLPTR), m_Layout(NULLPTR), m_TileImage(NULLPTR), m_TileImageObject(NULLPTR),
-	m_Dir(0)
+	m_Dir(0), m_NearObject(NULLPTR), m_NearMaterial(NULLPTR), m_DefaultLayer(NULLPTR)
 {
 	m_ComType = CT_STAGE2D;
 	SetTag("Stage2D");
@@ -28,6 +28,7 @@ JEONG::Tile2D_Com::~Tile2D_Com()
 	SAFE_RELEASE(m_Shader);
 	SAFE_RELEASE(m_TileImage);
 	SAFE_RELEASE(m_TileImageObject);
+	SAFE_RELEASE(m_DefaultLayer);
 
 	Safe_Release_VecList(m_vecTileImage);
 	Safe_Release_VecList(m_vecImage);
@@ -43,6 +44,8 @@ bool JEONG::Tile2D_Com::Init()
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
 	m_vecTileImage.reserve(4);
 
+	m_DefaultLayer = m_Scene->FindLayer("Default");
+
 	return true;
 }
 
@@ -54,22 +57,47 @@ int JEONG::Tile2D_Com::Input(float DeltaTime)
 int JEONG::Tile2D_Com::Update(float DeltaTime)
 {
 	if (m_TileImageObject != NULLPTR)
+	{
+		float SrcDist = 0.0f;
+		float DestDist = 0.0f;
+
+		//°¡±î¿î³ð Å½»öÇÑ´Ù.
+		list<GameObject*>::iterator StartIter = m_DefaultLayer->m_ObjectList.begin();
+		list<GameObject*>::iterator EndIter = m_DefaultLayer->m_ObjectList.end();
+
+		for (; StartIter != EndIter; StartIter++)
+		{
+			if (m_NearObject == NULLPTR)
+			{
+				m_NearObject = *StartIter;
+				continue;
+			}
+
+			Vector3 src = m_NearObject->GetTransform()->GetWorldPos();
+			Vector3 dest = (*StartIter)->GetTransform()->GetWorldPos();
+
+			SrcDist = src.GetDistance(m_TileImageObject->GetTransform()->GetWorldPos());
+			DestDist = dest.GetDistance(m_TileImageObject->GetTransform()->GetWorldPos());
+
+			if (SrcDist > DestDist)
+				m_NearObject = *StartIter;
+				
+			m_TileImage->SetNearObject(m_NearObject, SrcDist);
+		}
+
 		m_TileImageObject->Update(DeltaTime);
 
-	for (size_t i = 0; i < m_vecTileImage.size(); i++)
-		m_vecTileImage[i]->Update(DeltaTime);
-
+		for (size_t i = 0; i < m_vecTileImage.size(); i++)
+		{
+			m_vecTileImage[i]->Update(DeltaTime);
+			m_vecImage[i]->SetNearObject(m_NearObject, SrcDist);
+		}
+	}
 	return 0;
 }
 
 int JEONG::Tile2D_Com::LateUpdate(float DeltaTime)
 {
-	if (m_TileImageObject != NULLPTR)
-		m_TileImageObject->LateUpdate(DeltaTime);
-
-	for (size_t i = 0; i < m_vecTileImage.size(); i++)
-		m_vecTileImage[i]->LateUpdate(DeltaTime);
-
 	return 0;
 }
 
@@ -84,10 +112,12 @@ void JEONG::Tile2D_Com::CollisionLateUpdate(float DeltaTime)
 void JEONG::Tile2D_Com::Render(float DeltaTime)
 {
 	if (m_TileImageObject != NULLPTR)
+	{
 		m_TileImageObject->Render(DeltaTime);
 
-	for (size_t i = 0; i < m_vecTileImage.size(); i++)
-		m_vecTileImage[i]->Render(DeltaTime);
+		for (size_t i = 0; i < m_vecTileImage.size(); i++)
+			m_vecTileImage[i]->Render(DeltaTime);
+	}
 
 	if (m_isLine == false)
 		return;
@@ -278,12 +308,13 @@ void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	m_TileImageObject->SetLayer(m_Layer);
 
 	m_TileImage->SetTexture(FileName, CA2W(FileName.c_str()));
-	m_TileImage->SetDiffuseColor(Vector4(1.0f, 0.5f, 0.5f, 1.0f));
+	m_TileImage->SetDiffuseColor(Vector4::Pink);
 	Vector3 TilePos = m_Transform->GetWorldPos();
 	Vector3 TileScale = m_Transform->GetWorldScale();
 
 	m_TileImageObject->GetTransform()->SetWorldPos(TilePos);
 	m_TileImage->SetSavePos(TilePos);
+	m_TileImage->SetDistance(500.0f);
 
 	switch (Dir)
 	{
@@ -337,11 +368,11 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				newImage->SetPercentColor(Vector4(0.5f, 0.5f, 0.5f, 1.0f));
 				break;
 			case 2:
-				newImage->SetDistance(150.0f);
+				newImage->SetDistance(200.0f);
 				newImage->SetPercentColor(Vector4(0.4f, 0.4f, 0.4f, 1.0f));
 				break;
 			case 3:
-				newImage->SetDistance(50.0);
+				newImage->SetDistance(150.0f);
 				newImage->SetPercentColor(Vector4(0.3f, 0.3f, 0.3f, 1.0f));
 				break;
 		}
@@ -366,7 +397,6 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				newImageObject->GetTransform()->SetWorldRotZ(-90.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(rRange.x , TilePos.y + TileScale.y , 0.0f);
 
-				newImage->SetDistance(300.0f);
 				newImage->SetSavePos(rRange);
 			}
 				break;
@@ -377,7 +407,6 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				newImageObject->GetTransform()->SetWorldRotZ(90.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPos, TilePos.y, 0.0f);
 
-				newImage->SetDistance(200.0f);
 				newImage->SetSavePos(newImageObject->GetTransform()->GetWorldPos());
 			}
 				break;
@@ -389,7 +418,6 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 				newImageObject->GetTransform()->SetWorldRotZ(180.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPosX, TilePos.y + RandomPosY, 0.0f);
 
-				newImage->SetDistance(100.0f);
 				newImage->SetSavePos(newImageObject->GetTransform()->GetWorldPos());
 			}
 				break;
