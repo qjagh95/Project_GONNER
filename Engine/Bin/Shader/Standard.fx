@@ -50,7 +50,7 @@ VS_OUTPUT_UV Standard_UV_VS(VS_INPUT_UV input)
     //없다면 그냥 출력
     if (g_Animation2DEnable == 1)
     {
-        if (g_isRight == 1)
+        if (g_isRight == 0)
             input.vUV.x = 1.0f - input.vUV.x;
 
         if (input.vUV.x == 0.0f)

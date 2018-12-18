@@ -23,6 +23,7 @@ public:
 
 	void SetStage(Stage2D_Com* stage) { m_Stage = stage; }
 	Stage2D_Com* GetStage() const { return m_Stage; }
+	bool GetIsJump() const { return m_isJump; }
 
 private:
 	static float m_Gravity;

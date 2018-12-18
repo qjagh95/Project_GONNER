@@ -70,6 +70,10 @@ public:
 	void SetWorldPos(float x, float y, float z);
 	void SetWorldPivot(const Vector3& vPos);
 	void SetWorldPivot(float x, float y, float z);
+	void SetWorldRotZFromNoneAxis(float z);
+	void RotationZFromNoneAxis(float z);
+
+
 	void ComputeWorldAxis();
 
 	void Move(AXIS eAxis, float Speed);
@@ -90,6 +94,7 @@ public:
 	void RotationZ(float z, float DeltaTime);
 	void Rotation(const Vector3& vRot, float DeltaTime);
 	void Rotation(const Vector3& vRot);
+	void AddRotationZ(float Value, float DeltaTime);
 
 	void LookAt(GameObject* object, AXIS eAxis = AXIS_Z);
 	void LookAt(Component_Base* component, AXIS eAxis = AXIS_Z);

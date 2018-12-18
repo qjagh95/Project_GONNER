@@ -7,7 +7,6 @@
 
 #include "Render\Shader.h"
 
-
 JEONG_USING
 SINGLETON_VAR_INIT(Core)
 bool Core::m_isLoop = true;
@@ -16,7 +15,7 @@ WPARAM Core::m_wParam;
 Core::Core()
 {
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-	//_CrtSetBreakAlloc(456);  
+	//_CrtSetBreakAlloc(7676);  
 	ZeroMemory(ClearColor, sizeof(float) * 4);
 	PathManager::Get();
 }
@@ -37,6 +36,7 @@ Core::~Core()
 	StaticManager::Delete();
 	RenderManager::Delete();
 	ExcelManager::Delete();
+	NumberManager::Delete();
 
 	CoUninitialize();
 }
@@ -114,6 +114,12 @@ bool Core::Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Hei
 		return false;
 	}
 
+	if (NumberManager::Get()->Init() == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
 	if (CollsionManager::Get()->Init() == false)
 	{
 		TrueAssert(true);
@@ -172,7 +178,7 @@ void Core::Logic()
 
 	float Time = getTimer->GetDeltaTime();
 
-	Input(Time);
+ 	Input(Time);
 	Update(Time);
 	LateUpdate(Time);
 	Collsion(Time);
@@ -242,6 +248,7 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 int Core::Input(float DeltaTime)
 {
 	KeyInput::Get()->Update(DeltaTime);
+	//NumberManager::Get()->Input(DeltaTime);
 	SceneManager::Get()->Input(DeltaTime);
 	return 0;
 }

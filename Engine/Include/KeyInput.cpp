@@ -36,10 +36,10 @@ JEONG::KeyInput::~KeyInput()
 
 bool JEONG::KeyInput::Init()
 {
-	AddKey("MoveLeft", 'A');
-	AddKey("MoveRight", 'D');
-	AddKey("MoveUp", 'W');
-	AddKey("MoveDown", 'S');
+	AddKey("MoveLeft", VK_LEFT);
+	AddKey("MoveRight", VK_RIGHT);
+	AddKey("MoveUp", VK_UP);
+	AddKey("MoveDown", VK_DOWN);
 	AddKey("SystemPause", VK_F12);
 	AddKey("LButton", VK_LBUTTON);
 	AddKey("RButton", VK_RBUTTON);

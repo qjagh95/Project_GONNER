@@ -5,6 +5,7 @@ JEONG_BEGIN
 
 class Renderer_Com;
 class Material_Com;
+class Animation2D_Com;
 class JEONG_DLL Ready : public UserComponent_Base
 {
 public:
@@ -21,9 +22,14 @@ public:
 	Renderer_Com* GetRenderer() const { return m_Renderer; }
 	Material_Com* GetMaterial() const { return m_Material; }
 
+	void ChangeState(int State, string* AnimationName ,Animation2D_Com* animation);
+
 protected:
 	Renderer_Com* m_Renderer;
 	Material_Com* m_Material;
+
+	int m_State;
+	int m_PrevState;
 
 protected:
 	Ready();

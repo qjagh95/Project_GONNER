@@ -10,22 +10,18 @@ public:
 	int Input(float DeltaTime) override;
 	int Update(float DeltaTime) override;
 	int LateUpdate(float DeltaTime) override;
-	void Collision(float DeltaTime) override;
-	void CollisionLateUpdate(float DeltaTime) override;
-	void Render(float DeltaTime) override;
 	Number_Com* Clone() override;
-	void AfterClone() override;
 
-	void SetNumber(int Value) { m_ResultNumber = Value; }
-	void AddNumber(int Value) { m_ResultNumber += Value; }
-	int GetNumber() const { return m_ResultNumber; }
+	void SetNumber(int Number);
+	void SetNumberPos(const Vector3& Pos);
+	void SetNumberPivot(const Vector3& Pivot);
 
 private:
-	int m_ResultNumber;
+	int m_Number;
 
-protected:
+private:
 	Number_Com();
-	Number_Com(const Number_Com& CopyData);
+	Number_Com(const Number_Com& number);
 	~Number_Com();
 
 public:

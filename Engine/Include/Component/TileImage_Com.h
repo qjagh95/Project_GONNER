@@ -5,6 +5,7 @@ JEONG_BEGIN
 
 class Material_Com;
 class Renderer_Com;
+class GameObject;
 class JEONG_DLL TileImage_Com : public Component_Base
 {
 public:
@@ -32,16 +33,26 @@ public:
 	Renderer_Com* GetRenderer() const { return m_Renderer; }
 	void SetPercentColor(const Vector4& Color);
 
+	void SetNearObject(GameObject* NearObject, float Distance);
+
+public:
+	static bool m_isEditorMode;
+
 private:
 	float m_Distance;
 	Vector3 m_SavePos;
+	Vector3 m_ScaleVar;
 	bool m_isMove;
+	float m_InputDistance;
 
 	float m_ColorChangeTime;
 	float m_ColorChangeTimeVar;
 	Material_Com* m_Material;
 	Renderer_Com* m_Renderer;
 	TileImageCBuffer m_CBuffer;
+
+	GameObject* m_NearObject;
+	Material_Com* m_NearMaterial;
 
 protected:
 	TileImage_Com();

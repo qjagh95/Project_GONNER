@@ -37,8 +37,8 @@ bool Monster_Com::Init()
 
 	SAFE_RELEASE(MaterialComponent);
 
-	m_Transform->SetWorldPos(500.0f, 500.0f, 0.0f);
-	m_Transform->SetWorldScale(300.0f, 300.0f, 1.0f);
+	m_Transform->SetWorldPos(500.0f, 1500.0f, 0.0f);
+	m_Transform->SetWorldScale(100.0f, 100.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
 
 	//ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("MonsterBody");
@@ -49,7 +49,7 @@ bool Monster_Com::Init()
 	//SAFE_RELEASE(RectColl);
 
 	ColliderCircle_Com* CircleColl = m_Object->AddComponent<ColliderCircle_Com>("MCircleBody");
-	CircleColl->SetInfo(150.0f);
+	CircleColl->SetInfo(50.0f);
 	CircleColl->SetMyTypeName("M");
 	CircleColl->SetCollsionCallback<Monster_Com>(CCT_FIRST, this, &Monster_Com::BulletHit);
 	CircleColl->SetCollsionCallback<Monster_Com>(CCT_FIRST, this, &Monster_Com::BulletRotHit);

@@ -2,21 +2,20 @@
 #include "SoundManager.h"
 
 JEONG_USING
-SINGLETON_VAR_INIT(SoundManager)
+SINGLETON_VAR_INIT(JEONG::SoundManager)
 
-shared_ptr<SoundEffect> SoundManager::m_NULLPTR1;
-shared_ptr<SoundEffectInstance> SoundManager::m_NULLPTR2;
+shared_ptr<SoundEffect> JEONG::SoundManager::m_NULLPTR1;
+shared_ptr<SoundEffectInstance> JEONG::SoundManager::m_NULLPTR2;
 
-SoundManager::SoundManager()
+JEONG::SoundManager::SoundManager()
 {
 }
 
-SoundManager::~SoundManager()
+JEONG::SoundManager::~SoundManager()
 {
-	
 }
 
-bool SoundManager::Init()
+bool JEONG::SoundManager::Init()
 {
 	AUDIO_ENGINE_FLAGS Flag = AudioEngine_Default;
 #ifdef _DEBUG
@@ -27,26 +26,28 @@ bool SoundManager::Init()
 	CreateSoundEffect("BGM", TEXT("bgm_Dnf.wav"));
 	CreateSoundEffect("Effect", TEXT("teleporter_send.wav"));
 	CreateSoundEffect("LogoBGM", TEXT("Over the top (short intro).wav"));
+	CreateSoundEffect("Stage1BGM", TEXT("Caves Invincible 3.3.wav"));
+	CreateSoundEffect("Jump", TEXT("sfx_jump.wav"));
 
 	return true;
 }
 
-void SoundManager::Update()
+void JEONG::SoundManager::Update()
 {
 	m_AudioEngine->Update();
 }
 
-void SoundManager::AllStop()
+void JEONG::SoundManager::AllStop()
 {
 	m_AudioEngine->Suspend();
 }
 
-void SoundManager::Restart()
+void JEONG::SoundManager::Restart()
 {
 	m_AudioEngine->Resume();
 }
 
-void SoundManager::CreateSoundEffect(const string & KeyName, const wstring & FileName, const string & PathKey)
+void JEONG::SoundManager::CreateSoundEffect(const string & KeyName, const wstring & FileName, const string & PathKey)
 {
 	if (FindSoundEffect(KeyName) != m_NULLPTR1)
 		return;
@@ -63,12 +64,12 @@ void SoundManager::CreateSoundEffect(const string & KeyName, const wstring & Fil
 	m_SoundEffectMap.insert(make_pair(KeyName, move(newSoundEffect)));
 }
 
-void SoundManager::CreateBGMList(const string & KeyName, unique_ptr<SoundEffectInstance> instance)
+void JEONG::SoundManager::CreateBGMList(const string & KeyName, unique_ptr<SoundEffectInstance> instance)
 {
 	m_SoundEffectInstanceMap.insert(make_pair(KeyName, move(instance)));
 }
 
-void SoundManager::RemoveBGMList(const string & KeyName)
+void JEONG::SoundManager::RemoveBGMList(const string & KeyName)
 {
 	unordered_map<string, shared_ptr<SoundEffectInstance>>::iterator FindIter = m_SoundEffectInstanceMap.find(KeyName);
 
@@ -78,7 +79,7 @@ void SoundManager::RemoveBGMList(const string & KeyName)
 	m_SoundEffectInstanceMap.erase(FindIter);
 }
 
-shared_ptr<SoundEffect> const & SoundManager::FindSoundEffect(const string & KeyName)
+shared_ptr<SoundEffect> const & JEONG::SoundManager::FindSoundEffect(const string & KeyName)
 {
 	unordered_map<string, shared_ptr<SoundEffect>>::iterator FindIter = m_SoundEffectMap.find(KeyName);
 
@@ -88,7 +89,7 @@ shared_ptr<SoundEffect> const & SoundManager::FindSoundEffect(const string & Key
 	return FindIter->second;
 }
 
-shared_ptr<SoundEffectInstance> const & SoundManager::FindSoundEffectInstance(const string & KeyName)
+shared_ptr<SoundEffectInstance> const & JEONG::SoundManager::FindSoundEffectInstance(const string & KeyName)
 {
 	unordered_map<string, shared_ptr<SoundEffectInstance>>::iterator FindIter = m_SoundEffectInstanceMap.find(KeyName);
 

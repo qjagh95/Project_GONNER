@@ -188,9 +188,9 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, MOVE_
 	int rDir = RandomRange(1, 10);
 
 	if(rDir > 5)
-		m_Animation->SetDir(true);
+		m_Animation->SetDir(MD_LEFT);
 	else
-		m_Animation->SetDir(false);
+		m_Animation->SetDir(MD_RIGHT);
 
 	vector<Clip2DFrame>	vecClipFrame;
 	Clip2DFrame	tFrame = {};
@@ -450,7 +450,7 @@ void MenuEnemy_Com::SetEnemyType(MENU_ENEMY_TYPE Type, const Vector3& Pos, MOVE_
 	}
 
 	m_Animation->ChangeClip("Idle");
-	m_Animation->SetDir((int)Dir);
+	m_Animation->SetDir(Dir);
 
 	m_Transform->SetWorldPos(Pos);
 	m_Transform->RotationZ(Rot);

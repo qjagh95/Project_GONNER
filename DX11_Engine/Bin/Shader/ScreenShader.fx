@@ -61,7 +61,7 @@ PS_OUTPUT_SINGLE ScreenPS(VS_OUTPUT_UV input)
 
         if (lenth < g_Range)
         {
-            float Value = abs(cos(g_PlusedDeltaTime * 5.0f)) * 0.03f;
+            float Value = abs(cos(g_PlusedDeltaTime * 10.0f)) * 0.03f;
             float2 ResultUV = UV + dir * (Value / -1.0f);
 
             float4 ResultColor = TargetTex.Sample(DiffuseSampler, ResultUV);

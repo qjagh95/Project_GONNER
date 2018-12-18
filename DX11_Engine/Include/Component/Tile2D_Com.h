@@ -7,6 +7,7 @@ class Shader;
 class Mesh;
 class TileImage_Com;
 class GameObject;
+class Layer;
 class JEONG_DLL Tile2D_Com : public Component_Base
 {
 public:
@@ -53,6 +54,12 @@ private:
 	vector<GameObject*> m_vecTileImage;
 	vector<TileImage_Com*> m_vecImage;		//Release용 벡터 아무것도안함.
 	int m_Dir;
+
+	//////////////////////////////////////////////////////////////////////
+	GameObject* m_NearObject;
+	Material_Com* m_NearMaterial;
+
+	Layer* m_DefaultLayer;
 
 protected:
 	Tile2D_Com();

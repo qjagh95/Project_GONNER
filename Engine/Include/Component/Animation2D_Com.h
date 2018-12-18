@@ -22,8 +22,10 @@ public:
 	void ChangeClip(const string& AnimationName);
 	bool GetIsEnd() const { return m_isEnd; }
 	void ChangeDir();
-	void SetDir(bool isRight);
+	void SetDir(MOVE_DIR Dir);
+	MOVE_DIR GetDir() { return (MOVE_DIR)m_CBuffer.isRight; }
 	int GetFrame() const { return m_CurClip->Frame; }
+	int GetPrevFrame() const { return m_PrevFrame; }
 
 private:
 	unordered_map<string, AnimationClip2D*> m_ClipMap;
@@ -31,6 +33,7 @@ private:
 	string m_DefaultClipName;
 	Animation2DCBuffer m_CBuffer;
 	bool m_isEnd;
+	int m_PrevFrame;
 
 private:
 	AnimationClip2D* FindClip(const string& KeyName);

@@ -1090,10 +1090,6 @@ void EditorForm::OnBnClickedCheck1()
 {
 	UpdateData(TRUE);
 
-	if (m_isRandomTile == TRUE)
-		m_isRandomTile = FALSE;
-	else
-		m_isRandomTile = TRUE;
 
 	UpdateData(FALSE);
 }

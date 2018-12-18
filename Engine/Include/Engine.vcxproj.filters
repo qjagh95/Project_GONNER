@@ -265,6 +265,9 @@
     <Filter Include="Core\08. Object\Component\UserComponent\00. Ready">
       <UniqueIdentifier>{7f7bf50c-90d1-4861-b29c-2576051351f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\16. NumberManager">
+      <UniqueIdentifier>{f2e7d268-087a-41da-8b3d-6d956a5a9d51}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -468,9 +471,6 @@
     <ClInclude Include="Component\TileImage_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\12. Tile2D</Filter>
     </ClInclude>
-    <ClInclude Include="Component\Number_Com.h">
-      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\UserComponent_Base.h">
       <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
     </ClInclude>
@@ -500,6 +500,12 @@
     </ClInclude>
     <ClInclude Include="Ready.h">
       <Filter>Core\08. Object\Component\UserComponent\00. Ready</Filter>
+    </ClInclude>
+    <ClInclude Include="Component\Number_Com.h">
+      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
+    </ClInclude>
+    <ClInclude Include="NumberManager.h">
+      <Filter>Core\16. NumberManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -694,9 +700,6 @@
     <ClCompile Include="Component\TileImage_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\12. Tile2D</Filter>
     </ClCompile>
-    <ClCompile Include="Component\Number_Com.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\UserComponent_Base.cpp">
       <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
     </ClCompile>
@@ -726,6 +729,12 @@
     </ClCompile>
     <ClCompile Include="Ready.cpp">
       <Filter>Core\08. Object\Component\UserComponent\00. Ready</Filter>
+    </ClCompile>
+    <ClCompile Include="Component\Number_Com.cpp">
+      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
+    </ClCompile>
+    <ClCompile Include="NumberManager.cpp">
+      <Filter>Core\16. NumberManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

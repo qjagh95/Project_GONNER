@@ -65,8 +65,13 @@ bool MainScene::Init()
 		SAFE_RELEASE(player_Com);
 	}
 
+	GameObject* monsterObject = GameObject::CreateObject("Monster", Default, true);
+	Monster_Com* newMonster = monsterObject->AddComponent< Monster_Com>("monster");
+
 	mainCamera->SetTarget(PlayerObject);
 
+	SAFE_RELEASE(monsterObject);
+	SAFE_RELEASE(newMonster);
 	SAFE_RELEASE(BackCom);
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(pStage);
@@ -77,6 +82,10 @@ bool MainScene::Init()
 	SAFE_RELEASE(UILayer);
 	SAFE_RELEASE(TileLayer);
 	SAFE_RELEASE(BackLayer);
+
+	auto sound_effect_instance = SoundManager::Get()->FindSoundEffect("Stage1BGM")->CreateInstance();
+	sound_effect_instance->Play(true);
+	SoundManager::Get()->CreateBGMList("Stage1BGM", move(sound_effect_instance));
 
 	return true;
 }

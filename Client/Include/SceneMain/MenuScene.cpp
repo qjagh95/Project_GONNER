@@ -26,6 +26,8 @@
 #include <UserComponent/MenuLogo_Com.h>
 #include <UserComponent/MenuEnemy_Com.h>
 
+#include <Component/Light_Com.h>
+
 MenuScene::MenuScene()
 {
 }
@@ -44,6 +46,7 @@ bool MenuScene::Init()
 	KeyInput::Get()->AddKey("ButtonDown", VK_DOWN);
 	KeyInput::Get()->AddKey("ButtonEnter", VK_RETURN);
 	KeyInput::Get()->AddKey("ButtonSpace", VK_SPACE);
+	KeyInput::Get()->AddKey("0", VK_NUMPAD0);
 
 	m_Index = 0;
 	Vector2 WinSize = Device::Get()->GetWinSizeVector2();
@@ -140,6 +143,7 @@ int MenuScene::Input(float DeltaTime)
 		m_vecButton[m_Index]->ActiveFunction(DeltaTime);
 
 	m_vecButton[m_Index]->LightOn();
+
 	return 0;
 }
 

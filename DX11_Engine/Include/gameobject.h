@@ -106,6 +106,22 @@ public:
 		}
 		return NULLPTR;
 	}
+
+	template <typename T>
+	T* FindComponentFromTypeNoneCount(COMPONENT_TYPE eType)
+	{
+		list<Component_Base*>::iterator	StartIter = m_ComponentList.begin();
+		list<Component_Base*>::iterator	EndIter = m_ComponentList.end();
+
+		for (; StartIter != EndIter; ++StartIter)
+		{
+			if ((*StartIter)->GetComType() == eType)
+			{
+				return (T*)*StartIter;
+			}
+		}
+		return NULLPTR;
+	}
 	///////////////////////////////////////////////////////////////////////////////////////////////
 	static GameObject* FindProtoType(Scene* scene, const string& TagName);
 	static GameObject* FindObject(const string& TagName);

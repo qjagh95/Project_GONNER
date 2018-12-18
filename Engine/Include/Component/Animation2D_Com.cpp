@@ -16,6 +16,7 @@ Animation2D_Com::Animation2D_Com()
 {
 	m_ComType = CT_ANIMATION2D;
 	m_isEnd = false;
+	m_PrevFrame = 0;
 }
 
 Animation2D_Com::Animation2D_Com(const Animation2D_Com& copyData)
@@ -87,23 +88,28 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 	while (m_CurClip->PlayTime >= FrameTime)
 	{
 		m_CurClip->PlayTime = 0.0f;
+		m_PrevFrame = m_CurClip->Frame;
 		m_CurClip->Frame++;
 
 		if (m_CurClip->Frame >= m_CurClip->vecFrame.size())
 		{
 			m_isEnd = true;
-			m_CurClip->Frame = 0;
 
-			if (m_CurClip->AnimationOption == AO_ONCE_DESTROY)
+			if (m_CurClip->AnimationOption == AO_ONCE_STOP)
+			{
+				m_CurClip->Frame = m_PrevFrame;
+				break;
+			}
+			else if (m_CurClip->AnimationOption == AO_ONCE_DESTROY)
 			{
 				m_Object->SetIsActive(false);
 				break;
 			}
+			else
+				m_CurClip->Frame = 0;
 		}
 		else
-		{
 			m_isEnd = false;
-		}
 	}
 	
 	//프레임 UV를 계산한다.
@@ -190,8 +196,8 @@ void Animation2D_Com::SetDefaultClip(const string & ClipName)
 
 void Animation2D_Com::ChangeClip(const string & AnimationName)
 {
-	if (m_CurClip->AnimationName == AnimationName)
-		return;
+	//if (m_CurClip->AnimationName == AnimationName)
+	//	return;
 
 	m_CurClip = FindClip(AnimationName);
 
@@ -216,9 +222,9 @@ void Animation2D_Com::ChangeDir()
 		m_CBuffer.isRight = MD_RIGHT;
 }
 
-void Animation2D_Com::SetDir(bool isRight)
+void Animation2D_Com::SetDir(MOVE_DIR Dir)
 {
-	m_CBuffer.isRight = isRight;
+	m_CBuffer.isRight = (int)Dir;
 }
 
 AnimationClip2D * Animation2D_Com::FindClip(const string & KeyName)

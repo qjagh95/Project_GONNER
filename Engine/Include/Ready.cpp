@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Ready.h"
 
+#include "Component/Animation2D_Com.h"
+
 JEONG_USING
 
 Ready::Ready()
@@ -57,4 +59,12 @@ Ready * Ready::Clone()
 
 void Ready::AfterClone()
 {
+}
+
+void Ready::ChangeState(int State, string* AnimationName, Animation2D_Com * animation)
+{
+	m_PrevState = m_State;
+	m_State = State;
+
+	animation->ChangeClip(AnimationName[m_State]);
 }

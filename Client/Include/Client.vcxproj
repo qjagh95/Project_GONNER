@@ -232,6 +232,7 @@
     <ClCompile Include="SceneMain\StaticTestScene.cpp" />
     <ClCompile Include="UserComponent\BulletBoom_Com.cpp" />
     <ClCompile Include="UserComponent\BulletRot_Com.cpp" />
+    <ClCompile Include="UserComponent\GonnerFSM.cpp" />
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Monster_Com.cpp" />

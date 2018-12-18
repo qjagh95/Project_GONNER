@@ -597,3 +597,28 @@ void JEONG::Transform_Com::AddScaleXY(float Speed, float DeltaTime)
 
 	m_isUpdate = true;
 }
+
+void JEONG::Transform_Com::AddRotationZ(float Value, float DeltaTime)
+{
+	Rotation(Vector3(m_WorldRotation.x, m_WorldRotation.y, m_WorldRotation.z + (Value * DeltaTime)));
+
+	m_isUpdate = true;
+}
+
+void JEONG::Transform_Com::SetWorldRotZFromNoneAxis(float z)
+{
+	m_WorldRotation.z = z;
+	m_MatWorldRotation.Rotation(m_WorldRotation);
+	//회전행렬값에따라서 내 WorldAxis값을 변환한다.
+
+	m_isUpdate = true;
+}
+
+void JEONG::Transform_Com::RotationZFromNoneAxis(float z)
+{
+	m_WorldRotation.z += z;
+	m_MatWorldRotation.Rotation(m_WorldRotation);
+	//회전행렬값에따라서 내 WorldAxis값을 변환한다.
+
+	m_isUpdate = true;
+}
