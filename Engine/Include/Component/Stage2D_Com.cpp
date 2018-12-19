@@ -140,6 +140,14 @@ void JEONG::Stage2D_Com::Collision(float DeltaTime)
 
 void JEONG::Stage2D_Com::CollisionLateUpdate(float DeltaTime)
 {
+	for (int y = m_StartY; y < m_EndY; ++y)
+	{
+		for (int x = m_StartX; x < m_EndX; ++x)
+		{
+			int Index = y * m_TileCountX + x;
+			m_vecTileObject[Index]->CollisionLateUpdate(DeltaTime);
+		}
+	}
 }
 
 void JEONG::Stage2D_Com::Render(float DeltaTime)

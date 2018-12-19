@@ -54,12 +54,15 @@ public:
 	void SetStage(Stage2D_Com* stage);
 	Stage2D_Com* GetStage() const { return m_Stage; }
 
+	void GunItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+
 private:
 	void BasicInit();
 	void AnimationInit();
 	void ChangeColor(float DeltaTime);
 	void CreateBubbleEffect(float DeltaTime);
 	void CreateBugEffect(float DeltaTime);
+	void CreateBugChangeEffect(float DeltaTime);
 
 private:
 	Animation2D_Com* m_Animation;
@@ -107,6 +110,10 @@ private:
 	bool m_isSkullItem;
 	float m_BubbleTimeVar;
 	float m_BubbleTime;
+
+	float m_BugEffectTime;
+	float m_BugEffectTimeVar;
+
 
 protected:
 	Gonner_Com();

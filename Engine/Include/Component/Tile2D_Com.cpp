@@ -58,6 +58,34 @@ int JEONG::Tile2D_Com::Update(float DeltaTime)
 {
 	if (m_TileImageObject != NULLPTR)
 	{
+		m_TileImageObject->Update(DeltaTime);
+
+		for (size_t i = 0; i < m_vecTileImage.size(); i++)
+			m_vecTileImage[i]->Update(DeltaTime);
+	}
+	return 0;
+}
+
+int JEONG::Tile2D_Com::LateUpdate(float DeltaTime)
+{
+
+	return 0;
+}
+
+void JEONG::Tile2D_Com::Collision(float DeltaTime)
+{
+}
+
+void JEONG::Tile2D_Com::CollisionLateUpdate(float DeltaTime)
+{
+	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
+		m_NearObject = NULLPTR;
+}
+
+void JEONG::Tile2D_Com::Render(float DeltaTime)
+{
+	if (m_TileImageObject != NULLPTR)
+	{
 		float SrcDist = 0.0f;
 		float DestDist = 0.0f;
 
@@ -68,13 +96,7 @@ int JEONG::Tile2D_Com::Update(float DeltaTime)
 		for (; StartIter != EndIter; StartIter++)
 		{
 			if (m_NearObject == NULLPTR)
-			{
 				m_NearObject = *StartIter;
-				continue;
-			}
-
-			if (m_NearObject == NULLPTR)
-				continue;
 
 			Vector3 src = m_NearObject->GetTransform()->GetWorldPos();
 			Vector3 dest = (*StartIter)->GetTransform()->GetWorldPos();
@@ -84,42 +106,17 @@ int JEONG::Tile2D_Com::Update(float DeltaTime)
 
 			if (SrcDist > DestDist)
 				m_NearObject = *StartIter;
-				
+
 			m_TileImage->SetNearObject(m_NearObject, SrcDist);
 		}
 
-		m_TileImageObject->Update(DeltaTime);
-
-		for (size_t i = 0; i < m_vecTileImage.size(); i++)
-		{
-			m_vecTileImage[i]->Update(DeltaTime);
-			m_vecImage[i]->SetNearObject(m_NearObject, SrcDist);
-		}
-	}
-	return 0;
-}
-
-int JEONG::Tile2D_Com::LateUpdate(float DeltaTime)
-{
-	return 0;
-}
-
-void JEONG::Tile2D_Com::Collision(float DeltaTime)
-{
-}
-
-void JEONG::Tile2D_Com::CollisionLateUpdate(float DeltaTime)
-{
-}
-
-void JEONG::Tile2D_Com::Render(float DeltaTime)
-{
-	if (m_TileImageObject != NULLPTR)
-	{
 		m_TileImageObject->Render(DeltaTime);
 
 		for (size_t i = 0; i < m_vecTileImage.size(); i++)
+		{
+			m_vecImage[i]->SetNearObject(m_NearObject, SrcDist);
 			m_vecTileImage[i]->Render(DeltaTime);
+		}
 	}
 
 	if (m_isLine == false)
@@ -466,4 +463,9 @@ void JEONG::Tile2D_Com::ClearMainImage()
 
 	SAFE_RELEASE(m_TileImage);
 	SAFE_RELEASE(m_TileImageObject);
+}
+
+void JEONG::Tile2D_Com::ClearNearObject()
+{
+	m_NearObject = NULLPTR;
 }

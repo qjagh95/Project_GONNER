@@ -244,9 +244,6 @@
     <Filter Include="Core\08. Object\Component\UserComponent\05. Fire">
       <UniqueIdentifier>{75a4810f-7ee1-4569-bc13-ae42c74e26e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\BaseComponent\15. Number%28__%29">
-      <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com">
       <UniqueIdentifier>{07f17435-ce98-41ad-a82d-57f59ed0145b}</UniqueIdentifier>
     </Filter>
@@ -280,8 +277,14 @@
     <Filter Include="Core\08. Object\Component\UserComponent\07. GunItem">
       <UniqueIdentifier>{35929411-fd95-4074-a5f7-ea0e5801753b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\10. ShotEffect">
+    <Filter Include="Core\08. Object\Component\UserComponent\10. Bullet">
+      <UniqueIdentifier>{1a25372f-8b3c-4f35-ad91-fe995e37404b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\11. ShotEffect">
       <UniqueIdentifier>{06ff78af-76b7-42bb-8361-4f994b15f3be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\BaseComponent\15. Number">
+      <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -517,7 +520,7 @@
       <Filter>Core\08. Object\Component\UserComponent\00. Ready</Filter>
     </ClInclude>
     <ClInclude Include="Component\Number_Com.h">
-      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\15. Number</Filter>
     </ClInclude>
     <ClInclude Include="NumberManager.h">
       <Filter>Core\16. NumberManager</Filter>
@@ -535,7 +538,7 @@
       <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\ShotEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\10. ShotEffect</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\11. ShotEffect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -761,7 +764,7 @@
       <Filter>Core\08. Object\Component\UserComponent\00. Ready</Filter>
     </ClCompile>
     <ClCompile Include="Component\Number_Com.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\15. Number%28__%29</Filter>
+      <Filter>Core\08. Object\Component\BaseComponent\15. Number</Filter>
     </ClCompile>
     <ClCompile Include="NumberManager.cpp">
       <Filter>Core\16. NumberManager</Filter>
@@ -779,7 +782,7 @@
       <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\10. ShotEffect</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\11. ShotEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

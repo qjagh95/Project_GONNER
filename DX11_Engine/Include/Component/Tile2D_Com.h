@@ -39,6 +39,7 @@ public:
 	void ClearSubImage();
 	void ClearMainImage();
 	size_t GetSubSize() const { return m_vecTileImage.size(); }
+	void ClearNearObject();
 
 private:
 	TILE2D_OPTION m_TileOption;

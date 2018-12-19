@@ -32,6 +32,8 @@ void Gonner_Com::FS_BUGDOWN(float DeltaTime)
 
 void Gonner_Com::FS_BUGIDLE(float DeltaTime)
 {
+	CreateBugEffect(DeltaTime);
+
 	if (KeyInput::Get()->KeyPress("MoveLeft") || KeyInput::Get()->KeyPress("MoveRight"))
 	{
 		m_GravityCom->SetForce(450.0f);
@@ -39,12 +41,14 @@ void Gonner_Com::FS_BUGIDLE(float DeltaTime)
 		m_Transform->SetWorldRotZFromNoneAxis(180.0f);
 		ChangeState(GS_BUGJUMP, m_AniName, m_Animation);
 	}
+
 }
 
 void Gonner_Com::FS_BUGJUMP(float DeltaTime)
 {
 	DirCheck();
 	BugMove(DeltaTime);
+	CreateBugEffect(DeltaTime);
 
 	switch (m_Animation->GetDir())
 	{
@@ -78,7 +82,7 @@ void Gonner_Com::FS_BUGJUMP(float DeltaTime)
 			{
 				m_BugAngle = 0.0f;
 				m_Transform->SetWorldRotZ(0.0f);
-
+				CreateBugChangeEffect(DeltaTime);
 				ChangeState(GS_IDLE, m_AniName, m_Animation);
 			}
 			else

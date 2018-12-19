@@ -4,7 +4,7 @@
 JEONG_BEGIN
 
 class Animation2D_Com;
-class GunItem_Com : public UserComponent_Base
+class JEONG_DLL GunItem_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -20,6 +20,8 @@ public:
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+
+	float m_Rot;
 
 protected:
 	GunItem_Com();

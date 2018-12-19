@@ -4,7 +4,7 @@
 JEONG_BEGIN
 
 class Animation2D_Com;
-class Gun_Com : public UserComponent_Base
+class JEONG_DLL Gun_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;

@@ -79,6 +79,9 @@
     <ClCompile Include="UserComponent\GonnerFSM.cpp">
       <Filter>Scene\03. MainScene\Component</Filter>
     </ClCompile>
+    <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
+      <Filter>Scene\03. MainScene\Component</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHeader.h">

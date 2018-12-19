@@ -28,6 +28,11 @@ private:
 	Vector3 m_ScaleVar;
 	float m_ChangeTimeVar;
 	float m_ChangeTime;
+	float m_StartTime;
+	float m_StartTimeVar;
+
+	bool m_isStart;
+
 	Vector3 m_UpDir;
 
 	Vector4 m_ChangeColor[3];

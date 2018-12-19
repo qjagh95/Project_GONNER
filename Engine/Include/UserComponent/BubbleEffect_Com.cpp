@@ -9,6 +9,7 @@ BubbleEffect_Com::BubbleEffect_Com()
 {
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
+
 }
 
 BubbleEffect_Com::BubbleEffect_Com(const BubbleEffect_Com & CopyData)
@@ -79,6 +80,11 @@ bool BubbleEffect_Com::Init()
 
 	m_ChangeTimeVar = 0.0f;
 	m_ChangeTime = 0.1f;
+
+	m_StartTime = 0.5f;
+	m_StartTimeVar = 0.0f;
+
+	m_isStart = false;
 
 	m_ChangeColor[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
 	m_ChangeColor[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);
@@ -161,7 +167,16 @@ void BubbleEffect_Com::ChangeColor(float DeltaTime)
 
 void BubbleEffect_Com::ScaleAction(float DeltaTime)
 {
-	m_Transform->AddScaleXY(-100.0f, DeltaTime);
+	m_StartTimeVar += DeltaTime;
+
+	if (m_StartTimeVar >= m_StartTime)
+	{
+		m_StartTimeVar = 0.0f;
+		m_isStart = true;
+	}
+ 
+	if(m_isStart == true)
+		m_Transform->AddScaleXY(-300.0f, DeltaTime);
 
 	if (m_Transform->GetWorldScale() <= Vector3::Zero)
 	{

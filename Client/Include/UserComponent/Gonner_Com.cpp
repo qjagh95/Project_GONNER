@@ -16,6 +16,7 @@
 #include "../UserComponent/BulletRot_Com.h"
 
 #include <UserComponent/BubbleEffect_Com.h>
+#include <UserComponent/BugEffect_Com.h>
 
 Gonner_Com::Gonner_Com()
 	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
@@ -46,6 +47,9 @@ Gonner_Com::Gonner_Com()
 
 	m_BubbleTimeVar = 0.0f;
 	m_BubbleTime = 0.0f;
+
+	m_BugEffectTime = 0.0f;
+	m_BugEffectTimeVar = 0.0f;
 }
 
 Gonner_Com::Gonner_Com(const Gonner_Com & userCom)
@@ -80,6 +84,7 @@ int Gonner_Com::Input(float DeltaTime)
 int Gonner_Com::Update(float DeltaTime)
 {
 	ChangeColor(DeltaTime);
+	CreateBubbleEffect(DeltaTime);
 
 	m_Pos = m_Transform->GetWorldPos();
 
@@ -129,9 +134,7 @@ int Gonner_Com::Update(float DeltaTime)
 			FS_WALLJUMP(DeltaTime);
 			break;
 	}
-
-	CreateBubbleEffect(DeltaTime);
-
+	 
 	return 0;
 }
 
@@ -207,12 +210,8 @@ void Gonner_Com::BasicInit()
 {
 	m_WinSize = Device::Get()->GetWinSizeVector2();
 
-	KeyInput::Get()->AddKey("S1", VK_F1);
-	KeyInput::Get()->AddKey("S2", VK_F2);
-	KeyInput::Get()->AddKey("S3", VK_F3);
-	KeyInput::Get()->AddKey("S4", VK_F4);
-
 	KeyInput::Get()->AddKey("Jump", VK_SPACE);
+	KeyInput::Get()->AddKey("Attack", 'A');
 
 	m_Renderer = m_Object->AddComponent<Renderer_Com>("GonnerRender");
 	m_Renderer->SetMesh("TextureRect");
@@ -225,6 +224,7 @@ void Gonner_Com::BasicInit()
 	ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("GonnerBody");
 	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 0.0f));
 	RectColl->SetMyTypeName("Gonner");
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::GunItemHit);
 	SAFE_RELEASE(RectColl);
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
@@ -238,6 +238,8 @@ void Gonner_Com::BasicInit()
 	m_ChangeTime = 0.1f;
 
 	m_BubbleTime = 0.1f;
+
+	m_BugEffectTime = 0.8f;
 
 	m_ChangeColor[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
 	m_ChangeColor[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);
@@ -338,7 +340,7 @@ void Gonner_Com::AnimationInit()
 	m_AniName[GS_KNIGHT] = "Knight";
 	m_AniName[GS_WALLJUMP] = "Jump";
 
-	ChangeState(GS_IDLE, m_AniName, m_Animation);
+	ChangeState(GS_BUGDOWN, m_AniName, m_Animation);
 }
 
 void Gonner_Com::ChangeColor(float DeltaTime)
@@ -388,8 +390,38 @@ void Gonner_Com::CreateBubbleEffect(float DeltaTime)
 
 void Gonner_Com::CreateBugEffect(float DeltaTime)
 {
-	if (m_State != GS_BUGJUMP || m_State != GS_BUGIDLE || m_State != GS_BUGDOWN)
-		return;
+	m_BugEffectTimeVar += DeltaTime;
 
-	//ÀÌÆåÆ®»ý¼º
+	if (m_BugEffectTimeVar >= m_BugEffectTime)
+	{
+		m_BugEffectTimeVar = 0.0f;
+
+		GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
+		BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
+
+		Vector3 Pos = m_leftPos;
+
+		newEffect->GetTransform()->SetWorldRotZFromNoneAxis(45.0f);
+		newEffect->GetTransform()->SetWorldPos(Pos);
+
+		SAFE_RELEASE(newEffect);
+		SAFE_RELEASE(newEffectCom);
+	}
+}
+
+void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
+{
+	for (size_t i = 0; i < 8; i++)
+	{
+		GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
+		BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
+
+		newEffect->GetTransform()->SetWorldRotZFromNoneAxis(45.0f * i);
+		newEffect->GetTransform()->SetWorldPos(m_Pos);
+		newEffect->GetTransform()->SetWorldScale(128.0f, 128.0f * 2.0f, 1.0f);
+
+		SAFE_RELEASE(newEffect);
+		SAFE_RELEASE(newEffectCom);
+	}
+
 }
