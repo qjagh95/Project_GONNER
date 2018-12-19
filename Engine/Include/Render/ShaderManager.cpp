@@ -197,13 +197,13 @@ bool JEONG::ShaderManager::Init()
 		return false;
 	}
 
-	//Entry[ST_VERTEX] = "AtlasOneVS";
-	//Entry[ST_PIXEL] = "AtlasOnePS";
-	//if (LoadShader(ATLASONE_SHADER, TEXT("AtlasOneShader.fx"), Entry) == false)
-	//{
-	//	TrueAssert(true);
-	//	return false;
-	//}
+	Entry[ST_VERTEX] = "AtlasOneVS";
+	Entry[ST_PIXEL] = "AtlasOnePS";
+	if (LoadShader(ATLASONE_SHADER, TEXT("AtlasOneShader.fx"), Entry) == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
 
 	//Entry[ST_VERTEX] = "FireVS";
 	//Entry[ST_PIXEL] = "FirePS";

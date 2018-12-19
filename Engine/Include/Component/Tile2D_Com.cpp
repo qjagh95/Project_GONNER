@@ -73,6 +73,9 @@ int JEONG::Tile2D_Com::Update(float DeltaTime)
 				continue;
 			}
 
+			if (m_NearObject == NULLPTR)
+				continue;
+
 			Vector3 src = m_NearObject->GetTransform()->GetWorldPos();
 			Vector3 dest = (*StartIter)->GetTransform()->GetWorldPos();
 
@@ -308,7 +311,7 @@ void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	m_TileImageObject->SetLayer(m_Layer);
 
 	m_TileImage->SetTexture(FileName, CA2W(FileName.c_str()));
-	m_TileImage->SetDiffuseColor(Vector4::Pink);
+	m_TileImage->SetDiffuseColor(Vector4::White);
 	Vector3 TilePos = m_Transform->GetWorldPos();
 	Vector3 TileScale = m_Transform->GetWorldScale();
 

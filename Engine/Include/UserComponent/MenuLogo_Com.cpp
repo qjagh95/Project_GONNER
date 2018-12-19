@@ -27,7 +27,6 @@ bool MenuLogo_Com::Init()
 
 	Material_Com* LogoMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	LogoMat->SetDiffuseTexture(0, "Logo", TEXT("Gonner_Headerv2_bg_small.png"));
-	LogoMat->SetSampler(1, CLAMP_SAMPLER);
 
 	SAFE_RELEASE(LogoMat);
 	SAFE_RELEASE(LogoRender);

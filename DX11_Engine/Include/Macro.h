@@ -41,6 +41,7 @@
 #define MENUENEMY_SHADER "MenuEnemyShader"
 #define SCREEN_SHADER "ScreenShader"
 #define TILEIMAGE_SHADER "TileImageShader"
+#define ATLASONE_SHADER "AtlasOneShader"
 
 //Base InputLayOut
 #define POS_COLOR_LAYOUT "PosColorLayOut"

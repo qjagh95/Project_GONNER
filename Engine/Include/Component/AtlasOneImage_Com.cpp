@@ -26,7 +26,7 @@ bool AtlasOneImage_Com::Init()
 	OneImageRender->SetRenderState(ALPHA_BLEND);
 	//OneImageRender->SetShader(ATLASONE_SHADER);
 	OneImageRender->SetScreenRender(true);
-	//OneImageRender->CreateRendererCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer));
+	OneImageRender->CreateRendererCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer));
 
 	SAFE_RELEASE(OneImageRender);
 	return true;
@@ -70,7 +70,6 @@ void AtlasOneImage_Com::AfterClone()
 
 void AtlasOneImage_Com::SetAtlas(const string & FileName, const Vector4& CutRect)
 {
-
 	Material_Com* OneImageMat = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	OneImageMat->SetDiffuseTexture(0, FileName, CA2W(FileName.c_str()));
 
@@ -80,10 +79,10 @@ void AtlasOneImage_Com::SetAtlas(const string & FileName, const Vector4& CutRect
 	ImageSize.x = (float)newTex->GetWidth();
 	ImageSize.y = (float)newTex->GetHeight();
 
-	//m_CBuffer.LeftTopUV.x = CutRect.x / ImageSize.x;
-	//m_CBuffer.LeftTopUV.y = CutRect.y / ImageSize.y;
-	//m_CBuffer.RightBottomUV.x = CutRect.z / ImageSize.x;
-	//m_CBuffer.RightBottomUV.y = CutRect.w / ImageSize.y;
+	m_CBuffer.LeftTopUV.x = CutRect.x / ImageSize.x;
+	m_CBuffer.LeftTopUV.y = CutRect.y / ImageSize.y;
+	m_CBuffer.RightBottomUV.x = CutRect.z / ImageSize.x;
+	m_CBuffer.RightBottomUV.y = CutRect.w / ImageSize.y;
 
 	SAFE_RELEASE(newTex);
 	SAFE_RELEASE(OneImageMat);

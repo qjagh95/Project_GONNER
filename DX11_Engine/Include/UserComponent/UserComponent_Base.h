@@ -2,7 +2,6 @@
 #include "../Component/Component_Base.h"
 
 JEONG_BEGIN
-//유저컴포넌트는 이놈을 상속받는다.
 class JEONG_DLL UserComponent_Base : public Component_Base
 {
 public:

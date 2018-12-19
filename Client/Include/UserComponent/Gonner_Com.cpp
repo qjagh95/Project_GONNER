@@ -15,6 +15,8 @@
 #include "../UserComponent/Bullet_Com.h"
 #include "../UserComponent/BulletRot_Com.h"
 
+#include <UserComponent/BubbleEffect_Com.h>
+
 Gonner_Com::Gonner_Com()
 	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
 {
@@ -22,14 +24,28 @@ Gonner_Com::Gonner_Com()
 	m_isBugJump = false;
 	m_isDirChangeLeft = false;
 	m_isDirChangeRight = false;
+	m_isSkullItem = false;
 
 	m_BugJumpMax = 6;
 	m_BugJumpCount = 0;
+
+	m_PumpSpeed = 180.0f;
 
 	m_downTile = NULLPTR;
 	m_upTile = NULLPTR;
 	m_leftTile = NULLPTR;
 	m_rightTile = NULLPTR;
+
+	m_PrevEffectLayer = NULLPTR;
+	m_AfterEffectLayer = NULLPTR;
+	
+	m_ChangeTimeVar = 0.0f;
+	m_ChangeTime = 0.0f;
+
+	m_DownAngle = 0.0f;
+
+	m_BubbleTimeVar = 0.0f;
+	m_BubbleTime = 0.0f;
 }
 
 Gonner_Com::Gonner_Com(const Gonner_Com & userCom)
@@ -42,6 +58,9 @@ Gonner_Com::~Gonner_Com()
 {
 	SAFE_RELEASE(m_Animation);
 	SAFE_RELEASE(m_GravityCom);
+
+	SAFE_RELEASE(m_AfterEffectLayer);
+	SAFE_RELEASE(m_PrevEffectLayer);
 }
 
 bool Gonner_Com::Init()
@@ -60,6 +79,8 @@ int Gonner_Com::Input(float DeltaTime)
 
 int Gonner_Com::Update(float DeltaTime)
 {
+	ChangeColor(DeltaTime);
+
 	m_Pos = m_Transform->GetWorldPos();
 
 	m_upPos = Vector3(m_Pos.x, m_Pos.y + m_ScaleHalf.y + 1.0f, 0.0f);
@@ -104,7 +125,12 @@ int Gonner_Com::Update(float DeltaTime)
 		case GS_KNIGHT:
 			FS_KNIGHT(DeltaTime);
 			break;
+		case GS_WALLJUMP:
+			FS_WALLJUMP(DeltaTime);
+			break;
 	}
+
+	CreateBubbleEffect(DeltaTime);
 
 	return 0;
 }
@@ -194,6 +220,7 @@ void Gonner_Com::BasicInit()
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	m_Material->SetDiffuseTexture(0, "Gonner", TEXT("Monster\\player.png"));
+	m_Material->SetMaterial(Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f));
 
 	ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("GonnerBody");
 	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 0.0f));
@@ -208,6 +235,16 @@ void Gonner_Com::BasicInit()
 	m_ScaleHalf = m_Scale / 2.0f;
 
 	m_BugAngle = 0.0f;
+	m_ChangeTime = 0.1f;
+
+	m_BubbleTime = 0.1f;
+
+	m_ChangeColor[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
+	m_ChangeColor[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);
+	m_ChangeColor[2] = Vector4(80.0f / 255.0f, 187.0f / 255.0f, 166.0f / 255.0f, 1.0f);
+
+	m_PrevEffectLayer = m_Scene->FindLayer("PrevEffectLayer");
+	m_AfterEffectLayer = m_Scene->FindLayer("AfterEffectLayer");
 }
 
 void Gonner_Com::AnimationInit()
@@ -298,8 +335,61 @@ void Gonner_Com::AnimationInit()
 	m_AniName[GS_JUMP] = "Jump"; //1
 	m_AniName[GS_DOUBLEJUMP] = "Jump"; //1
 	m_AniName[GS_WALLSTOP] = "WallStop"; //1
-
 	m_AniName[GS_KNIGHT] = "Knight";
+	m_AniName[GS_WALLJUMP] = "Jump";
 
-	ChangeState(GS_BUGDOWN, m_AniName, m_Animation);
+	ChangeState(GS_IDLE, m_AniName, m_Animation);
+}
+
+void Gonner_Com::ChangeColor(float DeltaTime)
+{
+	m_ChangeTimeVar += DeltaTime;
+
+	if (m_ChangeTimeVar > m_ChangeTime)
+	{
+		m_ChangeTimeVar = 0.0f;
+
+		int RandNum = RandomRange(1, 3);
+
+		switch (RandNum)
+		{
+			case 1:
+				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
+				break;
+			case 2:
+				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
+				break;
+			case 3:
+				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
+				break;
+		}
+	}
+}
+
+void Gonner_Com::CreateBubbleEffect(float DeltaTime)
+{
+	if (m_isSkullItem == true)
+		return;
+	
+	m_BubbleTimeVar += DeltaTime;
+
+	if (m_BubbleTimeVar >= m_BubbleTime)
+	{
+		m_BubbleTimeVar = 0.0f;
+
+		GameObject* newBubble = GameObject::CreateObject("BubbleEffect", m_PrevEffectLayer);
+		BubbleEffect_Com* newBubbleCom = newBubble->AddComponent< BubbleEffect_Com>("BubbleEffect");
+		newBubble->GetTransform()->SetWorldPos(m_Pos);
+
+		SAFE_RELEASE(newBubble);
+		SAFE_RELEASE(newBubbleCom);
+	}
+}
+
+void Gonner_Com::CreateBugEffect(float DeltaTime)
+{
+	if (m_State != GS_BUGJUMP || m_State != GS_BUGIDLE || m_State != GS_BUGDOWN)
+		return;
+
+	//이펙트생성
 }

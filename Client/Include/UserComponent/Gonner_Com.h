@@ -18,6 +18,7 @@ enum GONNER_STATE
 	GS_JUMP,
 	GS_DOUBLEJUMP,
 	GS_WALLSTOP,
+	GS_WALLJUMP,
 	GS_KNIGHT,
 	GS_MAX,
 };
@@ -44,6 +45,7 @@ public:
 	void FS_DOUBLEJUMP(float DeltaTime);
 	void FS_WALLSTOP(float DeltaTime);
 	void FS_KNIGHT(float DeltaTime);
+	void FS_WALLJUMP(float DeltaTime);
 
 	void Move(float DeltaTime);
 	void BugMove(float DeltaTime);
@@ -55,6 +57,9 @@ public:
 private:
 	void BasicInit();
 	void AnimationInit();
+	void ChangeColor(float DeltaTime);
+	void CreateBubbleEffect(float DeltaTime);
+	void CreateBugEffect(float DeltaTime);
 
 private:
 	Animation2D_Com* m_Animation;
@@ -87,6 +92,21 @@ private:
 	Tile2D_Com* m_upTile;
 	Tile2D_Com* m_leftTile;
 	Tile2D_Com* m_rightTile;
+
+	float m_PumpSpeed;
+	float m_ChangeTimeVar;
+	float m_ChangeTime;
+
+	float m_DownAngle;
+
+	Vector4 m_ChangeColor[3];
+
+	Layer* m_PrevEffectLayer;
+	Layer* m_AfterEffectLayer;
+
+	bool m_isSkullItem;
+	float m_BubbleTimeVar;
+	float m_BubbleTime;
 
 protected:
 	Gonner_Com();

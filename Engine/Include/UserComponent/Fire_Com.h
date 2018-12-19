@@ -16,9 +16,6 @@ public:
 	Fire_Com* Clone() override;
 	void AfterClone() override;
 
-private:
-	LogoCBuffer m_CBuffer;
-
 protected:
 	Fire_Com();
 	Fire_Com(const Fire_Com& CopyData);

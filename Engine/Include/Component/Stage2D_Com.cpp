@@ -218,7 +218,7 @@ void JEONG::Stage2D_Com::Load(BineryRead & Reader)
 			newTileObject->SetScene(m_Scene);
 			newTileObject->SetLayer(m_Layer);
 
-			Transform_Com*	TileTransform = newTileObject->GetTransform();
+			Transform_Com* getTransform = newTileObject->GetTransform();
 
 			Vector3	vScale;
 			Vector3	vPos;
@@ -226,8 +226,8 @@ void JEONG::Stage2D_Com::Load(BineryRead & Reader)
 			Reader.ReadData(vScale);
 			Reader.ReadData(vPos);
 
-			TileTransform->SetWorldScale(vScale);
-			TileTransform->SetWorldPos(vPos);
+			getTransform->SetWorldScale(vScale);
+			getTransform->SetWorldPos(vPos);
 
 			Tile2D_Com*	newTileCom = newTileObject->AddComponent<Tile2D_Com>("Tile");
 			newTileCom->Load(Reader);
@@ -320,31 +320,28 @@ void JEONG::Stage2D_Com::CreateTile(const Vector3& StartPos, const Vector3& Tile
 			newTileObject->SetScene(m_Scene);
 			newTileObject->SetLayer(m_Layer);
 
-			Tile2D_Com*	pTile = newTileObject->AddComponent<Tile2D_Com>("Tile");
-			pTile->SetTileType(STT_TILE);
-			pTile->SetLineOn(m_isLineOn);
-			pTile->SetMesh("ColliderRect");
+			Tile2D_Com*	newTile = newTileObject->AddComponent<Tile2D_Com>("Tile");
+			newTile->SetTileType(STT_TILE);
+			newTile->SetLineOn(m_isLineOn);
+			newTile->SetMesh("ColliderRect");
 
-			Transform_Com*	pTransform = newTileObject->GetTransform();
-			pTransform->SetWorldScale(TileScale);
+			Transform_Com*	getTransform = newTileObject->GetTransform();
+			getTransform->SetWorldScale(TileScale);
 
 			Vector3	vPos = StartPos + TileScale * Vector3((float)x, (float)y, 1.0f);
-			pTransform->SetWorldPos(vPos);
+			getTransform->SetWorldPos(vPos);
 
 			if (FileName != NULLPTR)
 			{
-				Renderer_Com* pRenderer = newTileObject->AddComponent<Renderer_Com>("Renderer");
-				pRenderer->SetMesh("TextureRect");
-				pRenderer->SetRenderState(ALPHA_BLEND);
-				SAFE_RELEASE(pRenderer);
+				Renderer_Com* newRenderer = newTileObject->AddComponent<Renderer_Com>("TileRenderer");
+				newRenderer->SetMesh("TextureRect");
+				newRenderer->SetRenderState(ALPHA_BLEND);
+				SAFE_RELEASE(newRenderer);
 
-				Material_Com* pMaterial = newTileObject->AddComponent<Material_Com>("Material");
-				pMaterial->SetDiffuseTexture(0, KeyName, FileName, PathKey);
-				SAFE_RELEASE(pMaterial);
+				Material_Com* newMaterial = newTileObject->AddComponent<Material_Com>("TileMaterial");
+				newMaterial->SetDiffuseTexture(0, KeyName, FileName, PathKey);
+				SAFE_RELEASE(newMaterial);
 			}
-
-			m_vecTileObject[Index] = newTileObject;
-			m_vecTile2DCom[Index] = pTile;
 
 			if (m_TileObjectSize == m_TileObjectCapacity)
 			{
@@ -365,6 +362,9 @@ void JEONG::Stage2D_Com::CreateTile(const Vector3& StartPos, const Vector3& Tile
 				SAFE_DELETE(m_vecTile2DCom);
 				m_vecTile2DCom = newTile;
 			}
+
+			m_vecTileObject[Index] = newTileObject;
+			m_vecTile2DCom[Index] = newTile;
 
 			m_TileObjectSize++;
 			m_Tile2DComSize++;
@@ -387,13 +387,13 @@ void JEONG::Stage2D_Com::CreateIsoTile(const Vector3& StartPos, const Vector3& T
 			newTileObject->SetScene(m_Scene);
 			newTileObject->SetLayer(m_Layer);
 
-			Tile2D_Com*	pTile = newTileObject->AddComponent<Tile2D_Com>("IsoTile");
-			pTile->SetTileType(STT_ISO);
-			pTile->SetMesh("IsoTileNomal");
-			pTile->SetLineOn(m_isLineOn);
+			Tile2D_Com*	newTile = newTileObject->AddComponent<Tile2D_Com>("IsoTile");
+			newTile->SetTileType(STT_ISO);
+			newTile->SetMesh("IsoTileNomal");
+			newTile->SetLineOn(m_isLineOn);
 
-			Transform_Com* pTransform = newTileObject->GetTransform();
-			pTransform->SetWorldScale(TileScale);
+			Transform_Com* getTransform = newTileObject->GetTransform();
+			getTransform->SetWorldScale(TileScale);
 
 			Vector3 tPos;
 			tPos.x = sPos.x + (TileScale.x * 0.5f) * (x - y);
@@ -404,22 +404,19 @@ void JEONG::Stage2D_Com::CreateIsoTile(const Vector3& StartPos, const Vector3& T
 
 			//y축이 증가할땐 x축이 줄어들어야함.
 
-			pTransform->SetWorldPos(tPos);
+			getTransform->SetWorldPos(tPos);
 
 			if (FileName != NULLPTR)
 			{
-				Renderer_Com* pRenderer = newTileObject->AddComponent<Renderer_Com>("Renderer");
-				pRenderer->SetMesh("TextureRect");
-				pRenderer->SetRenderState(ALPHA_BLEND);
-				SAFE_RELEASE(pRenderer);
+				Renderer_Com* newRenderer = newTileObject->AddComponent<Renderer_Com>("Renderer");
+				newRenderer->SetMesh("TextureRect");
+				newRenderer->SetRenderState(ALPHA_BLEND);
+				SAFE_RELEASE(newRenderer);
 
-				Material_Com* pMaterial = newTileObject->AddComponent<Material_Com>("Material");
-				pMaterial->SetDiffuseTexture(0, KeyName, FileName, PathKey);
-				SAFE_RELEASE(pMaterial);
+				Material_Com* newMaterial = newTileObject->AddComponent<Material_Com>("Material");
+				newMaterial->SetDiffuseTexture(0, KeyName, FileName, PathKey);
+				SAFE_RELEASE(newMaterial);
 			}
-
-			m_vecTile2DCom[Index] = pTile;
-			m_vecTileObject[Index] = newTileObject;
 
 			if (m_TileObjectSize == m_TileObjectCapacity)
 			{
@@ -440,6 +437,9 @@ void JEONG::Stage2D_Com::CreateIsoTile(const Vector3& StartPos, const Vector3& T
 				SAFE_DELETE(m_vecTile2DCom);
 				m_vecTile2DCom = newTile;
 			}
+
+			m_vecTile2DCom[Index] = newTile;
+			m_vecTileObject[Index] = newTileObject;
 
 			m_Tile2DComSize++;
 			m_TileObjectSize++;

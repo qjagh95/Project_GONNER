@@ -258,11 +258,16 @@
     <ClInclude Include="Type.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="NumberManager.h" />
+    <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
+    <ClInclude Include="UserComponent\BugEffect_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
     <ClInclude Include="UserComponent\Fire_Com.h" />
+    <ClInclude Include="UserComponent\GunItem_Com.h" />
+    <ClInclude Include="UserComponent\Gun_Com.h" />
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h" />
     <ClInclude Include="UserComponent\MenuEnemy_Com.h" />
     <ClInclude Include="UserComponent\MenuLogo_Com.h" />
+    <ClInclude Include="UserComponent\ShotEffect_Com.h" />
     <ClInclude Include="UserComponent\UserComponent_Base.h" />
   </ItemGroup>
   <ItemGroup>
@@ -339,11 +344,16 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="NumberManager.cpp" />
+    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
     <ClCompile Include="UserComponent\Fire_Com.cpp" />
+    <ClCompile Include="UserComponent\GunItem_Com.cpp" />
+    <ClCompile Include="UserComponent\Gun_Com.cpp" />
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp" />
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp" />
     <ClCompile Include="UserComponent\MenuLogo_Com.cpp" />
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp" />
     <ClCompile Include="UserComponent\UserComponent_Base.cpp" />
   </ItemGroup>
   <ItemGroup>

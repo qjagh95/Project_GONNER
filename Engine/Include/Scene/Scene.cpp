@@ -19,7 +19,7 @@ JEONG::Scene::Scene()
 
 JEONG::Scene::~Scene()
 {
-	JEONG::GameObject::DestroyProtoType(this);
+	JEONG::GameObject::DestroyProtoType();
 
 	Safe_Release_Map(m_CameraMap);
 	Safe_Release_VecList(m_LayerList);
@@ -35,7 +35,9 @@ bool JEONG::Scene::Init()
 {
 	AddLayer("BackGround", INT_MIN);
 	AddLayer("Tile", 0);
+	AddLayer("PrevEffectLayer", 1);
 	AddLayer("Default", 2);
+	AddLayer("AfterEffectLayer", 3);
 	AddLayer("UI", INT_MAX - 1);
 	AddLayer("Fade", INT_MAX);
 

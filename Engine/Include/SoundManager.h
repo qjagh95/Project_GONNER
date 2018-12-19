@@ -4,9 +4,6 @@ JEONG_BEGIN
 
 class JEONG_DLL SoundManager
 {
-	//단발 Sound Effect
-	//루프 Sound EffectInstance
-
 public:
 	bool Init();
 	void Update();

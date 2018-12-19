@@ -23,8 +23,6 @@ bool JEONG::SoundManager::Init()
 #endif
 	m_AudioEngine = make_unique<AudioEngine>(Flag);
 
-	CreateSoundEffect("BGM", TEXT("bgm_Dnf.wav"));
-	CreateSoundEffect("Effect", TEXT("teleporter_send.wav"));
 	CreateSoundEffect("LogoBGM", TEXT("Over the top (short intro).wav"));
 	CreateSoundEffect("Stage1BGM", TEXT("Caves Invincible 3.3.wav"));
 	CreateSoundEffect("Jump", TEXT("sfx_jump.wav"));

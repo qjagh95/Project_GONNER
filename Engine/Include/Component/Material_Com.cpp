@@ -41,6 +41,9 @@ JEONG::Material_Com::Material_Com(const Material_Com& copyData)
 			JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
 			newMaterial->MatrialInfo = copyData.m_vecMaterial[i][j]->MatrialInfo;
 
+			newMaterial->vecDiffuseSampler.resize(copyData.m_vecMaterial[i][j]->vecDiffuseSampler.size());
+			newMaterial->vecDiffuseTexture.resize(copyData.m_vecMaterial[i][j]->vecDiffuseTexture.size());
+
 			for (size_t a = 0; a < copyData.m_vecMaterial[i][j]->vecDiffuseSampler.size(); a++)
 			{
 				newMaterial->vecDiffuseSampler[a] = copyData.m_vecMaterial[i][j]->vecDiffuseSampler[a];

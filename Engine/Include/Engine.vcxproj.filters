@@ -268,6 +268,21 @@
     <Filter Include="Core\16. NumberManager">
       <UniqueIdentifier>{f2e7d268-087a-41da-8b3d-6d956a5a9d51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\06. BubbleEffect">
+      <UniqueIdentifier>{ddb8b0b0-af67-48c2-9d91-07064bb8f3ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\09. BugEffect">
+      <UniqueIdentifier>{c39718b2-dd1e-46a0-a6ef-de90cb07e128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\08. Gun">
+      <UniqueIdentifier>{ac71154e-84a3-4ba9-b2bb-87b00c1d8543}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\07. GunItem">
+      <UniqueIdentifier>{35929411-fd95-4074-a5f7-ea0e5801753b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\10. ShotEffect">
+      <UniqueIdentifier>{06ff78af-76b7-42bb-8361-4f994b15f3be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -507,6 +522,21 @@
     <ClInclude Include="NumberManager.h">
       <Filter>Core\16. NumberManager</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\BubbleEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\06. BubbleEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\GunItem_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\07. GunItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Gun_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BugEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\ShotEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\10. ShotEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -735,6 +765,21 @@
     </ClCompile>
     <ClCompile Include="NumberManager.cpp">
       <Filter>Core\16. NumberManager</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\06. BubbleEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\GunItem_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\07. GunItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Gun_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BugEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\10. ShotEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -23,7 +23,7 @@
 
 #include "../UserComponent/Gonner_Com.h"
 #include "../UserComponent/Monster_Com.h"
-
+#include <UserComponent/BubbleEffect_Com.h>
 
 MainScene::MainScene()
 {
@@ -57,18 +57,17 @@ bool MainScene::Init()
 	pStage->Load(Reader);
 	pStage->SetLineOn(true);
 
-	GameObject* PlayerObject = GameObject::CreateObject("Player", Default, true);
-	if (PlayerObject->EmptyComponent() == true)
+	GameObject* GonnerObject = GameObject::CreateObject("Gonner", Default, true);
+	if (GonnerObject->EmptyComponent() == true)
 	{
-		Gonner_Com* player_Com = PlayerObject->AddComponent<Gonner_Com>("Player_Com");
-		player_Com->SetStage(pStage);
-		SAFE_RELEASE(player_Com);
+		Gonner_Com* gonner_Com = GonnerObject->AddComponent<Gonner_Com>("GonnerCom");
+		gonner_Com->SetStage(pStage);
+		SAFE_RELEASE(gonner_Com);
 	}
 
 	GameObject* monsterObject = GameObject::CreateObject("Monster", Default, true);
 	Monster_Com* newMonster = monsterObject->AddComponent< Monster_Com>("monster");
-
-	mainCamera->SetTarget(PlayerObject);
+	mainCamera->SetTarget(GonnerObject);
 
 	SAFE_RELEASE(monsterObject);
 	SAFE_RELEASE(newMonster);
@@ -77,7 +76,7 @@ bool MainScene::Init()
 	SAFE_RELEASE(pStage);
 	SAFE_RELEASE(pStageObj);
 	SAFE_RELEASE(mainCamera);
-	SAFE_RELEASE(PlayerObject);
+	SAFE_RELEASE(GonnerObject);
 	SAFE_RELEASE(Default);
 	SAFE_RELEASE(UILayer);
 	SAFE_RELEASE(TileLayer);

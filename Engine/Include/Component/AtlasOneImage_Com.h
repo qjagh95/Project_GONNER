@@ -19,7 +19,7 @@ public:
 	void SetAtlas(const string& FileName, const Vector4& CutRect);
 
 private:
-	//AtlasOneCBuffer m_CBuffer;
+	AtlasOneCBuffer m_CBuffer;
 
 protected:
 	AtlasOneImage_Com();

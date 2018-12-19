@@ -1,9 +1,10 @@
 #pragma once
-#include "Component_Base.h"
+#include "UserComponent_Base.h"
 
 JEONG_BEGIN
 
-class JEONG_DLL AtlasOneImage_Com : public Component_Base
+class Animation2D_Com;
+class ShotEffect_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -13,22 +14,20 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	AtlasOneImage_Com* Clone() override;
+	ShotEffect_Com* Clone() override;
 	void AfterClone() override;
 
-	void SetAtlas(const string& FileName, const Vector4& CutRect);
-
 private:
-	AtlasOneCBuffer m_CBuffer;
+	Material_Com* m_Material;
+	Animation2D_Com* m_Animation;
 
 protected:
-	AtlasOneImage_Com();
-	AtlasOneImage_Com(const AtlasOneImage_Com& CopyData);
-	~AtlasOneImage_Com();
+	ShotEffect_Com();
+	ShotEffect_Com(const ShotEffect_Com& CopyData);
+	~ShotEffect_Com();
 
 public:
 	friend class GameObject;
 };
 
 JEONG_END
-

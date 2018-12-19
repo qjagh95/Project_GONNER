@@ -5,10 +5,29 @@ void Gonner_Com::FS_BUGDOWN(float DeltaTime)
 {
 	BugMove(DeltaTime);
 
-	Tile2D_Com* downTile = m_Stage->GetTile2D(m_downPos);
+	if (KeyInput::Get()->KeyPress("MoveLeft"))
+	{
+		m_DownAngle += 25.0f * DeltaTime;
 
+		if(m_DownAngle <= 45.0f)
+			m_Transform->SetWorldRotZFromNoneAxis(-m_DownAngle);
+	}
+	if(KeyInput::Get()->KeyPress("MoveRight"))
+	{
+		m_DownAngle += 25.0f * DeltaTime;
+	
+		if (m_DownAngle <= 45.0f)
+			m_Transform->SetWorldRotZFromNoneAxis(m_DownAngle);
+	}
+
+	Tile2D_Com* downTile = m_Stage->GetTile2D(m_downPos);
+	
 	if (downTile->GetTileOption() == T2D_NOMOVE)
+	{
+		m_DownAngle = 0.0f;
+		m_Transform->SetWorldRotZ(0.0f);
 		ChangeState(GS_BUGIDLE, m_AniName, m_Animation);
+	}
 }
 
 void Gonner_Com::FS_BUGIDLE(float DeltaTime)
@@ -31,13 +50,21 @@ void Gonner_Com::FS_BUGJUMP(float DeltaTime)
 	{
 		case MD_LEFT:
 		{
-			m_BugAngle += 100.0f * DeltaTime;
+			if(KeyInput::Get()->KeyPress("MoveRight") == false)
+				m_BugAngle += 100.0f * DeltaTime;
+			else
+				m_BugAngle += 1600.0f * DeltaTime;
+
 			m_Transform->RotationZFromNoneAxis(m_BugAngle * DeltaTime);
 		}
 		break;
 		case MD_RIGHT:
 		{
-			m_BugAngle += 100.0f * DeltaTime;
+			if (KeyInput::Get()->KeyPress("MoveLeft") == false)
+				m_BugAngle += 100.0f * DeltaTime;
+			else
+				m_BugAngle += 1600.0f * DeltaTime;
+
 			m_Transform->RotationZFromNoneAxis(-m_BugAngle * DeltaTime);
 		}
 		break;
@@ -98,14 +125,8 @@ void Gonner_Com::FS_RUN(float DeltaTime)
 		
 		ChangeState(GS_JUMP, m_AniName, m_Animation);
 	}
-
 	else
 		Move(DeltaTime);
-}
-
-void Gonner_Com::FS_ATTACK(float DeltaTime)
-{
-	DirCheck();
 }
 
 void Gonner_Com::FS_JUMP(float DeltaTime)
@@ -115,6 +136,17 @@ void Gonner_Com::FS_JUMP(float DeltaTime)
 
 	if (m_downTile ->GetTileOption() == T2D_NOMOVE)
 		ChangeState(GS_IDLE, m_AniName, m_Animation);
+
+	if (m_leftTile->GetTileOption() == T2D_NOMOVE || m_rightTile->GetTileOption() == T2D_NOMOVE)
+	{
+		if (m_Animation->GetDir() == MD_LEFT)
+			m_Animation->SetDir(MD_RIGHT);
+		else if (m_Animation->GetDir() == MD_RIGHT)
+			m_Animation->SetDir(MD_LEFT);
+
+		m_GravityCom->SetForce(0.0f);
+		ChangeState(GS_WALLSTOP, m_AniName, m_Animation);
+	}
 
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
@@ -129,12 +161,132 @@ void Gonner_Com::FS_JUMP(float DeltaTime)
 void Gonner_Com::FS_DOUBLEJUMP(float DeltaTime)
 {
 	DirCheck();
+
+	if (m_downTile->GetTileOption() == T2D_NOMOVE)
+		ChangeState(GS_IDLE, m_AniName, m_Animation);
+
+	//벽상태도 추가
+	if (m_Animation->GetDir() == MD_LEFT)
+	{
+		if(m_leftTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, -300.0f, DeltaTime);
+	}
+
+	else if (m_Animation->GetDir() == MD_RIGHT)
+	{
+		if (m_rightTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, 300.0f, DeltaTime);
+	}
+
+	if (m_leftTile->GetTileOption() == T2D_NOMOVE || m_rightTile->GetTileOption() == T2D_NOMOVE)
+	{
+		if (m_Animation->GetDir() == MD_LEFT)
+			m_Animation->SetDir(MD_RIGHT);
+		else if (m_Animation->GetDir() == MD_RIGHT)
+			m_Animation->SetDir(MD_LEFT);
+
+		m_GravityCom->SetForce(0.0f);
+		ChangeState(GS_WALLSTOP, m_AniName, m_Animation);
+	}
 }
 
 void Gonner_Com::FS_WALLSTOP(float DeltaTime)
 {
+	if (m_Animation->GetDir() == MD_LEFT)
+	{
+		if (KeyInput::Get()->KeyPress("MoveLeft"))
+		{
+			m_GravityCom->SetGravity(1500.0f);
+			ChangeState(GS_RUN, m_AniName, m_Animation);
+			return;
+		}
+
+		if (KeyInput::Get()->KeyPress("MoveRight"))
+		{
+			if (m_rightTile->GetTileOption() == T2D_NOMOVE)
+				m_GravityCom->SetGravity(100.0f);
+			else
+			{
+				m_GravityCom->SetGravity(1500.0f);
+				ChangeState(GS_IDLE, m_AniName, m_Animation);
+			}
+
+			if (KeyInput::Get()->KeyDown("Jump"))
+			{
+				m_GravityCom->SetGravity(1500.0f);
+				m_GravityCom->SetForce(700.0f);
+				SoundManager::Get()->FindSoundEffect("Jump")->Play();
+				ChangeState(GS_WALLJUMP, m_AniName, m_Animation);
+			}
+		}
+		else
+			m_GravityCom->SetGravity(1500.0f);
+	}
+	else
+	{
+		if (KeyInput::Get()->KeyPress("MoveRight"))
+		{
+			m_GravityCom->SetGravity(1500.0f);
+			ChangeState(GS_RUN, m_AniName, m_Animation);
+			return;
+		}
+
+		if (KeyInput::Get()->KeyPress("MoveLeft"))
+		{
+			if (m_leftTile->GetTileOption() == T2D_NOMOVE)
+				m_GravityCom->SetGravity(100.0f);
+			else
+			{
+				m_GravityCom->SetGravity(1500.0f);
+				ChangeState(GS_IDLE, m_AniName, m_Animation);
+				return;
+			}
+
+			if (KeyInput::Get()->KeyDown("Jump"))
+			{
+				m_GravityCom->SetGravity(1500.0f);
+				m_GravityCom->SetForce(700.0f);
+				SoundManager::Get()->FindSoundEffect("Jump")->Play();
+				ChangeState(GS_WALLJUMP, m_AniName, m_Animation);
+			}
+		}
+		else
+			m_GravityCom->SetGravity(1500.0f);
+	}
+
+	if (m_downTile->GetTileOption() == T2D_NOMOVE)
+	{
+		m_GravityCom->SetGravity(1500.0f);
+		ChangeState(GS_IDLE, m_AniName, m_Animation);
+	}
 }
 
 void Gonner_Com::FS_KNIGHT(float DeltaTime)
 {
+}
+
+void Gonner_Com::FS_ATTACK(float DeltaTime)
+{
+	//총 클래스 추가해서 그것의 상태변경을 여기서 해줄꺼임. (나중에)
+	//총알생성도 여기서
+}
+
+void Gonner_Com::FS_WALLJUMP(float DeltaTime)
+{
+	DirCheck();
+
+	if (m_GravityCom->GetForce() >= 0.0f)
+	{
+		if (m_Animation->GetDir() == MD_LEFT)
+			m_Transform->Move(AXIS_X, 100.0f, DeltaTime);
+		else if (m_Animation->GetDir() == MD_RIGHT)
+			m_Transform->Move(AXIS_X, -100.0f, DeltaTime);
+	}
+
+	if (m_GravityCom->GetForce() <= 0.0f)
+	{
+		m_GravityCom->SetGravity(1500.0f);
+		ChangeState(GS_JUMP, m_AniName, m_Animation);
+		return;
+	}
 }

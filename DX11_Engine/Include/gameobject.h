@@ -41,9 +41,8 @@ public:
 
 	/////////////////////////////////////프로토타입함수(Clone)/////////////////////////////////////
 	static GameObject* CreateProtoType(const string& TagName, bool isCurrent = true);
-	static GameObject* CreateClone(const string& TagName, const string& ProtoTypeTagName, Layer* layer = NULLPTR, bool isCurrent = true);
-	static void DestroyProtoType(Scene* scene);
-	static void DestroyProtoType(Scene* scene, const string& TagName);
+	static GameObject* CreateClone(const string& TagName, Layer* layer = NULLPTR, bool isCurrent = true);
+	static void DestroyProtoType(const string& TagName);
 	static void DestroyProtoType();
 	///////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -123,7 +122,7 @@ public:
 		return NULLPTR;
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////
-	static GameObject* FindProtoType(Scene* scene, const string& TagName);
+	static GameObject* FindProtoType(const string& TagName);
 	static GameObject* FindObject(const string& TagName);
 
 	void AddChild(GameObject* Child);
@@ -143,7 +142,7 @@ private:
 	int m_LayerZOrder;
 	
 	list<Component_Base*> m_FindComList;
-	static unordered_map<Scene*, unordered_map<string, GameObject*>> m_ProtoTypeMap;
+	static unordered_map<string, GameObject*> m_ProtoTypeMap;
 	GameObject* m_Parent;
 	list<GameObject*> m_ChildList;
 

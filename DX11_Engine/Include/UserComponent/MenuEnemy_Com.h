@@ -4,6 +4,7 @@
 JEONG_BEGIN
 
 class Animation2D_Com;
+class Material_Com;
 class JEONG_DLL MenuEnemy_Com : public UserComponent_Base
 {
 public:
@@ -21,6 +22,7 @@ public:
 
 private:
 	Animation2D_Com* m_Animation;
+	Material_Com* m_Material;
 	MENU_ENEMY_TYPE m_Type;
 	Vector3 m_ResultScale;
 	MenuEnemyCBuffer m_CBuffer;

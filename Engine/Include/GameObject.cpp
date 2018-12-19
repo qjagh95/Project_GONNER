@@ -26,7 +26,7 @@
 
 JEONG_USING
 
-unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>> JEONG::GameObject::m_ProtoTypeMap;
+unordered_map<string, GameObject*> JEONG::GameObject::m_ProtoTypeMap;
 
 JEONG::GameObject::GameObject()
 	:m_Scene(NULLPTR), m_Layer(NULLPTR), m_Transform(NULLPTR), m_Parent(NULLPTR)
@@ -445,25 +445,15 @@ JEONG::GameObject * JEONG::GameObject::CreateProtoType(const string & TagName, b
 	else
 		getScene = JEONG::SceneManager::Get()->GetNextScene();
 
-	JEONG::GameObject* newProtoType = FindProtoType(getScene, TagName);
+	JEONG::GameObject* newProtoType = FindProtoType(TagName);
 	
 	if (newProtoType != NULLPTR)
 		return NULLPTR;
 
-	unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>>::iterator FindIter = m_ProtoTypeMap.find(getScene);
-	unordered_map<string, JEONG::GameObject*>* pMap = NULLPTR;
+	unordered_map<string, GameObject*>::iterator FindIter = m_ProtoTypeMap.find(TagName);
 
-	if (FindIter == m_ProtoTypeMap.end())
-	{
-		unordered_map<string, JEONG::GameObject*> TempMap;
-
-		m_ProtoTypeMap.insert(make_pair(getScene, TempMap));
-
-		FindIter = m_ProtoTypeMap.find(getScene);
-	}
-
-	pMap = &FindIter->second;
-	SAFE_RELEASE(getScene);
+	if (FindIter != m_ProtoTypeMap.end())
+		return FindIter->second;
 
 	newProtoType = new GameObject();
 	newProtoType->SetTag(TagName);
@@ -475,13 +465,12 @@ JEONG::GameObject * JEONG::GameObject::CreateProtoType(const string & TagName, b
 	}
 
 	newProtoType->AddRefCount();
-	//pMap이 FindIter->Second의 주소를 가지고있으니 FindIter->second에 newProtoType이 들어감
-	pMap->insert(make_pair(TagName, newProtoType));
+	m_ProtoTypeMap.insert(make_pair(TagName, newProtoType));
 
 	return newProtoType;
 }
 
-JEONG::GameObject * JEONG::GameObject::CreateClone(const string & TagName, const string & ProtoTypeTagName, JEONG::Layer * layer, bool isCurrent)
+JEONG::GameObject * JEONG::GameObject::CreateClone(const string & TagName, JEONG::Layer * layer, bool isCurrent)
 {
 	JEONG::Scene* getScene = NULLPTR;
 
@@ -490,7 +479,7 @@ JEONG::GameObject * JEONG::GameObject::CreateClone(const string & TagName, const
 	else
 		getScene = JEONG::SceneManager::Get()->GetNextScene();
 
-	JEONG::GameObject* newCloneObject = FindProtoType(getScene, ProtoTypeTagName);
+	JEONG::GameObject* newCloneObject = FindProtoType(TagName);
 	SAFE_RELEASE(getScene);
 
 	if (newCloneObject == NULLPTR)
@@ -506,61 +495,30 @@ JEONG::GameObject * JEONG::GameObject::CreateClone(const string & TagName, const
 	return pClone;
 }
 
-void JEONG::GameObject::DestroyProtoType(JEONG::Scene * scene)
+void JEONG::GameObject::DestroyProtoType(const string& TagName)
 {
-	unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>>::iterator FindIter = m_ProtoTypeMap.find(scene);
+	unordered_map<string, GameObject*>::iterator FindIter = m_ProtoTypeMap.find(TagName);
 
 	if (FindIter == m_ProtoTypeMap.end())
 		return;
 
-	Safe_Release_Map(FindIter->second);
-
-	m_ProtoTypeMap.erase(FindIter);
-}
-
-void JEONG::GameObject::DestroyProtoType(JEONG::Scene * scene, const string & TagName)
-{
-	unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>>::iterator FindIter = m_ProtoTypeMap.find(scene);
-
-	if (FindIter == m_ProtoTypeMap.end())
-		return;
-
-	unordered_map<string, JEONG::GameObject*>::iterator FindIter2 = FindIter->second.find(TagName);
-
-	if (FindIter2 == FindIter->second.end())
-		return;
-
-	SAFE_RELEASE(FindIter2->second);
-	
-	FindIter->second.erase(FindIter2);
+	m_ProtoTypeMap.erase(TagName);
 }
 
 void JEONG::GameObject::DestroyProtoType()
 {
-	unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>>::iterator StartIter = m_ProtoTypeMap.begin();
-	unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>>::iterator EndIter = m_ProtoTypeMap.end();
-
-	for (; StartIter != EndIter; StartIter++)
-	{
-		Safe_Release_Map(StartIter->second);
-	}
-
+	Safe_Release_Map(m_ProtoTypeMap);
 	m_ProtoTypeMap.clear();
 }
 
-JEONG::GameObject * JEONG::GameObject::FindProtoType(JEONG::Scene * scene, const string & TagName)
+JEONG::GameObject * JEONG::GameObject::FindProtoType(const string& TagName)
 {
-	unordered_map<JEONG::Scene*, unordered_map<string, JEONG::GameObject*>>::iterator FindIter = m_ProtoTypeMap.find(scene);
+ 	unordered_map<string, GameObject*>::iterator FindIter = m_ProtoTypeMap.find(TagName);
 	
 	if (FindIter == m_ProtoTypeMap.end())
 		return NULLPTR;
 
-	unordered_map<string, JEONG::GameObject*>::iterator FindIter2 = FindIter->second.find(TagName);
-
-	if (FindIter2 == FindIter->second.end())
-		return NULLPTR;
-
-	return FindIter2->second;
+	return FindIter->second;
 }
 
 JEONG::GameObject * JEONG::GameObject::FindObject(const string & TagName)
