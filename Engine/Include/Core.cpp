@@ -37,6 +37,7 @@ Core::~Core()
 	RenderManager::Delete();
 	ExcelManager::Delete();
 	NumberManager::Delete();
+	StageManager::Delete();
 
 	CoUninitialize();
 }

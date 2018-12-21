@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Gun_Com.h"
+#include "Bullet_Com.h"
 #include "../Component/Animation2D_Com.h"
 
 JEONG_USING
@@ -11,6 +12,7 @@ Gun_Com::Gun_Com()
 Gun_Com::Gun_Com(const Gun_Com & CopyData)
 	:UserComponent_Base(CopyData)
 {
+	m_isShot = true;
 }
 
 Gun_Com::~Gun_Com()
@@ -21,13 +23,41 @@ Gun_Com::~Gun_Com()
 
 bool Gun_Com::Init()
 {
-	Renderer_Com* BubbleRender = m_Object->AddComponent<Renderer_Com>("BubbleRender");
-	BubbleRender->SetMesh("TextureRect");
-	BubbleRender->SetRenderState(ALPHA_BLEND);
-	SAFE_RELEASE(BubbleRender);
+	m_Color[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
+	m_Color[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);
+	m_Color[2] = Vector4(80.0f / 255.0f, 187.0f / 255.0f, 166.0f / 255.0f, 1.0f);
+
+	Renderer_Com* GunRender = m_Object->AddComponent<Renderer_Com>("GunRender");
+	GunRender->SetMesh("TextureRect");
+	GunRender->SetRenderState(ALPHA_BLEND);
+	SAFE_RELEASE(GunRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
-	m_Material->SetDiffuseTexture(0, "Bubble", TEXT("Effect\\bloodParticles.png"));
+	m_Animation = m_Object->AddComponent<Animation2D_Com>("Gun");
+
+	vector<Clip2DFrame>	vecClipFrame;
+	Clip2DFrame	tFrame = {};
+
+	for (int i = 0; i < 6; i++)
+	{
+		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 0.0f);
+		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 64.0f);
+		vecClipFrame.push_back(tFrame);
+	}
+
+	m_Animation->AddClip("GunIdle", A2D_ATLS, AO_LOOP, 0.1f, vecClipFrame, "Gun", L"weapons.png");
+	vecClipFrame.clear();
+
+	m_AniName[GGS_IDLE] = "GunIdle";
+	m_AniName[GGS_SHOT] = "GunIdle";
+
+	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
+	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
+
+	m_ChangeTimeVar = 0.0f;
+	m_ChangeTime = 0.1f;
+
+	ChangeState(GGS_IDLE, m_AniName, m_Animation);
 
 	return true;
 }
@@ -39,6 +69,20 @@ int Gun_Com::Input(float DeltaTime)
 
 int Gun_Com::Update(float DeltaTime)
 {
+	if (m_isShot == false)
+		return 0;
+
+	ChangeColor(DeltaTime);
+
+	switch (m_State)
+	{
+		case GGS_IDLE:
+			FS_IDLE(DeltaTime);
+			break;
+		case GGS_SHOT:
+			FS_SHOT(DeltaTime);
+			break;
+	}
 	return 0;
 }
 
@@ -66,4 +110,59 @@ Gun_Com * Gun_Com::Clone()
 
 void Gun_Com::AfterClone()
 {
+}
+
+void Gun_Com::FS_IDLE(float DeltaTime)
+{
+	if (KeyInput::Get()->KeyPress("Attack"))
+		ChangeState(GGS_SHOT, m_AniName, m_Animation);
+}
+
+void Gun_Com::FS_SHOT(float DeltaTime)
+{
+	if (KeyInput::Get()->KeyPress("Attack"))
+	{
+		if (m_Animation->GetFrame() == 2)
+		{
+			if (m_Animation->GetPrevFrame() == m_Animation->GetFrame())
+				return;
+
+			//GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_Layer);
+			//Bullet_Com* newBullet = newbulletObject->AddComponent<Bullet_Com>("Bullet");
+			//newbulletObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+			//newBullet->GetAnimation()->SetDir(m_Animation->GetDir());
+
+			SoundManager::Get()->FindSoundEffect("Shot")->Play();
+
+			//SAFE_RELEASE(newbulletObject);
+			//SAFE_RELEASE(newBullet);
+		}
+	}
+
+	if (KeyInput::Get()->KeyUp("Attack"))
+		ChangeState(GGS_IDLE, m_AniName, m_Animation);
+}
+
+void Gun_Com::ChangeColor(float DeltaTime)
+{
+	m_ChangeTimeVar += DeltaTime;
+
+	if (m_ChangeTimeVar > m_ChangeTime)
+	{
+		m_ChangeTimeVar = 0.0f;
+		int RandNum = RandomRange(1, 3);
+
+		switch (RandNum)
+		{
+			case 1:
+				m_Material->SetMaterial(m_Color[RandNum - 1]);
+				break;
+			case 2:
+				m_Material->SetMaterial(m_Color[RandNum - 1]);
+				break;
+			case 3:
+				m_Material->SetMaterial(m_Color[RandNum - 1]);
+				break;
+		}
+	}
 }

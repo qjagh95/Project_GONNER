@@ -12,9 +12,6 @@
 #include "Component/TitleBar_Com.h"
 #include <Scene/Scene.h>
 
-#include "../UserComponent/Bullet_Com.h"
-#include "../UserComponent/BulletRot_Com.h"
-
 #include <UserComponent/BubbleEffect_Com.h>
 #include <UserComponent/BugEffect_Com.h>
 
@@ -39,6 +36,8 @@ Gonner_Com::Gonner_Com()
 
 	m_PrevEffectLayer = NULLPTR;
 	m_AfterEffectLayer = NULLPTR;
+	m_Gun = NULLPTR;
+	m_GunObject = NULLPTR;
 	
 	m_ChangeTimeVar = 0.0f;
 	m_ChangeTime = 0.0f;
@@ -65,6 +64,9 @@ Gonner_Com::~Gonner_Com()
 
 	SAFE_RELEASE(m_AfterEffectLayer);
 	SAFE_RELEASE(m_PrevEffectLayer);
+
+	SAFE_RELEASE(m_Gun);
+	SAFE_RELEASE(m_GunObject);
 }
 
 bool Gonner_Com::Init()
@@ -115,9 +117,6 @@ int Gonner_Com::Update(float DeltaTime)
 		case GS_RUN:
 			FS_RUN(DeltaTime);
 			break;
-		case GS_ATTACK:
-			FS_ATTACK(DeltaTime);
-			break;
 		case GS_JUMP:
 			FS_JUMP(DeltaTime);
 			break;
@@ -134,25 +133,55 @@ int Gonner_Com::Update(float DeltaTime)
 			FS_WALLJUMP(DeltaTime);
 			break;
 	}
-	 
+
+	if (m_GunObject != NULLPTR)
+	{
+		m_GunObject->Update(DeltaTime);
+
+		switch (m_Animation->GetDir())
+		{
+			case MD_LEFT:
+			{
+				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x - 10.0f, m_Pos.y - 10.0f, 1.0f);
+				m_Gun->GetAnimation2D()->SetDir(MD_LEFT);
+			}
+				break;
+			case MD_RIGHT:
+			{
+				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x + 10.0f, m_Pos.y - 10.0f, 1.0f);
+				m_Gun->GetAnimation2D()->SetDir(MD_RIGHT);
+			}
+				break;
+		}
+	}
 	return 0;
 }
 
 int Gonner_Com::LateUpdate(float DeltaTime)
 {
+	if (m_GunObject != NULLPTR)
+		m_GunObject->LateUpdate(DeltaTime);
+
 	return 0;
 }
 
 void Gonner_Com::Collision(float DeltaTime)
 {
+	if (m_GunObject != NULLPTR)
+		m_GunObject->Collision(DeltaTime);
+
 }
 
 void Gonner_Com::CollisionLateUpdate(float DeltaTime)
 {
+	if (m_GunObject != NULLPTR)
+		m_GunObject->CollisionLateUpdate(DeltaTime);
 }
 
 void Gonner_Com::Render(float DeltaTime)
 {
+	if (m_GunObject != NULLPTR)
+		m_GunObject->Render(DeltaTime);
 }
 
 Gonner_Com * Gonner_Com::Clone()
@@ -211,7 +240,7 @@ void Gonner_Com::BasicInit()
 	m_WinSize = Device::Get()->GetWinSizeVector2();
 
 	KeyInput::Get()->AddKey("Jump", VK_SPACE);
-	KeyInput::Get()->AddKey("Attack", 'A');
+	KeyInput::Get()->AddKey("Attack", 'X');
 
 	m_Renderer = m_Object->AddComponent<Renderer_Com>("GonnerRender");
 	m_Renderer->SetMesh("TextureRect");
@@ -333,14 +362,13 @@ void Gonner_Com::AnimationInit()
 	m_AniName[GS_BUGJUMP] = "BugMove"; //1
 	m_AniName[GS_IDLE] = "Idle"; //1
 	m_AniName[GS_RUN] = "Run"; //1
-	m_AniName[GS_ATTACK] = "Attack"; 
 	m_AniName[GS_JUMP] = "Jump"; //1
 	m_AniName[GS_DOUBLEJUMP] = "Jump"; //1
 	m_AniName[GS_WALLSTOP] = "WallStop"; //1
 	m_AniName[GS_KNIGHT] = "Knight";
 	m_AniName[GS_WALLJUMP] = "Jump";
 
-	ChangeState(GS_BUGDOWN, m_AniName, m_Animation);
+	ChangeState(GS_IDLE, m_AniName, m_Animation);
 }
 
 void Gonner_Com::ChangeColor(float DeltaTime)
@@ -423,5 +451,4 @@ void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
 		SAFE_RELEASE(newEffect);
 		SAFE_RELEASE(newEffectCom);
 	}
-
 }

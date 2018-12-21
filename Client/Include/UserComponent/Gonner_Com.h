@@ -4,6 +4,8 @@
 #include "Component/Animation2D_Com.h"
 #include "Component/Collider_Com.h"
 #include "Component/Gravity_Com.h"
+#include <UserComponent/Gun_Com.h>
+#include <UserComponent/GunItem_Com.h>
 
 JEONG_USING
 
@@ -14,7 +16,6 @@ enum GONNER_STATE
 	GS_BUGJUMP,
 	GS_IDLE,
 	GS_RUN,
-	GS_ATTACK,
 	GS_JUMP,
 	GS_DOUBLEJUMP,
 	GS_WALLSTOP,
@@ -40,7 +41,6 @@ public:
 	void FS_BUGJUMP(float DeltaTime);
 	void FS_IDLE(float DeltaTime);
 	void FS_RUN(float DeltaTime);
-	void FS_ATTACK(float DeltaTime);
 	void FS_JUMP(float DeltaTime);
 	void FS_DOUBLEJUMP(float DeltaTime);
 	void FS_WALLSTOP(float DeltaTime);
@@ -99,9 +99,8 @@ private:
 	float m_PumpSpeed;
 	float m_ChangeTimeVar;
 	float m_ChangeTime;
-
 	float m_DownAngle;
-
+	
 	Vector4 m_ChangeColor[3];
 
 	Layer* m_PrevEffectLayer;
@@ -114,6 +113,8 @@ private:
 	float m_BugEffectTime;
 	float m_BugEffectTimeVar;
 
+	GameObject* m_GunObject;
+	Gun_Com* m_Gun;
 
 protected:
 	Gonner_Com();

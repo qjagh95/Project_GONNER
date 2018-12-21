@@ -2,6 +2,7 @@
 #include "../Component/Component_Base.h"
 
 JEONG_BEGIN
+class Animation2D_Com;
 class JEONG_DLL UserComponent_Base : public Component_Base
 {
 public:
@@ -14,6 +15,12 @@ public:
 	 virtual void Render(float DeltaTime) override;
 	 virtual UserComponent_Base* Clone() override;
 	 virtual void AfterClone() override {}
+
+	 void ChangeState(int State, string* AnimationName, Animation2D_Com* animation);
+
+protected:
+	int m_State;
+	int m_PrevState;
 
 protected:
 	UserComponent_Base();

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "UserComponent_Base.h"
 
+#include "../Component/Animation2D_Com.h"
+
 JEONG_USING
 
 JEONG::UserComponent_Base::UserComponent_Base()
@@ -19,7 +21,7 @@ JEONG::UserComponent_Base::~UserComponent_Base()
 
 bool JEONG::UserComponent_Base::Init()
 {
-	return false;
+	return true;
 }
 
 int JEONG::UserComponent_Base::Input(float DeltaTime)
@@ -52,4 +54,12 @@ void JEONG::UserComponent_Base::Render(float DeltaTime)
 JEONG::UserComponent_Base * JEONG::UserComponent_Base::Clone()
 {
 	return new UserComponent_Base(*this);
+}
+
+void JEONG::UserComponent_Base::ChangeState(int State, string * AnimationName, Animation2D_Com * animation)
+{
+	m_PrevState = m_State;
+	m_State = State;
+
+	animation->ChangeClip(AnimationName[m_State]);
 }

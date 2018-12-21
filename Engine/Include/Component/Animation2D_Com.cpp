@@ -75,11 +75,6 @@ int Animation2D_Com::Input(float DeltaTime)
 
 int Animation2D_Com::Update(float DeltaTime)
 {
-	return 0;
-}
-
-int Animation2D_Com::LateUpdate(float DeltaTime)
-{
 	//LimitTime = 1.0 / 10장 = 0.1초
 	float FrameTime = m_CurClip->PlayLimitTime / m_CurClip->vecFrame.size();
 
@@ -88,7 +83,6 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 	while (m_CurClip->PlayTime >= FrameTime)
 	{
 		m_CurClip->PlayTime = 0.0f;
-		m_PrevFrame = m_CurClip->Frame;
 		m_CurClip->Frame++;
 
 		if (m_CurClip->Frame >= m_CurClip->vecFrame.size())
@@ -97,7 +91,7 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 
 			if (m_CurClip->AnimationOption == AO_ONCE_STOP)
 			{
-				m_CurClip->Frame = m_PrevFrame;
+				m_CurClip->Frame = (int)m_CurClip->vecFrame.size() - 1;
 				break;
 			}
 			else if (m_CurClip->AnimationOption == AO_ONCE_DESTROY)
@@ -111,7 +105,7 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 		else
 			m_isEnd = false;
 	}
-	
+
 	//프레임 UV를 계산한다.
 	Renderer_Com* getRender = FindComponentFromType<Renderer_Com>(CT_RENDER);
 
@@ -139,6 +133,12 @@ int Animation2D_Com::LateUpdate(float DeltaTime)
 		SAFE_RELEASE(getRender);
 	}
 
+	return 0;
+}
+
+int Animation2D_Com::LateUpdate(float DeltaTime)
+{
+	m_PrevFrame = m_CurClip->Frame;
 	return 0;
 }
 

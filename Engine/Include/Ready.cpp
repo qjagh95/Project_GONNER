@@ -60,11 +60,3 @@ Ready * Ready::Clone()
 void Ready::AfterClone()
 {
 }
-
-void Ready::ChangeState(int State, string* AnimationName, Animation2D_Com * animation)
-{
-	m_PrevState = m_State;
-	m_State = State;
-
-	animation->ChangeClip(AnimationName[m_State]);
-}

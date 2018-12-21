@@ -26,6 +26,7 @@ bool JEONG::SoundManager::Init()
 	CreateSoundEffect("LogoBGM", TEXT("Over the top (short intro).wav"));
 	CreateSoundEffect("Stage1BGM", TEXT("Caves Invincible 3.3.wav"));
 	CreateSoundEffect("Jump", TEXT("sfx_jump.wav"));
+	CreateSoundEffect("Shot", TEXT("sfx_gunshot_01.wav"));
 
 	return true;
 }

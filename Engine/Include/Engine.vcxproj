@@ -248,6 +248,7 @@
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="SlotManager.h" />
     <ClInclude Include="SoundManager.h" />
+    <ClInclude Include="StageManager.h" />
     <ClInclude Include="StaticManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Sync.h" />
@@ -260,6 +261,7 @@
     <ClInclude Include="NumberManager.h" />
     <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
     <ClInclude Include="UserComponent\BugEffect_Com.h" />
+    <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
     <ClInclude Include="UserComponent\Fire_Com.h" />
     <ClInclude Include="UserComponent\GunItem_Com.h" />
@@ -332,6 +334,7 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
     <ClCompile Include="SlotManager.cpp" />
     <ClCompile Include="SoundManager.cpp" />
+    <ClCompile Include="StageManager.cpp" />
     <ClCompile Include="StaticManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -346,6 +349,7 @@
     <ClCompile Include="NumberManager.cpp" />
     <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
     <ClCompile Include="UserComponent\Fire_Com.cpp" />
     <ClCompile Include="UserComponent\GunItem_Com.cpp" />

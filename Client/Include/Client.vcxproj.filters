@@ -41,22 +41,16 @@
     <Filter Include="Scene\02. MenuScene\Component">
       <UniqueIdentifier>{f9500d82-ec68-4c27-b50e-45e2a487fdf2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\03. MainScene\Component\Gonner">
+      <UniqueIdentifier>{18b92bd0-5470-48d1-9bb9-33730ef97690}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\03. MainScene\Component\Monster">
+      <UniqueIdentifier>{09bcc5ab-dc8c-43f1-aafa-18b1d49f82ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
       <Filter>WinMain</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Bullet_Com.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BulletRot_Com.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Monster_Com.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BulletBoom_Com.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
     </ClCompile>
     <ClCompile Include="SceneMain\MainScene.cpp">
       <Filter>Scene\03. MainScene\SceneMain</Filter>
@@ -74,30 +68,21 @@
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Gonner_Com.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\GonnerFSM.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
+      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
-      <Filter>Scene\03. MainScene\Component</Filter>
+      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\GonnerFSM.cpp">
+      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Monster_Com.cpp">
+      <Filter>Scene\03. MainScene\Component\Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHeader.h">
       <Filter>WinMain</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Bullet_Com.h">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BulletBoom_Com.h">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BulletRot_Com.h">
-      <Filter>Scene\03. MainScene\Component</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Monster_Com.h">
-      <Filter>Scene\03. MainScene\Component</Filter>
     </ClInclude>
     <ClInclude Include="SceneMain\MainScene.h">
       <Filter>Scene\03. MainScene\SceneMain</Filter>
@@ -112,7 +97,10 @@
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Gonner_Com.h">
-      <Filter>Scene\03. MainScene\Component</Filter>
+      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Monster_Com.h">
+      <Filter>Scene\03. MainScene\Component\Monster</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ JEONG_USING
 
 GunItem_Com::GunItem_Com()
 {
+	m_ComType = CT_GUNITEM;
 }
 
 GunItem_Com::GunItem_Com(const GunItem_Com & CopyData)
@@ -58,10 +59,13 @@ bool GunItem_Com::Init()
 
 int GunItem_Com::Input(float DeltaTime)
 {
-	if (m_Transform->GetWorldRotationZ() >= 90.0f || m_Transform->GetWorldRotationZ() <= -90.0f)
-		m_Rot *= -1.0f;
+	if (m_isEquip == false)
+	{
+		if (m_Transform->GetWorldRotationZ() >= 90.0f || m_Transform->GetWorldRotationZ() <= -90.0f)
+			m_Rot *= -1.0f;
 
-	m_Transform->RotationZ(m_Rot, DeltaTime);
+		m_Transform->RotationZ(m_Rot, DeltaTime);
+	}
 
 	return 0;
 }

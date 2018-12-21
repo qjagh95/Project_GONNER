@@ -269,12 +269,6 @@ void Gonner_Com::FS_KNIGHT(float DeltaTime)
 {
 }
 
-void Gonner_Com::FS_ATTACK(float DeltaTime)
-{
-	//총 클래스 추가해서 그것의 상태변경을 여기서 해줄꺼임. (나중에)
-	//총알생성도 여기서
-}
-
 void Gonner_Com::FS_WALLJUMP(float DeltaTime)
 {
 	DirCheck();

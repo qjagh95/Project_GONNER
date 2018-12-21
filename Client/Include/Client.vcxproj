@@ -230,12 +230,9 @@
     <ClCompile Include="SceneMain\MainScene.cpp" />
     <ClCompile Include="SceneMain\MenuScene.cpp" />
     <ClCompile Include="SceneMain\StaticTestScene.cpp" />
-    <ClCompile Include="UserComponent\BulletBoom_Com.cpp" />
-    <ClCompile Include="UserComponent\BulletRot_Com.cpp" />
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp" />
     <ClCompile Include="UserComponent\GonnerFSM.cpp" />
     <ClCompile Include="WinMain.cpp" />
-    <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Monster_Com.cpp" />
     <ClCompile Include="UserComponent\Gonner_Com.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
@@ -247,9 +244,6 @@
     <ClInclude Include="SceneMain\MainScene.h" />
     <ClInclude Include="SceneMain\MenuScene.h" />
     <ClInclude Include="SceneMain\StaticTestScene.h" />
-    <ClInclude Include="UserComponent\BulletBoom_Com.h" />
-    <ClInclude Include="UserComponent\BulletRot_Com.h" />
-    <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Monster_Com.h" />
     <ClInclude Include="UserComponent\Gonner_Com.h" />
   </ItemGroup>

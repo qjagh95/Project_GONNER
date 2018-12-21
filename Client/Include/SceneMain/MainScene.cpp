@@ -56,7 +56,15 @@ bool MainScene::Init()
 	GameObject*	pStageObj = GameObject::CreateObject("StageObj", TileLayer);
 	Stage2D_Com* pStage = pStageObj->AddComponent<Stage2D_Com>("Stage");
 	pStage->Load(Reader);
+
+#ifdef _DEBUG
 	pStage->SetLineOn(true);
+#else
+	pStage->SetLineOn(false);
+#endif
+
+	StageManager::Get()->SetStageName("FirstStage");
+	StageManager::Get()->InsertStage(pStage);
 
 	GameObject* GonnerObject = GameObject::CreateObject("Gonner", Default, true);
 	if (GonnerObject->EmptyComponent() == true)
@@ -72,7 +80,7 @@ bool MainScene::Init()
 
 	GameObject* gunItemObject = GameObject::CreateObject("GunItem", Default);
 	GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
-	gunItemObject->GetTransform()->SetWorldPos(300.0f, 1500.0f, 1.0f);
+	gunItemObject->GetTransform()->SetWorldPos(300.0f, 800.0f, 1.0f);
 
 	SAFE_RELEASE(gunItemCom);
 	SAFE_RELEASE(gunItemObject);

@@ -286,6 +286,9 @@
     <Filter Include="Core\08. Object\Component\BaseComponent\15. Number">
       <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\17. StageManager">
+      <UniqueIdentifier>{bfd5af0d-d45e-4467-bfa3-c588f850f3fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -540,6 +543,12 @@
     <ClInclude Include="UserComponent\ShotEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\11. ShotEffect</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\Bullet_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="StageManager.h">
+      <Filter>Core\17. StageManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -783,6 +792,12 @@
     </ClCompile>
     <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\11. ShotEffect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Bullet_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="StageManager.cpp">
+      <Filter>Core\17. StageManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
