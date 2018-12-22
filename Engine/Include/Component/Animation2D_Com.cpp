@@ -131,19 +131,21 @@ int Animation2D_Com::Update(float DeltaTime)
 		getRender->UpdateRendererCBuffer("Animation2D", &m_CBuffer, sizeof(Animation2DCBuffer));
 
 		SAFE_RELEASE(getRender);
-	}
 
+	}
 	return 0;
 }
 
 int Animation2D_Com::LateUpdate(float DeltaTime)
 {
 	m_PrevFrame = m_CurClip->Frame;
+
 	return 0;
 }
 
 void Animation2D_Com::Collision(float DeltaTime)
 {
+
 }
 
 void Animation2D_Com::CollisionLateUpdate(float DeltaTime)

@@ -23,6 +23,7 @@ public:
 	Layer* GetLayer() const { return m_Layer; }
 	string GetLayerName() const { return m_LayerName; }
 	int GetLayerZOrder() const { return m_LayerZOrder; }
+	size_t GetComponentSize() const { return m_ComponentList.size(); }
 
 	void SetScene(Scene* scene);
 	void SetLayer(Layer* layer);

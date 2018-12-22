@@ -25,13 +25,15 @@ Bullet_Com::~Bullet_Com()
 
 bool Bullet_Com::Init()
 {
-	//불릿 애니메이션 , 이펙트클래스3개추가, 아이템UI추가
+	//이펙트클래스3개추가(타일에 닿았을때 터지는 이펙트, 튀어나가는 이펙트, 위로떠오르는 이펙트)
+	//아이템UI추가
 	Renderer_Com* BulletRender = m_Object->AddComponent<Renderer_Com>("BulletRender");
 	BulletRender->SetMesh("TextureRect");
 	BulletRender->SetRenderState(ALPHA_BLEND);
 	SAFE_RELEASE(BulletRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "Bullet", TEXT("weapons.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("Bullet");
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
@@ -40,8 +42,8 @@ bool Bullet_Com::Init()
 	Clip2DFrame	tFrame = {};
 	for (int i = 0; i < 6; ++i)
 	{
-		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 0.0f);
-		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 64.0f);
+		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 320.0f);
+		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 384.0f);
 		vecClipFrame.push_back(tFrame);
 	}
 
@@ -49,17 +51,18 @@ bool Bullet_Com::Init()
 	vecClipFrame.clear();
 
 	ColliderRect_Com* RectColl = m_Object->AddComponent<ColliderRect_Com>("BulletBody");
-	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 0.0f));
+	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(30.0f, 30.0f, 0.0f));
 	RectColl->SetMyTypeName("Bullet");
 	RectColl->PushContinueTypeName("Gonner");
+	RectColl->PushContinueTypeName("Bullet");
 	SAFE_RELEASE(RectColl);
 
 	m_Material->SetMaterial(Vector4::Yellow);
 
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
-	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
+	m_Transform->SetWorldScale(30.0f, 30.0f, 1.0f);
 
-	m_Scale = Vector3(64.0f, 64.0f, 1.0f);
+	m_Scale = Vector3(30.0f, 30.0f, 1.0f);
 	m_ScaleHalf = m_Scale * 0.5f;
 	m_LightTimeVar = 0.0f;
 	m_LightTime = 0.2f;
@@ -77,6 +80,8 @@ int Bullet_Com::Input(float DeltaTime)
 
 int Bullet_Com::Update(float DeltaTime)
 {
+	ColorLight(DeltaTime);
+
 	Vector3 leftPos = m_Transform->GetWorldPos();
 	Vector3 rightPos = m_Transform->GetWorldPos();
 
@@ -85,7 +90,7 @@ int Bullet_Com::Update(float DeltaTime)
 
 	if (m_Animation->GetDir() == MD_LEFT)
 	{
-		Tile2D_Com* leftTile = m_Stage->GetTile2D(rightPos);
+		Tile2D_Com* leftTile = m_Stage->GetTile2D(leftPos);
 		
 		if (leftTile->GetTileOption() == T2D_NOMOVE)
 		{
@@ -94,21 +99,21 @@ int Bullet_Com::Update(float DeltaTime)
 			SetIsActive(false);
 		}
 
-		m_Transform->Move(AXIS_X, -600.0f, DeltaTime);
+		m_Transform->Move(AXIS_X, -1800.0f, DeltaTime);
 	}
-	else
+	else if(m_Animation->GetDir() == MD_RIGHT)
 	{
-		Tile2D_Com* rightTile = m_Stage->GetTile2D(leftPos);
+		Tile2D_Com* rightTile = m_Stage->GetTile2D(rightPos);
 
 		if (rightTile->GetTileOption() == T2D_NOMOVE)
 		{
 			//이펙트생성
-			m_Object->SetIsActive(false);
 			SetIsActive(false);
+			m_Object->SetIsActive(false);
 		}
-
-		m_Transform->Move(AXIS_X, 600.0f, DeltaTime);
+		m_Transform->Move(AXIS_X, 1800.0f, DeltaTime);
 	}
+
 	return 0;
 }
 

@@ -47,6 +47,9 @@ public:
 	void SetShader(int Container = 0, int Subset = 0);
 	Vector4 GetDiffuseLight() const;
 
+	size_t GetMateralSize() const { return m_vecMaterial.size(); }
+	bool GetMateralEmpty() const { return m_vecMaterial.empty(); }
+
 private:
 	//메쉬도 컨테이너와 서브셋개념으로 나눠져있기때문에 재질정보도 각 부위마다 달라질 수 있다.
 	vector<vector<SubsetMaterial*>> m_vecMaterial; 

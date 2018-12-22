@@ -43,7 +43,7 @@ bool ShotEffect_Com::Init()
 		vecClipFrame.push_back(tFrame);
 	}
 
-	m_Animation->AddClip("ShotEffect", A2D_ATLS, AO_ONCE_STOP, 0.7f, vecClipFrame, "ShotEffect", L"Monster\\bloodParticles.png");
+	m_Animation->AddClip("ShotEffect", A2D_ATLS, AO_ONCE_DESTROY, 0.7f, vecClipFrame, "ShotEffect", L"Monster\\bloodParticles.png");
 	vecClipFrame.clear();
 
 	m_Animation->ChangeClip("ShotEffect");

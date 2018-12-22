@@ -54,8 +54,9 @@ int Gravity_Com::Update(float DeltaTime)
 	uPos.y = dPos.y + m_ObjectScale.y;
 
 	Tile2D_Com* downTile = m_Stage->GetTile2D(dPos);
-	
-	if (downTile->GetTileOption() == T2D_NOMOVE)
+	Tile2D_Com* upTile = m_Stage->GetTile2D(uPos);
+
+	if (downTile != NULLPTR && downTile->GetTileOption() == T2D_NOMOVE)
 	{
 		Vector3 tPos = downTile->GetTransform()->GetWorldPos();
 		Vector3 tScale = downTile->GetTransform()->GetWorldScale();
@@ -64,8 +65,7 @@ int Gravity_Com::Update(float DeltaTime)
 		m_Force = 0.0f;
 		m_isJump = false;
 	}
-	
-	else if (m_Stage->GetTile2D(uPos)->GetTileOption() == T2D_NOMOVE)
+	else if (upTile != NULLPTR && upTile->GetTileOption()== T2D_NOMOVE)
 	{
 		float Amount = 2.0f;
 

@@ -114,28 +114,33 @@ void Gun_Com::AfterClone()
 
 void Gun_Com::FS_IDLE(float DeltaTime)
 {
-	if (KeyInput::Get()->KeyPress("Attack"))
+	if (KeyInput::Get()->KeyPress("Attack") || KeyInput::Get()->KeyDown("Attack"))
 		ChangeState(GGS_SHOT, m_AniName, m_Animation);
 }
 
 void Gun_Com::FS_SHOT(float DeltaTime)
 {
-	if (KeyInput::Get()->KeyPress("Attack"))
+	if (KeyInput::Get()->KeyPress("Attack") || KeyInput::Get()->KeyDown("Attack"))
 	{
 		if (m_Animation->GetFrame() == 2)
 		{
 			if (m_Animation->GetPrevFrame() == m_Animation->GetFrame())
 				return;
 
-			//GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_Layer);
-			//Bullet_Com* newBullet = newbulletObject->AddComponent<Bullet_Com>("Bullet");
-			//newbulletObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
-			//newBullet->GetAnimation()->SetDir(m_Animation->GetDir());
+			GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_Layer);
+			Bullet_Com* newBullet = newbulletObject->AddComponent<Bullet_Com>("Bullet");
+			newbulletObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+			newBullet->GetAnimation()->SetDir(m_Animation->GetDir());
+
+			if (m_Animation->GetDir() == MD_LEFT)
+				newBullet->GetTransform()->SetWorldRotZFromNoneAxis(90.0f);
+			else
+				newBullet->GetTransform()->SetWorldRotZFromNoneAxis(-90.0f);
 
 			SoundManager::Get()->FindSoundEffect("Shot")->Play();
 
-			//SAFE_RELEASE(newbulletObject);
-			//SAFE_RELEASE(newBullet);
+			SAFE_RELEASE(newbulletObject);
+			SAFE_RELEASE(newBullet);
 		}
 	}
 

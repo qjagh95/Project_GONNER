@@ -51,11 +51,17 @@ bool JEONG::Tile2D_Com::Init()
 
 int JEONG::Tile2D_Com::Input(float DeltaTime)
 {
+	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
+		m_NearObject = NULLPTR;
+
 	return 0;
 }
 
 int JEONG::Tile2D_Com::Update(float DeltaTime)
 {
+	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
+		m_NearObject = NULLPTR;
+
 	if (m_TileImageObject != NULLPTR)
 	{
 		m_TileImageObject->Update(DeltaTime);
@@ -84,18 +90,26 @@ void JEONG::Tile2D_Com::CollisionLateUpdate(float DeltaTime)
 
 void JEONG::Tile2D_Com::Render(float DeltaTime)
 {
+	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
+		m_NearObject = NULLPTR;
+
 	if (m_TileImageObject != NULLPTR)
 	{
 		float SrcDist = 0.0f;
 		float DestDist = 0.0f;
 
 		//가까운놈 탐색한다.
-		list<GameObject*>::iterator StartIter = m_DefaultLayer->m_ObjectList.begin();
-		list<GameObject*>::iterator EndIter = m_DefaultLayer->m_ObjectList.end();
+		list<GameObject*>::const_iterator StartIter = m_DefaultLayer->m_ObjectList.begin();
+		list<GameObject*>::const_iterator EndIter = m_DefaultLayer->m_ObjectList.end();
 
 		for (; StartIter != EndIter; StartIter++)
 		{
 			if (m_NearObject == NULLPTR)
+				m_NearObject = *StartIter;
+
+			//(야매코드)
+			//Near가 삭제된 오브젝트를 가르키고 있을 수 있기때문에 쓰레기값 예외처리
+			if(m_NearObject->GetComponentSize() >= 20)
 				m_NearObject = *StartIter;
 
 			Vector3 src = m_NearObject->GetTransform()->GetWorldPos();
@@ -104,7 +118,7 @@ void JEONG::Tile2D_Com::Render(float DeltaTime)
 			SrcDist = src.GetDistance(m_TileImageObject->GetTransform()->GetWorldPos());
 			DestDist = dest.GetDistance(m_TileImageObject->GetTransform()->GetWorldPos());
 
-			if (SrcDist > DestDist)
+			if (SrcDist >= DestDist)
 				m_NearObject = *StartIter;
 
 			m_TileImage->SetNearObject(m_NearObject, SrcDist);

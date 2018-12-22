@@ -25,6 +25,8 @@ void JEONG::StageManager::InsertStage(Stage2D_Com* stage)
 	if (getStage != NULLPTR)
 		return;
 
+	getStage = stage;
+
 	m_StageMap.insert(make_pair(m_StageName, getStage));
 }
 

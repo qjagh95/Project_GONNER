@@ -80,6 +80,11 @@ bool Gonner_Com::Init()
 
 int Gonner_Com::Input(float DeltaTime)
 {
+	if (GetAsyncKeyState(VK_F2) & 0x8000)
+	{
+		SetIsActive(false);
+		m_Object->SetIsActive(false);
+	}
 	return 0;
 }
 

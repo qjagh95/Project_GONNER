@@ -37,13 +37,8 @@ bool JEONG::Stage2D_Com::Init()
 
 int JEONG::Stage2D_Com::Input(float DeltaTime)
 {
-	return 0;
-}
-
-int JEONG::Stage2D_Com::Update(float DeltaTime)
-{
-	Transform_Com* pMainCameraTr = m_Scene->GetMainCameraTransform();
-	Vector3	CameraPos = pMainCameraTr->GetWorldPos();
+	Transform_Com* MainCameraTr = m_Scene->GetMainCameraTransform();
+	Vector3	CameraPos = MainCameraTr->GetWorldPos();
 	Vector3	EndPos;
 	EndPos.x = CameraPos.x + Device::Get()->GetWinSize().Width;
 	EndPos.y = CameraPos.y + Device::Get()->GetWinSize().Height;
@@ -92,7 +87,7 @@ int JEONG::Stage2D_Com::Update(float DeltaTime)
 			else if (m_EndY >= m_TileCountY)
 				m_EndY = m_TileCountY;
 		}
-			break;
+		break;
 		case STT_ISO:
 		{
 			Vector2 LBIndex = GetIsoTileIndexVec(CameraPos);
@@ -105,9 +100,14 @@ int JEONG::Stage2D_Com::Update(float DeltaTime)
 			m_StartY = clamp((int)RBIndex.y, 0, m_TileCountY);
 			m_EndY = clamp((int)LTIndex.y, 0, m_TileCountY);
 		}
-			break;
+		break;
 	}
 
+	return 0;
+}
+
+int JEONG::Stage2D_Com::Update(float DeltaTime)
+{
 	for (int y = m_StartY; y < m_EndY; ++y)
 	{
 		for (int x = m_StartX; x < m_EndX; ++x)
@@ -127,7 +127,7 @@ int JEONG::Stage2D_Com::LateUpdate(float DeltaTime)
 		for (int x = m_StartX; x < m_EndX; ++x)
 		{
 			int Index = y * m_TileCountX + x;
-			m_vecTileObject[Index]->LateUpdate(DeltaTime);
+			m_vecTileObject[Index]->Update(DeltaTime);
 		}
 	}
 
@@ -162,7 +162,7 @@ void JEONG::Stage2D_Com::Render(float DeltaTime)
 	}
 }
 
-JEONG::Stage2D_Com * Stage2D_Com::Clone()
+JEONG::Stage2D_Com * JEONG::Stage2D_Com::Clone()
 {
 	return new JEONG::Stage2D_Com(*this);
 }

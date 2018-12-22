@@ -2,6 +2,8 @@
 #include "Scene\SceneComponent.h"
 #include <Component/NButton_Com.h>
 
+#include <UserComponent/Fade_Com.h>
+
 JEONG_USING
 
 class MenuScene : public SceneComponent
@@ -20,6 +22,7 @@ public:
 
 private:
 	vector<NButton_Com*> m_vecButton;
+	Fade_Com* m_FadeCom;
 
 private:
 	void EnemyInit(Layer *UILayer);

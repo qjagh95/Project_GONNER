@@ -22,7 +22,6 @@
 #include "Component/Button_Com.h"
 #include "Component/BackColor_Com.h"
 
-#include <UserComponent/Fade_Com.h>
 #include <UserComponent/MenuLogo_Com.h>
 #include <UserComponent/MenuEnemy_Com.h>
 
@@ -30,10 +29,12 @@
 
 MenuScene::MenuScene()
 {
+	m_FadeCom = NULLPTR;
 }
 
 MenuScene::~MenuScene()
 {
+	SAFE_RELEASE(m_FadeCom);
 }
 
 bool MenuScene::Init()
@@ -96,10 +97,10 @@ bool MenuScene::Init()
 	newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_OUT);
 	newFadeCom->Start();
 
+	SAFE_RELEASE(newFadeCom);
 	SAFE_RELEASE(newButton2);
 	SAFE_RELEASE(buttonCom2);
 	SAFE_RELEASE(newFade);
-	SAFE_RELEASE(newFadeCom);
 	SAFE_RELEASE(newColorCom);
 	SAFE_RELEASE(newColorObject);
 	SAFE_RELEASE(newLogo);
@@ -149,6 +150,11 @@ int MenuScene::Input(float DeltaTime)
 
 int MenuScene::Update(float DeltaTime)
 {
+	if (m_FadeCom != NULLPTR && m_FadeCom->GetIsOver() == true)
+	{
+		SceneManager::Get()->CreateNextScene();
+		SceneManager::Get()->AddSceneComponent<MainScene>("MainScene", false);
+	}
 	return 0;
 }
 
@@ -174,8 +180,14 @@ void MenuScene::Render(float DeltaTime)
 
 void MenuScene::StartButtonActive(float DeltaTime)
 {
-	SceneManager::Get()->CreateNextScene();
-	SceneManager::Get()->AddSceneComponent<MainScene>("MainScene", false);
+	Layer* FadeLayer = m_Scene->FindLayer("Fade");
+	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer, false);
+	m_FadeCom = newFade->AddComponent<Fade_Com>("Fade");
+	m_FadeCom->SetFadeColor(Vector3::Zero, FO_IN);
+	m_FadeCom->Start();
+
+	SAFE_RELEASE(FadeLayer);
+	SAFE_RELEASE(newFade);
 }
 
 void MenuScene::ExitButtonActive(float DeltaTime)

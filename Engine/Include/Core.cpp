@@ -30,7 +30,6 @@ Core::~Core()
 	TimeManager::Delete();
 	CollsionManager::Delete();
 	KeyInput::Delete();
-	ThreadManager::Delete();
 	FontManager::Delete();
 	SoundManager::Delete();
 	StaticManager::Delete();
@@ -156,7 +155,7 @@ int Core::Run()
 
 	while (m_isLoop)
 	{
-		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+		if (PeekMessage(&msg, NULLPTR, 0, 0, PM_REMOVE))
 		{
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
@@ -249,7 +248,7 @@ LRESULT Core::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 int Core::Input(float DeltaTime)
 {
 	KeyInput::Get()->Update(DeltaTime);
-	//NumberManager::Get()->Input(DeltaTime);
+	NumberManager::Get()->Input(DeltaTime);
 	SceneManager::Get()->Input(DeltaTime);
 	return 0;
 }

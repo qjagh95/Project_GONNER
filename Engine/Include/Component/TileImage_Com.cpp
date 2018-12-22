@@ -79,8 +79,11 @@ int JEONG::TileImage_Com::Input(float DeltaTime)
 
 int JEONG::TileImage_Com::Update(float DeltaTime)
 {
-	if(m_NearMaterial != NULLPTR)
-		m_Material->SetMaterial(m_NearMaterial->GetDiffuseLight());
+	if (m_NearMaterial != NULLPTR)
+	{
+		if(m_NearMaterial->GetMateralEmpty() == false)
+			m_Material->SetMaterial(m_NearMaterial->GetDiffuseLight());
+	}
 
 	m_ColorChangeTimeVar += DeltaTime;
 
@@ -208,9 +211,12 @@ void JEONG::TileImage_Com::SetNearObject(GameObject * NearObject, float Distance
 
 		if (m_isEditorMode == true)
 			return;
-
-		m_NearObject = NearObject;
-		m_NearMaterial = m_NearObject->FindComponentFromTypeNoneCount<Material_Com>(CT_MATERIAL);
+		
+		if (NearObject != NULLPTR)
+		{
+			m_NearObject = NearObject;
+			m_NearMaterial = m_NearObject->FindComponentFromTypeNoneCount<Material_Com>(CT_MATERIAL);
+		}
 	}
 }
 

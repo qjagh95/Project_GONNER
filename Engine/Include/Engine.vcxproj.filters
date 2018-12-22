@@ -49,18 +49,6 @@
     <Filter Include="Core\11. Scene">
       <UniqueIdentifier>{36a4fa68-3853-462f-912a-44e10923d50d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\12. Thread">
-      <UniqueIdentifier>{73ca7a5c-6416-4e17-aeb8-a99555ec8519}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\12. Thread\Thread">
-      <UniqueIdentifier>{7a1e183d-6416-4c7a-aada-c6eb1fc35da0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\12. Thread\Manager">
-      <UniqueIdentifier>{8c080a22-124b-491e-8764-d48f4c2ddc79}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\12. Thread\Sync">
-      <UniqueIdentifier>{9a56c6ef-1220-483a-a0c8-e79e8b8d38f2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\01. Base">
       <UniqueIdentifier>{0388481b-b7dd-4c0d-a8a2-8c7756ef52cf}</UniqueIdentifier>
     </Filter>
@@ -280,9 +268,6 @@
     <Filter Include="Core\08. Object\Component\UserComponent\10. Bullet">
       <UniqueIdentifier>{1a25372f-8b3c-4f35-ad91-fe995e37404b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\11. ShotEffect">
-      <UniqueIdentifier>{06ff78af-76b7-42bb-8361-4f994b15f3be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\15. Number">
       <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
@@ -423,12 +408,6 @@
     <ClInclude Include="Component\RadioButton_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\RadioButton</Filter>
     </ClInclude>
-    <ClInclude Include="Thread.h">
-      <Filter>Core\12. Thread\Thread</Filter>
-    </ClInclude>
-    <ClInclude Include="ThreadManager.h">
-      <Filter>Core\12. Thread\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="Component\TitleBar_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\08. WorldUI\TitleBar</Filter>
     </ClInclude>
@@ -437,9 +416,6 @@
     </ClInclude>
     <ClInclude Include="Component\Bar_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\08. WorldUI\BarWorld</Filter>
-    </ClInclude>
-    <ClInclude Include="Sync.h">
-      <Filter>Core\12. Thread\Sync</Filter>
     </ClInclude>
     <ClInclude Include="Component\IconSlot_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\IconSlot</Filter>
@@ -540,14 +516,20 @@
     <ClInclude Include="UserComponent\BugEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\ShotEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\11. ShotEffect</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\Bullet_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="StageManager.h">
       <Filter>Core\17. StageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\ShotEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BoomEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BalloonEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -673,12 +655,6 @@
     <ClCompile Include="Component\RadioButton_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\07. UI\RadioButton</Filter>
     </ClCompile>
-    <ClCompile Include="Thread.cpp">
-      <Filter>Core\12. Thread\Thread</Filter>
-    </ClCompile>
-    <ClCompile Include="ThreadManager.cpp">
-      <Filter>Core\12. Thread\Manager</Filter>
-    </ClCompile>
     <ClCompile Include="Component\TitleBar_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\08. WorldUI\TitleBar</Filter>
     </ClCompile>
@@ -790,14 +766,20 @@
     <ClCompile Include="UserComponent\BugEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\11. ShotEffect</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\Bullet_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="StageManager.cpp">
       <Filter>Core\17. StageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BoomEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

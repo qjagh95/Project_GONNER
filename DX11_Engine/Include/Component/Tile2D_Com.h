@@ -36,9 +36,9 @@ public:
 	GameObject* GetSubTileImageObject(size_t index) const;
 	string GetImageFileName() const { return m_ImageFileName; }
 	int GetDir() const { return m_Dir; }
+	size_t GetSubSize() const { return m_vecTileImage.size(); }
 	void ClearSubImage();
 	void ClearMainImage();
-	size_t GetSubSize() const { return m_vecTileImage.size(); }
 	void ClearNearObject();
 
 private:

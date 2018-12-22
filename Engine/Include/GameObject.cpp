@@ -125,6 +125,7 @@ int JEONG::GameObject::Input(float DeltaTime)
 			StartIter++;
 			continue;
 		}
+
 		(*StartIter)->Input(DeltaTime);
 		StartIter++;
 	}
@@ -157,6 +158,7 @@ int JEONG::GameObject::Update(float DeltaTime)
 			StartIter++;
 			continue;
 		}
+
 		(*StartIter)->Update(DeltaTime);
 		StartIter++;
 	}
@@ -169,12 +171,12 @@ int JEONG::GameObject::Update(float DeltaTime)
 	list<GameObject*>::iterator StartIter1 = m_ChildList.begin();
 	list<GameObject*>::iterator EndIter1 = m_ChildList.end();
 
-	Matrix S = m_Transform->GetWorldScaleMatrix() * m_Transform->GetParentScale();
-	Matrix R = m_Transform->GetWorldRotMatrix() * m_Transform->GetParentRot();
-	Matrix T = m_Transform->GetWorldPosMatrix() * m_Transform->GetParentPos();
-
 	for (; StartIter1 != EndIter1; StartIter1++)
 	{
+		Matrix S = m_Transform->GetWorldScaleMatrix() * m_Transform->GetParentScale();
+		Matrix R = m_Transform->GetWorldRotMatrix() * m_Transform->GetParentRot();
+		Matrix T = m_Transform->GetWorldPosMatrix() * m_Transform->GetParentPos();
+
 		(*StartIter1)->GetTransform()->SetParentScale(S);
 		(*StartIter1)->GetTransform()->SetParentRot(R);
 		(*StartIter1)->GetTransform()->SetParentPos(T);
@@ -218,12 +220,12 @@ int JEONG::GameObject::LateUpdate(float DeltaTime)
 	list<JEONG::GameObject*>::iterator StartIter1 = m_ChildList.begin();
 	list<JEONG::GameObject*>::iterator EndIter1 = m_ChildList.end();
 
-	Matrix S = m_Transform->GetWorldScaleMatrix() * m_Transform->GetParentScale();
-	Matrix R = m_Transform->GetWorldRotMatrix() * m_Transform->GetParentRot();
-	Matrix T = m_Transform->GetWorldPosMatrix() * m_Transform->GetParentPos();
-
 	for (; StartIter1 != EndIter1; StartIter1++)
 	{
+		Matrix S = m_Transform->GetWorldScaleMatrix() * m_Transform->GetParentScale();
+		Matrix R = m_Transform->GetWorldRotMatrix() * m_Transform->GetParentRot();
+		Matrix T = m_Transform->GetWorldPosMatrix() * m_Transform->GetParentPos();
+
 		(*StartIter1)->GetTransform()->SetParentScale(S);
 		(*StartIter1)->GetTransform()->SetParentRot(R);
 		(*StartIter1)->GetTransform()->SetParentPos(T);
@@ -246,11 +248,11 @@ void JEONG::GameObject::CollisionLateUpdate(float DeltaTime)
 
 	for (; StartIter != EndIter;)
 	{
-		JEONG::Renderer_Com* pRenderer = FindComponentFromType<JEONG::Renderer_Com>(CT_RENDER);
-		if (pRenderer != NULLPTR)
+		JEONG::Renderer_Com* getRenderer = FindComponentFromType<JEONG::Renderer_Com>(CT_RENDER);
+		if (getRenderer != NULLPTR)
 		{
-			pRenderer->DeleteComponentCBuffer(*StartIter);
-			SAFE_RELEASE(pRenderer);
+			getRenderer->DeleteComponentCBuffer(*StartIter);
+			SAFE_RELEASE(getRenderer);
 		}
 
 		if ((*StartIter)->GetIsActive() == false)

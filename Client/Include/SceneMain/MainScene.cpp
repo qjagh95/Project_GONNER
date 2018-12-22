@@ -44,6 +44,7 @@ bool MainScene::Init()
 
 	Layer* BackLayer = m_Scene->FindLayer("BackGround");
 	Layer* Default = m_Scene->FindLayer("Default");
+	Layer* FadeLayer = m_Scene->FindLayer("Fade");
 	Layer* UILayer = m_Scene->FindLayer("UI");
 	Layer* TileLayer = m_Scene->FindLayer("Tile");
 
@@ -82,6 +83,13 @@ bool MainScene::Init()
 	GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
 	gunItemObject->GetTransform()->SetWorldPos(300.0f, 800.0f, 1.0f);
 
+	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer, false);
+	Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");
+	newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_OUT);
+	newFadeCom->Start();
+	
+	SAFE_RELEASE(newFade);
+	SAFE_RELEASE(newFadeCom);
 	SAFE_RELEASE(gunItemCom);
 	SAFE_RELEASE(gunItemObject);
 	SAFE_RELEASE(monsterObject);
@@ -96,6 +104,7 @@ bool MainScene::Init()
 	SAFE_RELEASE(UILayer);
 	SAFE_RELEASE(TileLayer);
 	SAFE_RELEASE(BackLayer);
+	SAFE_RELEASE(FadeLayer);
 
 	auto sound_effect_instance = SoundManager::Get()->FindSoundEffect("Stage1BGM")->CreateInstance();
 	sound_effect_instance->Play(true);

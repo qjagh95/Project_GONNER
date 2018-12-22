@@ -123,26 +123,8 @@ Monster_Com * Monster_Com::Clone()
 
 void Monster_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "BulletBody")
-	{
-		GameObject* newClone = GameObject::CreateClone("Boom", m_Layer);
-		newClone->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
-		SAFE_RELEASE(newClone);
-
-		Dest->GetGameObject()->SetIsActive(false);
-	}
 }
 
 void Monster_Com::BulletRotHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "BulletRotBody")
-	{
-		GameObject* newClone = GameObject::CreateClone("Boom", m_Layer);
-		newClone->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
-		SAFE_RELEASE(newClone);
-
-		Dest->GetGameObject()->SetIsActive(false);
-	}
-
-
 }

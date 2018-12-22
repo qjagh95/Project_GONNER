@@ -251,14 +251,13 @@
     <ClInclude Include="StageManager.h" />
     <ClInclude Include="StaticManager.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="Sync.h" />
-    <ClInclude Include="Thread.h" />
-    <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Type.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="NumberManager.h" />
+    <ClInclude Include="UserComponent\BalloonEffect_Com.h" />
+    <ClInclude Include="UserComponent\BoomEffect_Com.h" />
     <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
     <ClInclude Include="UserComponent\BugEffect_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
@@ -342,11 +341,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Thread.cpp" />
-    <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="NumberManager.cpp" />
+    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BoomEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />

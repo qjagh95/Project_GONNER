@@ -22,6 +22,8 @@ public:
 	void AddObject(GameObject* object);
 	GameObject* FindObject(const string& TagName);
 
+	list<GameObject*>* GetObjectList() { return &m_ObjectList; }
+
 private:
 	static bool YSort(GameObject* Left, GameObject* Right);
 
