@@ -71,7 +71,6 @@ using namespace libxl;
 //#endif // DEBUG
 
 #include "FontManager.h"
-#include "ThreadManager.h"
 #include "Device.h"
 #include "PathManager.h"
 #include "TimeManager.h"

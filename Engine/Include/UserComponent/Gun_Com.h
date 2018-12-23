@@ -32,6 +32,7 @@ public:
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+	Vector3 m_Pos;
 
 	string m_AniName[GGS_MAX];
 	Vector4 m_Color[3];
@@ -41,6 +42,8 @@ private:
 
 	int m_BulletCount;
 	bool m_isShot;
+	
+	Layer* m_AfterEffectLayer;
 
 protected:
 	Gun_Com();

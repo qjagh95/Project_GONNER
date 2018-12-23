@@ -1,5 +1,8 @@
 #include "stdafx.h"
 #include "Bullet_Com.h"
+#include "BoomEffect_Com.h"
+#include "BalloonEffect_Com.h"
+#include "FragmentEffect_Com.h"
 
 #include "../Component/Animation2D_Com.h"
 #include "../Component/ColliderRect_Com.h"
@@ -10,6 +13,7 @@ Bullet_Com::Bullet_Com()
 {
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
+	m_AfterEffectLayer = NULLPTR;
 }
 
 Bullet_Com::Bullet_Com(const Bullet_Com & CopyData)
@@ -25,7 +29,7 @@ Bullet_Com::~Bullet_Com()
 
 bool Bullet_Com::Init()
 {
-	//이펙트클래스3개추가(타일에 닿았을때 터지는 이펙트, 튀어나가는 이펙트, 위로떠오르는 이펙트)
+	//이펙트클래스1개추가(튀어나가는 이펙트)
 	//아이템UI추가
 	Renderer_Com* BulletRender = m_Object->AddComponent<Renderer_Com>("BulletRender");
 	BulletRender->SetMesh("TextureRect");
@@ -70,6 +74,9 @@ bool Bullet_Com::Init()
 	m_Stage = StageManager::Get()->FindCurStage();
 	m_Animation->ChangeClip("Bullet");
 
+	m_BallonCount = RandomRange(1, 3);
+	m_FragmentCount = RandomRange(1, 3);
+
 	return true;
 }
 
@@ -95,6 +102,36 @@ int Bullet_Com::Update(float DeltaTime)
 		if (leftTile->GetTileOption() == T2D_NOMOVE)
 		{
 			//이펙트생성
+			GameObject* boomEffectObject = GameObject::CreateObject("BoomEffect", m_AfterEffectLayer);
+			BoomEffect_Com* newEffectCom = boomEffectObject->AddComponent< BoomEffect_Com>("BoomEffect");
+			boomEffectObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+			newEffectCom->GetTransform()->SetWorldRotZFromNoneAxis(-90.0f);
+
+			SAFE_RELEASE(boomEffectObject);
+			SAFE_RELEASE(newEffectCom);
+
+			for (int i = 0; i < m_BallonCount; i++)
+			{
+				GameObject* newEffect = GameObject::CreateObject("BallonEffect", m_AfterEffectLayer);
+				BallonEffect_Com* BallonCom = newEffect->AddComponent< BallonEffect_Com>("BallonEffect");
+				BallonCom->GetAnimation()->SetDir(MD_LEFT);
+				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+
+				SAFE_RELEASE(newEffect);
+				SAFE_RELEASE(BallonCom);
+			}
+
+			for (int i = 0; i < m_FragmentCount; i++)
+			{
+				GameObject* newEffect = GameObject::CreateObject("BallonEffect");
+				FragmentEffect_Com* FragmentCom = newEffect->AddComponent< FragmentEffect_Com>("BallonEffect");
+				FragmentCom->GetAnimation()->SetDir(MD_LEFT);
+				FragmentCom->SetDirection(MD_LEFT);
+
+				SAFE_RELEASE(newEffect);
+				SAFE_RELEASE(FragmentCom);
+			}
+
 			m_Object->SetIsActive(false);
 			SetIsActive(false);
 		}
@@ -108,6 +145,38 @@ int Bullet_Com::Update(float DeltaTime)
 		if (rightTile->GetTileOption() == T2D_NOMOVE)
 		{
 			//이펙트생성
+			GameObject* boomEffectObject = GameObject::CreateObject("BoomEffect", m_AfterEffectLayer);
+			BoomEffect_Com* newEffectCom = boomEffectObject->AddComponent< BoomEffect_Com>("BoomEffect");
+			boomEffectObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+			newEffectCom->GetTransform()->SetWorldRotZFromNoneAxis(90.0f);
+
+			SAFE_RELEASE(boomEffectObject);
+			SAFE_RELEASE(newEffectCom);
+
+			for (int i = 0; i < m_BallonCount; i++)
+			{
+				GameObject* newEffect = GameObject::CreateObject("BallonEffect", m_AfterEffectLayer);
+				BallonEffect_Com* BallonCom = newEffect->AddComponent<BallonEffect_Com>("BallonEffect");
+				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+				BallonCom->GetAnimation()->SetDir(MD_RIGHT);
+				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+
+				SAFE_RELEASE(newEffect);
+				SAFE_RELEASE(BallonCom);
+			}
+
+			for (int i = 0; i < m_FragmentCount; i++)
+			{
+				GameObject* newEffect = GameObject::CreateObject("BallonEffect");
+				FragmentEffect_Com* FragmentCom = newEffect->AddComponent<FragmentEffect_Com>("BallonEffect");
+				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+				FragmentCom->GetAnimation()->SetDir(MD_RIGHT);
+				FragmentCom->SetDirection(MD_RIGHT);
+
+				SAFE_RELEASE(newEffect);
+				SAFE_RELEASE(FragmentCom);
+			}
+
 			SetIsActive(false);
 			m_Object->SetIsActive(false);
 		}

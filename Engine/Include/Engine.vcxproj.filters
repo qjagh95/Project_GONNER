@@ -274,6 +274,15 @@
     <Filter Include="Core\17. StageManager">
       <UniqueIdentifier>{bfd5af0d-d45e-4467-bfa3-c588f850f3fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\11. BulletUI">
+      <UniqueIdentifier>{bfcc8d55-b3b5-4140-ac73-5aeeac724fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\12. HeartUI">
+      <UniqueIdentifier>{3c7083f3-9446-4f90-bef4-6df717efb2f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\13. ReloadItem">
+      <UniqueIdentifier>{b6d61396-33b4-464b-9a93-3af8ec83b92f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -522,13 +531,16 @@
     <ClInclude Include="StageManager.h">
       <Filter>Core\17. StageManager</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\ShotEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\BoomEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\BalloonEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\ShotEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\FragmentEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClInclude>
   </ItemGroup>
@@ -772,13 +784,16 @@
     <ClCompile Include="StageManager.cpp">
       <Filter>Core\17. StageManager</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\BoomEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClCompile>
   </ItemGroup>

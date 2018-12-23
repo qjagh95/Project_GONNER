@@ -106,9 +106,9 @@ bool MainScene::Init()
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(FadeLayer);
 
-	auto sound_effect_instance = SoundManager::Get()->FindSoundEffect("Stage1BGM")->CreateInstance();
+	auto sound_effect_instance = SoundManager::Get()->FindSoundEffect("StageBGM1")->CreateInstance();
 	sound_effect_instance->Play(true);
-	SoundManager::Get()->CreateBGMList("Stage1BGM", move(sound_effect_instance));
+	SoundManager::Get()->CreateBGMList("StageBGM1", move(sound_effect_instance));
 
 	return true;
 }

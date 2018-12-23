@@ -123,6 +123,8 @@ int MenuScene::Input(float DeltaTime)
 
 	if(KeyInput::Get()->KeyDown("ButtonDown"))
 	{
+		SoundManager::Get()->FindSoundEffect("Button")->Play();
+
 		m_Index++;
 
 		if (m_Index == m_vecButton.size())
@@ -131,6 +133,8 @@ int MenuScene::Input(float DeltaTime)
 
 	if (KeyInput::Get()->KeyDown("ButtonUp"))
 	{
+		SoundManager::Get()->FindSoundEffect("Button")->Play();
+
 		m_Index--;
 
 		if (m_Index < 0)
@@ -185,6 +189,11 @@ void MenuScene::StartButtonActive(float DeltaTime)
 	m_FadeCom = newFade->AddComponent<Fade_Com>("Fade");
 	m_FadeCom->SetFadeColor(Vector3::Zero, FO_IN);
 	m_FadeCom->Start();
+
+#ifdef _DEBUG
+	SceneManager::Get()->CreateNextScene();
+	SceneManager::Get()->AddSceneComponent<MainScene>("MainScene", false);
+#endif
 
 	SAFE_RELEASE(FadeLayer);
 	SAFE_RELEASE(newFade);

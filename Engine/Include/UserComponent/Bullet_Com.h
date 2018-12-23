@@ -20,6 +20,7 @@ public:
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
 	void ColorLight(float DeltaTime);
+	void SetAfterLayer(Layer* layer) { m_AfterEffectLayer = layer; }
 
 private:
 	Material_Com* m_Material;
@@ -27,9 +28,13 @@ private:
 	Stage2D_Com* m_Stage;
 	Vector3 m_Scale;
 	Vector3 m_ScaleHalf;
+	Layer* m_AfterEffectLayer;
 
 	float m_LightTimeVar;
 	float m_LightTime;
+
+	int m_BallonCount;
+	int m_FragmentCount;
 
 protected:
 	Bullet_Com();

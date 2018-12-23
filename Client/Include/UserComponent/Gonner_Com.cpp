@@ -273,7 +273,7 @@ void Gonner_Com::BasicInit()
 
 	m_BubbleTime = 0.1f;
 
-	m_BugEffectTime = 0.8f;
+	m_BugEffectTime = 1.0f;
 
 	m_ChangeColor[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
 	m_ChangeColor[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);
@@ -373,7 +373,7 @@ void Gonner_Com::AnimationInit()
 	m_AniName[GS_KNIGHT] = "Knight";
 	m_AniName[GS_WALLJUMP] = "Jump";
 
-	ChangeState(GS_IDLE, m_AniName, m_Animation);
+	ChangeState(GS_BUGDOWN, m_AniName, m_Animation);
 }
 
 void Gonner_Com::ChangeColor(float DeltaTime)
@@ -429,16 +429,28 @@ void Gonner_Com::CreateBugEffect(float DeltaTime)
 	{
 		m_BugEffectTimeVar = 0.0f;
 
-		GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
-		BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
+		for (size_t i = 0; i < 3; i++)
+		{
+			GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
+			BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
 
-		Vector3 Pos = m_leftPos;
+			Vector3 Pos = m_leftPos;
 
-		newEffect->GetTransform()->SetWorldRotZFromNoneAxis(45.0f);
-		newEffect->GetTransform()->SetWorldPos(Pos);
+			if (m_Animation->GetDir() == MD_LEFT)
+			{
+				newEffect->GetTransform()->SetWorldRotZFromNoneAxis((25.0f + (i + 1) * 20.0f) * -1.0f);
+				newEffect->GetTransform()->SetWorldPos(Pos.x + m_Scale.x * 2.0f, Pos.y, 1.0f);
+			}
+			else
+			{
+				newEffect->GetTransform()->SetWorldRotZFromNoneAxis(25.0f + (i + 1) * 20.0f);
+				newEffect->GetTransform()->SetWorldPos(Pos.x - m_Scale.x * 0.5f, Pos.y, 1.0f);
+			}
 
-		SAFE_RELEASE(newEffect);
-		SAFE_RELEASE(newEffectCom);
+			SAFE_RELEASE(newEffect);
+			SAFE_RELEASE(newEffectCom);
+		}
+		SoundManager::Get()->FindSoundEffect("BugEffect")->Play();
 	}
 }
 
@@ -449,8 +461,11 @@ void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
 		GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
 		BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
 
-		newEffect->GetTransform()->SetWorldRotZFromNoneAxis(45.0f * i);
-		newEffect->GetTransform()->SetWorldPos(m_Pos);
+		float x = cosf(DegreeToRadian(45.0f * i));
+		float y = sinf(DegreeToRadian(45.0f * i));
+
+		newEffect->GetTransform()->SetWorldRotZ(45.0f * i);
+		newEffect->GetTransform()->SetWorldPos(m_Pos.x + (x * 100.0f), m_Pos.y + (y * 100.0f), 1.0f);
 		newEffect->GetTransform()->SetWorldScale(128.0f, 128.0f * 2.0f, 1.0f);
 
 		SAFE_RELEASE(newEffect);

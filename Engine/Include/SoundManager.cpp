@@ -24,9 +24,15 @@ bool JEONG::SoundManager::Init()
 	m_AudioEngine = make_unique<AudioEngine>(Flag);
 
 	CreateSoundEffect("LogoBGM", TEXT("Over the top (short intro).wav"));
-	CreateSoundEffect("Stage1BGM", TEXT("Caves Invincible 3.3.wav"));
+	CreateSoundEffect("StageBGM1", TEXT("Caves Invincible 3.3.wav"));
+	CreateSoundEffect("StageBGM2", TEXT("Deaths jam 3.0.wav"));
+	CreateSoundEffect("StageBGM3", TEXT("Deaths jam 3.0.wav"));
+	CreateSoundEffect("StageBGM4", TEXT("Deaths jam 3.0.wav"));
 	CreateSoundEffect("Jump", TEXT("sfx_jump.wav"));
 	CreateSoundEffect("Shot", TEXT("sfx_gunshot_01.wav"));
+	CreateSoundEffect("Button", TEXT("sfx_button_crunch01.wav"));
+	CreateSoundEffect("BugEffect", TEXT("BugEffect.wav"));
+	CreateSoundEffect("BugChange", TEXT("BugChange.wav"));
 
 	return true;
 }

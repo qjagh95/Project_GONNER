@@ -263,6 +263,7 @@
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
     <ClInclude Include="UserComponent\Fire_Com.h" />
+    <ClInclude Include="UserComponent\FragmentEffect_Com.h" />
     <ClInclude Include="UserComponent\GunItem_Com.h" />
     <ClInclude Include="UserComponent\Gun_Com.h" />
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h" />
@@ -351,6 +352,7 @@
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
     <ClCompile Include="UserComponent\Fire_Com.cpp" />
+    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp" />
     <ClCompile Include="UserComponent\GunItem_Com.cpp" />
     <ClCompile Include="UserComponent\Gun_Com.cpp" />
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp" />

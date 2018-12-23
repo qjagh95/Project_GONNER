@@ -26,6 +26,7 @@ public:
 	MOVE_DIR GetDir() { return (MOVE_DIR)m_CBuffer.isRight; }
 	int GetFrame() const { return m_CurClip->Frame; }
 	int GetPrevFrame() const { return m_PrevFrame; }
+	string& GetClipName() const { return m_CurClip->AnimationName; }
 
 private:
 	unordered_map<string, AnimationClip2D*> m_ClipMap;

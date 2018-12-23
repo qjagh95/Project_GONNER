@@ -41,7 +41,6 @@ void Gonner_Com::FS_BUGIDLE(float DeltaTime)
 		m_Transform->SetWorldRotZFromNoneAxis(180.0f);
 		ChangeState(GS_BUGJUMP, m_AniName, m_Animation);
 	}
-
 }
 
 void Gonner_Com::FS_BUGJUMP(float DeltaTime)
@@ -84,6 +83,7 @@ void Gonner_Com::FS_BUGJUMP(float DeltaTime)
 				m_Transform->SetWorldRotZ(0.0f);
 				CreateBugChangeEffect(DeltaTime);
 				ChangeState(GS_IDLE, m_AniName, m_Animation);
+				SoundManager::Get()->FindSoundEffect("BugChange")->Play();
 			}
 			else
 			{

@@ -29,6 +29,8 @@ bool BugEffect_Com::Init()
 	SAFE_RELEASE(BugEffectRender);
 
 	m_Transform->SetWorldScale(128.0f, 128.0f, 1.0f);
+	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
+
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	m_Material->SetDiffuseTexture(0, "BugEffect", TEXT("Monster\\bloodParticles.png"));
 	m_Material->SetMaterial(Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f));
