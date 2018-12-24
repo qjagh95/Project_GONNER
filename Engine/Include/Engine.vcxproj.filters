@@ -543,6 +543,9 @@
     <ClInclude Include="UserComponent\FragmentEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\BulletUI_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\11. BulletUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -795,6 +798,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BulletUI_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\11. BulletUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

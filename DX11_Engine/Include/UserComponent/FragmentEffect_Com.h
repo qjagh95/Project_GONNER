@@ -15,19 +15,13 @@ public:
 	void Render(float DeltaTime) override;
 	FragmentEffect_Com* Clone() override;
 	void AfterClone() override;
-	void SetTargetPos(const Vector3& Pos) { m_TargetPos = Pos; }
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
-	void SetDir(const Vector3& Dir) { m_Dir = Dir; }
+	void SetDirection(MOVE_DIR dir);
 
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
-	Vector3 m_TargetPos;
-	bool m_isMove;
-
-	float m_StaticTime;
-	float m_StaticTimeVar;
 
 	float m_MoveSpeed;
 	Vector3 m_Dir;

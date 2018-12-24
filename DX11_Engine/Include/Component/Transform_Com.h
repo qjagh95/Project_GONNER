@@ -42,9 +42,12 @@ public:
 	Vector3 GetPivot() const { return m_Pivot; }
 	Matrix GetWorldMatrix()	const { return m_MatWorld; }
 	Matrix GetParentMatrix() const { return m_MatParent; }
+	void SetParentMatrix(const Matrix& parent);
 	Matrix GetWorldPosMatrix() const { return m_MatWorldPos; }
 	Matrix GetWorldRotMatrix() const { return m_MatWorldRotation; }
 	Matrix GetWorldScaleMatrix() const { return m_MatWorldScale; }
+	void SetParentRot(const Vector3& Rot);
+	void SetParentRotZ(float Angle);
 
 	//안움직이는 놈인가용?
 	void SetIsStatic(bool isStatic) { m_isStatic = isStatic; }
@@ -72,7 +75,6 @@ public:
 	void SetWorldPivot(float x, float y, float z);
 	void SetWorldRotZFromNoneAxis(float z);
 	void RotationZFromNoneAxis(float z);
-
 
 	void ComputeWorldAxis();
 

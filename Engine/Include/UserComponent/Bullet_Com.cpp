@@ -29,7 +29,6 @@ Bullet_Com::~Bullet_Com()
 
 bool Bullet_Com::Init()
 {
-	//이펙트클래스1개추가(튀어나가는 이펙트)
 	//아이템UI추가
 	Renderer_Com* BulletRender = m_Object->AddComponent<Renderer_Com>("BulletRender");
 	BulletRender->SetMesh("TextureRect");
@@ -77,6 +76,7 @@ bool Bullet_Com::Init()
 	m_BallonCount = RandomRange(1, 3);
 	m_FragmentCount = RandomRange(1, 3);
 
+
 	return true;
 }
 
@@ -90,7 +90,8 @@ int Bullet_Com::Update(float DeltaTime)
 	ColorLight(DeltaTime);
 
 	Vector3 leftPos = m_Transform->GetWorldPos();
-	Vector3 rightPos = m_Transform->GetWorldPos();
+	Vector3 rightPos = leftPos;
+	Vector3 Pos = leftPos;
 
 	leftPos.x -= m_ScaleHalf.x;
 	rightPos.x += m_ScaleHalf.x;
@@ -104,7 +105,7 @@ int Bullet_Com::Update(float DeltaTime)
 			//이펙트생성
 			GameObject* boomEffectObject = GameObject::CreateObject("BoomEffect", m_AfterEffectLayer);
 			BoomEffect_Com* newEffectCom = boomEffectObject->AddComponent< BoomEffect_Com>("BoomEffect");
-			boomEffectObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+			boomEffectObject->GetTransform()->SetWorldPos(Pos);
 			newEffectCom->GetTransform()->SetWorldRotZFromNoneAxis(-90.0f);
 
 			SAFE_RELEASE(boomEffectObject);
@@ -115,7 +116,7 @@ int Bullet_Com::Update(float DeltaTime)
 				GameObject* newEffect = GameObject::CreateObject("BallonEffect", m_AfterEffectLayer);
 				BallonEffect_Com* BallonCom = newEffect->AddComponent< BallonEffect_Com>("BallonEffect");
 				BallonCom->GetAnimation()->SetDir(MD_LEFT);
-				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+				newEffect->GetTransform()->SetWorldPos(Pos.x , Pos.y - 10.0f, 1.0f);
 
 				SAFE_RELEASE(newEffect);
 				SAFE_RELEASE(BallonCom);
@@ -123,15 +124,16 @@ int Bullet_Com::Update(float DeltaTime)
 
 			for (int i = 0; i < m_FragmentCount; i++)
 			{
-				GameObject* newEffect = GameObject::CreateObject("BallonEffect");
+				GameObject* newEffect = GameObject::CreateObject("BallonEffect", m_AfterEffectLayer);
 				FragmentEffect_Com* FragmentCom = newEffect->AddComponent< FragmentEffect_Com>("BallonEffect");
-				FragmentCom->GetAnimation()->SetDir(MD_LEFT);
 				FragmentCom->SetDirection(MD_LEFT);
+				newEffect->GetTransform()->SetWorldPos(Pos.x, Pos.y + m_Scale.y, 1.0f);
 
 				SAFE_RELEASE(newEffect);
 				SAFE_RELEASE(FragmentCom);
 			}
 
+			m_Scene->CreateWave(Pos, 0.8f, 0.1f);
 			m_Object->SetIsActive(false);
 			SetIsActive(false);
 		}
@@ -147,7 +149,7 @@ int Bullet_Com::Update(float DeltaTime)
 			//이펙트생성
 			GameObject* boomEffectObject = GameObject::CreateObject("BoomEffect", m_AfterEffectLayer);
 			BoomEffect_Com* newEffectCom = boomEffectObject->AddComponent< BoomEffect_Com>("BoomEffect");
-			boomEffectObject->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+			boomEffectObject->GetTransform()->SetWorldPos(Pos.x, Pos.y - 10.0f, 1.0f);
 			newEffectCom->GetTransform()->SetWorldRotZFromNoneAxis(90.0f);
 
 			SAFE_RELEASE(boomEffectObject);
@@ -157,9 +159,8 @@ int Bullet_Com::Update(float DeltaTime)
 			{
 				GameObject* newEffect = GameObject::CreateObject("BallonEffect", m_AfterEffectLayer);
 				BallonEffect_Com* BallonCom = newEffect->AddComponent<BallonEffect_Com>("BallonEffect");
-				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
 				BallonCom->GetAnimation()->SetDir(MD_RIGHT);
-				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
+				newEffect->GetTransform()->SetWorldPos(Pos);
 
 				SAFE_RELEASE(newEffect);
 				SAFE_RELEASE(BallonCom);
@@ -167,19 +168,20 @@ int Bullet_Com::Update(float DeltaTime)
 
 			for (int i = 0; i < m_FragmentCount; i++)
 			{
-				GameObject* newEffect = GameObject::CreateObject("BallonEffect");
+				GameObject* newEffect = GameObject::CreateObject("BallonEffect", m_AfterEffectLayer);
 				FragmentEffect_Com* FragmentCom = newEffect->AddComponent<FragmentEffect_Com>("BallonEffect");
-				newEffect->GetTransform()->SetWorldPos(m_Transform->GetWorldPos());
-				FragmentCom->GetAnimation()->SetDir(MD_RIGHT);
+				newEffect->GetTransform()->SetWorldPos(Pos.x, Pos.y - m_Scale.y - 10.0f, 1.0f);
 				FragmentCom->SetDirection(MD_RIGHT);
 
 				SAFE_RELEASE(newEffect);
 				SAFE_RELEASE(FragmentCom);
 			}
 
+			m_Scene->CreateWave(Pos, 0.8f, 0.1f);
 			SetIsActive(false);
 			m_Object->SetIsActive(false);
 		}
+
 		m_Transform->Move(AXIS_X, 1800.0f, DeltaTime);
 	}
 

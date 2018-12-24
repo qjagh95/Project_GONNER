@@ -260,6 +260,7 @@
     <ClInclude Include="UserComponent\BoomEffect_Com.h" />
     <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
     <ClInclude Include="UserComponent\BugEffect_Com.h" />
+    <ClInclude Include="UserComponent\BulletUI_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
     <ClInclude Include="UserComponent\Fire_Com.h" />
@@ -349,6 +350,7 @@
     <ClCompile Include="UserComponent\BoomEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
     <ClCompile Include="UserComponent\Fire_Com.cpp" />

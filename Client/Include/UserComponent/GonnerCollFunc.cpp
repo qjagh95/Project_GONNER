@@ -15,5 +15,6 @@ void Gonner_Com::GunItemHit(Collider_Com * Src, Collider_Com * Dest, float Delta
 		m_GunObject->SetScene(m_Scene);
 		m_GunObject->SetLayer(m_Layer);
 		m_GunObject->GetTransform()->SetWorldRotZFromNoneAxis(-90.0f);
+
 	}
 }

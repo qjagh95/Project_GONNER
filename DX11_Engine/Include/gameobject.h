@@ -127,6 +127,9 @@ public:
 	static GameObject* FindObject(const string& TagName);
 
 	void AddChild(GameObject* Child);
+	void AddChild(GameObject* child, Scene* scene);
+	void AddChild(GameObject* child, Scene* scene, Layer* layer);
+
 	void AddStaticObject();
 	bool EmptyComponent() { return m_ComponentList.empty(); }
 

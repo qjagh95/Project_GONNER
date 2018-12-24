@@ -187,6 +187,24 @@ void JEONG::Layer::AddObject(JEONG::GameObject * object)
 	m_ObjectList.push_back(object);
 }
 
+void JEONG::Layer::AddObject(GameObject * object, Scene * scene)
+{
+	object->SetScene(scene);
+	object->SetLayer(this);
+	object->AddRefCount();
+
+	m_ObjectList.push_back(object);
+}
+
+void JEONG::Layer::AddObject(GameObject * object, Scene * scene, Layer * layer)
+{
+	object->SetScene(scene);
+	object->SetLayer(layer);
+	object->AddRefCount();
+
+	layer->m_ObjectList.push_back(object);
+}
+
 JEONG::GameObject * JEONG::Layer::FindObject(const string & TagName)
 {
 	list<JEONG::GameObject*>::iterator StartIter = m_ObjectList.begin();

@@ -228,7 +228,7 @@ bool JEONG::ShaderManager::Init()
 	CreateCBuffer("MenuEnemyCBuffer", sizeof(MenuEnemyCBuffer), 9, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("PublicCBuffer", sizeof(PublicCBuffer), 11, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("PlayerUVCBuffer", sizeof(PlayerUVCBuffer), 12, CST_VERTEX | CST_PIXEL);
-	CreateCBuffer("WaveCBuffer", sizeof(WaveCBuffer), 9, CST_VERTEX | CST_PIXEL);
+	CreateCBuffer("WaveCBuffer", sizeof(WaveCBuffer), 12, CST_VERTEX | CST_PIXEL);
 	CreateCBuffer("TileImageCBuffer", sizeof(TileImageCBuffer), 10, CST_VERTEX | CST_PIXEL);
 
 	//CreateCBuffer("AtlasOneCBuffer", sizeof(AtlasOneCBuffer), 9, CST_VERTEX | CST_PIXEL);

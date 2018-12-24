@@ -246,6 +246,7 @@ void Gonner_Com::BasicInit()
 
 	KeyInput::Get()->AddKey("Jump", VK_SPACE);
 	KeyInput::Get()->AddKey("Attack", 'X');
+	KeyInput::Get()->AddKey("Reload", 'C');
 
 	m_Renderer = m_Object->AddComponent<Renderer_Com>("GonnerRender");
 	m_Renderer->SetMesh("TextureRect");
@@ -373,7 +374,11 @@ void Gonner_Com::AnimationInit()
 	m_AniName[GS_KNIGHT] = "Knight";
 	m_AniName[GS_WALLJUMP] = "Jump";
 
+#ifdef _DEBUG
+	ChangeState(GS_IDLE, m_AniName, m_Animation);
+#else
 	ChangeState(GS_BUGDOWN, m_AniName, m_Animation);
+#endif
 }
 
 void Gonner_Com::ChangeColor(float DeltaTime)

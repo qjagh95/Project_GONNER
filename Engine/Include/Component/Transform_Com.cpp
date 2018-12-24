@@ -622,3 +622,21 @@ void JEONG::Transform_Com::RotationZFromNoneAxis(float z)
 
 	m_isUpdate = true;
 }
+
+void JEONG::Transform_Com::SetParentRot(const Vector3 & Rot)
+{
+	m_ParentRot.Rotation(Rot);
+}
+
+void JEONG::Transform_Com::SetParentRotZ(float Angle)
+{
+	Vector3 Rot;
+	Rot.z = Angle;
+
+	m_ParentRot.Rotation(Rot);
+}
+
+void JEONG::Transform_Com::SetParentMatrix(const Matrix& parent)
+{
+	m_MatParent = parent;
+}

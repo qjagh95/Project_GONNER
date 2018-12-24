@@ -20,6 +20,8 @@ public:
 	Scene* GetScene() const { return m_Scene; }
 
 	void AddObject(GameObject* object);
+	void AddObject(GameObject* object, Scene* scene);
+	void AddObject(GameObject* object, Scene* scene, Layer* layer);
 	GameObject* FindObject(const string& TagName);
 
 	list<GameObject*>* GetObjectList() { return &m_ObjectList; }

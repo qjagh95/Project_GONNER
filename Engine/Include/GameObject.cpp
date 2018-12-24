@@ -539,6 +539,28 @@ void JEONG::GameObject::AddChild(JEONG::GameObject * Child)
 	m_Layer->AddObject(Child);
 }
 
+void JEONG::GameObject::AddChild(GameObject * child, Scene * scene)
+{
+	child->m_Parent = this;
+
+	child->m_Transform->SetParentFlag(TPF_ROT | TPF_POS);
+	child->AddRefCount();
+
+	m_ChildList.push_back(child);
+	m_Layer->AddObject(child, scene);
+}
+
+void JEONG::GameObject::AddChild(GameObject * child, Scene * scene, Layer * layer)
+{
+	child->m_Parent = this;
+
+	child->m_Transform->SetParentFlag(TPF_ROT | TPF_POS);
+	child->AddRefCount();
+
+	m_ChildList.push_back(child);
+	m_Layer->AddObject(child, scene, layer);
+}
+
 void JEONG::GameObject::AddStaticObject()
 {
 	StaticManager::Get()->AddStaticObject(this);

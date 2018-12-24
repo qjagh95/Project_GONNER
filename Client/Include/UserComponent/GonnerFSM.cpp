@@ -107,7 +107,6 @@ void Gonner_Com::FS_IDLE(float DeltaTime)
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
 		m_GravityCom->SetForce(650.0f);
-		m_Scene->CreateWave(m_Pos, 0.8f, 0.1f);
 		SoundManager::Get()->FindSoundEffect("Jump")->Play();
 
 		ChangeState(GS_JUMP, m_AniName, m_Animation);
@@ -124,7 +123,6 @@ void Gonner_Com::FS_RUN(float DeltaTime)
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
 		m_GravityCom->SetForce(650.0f);
-		m_Scene->CreateWave(m_Pos, 0.8f, 0.1f);
 		SoundManager::Get()->FindSoundEffect("Jump")->Play();
 		
 		ChangeState(GS_JUMP, m_AniName, m_Animation);
@@ -155,7 +153,6 @@ void Gonner_Com::FS_JUMP(float DeltaTime)
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
 		m_GravityCom->SetForce(650.0f);
-		m_Scene->CreateWave(m_Pos, 0.8f, 0.1f);
 		SoundManager::Get()->FindSoundEffect("Jump")->Play();
 
 		ChangeState(GS_DOUBLEJUMP, m_AniName, m_Animation);

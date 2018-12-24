@@ -2,10 +2,13 @@
 #include "Gun_Com.h"
 #include "Bullet_Com.h"
 #include "ShotEffect_Com.h"
+#include "BulletUI_Com.h"
 
 #include "../Component/Animation2D_Com.h"
 
 JEONG_USING
+
+int Gun_Com::m_BulletCount = 20;
 
 Gun_Com::Gun_Com()
 {
@@ -65,8 +68,22 @@ bool Gun_Com::Init()
 
 	Scene* getScene = SceneManager::Get()->GetCurScene();
 	m_AfterEffectLayer = getScene->FindLayer("AfterEffectLayer");
+	Layer* UILayer = getScene->FindLayer("UI");
 
 	SAFE_RELEASE(getScene);
+
+	for (int i = 0; i < 20; i++)
+	{
+		GameObject* BulletUIObject = GameObject::CreateObject("BulletUI", UILayer);
+		BulletUI_Com* newUICom = BulletUIObject->AddComponent< BulletUI_Com>("BulletUI");
+		BulletUI_Com::SetTargetGun(this);
+		newUICom->SetIndex(i);
+
+		SAFE_RELEASE(BulletUIObject);
+		SAFE_RELEASE(newUICom);
+	}
+
+	SAFE_RELEASE(UILayer);
 	return true;
 }
 

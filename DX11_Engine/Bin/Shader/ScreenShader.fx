@@ -1,6 +1,6 @@
 #include "Share.fx"
 
-cbuffer Wave : register(b9)
+cbuffer Wave : register(b12)
 {
     float g_LiveTime;
     float3 g_InputUV;
@@ -74,7 +74,6 @@ PS_OUTPUT_SINGLE ScreenPS(VS_OUTPUT_UV input)
             output.vTarget0 = ResultColor;
             return output;
         }
-
     }
     else
     {

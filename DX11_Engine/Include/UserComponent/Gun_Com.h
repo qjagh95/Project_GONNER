@@ -29,6 +29,8 @@ public:
 	void SetBulletCount(int Count) { m_BulletCount = Count; }
 	int GetBulletCount() const { return m_BulletCount; }
 
+	static int m_BulletCount;
+
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
@@ -40,7 +42,6 @@ private:
 	float m_ChangeTimeVar;
 	float m_ChangeTime;
 
-	int m_BulletCount;
 	bool m_isShot;
 	
 	Layer* m_AfterEffectLayer;
