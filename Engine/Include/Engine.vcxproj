@@ -278,6 +278,7 @@
     <ClInclude Include="UserComponent\ReloadBullet_Com.h" />
     <ClInclude Include="UserComponent\ShotEffect_Com.h" />
     <ClInclude Include="UserComponent\Heart_Com.h" />
+    <ClInclude Include="UserComponent\Skull_Com.h" />
     <ClInclude Include="UserComponent\UserComponent_Base.h" />
   </ItemGroup>
   <ItemGroup>
@@ -375,6 +376,7 @@
     <ClCompile Include="UserComponent\ReloadBullet_Com.cpp" />
     <ClCompile Include="UserComponent\ShotEffect_Com.cpp" />
     <ClCompile Include="UserComponent\Heart_Com.cpp" />
+    <ClCompile Include="UserComponent\Skull_Com.cpp" />
     <ClCompile Include="UserComponent\UserComponent_Base.cpp" />
   </ItemGroup>
   <ItemGroup>

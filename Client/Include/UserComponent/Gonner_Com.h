@@ -6,6 +6,7 @@
 #include "Component/Gravity_Com.h"
 #include <UserComponent/Gun_Com.h>
 #include <UserComponent/GunItem_Com.h>
+#include <UserComponent/Heart_Com.h>
 
 JEONG_USING
 
@@ -66,6 +67,11 @@ private:
 	void CreateBubbleEffect(float DeltaTime);
 	void CreateBugEffect(float DeltaTime);
 	void CreateBugChangeEffect(float DeltaTime);
+	void ItemUpdate(float DeltaTime);
+	void ItemLateUpdate(float DeltaTime);
+	void ItemCollsion(float DeltaTime);
+	void ItemCollsionLate(float DeltaTime);
+	void ItemRender(float DeltaTime);
 
 private:
 	Animation2D_Com* m_Animation;
@@ -120,6 +126,9 @@ private:
 	GameObject* m_GunObject;
 	Gun_Com* m_Gun;
 
+	GameObject* m_HeartObject;
+	Heart_Com* m_Heart;
+
 protected:
 	Gonner_Com();
 	Gonner_Com(const Gonner_Com& userCom);
@@ -128,4 +137,3 @@ protected:
 public:
 	friend class GameObject;
 };
-

@@ -237,4 +237,14 @@ enum GUN_STATE
 	GGS_MAX,
 };
 
+enum MONSTER_TYPE
+{
+	MT_M1,
+	MT_M2,
+	MT_M3,
+	MT_M4,
+	MT_M5,
+	MT_MAX,
+};
+
 JEONG_END

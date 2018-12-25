@@ -1,6 +1,8 @@
 #include "ClientHeader.h"
 #include "Gonner_Com.h"
 
+#include <UserComponent/HeartUI_Com.h>
+
 void Gonner_Com::GunItemHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
 	if (Dest->GetTag() == "GunItemBody")
@@ -26,7 +28,33 @@ void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float Delta
 {
 	if (Dest->GetTag() == "HeartItemBody")
 	{
+		if (m_State == GS_BUGJUMP || m_State == GS_BUGIDLE || m_State == GS_BUGDOWN)
+			return;
 
+		Dest->GetGameObject()->SetIsActive(false);
+
+		if (m_HeartObject != NULLPTR || m_Heart != NULLPTR)
+			return;
+		
+		Layer* prevLayer = m_Scene->FindLayer("PrevEffectLayer");
+		Layer* UILayer = m_Scene->FindLayer("UI");
+
+		m_HeartObject = GameObject::CreateObject("HeartObject", prevLayer);
+		m_Heart = m_HeartObject->AddComponent<Heart_Com>("Heart");
+		m_Heart->SetTarget(m_Object);
+		m_HeartObject->SetScene(m_Scene);
+		m_HeartObject->SetLayer(m_Layer);
+
+		GameObject* newHeartUI = GameObject::CreateObject("HeartUI", UILayer);
+		HeartUI_Com* newUI = newHeartUI->AddComponent< HeartUI_Com>("HeartUI");
+		newUI->SetTarget(m_Object);
+
+		SAFE_RELEASE(newHeartUI);
+		SAFE_RELEASE(newUI);
+
+		SAFE_RELEASE(prevLayer);
+		SAFE_RELEASE(UILayer);
+		SoundManager::Get()->FindSoundEffect("ReloadBulletCreate")->Play();
 	}
 }
 
@@ -42,6 +70,8 @@ void Gonner_Com::ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float De
 {
 	if (Dest->GetTag() == "ReloadBulletBody")
 	{
-
+		Dest->GetGameObject()->SetIsActive(false);
+		SoundManager::Get()->FindSoundEffect("Reload")->Play();
+		m_Gun->ChangeState(GGS_RELOAD, m_Gun->GetAniName(), m_Gun->GetAnimation());
 	}
 }

@@ -23,6 +23,7 @@ public:
 private:
 	vector<NButton_Com*> m_vecButton;
 	Fade_Com* m_FadeCom;
+	bool m_isSelect;
 
 private:
 	void EnemyInit(Layer *UILayer);

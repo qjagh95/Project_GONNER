@@ -4,8 +4,7 @@
 #include "MainScene.h"
 #include "Device.h"
 
-#include "Thread.h"
-#include "ThreadManager.h"
+#include "SoundManager.h"
 
 #include <Core.h>
 
@@ -39,6 +38,9 @@ MenuScene::~MenuScene()
 
 bool MenuScene::Init()
 {
+	m_isSelect = false;
+	m_Index = 0;
+
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
 	mainCamera->SetNear(0.0f);
@@ -49,7 +51,6 @@ bool MenuScene::Init()
 	KeyInput::Get()->AddKey("ButtonSpace", VK_SPACE);
 	KeyInput::Get()->AddKey("0", VK_NUMPAD0);
 
-	m_Index = 0;
 	Vector2 WinSize = Device::Get()->GetWinSizeVector2();
 
 	Layer* Default = m_Scene->FindLayer("Default");
@@ -123,6 +124,9 @@ int MenuScene::Input(float DeltaTime)
 
 	if(KeyInput::Get()->KeyDown("ButtonDown"))
 	{
+		if (m_isSelect == true)
+			return 0;
+
 		SoundManager::Get()->FindSoundEffect("Button")->Play();
 
 		m_Index++;
@@ -133,6 +137,9 @@ int MenuScene::Input(float DeltaTime)
 
 	if (KeyInput::Get()->KeyDown("ButtonUp"))
 	{
+		if (m_isSelect == true)
+			return 0;
+
 		SoundManager::Get()->FindSoundEffect("Button")->Play();
 
 		m_Index--;
@@ -142,10 +149,29 @@ int MenuScene::Input(float DeltaTime)
 	}
 
 	if (KeyInput::Get()->KeyDown("ButtonSpace"))
+	{
+		if (m_isSelect == true)
+		{
+			SoundManager::Get()->FindSoundEffect("Button")->Play();
+			return 0;
+		}
+
+		m_isSelect = true;
 		m_vecButton[m_Index]->ActiveFunction(DeltaTime);
+	}
 
 	if (KeyInput::Get()->KeyDown("ButtonEnter"))
+	{
+		if (m_isSelect == true)
+		{
+			SoundManager::Get()->FindSoundEffect("Button")->Play();
+			return 0;
+		}
+
+		m_isSelect = true;
+		SoundManager::Get()->FindSoundEffect("Button")->Play();
 		m_vecButton[m_Index]->ActiveFunction(DeltaTime);
+	}
 
 	m_vecButton[m_Index]->LightOn();
 

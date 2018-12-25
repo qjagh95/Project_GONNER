@@ -9,6 +9,7 @@
 JEONG_USING
 
 int Gun_Com::m_BulletCount = 20;
+bool Gun_Com::m_isReloading = false;
 
 Gun_Com::Gun_Com()
 {
@@ -18,7 +19,6 @@ Gun_Com::Gun_Com()
 Gun_Com::Gun_Com(const Gun_Com & CopyData)
 	:UserComponent_Base(CopyData)
 {
-	m_isShot = true;
 }
 
 Gun_Com::~Gun_Com()
@@ -64,6 +64,8 @@ bool Gun_Com::Init()
 
 	m_ChangeTimeVar = 0.0f;
 	m_ChangeTime = 0.3f;
+	m_ReloadDelayTimeVar = 0.0f;
+	m_ReloadDelayTime = 4.0f;
 
 	ChangeState(GGS_IDLE, m_AniName, m_Animation);
 
@@ -98,15 +100,18 @@ int Gun_Com::Input(float DeltaTime)
 
 int Gun_Com::Update(float DeltaTime)
 {
-	if (m_isShot == false)
-		return 0;
-
 	m_Pos = m_Transform->GetWorldPos();
 
 	ChangeColor(DeltaTime);
 
 	if (KeyInput::Get()->KeyDown("Reload"))
-		ChangeState(GGS_RELOAD, m_AniName, m_Animation);
+	{
+		if (m_isReloading == false)
+			m_isReloading = true;
+		
+	}
+
+	DelayTime(DeltaTime);
 
 	switch (m_State)
 	{
@@ -217,8 +222,6 @@ void Gun_Com::FS_RELOAD(float DeltaTime)
 		return;
 	}
 
-	//TODO : 여기가아니라 내일할 총알 리로드오브젝트생성 후 충돌함수에서 재생.
-	SoundManager::Get()->FindSoundEffect("Reload")->Play();
 	m_ReloadTimeVar += DeltaTime;
 
 	if (m_ReloadTimeVar >= m_ReloadTime)
@@ -252,5 +255,22 @@ void Gun_Com::ChangeColor(float DeltaTime)
 				m_Material->SetMaterial(m_Color[RandNum - 1]);
 				break;
 		}
+	}
+}
+
+
+void Gun_Com::DelayTime(float DeltaTime)
+{
+	if (m_isReloading == false)
+		return;
+
+	m_ReloadDelayTimeVar += DeltaTime;
+
+	if (m_ReloadDelayTimeVar >= m_ReloadDelayTime)
+	{
+		m_ReloadDelayTimeVar = 0.0f;
+		m_isReloading = false;
+
+		SoundManager::Get()->FindSoundEffect("DelayFinish")->Play();
 	}
 }

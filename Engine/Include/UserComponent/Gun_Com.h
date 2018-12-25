@@ -23,14 +23,17 @@ public:
 
 	void ChangeColor(float DeltaTime);
 	Material_Com* GetMaterial() const { return m_Material; }
-	Animation2D_Com* GetAnimation2D() const { return m_Animation; }
-	void SetIsShot(bool Value) { m_isShot = Value; }
-	bool GetIsShot() const { return m_isShot; }
+	Animation2D_Com* GetAnimation() const { return m_Animation; }
 
 	void SetBulletCount(int Count) { m_BulletCount = Count; }
 	int GetBulletCount() const { return m_BulletCount; }
+	string* GetAniName() { return m_AniName; }
 
 	static int m_BulletCount;
+	static bool m_isReloading;
+
+private:
+	void DelayTime(float DeltaTime);
 
 private:
 	Material_Com* m_Material;
@@ -46,8 +49,9 @@ private:
 	float m_ReloadTime;
 	float m_ReloadTimeVar;
 
-	bool m_isShot;
-	
+	float m_ReloadDelayTime;
+	float m_ReloadDelayTimeVar;
+
 	Layer* m_AfterEffectLayer;
 
 protected:

@@ -25,6 +25,7 @@
 #include "../UserComponent/Monster_Com.h"
 #include <UserComponent/BubbleEffect_Com.h>
 #include <UserComponent/GunItem_Com.h>
+#include <UserComponent/HeartItem_Com.h>
 
 MainScene::MainScene()
 {
@@ -87,7 +88,13 @@ bool MainScene::Init()
 	Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");
 	newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_OUT);
 	newFadeCom->Start();
+
+	GameObject* heartItemObject = GameObject::CreateObject("HeartItem", Default);
+	HeartItem_Com* heartItemCom = heartItemObject->AddComponent<HeartItem_Com>("HeartItem");
+	heartItemObject->GetTransform()->SetWorldPos(500.0f, 800.0f, 1.0f);
 	
+	SAFE_RELEASE(heartItemObject);
+	SAFE_RELEASE(heartItemCom);
 	SAFE_RELEASE(newFade);
 	SAFE_RELEASE(newFadeCom);
 	SAFE_RELEASE(gunItemCom);
@@ -106,9 +113,15 @@ bool MainScene::Init()
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(FadeLayer);
 
-	auto sound_effect_instance = SoundManager::Get()->FindSoundEffect("StageBGM1")->CreateInstance();
-	sound_effect_instance->Play(true);
-	SoundManager::Get()->CreateBGMList("StageBGM1", move(sound_effect_instance));
+#ifdef _DEBUG
+#else
+	auto findSound = SoundManager::Get()->FindSoundEffectInstance("LogoBGM");
+	findSound->Stop();
+#endif
+
+	auto newSound = SoundManager::Get()->FindSoundEffect("StageBGM1")->CreateInstance();
+	newSound->Play(true);
+	SoundManager::Get()->CreateBGMList("StageBGM1", move(newSound));
 
 	return true;
 }
@@ -155,5 +168,10 @@ void MainScene::CollisionLateUpdate(float DeltaTime)
 }
 
 void MainScene::Render(float DeltaTime)
+{
+}
+
+//나중추가
+void MainScene::Load()
 {
 }

@@ -16,6 +16,8 @@ public:
 	HeartItem_Com* Clone() override;
 	void AfterClone() override;
 
+	Animation2D_Com* GetAnimation() const { return m_Animation; }
+
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;

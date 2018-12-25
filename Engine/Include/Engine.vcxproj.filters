@@ -573,6 +573,9 @@
     <ClInclude Include="UserComponent\Heart_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\Skull_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -849,6 +852,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\Heart_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Skull_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

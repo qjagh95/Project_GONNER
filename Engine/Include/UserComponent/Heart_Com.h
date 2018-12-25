@@ -16,8 +16,12 @@ public:
 	Heart_Com* Clone() override;
 	void AfterClone() override;
 
+	Animation2D_Com* GetAnimation() const { return m_Animation; }
+	void SetTarget(GameObject* target) { m_Target = target; }
+
 private:
 	void ChangeColor(float DeltaTime);
+	void CreateReloadBullet(float DeltaTime);
 
 private:
 	Material_Com* m_Material;
@@ -26,8 +30,9 @@ private:
 	float m_ChangeTimeVar;
 	float m_ChangeTime;
 
-	bool m_isEquip;
 	Vector4 m_Color[3];
+	GameObject* m_Target;
+	Vector3 m_TargetPos;
 
 protected:
 	Heart_Com();

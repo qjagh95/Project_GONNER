@@ -31,6 +31,8 @@ bool HeartItem_Com::Init()
 	SAFE_RELEASE(HeartItemRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetMaterial(Vector4::White);
+	
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("HeartItemAni");
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
@@ -39,12 +41,12 @@ bool HeartItem_Com::Init()
 	Clip2DFrame	tFrame = {};
 	for (int i = 0; i < 6; ++i)
 	{
-		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 0.0f);
-		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 64.0f);
+		tFrame.LeftTop = Vector2(640.0f + i * 64.0f, 576.0f);
+		tFrame.RightBottom = Vector2(640.0f + (i + 1) * 64.0f, 640.0f);
 		vecClipFrame.push_back(tFrame);
 	}
 
-	m_Animation->AddClip("HeartItem", A2D_ATLS, AO_LOOP, 0.7f, vecClipFrame, "HeartItem", L"weapons.png");
+	m_Animation->AddClip("HeartItem", A2D_ATLS, AO_LOOP, 0.4f, vecClipFrame, "HeartItem", L"Monster\\player.png");
 	vecClipFrame.clear();
 
 	m_Animation->ChangeClip("HeartItem");

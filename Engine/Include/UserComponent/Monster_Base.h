@@ -17,9 +17,10 @@ public:
 	virtual Monster_Base* Clone() override;
 	virtual void AfterClone() override;
 
-private:
+protected:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+	MONSTER_TYPE m_Type;
 
 protected:
 	Monster_Base();

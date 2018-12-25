@@ -341,6 +341,9 @@ void JEONG::Material_Com::SetShader(int Container, int Subset)
 
 Vector4 JEONG::Material_Com::GetDiffuseLight() const
 {
+	if (m_vecMaterial.size() > 20)
+		return Vector4::White;
+
 	return m_vecMaterial[0][0]->MatrialInfo.Diffuse;
 }
 

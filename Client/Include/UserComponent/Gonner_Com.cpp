@@ -14,6 +14,7 @@
 
 #include <UserComponent/BubbleEffect_Com.h>
 #include <UserComponent/BugEffect_Com.h>
+#include <UserComponent/HeartUI_Com.h>
 
 Gonner_Com::Gonner_Com()
 	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
@@ -38,6 +39,8 @@ Gonner_Com::Gonner_Com()
 	m_AfterEffectLayer = NULLPTR;
 	m_Gun = NULLPTR;
 	m_GunObject = NULLPTR;
+	m_HeartObject = NULLPTR;
+	m_Heart = NULLPTR;
 	
 	m_ChangeTimeVar = 0.0f;
 	m_ChangeTime = 0.0f;
@@ -67,6 +70,9 @@ Gonner_Com::~Gonner_Com()
 
 	SAFE_RELEASE(m_Gun);
 	SAFE_RELEASE(m_GunObject);
+	
+	SAFE_RELEASE(m_HeartObject);
+	SAFE_RELEASE(m_Heart);
 }
 
 bool Gonner_Com::Init()
@@ -141,54 +147,29 @@ int Gonner_Com::Update(float DeltaTime)
 			break;
 	}
 
-	if (m_GunObject != NULLPTR)
-	{
-		m_GunObject->Update(DeltaTime);
-
-		switch (m_Animation->GetDir())
-		{
-			case MD_LEFT:
-			{
-				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x - 10.0f, m_Pos.y - 10.0f, 1.0f);
-				m_Gun->GetAnimation2D()->SetDir(MD_LEFT);
-			}
-				break;
-			case MD_RIGHT:
-			{
-				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x + 10.0f, m_Pos.y - 10.0f, 1.0f);
-				m_Gun->GetAnimation2D()->SetDir(MD_RIGHT);
-			}
-				break;
-		}
-	}
+	ItemUpdate(DeltaTime);
 	return 0;
 }
 
 int Gonner_Com::LateUpdate(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->LateUpdate(DeltaTime);
-
+	ItemLateUpdate(DeltaTime);
 	return 0;
 }
 
 void Gonner_Com::Collision(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->Collision(DeltaTime);
-
+	ItemCollsion(DeltaTime);
 }
 
 void Gonner_Com::CollisionLateUpdate(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->CollisionLateUpdate(DeltaTime);
+	ItemCollsionLate(DeltaTime);
 }
 
 void Gonner_Com::Render(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->Render(DeltaTime);
+	ItemRender(DeltaTime);
 }
 
 Gonner_Com * Gonner_Com::Clone()
@@ -242,6 +223,154 @@ void Gonner_Com::SetStage(Stage2D_Com * stage)
 	m_GravityCom->SetStage(m_Stage);
 }
 
+void Gonner_Com::ChangeColor(float DeltaTime)
+{
+	m_ChangeTimeVar += DeltaTime;
+
+	if (m_ChangeTimeVar > m_ChangeTime)
+	{
+		m_ChangeTimeVar = 0.0f;
+
+		int RandNum = RandomRange(1, 3);
+
+		switch (RandNum)
+		{
+			case 1:
+				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
+				break;
+			case 2:
+				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
+				break;
+			case 3:
+				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
+				break;
+		}
+	}
+}
+
+void Gonner_Com::CreateBubbleEffect(float DeltaTime)
+{
+	if (m_isSkullItem == true)
+		return;
+	
+	m_BubbleTimeVar += DeltaTime;
+
+	if (m_BubbleTimeVar >= m_BubbleTime)
+	{
+		m_BubbleTimeVar = 0.0f;
+
+		GameObject* newBubble = GameObject::CreateObject("BubbleEffect", m_PrevEffectLayer);
+		BubbleEffect_Com* newBubbleCom = newBubble->AddComponent< BubbleEffect_Com>("BubbleEffect");
+		newBubble->GetTransform()->SetWorldPos(m_Pos);
+
+		SAFE_RELEASE(newBubble);
+		SAFE_RELEASE(newBubbleCom);
+	}
+}
+
+void Gonner_Com::CreateBugEffect(float DeltaTime)
+{
+	m_BugEffectTimeVar += DeltaTime;
+
+	if (m_BugEffectTimeVar >= m_BugEffectTime)
+	{
+		m_BugEffectTimeVar = 0.0f;
+
+		for (size_t i = 0; i < 3; i++)
+		{
+			GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
+			BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
+
+			Vector3 Pos = m_leftPos;
+
+			if (m_Animation->GetDir() == MD_LEFT)
+			{
+				newEffect->GetTransform()->SetWorldRotZFromNoneAxis((25.0f + (i + 1) * 20.0f) * -1.0f);
+				newEffect->GetTransform()->SetWorldPos(Pos.x + m_Scale.x * 2.0f, Pos.y, 1.0f);
+			}
+			else
+			{
+				newEffect->GetTransform()->SetWorldRotZFromNoneAxis(25.0f + (i + 1) * 20.0f);
+				newEffect->GetTransform()->SetWorldPos(Pos.x - m_Scale.x * 0.5f, Pos.y, 1.0f);
+			}
+
+			SAFE_RELEASE(newEffect);
+			SAFE_RELEASE(newEffectCom);
+		}
+		SoundManager::Get()->FindSoundEffect("BugEffect")->Play();
+	}
+}
+
+void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
+{
+	for (size_t i = 0; i < 8; i++)
+	{
+		GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
+		BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
+
+		float x = cosf(DegreeToRadian(45.0f * i));
+		float y = sinf(DegreeToRadian(45.0f * i));
+
+		newEffect->GetTransform()->SetWorldRotZ(45.0f * i);
+		newEffect->GetTransform()->SetWorldPos(m_Pos.x + (x * 100.0f), m_Pos.y + (y * 100.0f), 1.0f);
+		newEffect->GetTransform()->SetWorldScale(128.0f, 128.0f * 2.0f, 1.0f);
+
+		SAFE_RELEASE(newEffect);
+		SAFE_RELEASE(newEffectCom);
+	}
+}
+
+void Gonner_Com::ItemUpdate(float DeltaTime)
+{
+	if (m_GunObject != NULLPTR && m_Gun != NULLPTR)
+	{
+		switch (m_Animation->GetDir())
+		{
+			case MD_LEFT:
+			{
+				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x - 10.0f, m_Pos.y - 10.0f, 1.0f);
+				m_Gun->GetAnimation()->SetDir(MD_LEFT);
+			}
+			break;
+			case MD_RIGHT:
+			{
+				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x + 10.0f, m_Pos.y - 10.0f, 1.0f);
+				m_Gun->GetAnimation()->SetDir(MD_RIGHT);
+			}
+			break;
+		}
+
+		m_GunObject->Update(DeltaTime);
+	}
+
+	if(m_Heart != NULLPTR)
+		m_Heart->GetAnimation()->SetDir(m_Animation->GetDir());
+}
+
+void Gonner_Com::ItemLateUpdate(float DeltaTime)
+{
+	if (m_GunObject != NULLPTR)
+		m_GunObject->LateUpdate(DeltaTime);
+}
+
+void Gonner_Com::ItemCollsion(float DeltaTime)
+{
+	if (m_GunObject != NULLPTR)
+		m_GunObject->Collision(DeltaTime);
+}
+
+void Gonner_Com::ItemCollsionLate(float DeltaTime)
+{
+	if (m_GunObject != NULLPTR)
+		m_GunObject->CollisionLateUpdate(DeltaTime);
+}
+
+void Gonner_Com::ItemRender(float DeltaTime)
+{
+	if (m_GunObject != NULLPTR)
+		m_GunObject->Render(DeltaTime);
+}
+
 void Gonner_Com::BasicInit()
 {
 	m_WinSize = Device::Get()->GetWinSizeVector2();
@@ -262,6 +391,8 @@ void Gonner_Com::BasicInit()
 	RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 0.0f));
 	RectColl->SetMyTypeName("Gonner");
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::GunItemHit);
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::ReloadBulletHit);
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::HeartItemHit);
 	SAFE_RELEASE(RectColl);
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
@@ -364,14 +495,14 @@ void Gonner_Com::AnimationInit()
 	m_Animation->AddClip("WallStop", A2D_ATLS, AO_LOOP, 0.8f, vecClipFrame, "Gonner", L"Monster\\player.png");
 	vecClipFrame.clear();
 
-	m_AniName[GS_BUGIDLE] = "BugIdle"; //1
-	m_AniName[GS_BUGDOWN] = "BugMove"; //Move와 똑같은애니메이션
-	m_AniName[GS_BUGJUMP] = "BugMove"; //1
-	m_AniName[GS_IDLE] = "Idle"; //1
-	m_AniName[GS_RUN] = "Run"; //1
-	m_AniName[GS_JUMP] = "Jump"; //1
-	m_AniName[GS_DOUBLEJUMP] = "Jump"; //1
-	m_AniName[GS_WALLSTOP] = "WallStop"; //1
+	m_AniName[GS_BUGIDLE] = "BugIdle"; 
+	m_AniName[GS_BUGDOWN] = "BugMove";
+	m_AniName[GS_BUGJUMP] = "BugMove"; 
+	m_AniName[GS_IDLE] = "Idle"; 
+	m_AniName[GS_RUN] = "Run"; 
+	m_AniName[GS_JUMP] = "Jump"; 
+	m_AniName[GS_DOUBLEJUMP] = "Jump"; 
+	m_AniName[GS_WALLSTOP] = "WallStop"; 
 	m_AniName[GS_KNIGHT] = "Knight";
 	m_AniName[GS_WALLJUMP] = "Jump";
 
@@ -380,101 +511,4 @@ void Gonner_Com::AnimationInit()
 #else
 	ChangeState(GS_BUGDOWN, m_AniName, m_Animation);
 #endif
-}
-
-void Gonner_Com::ChangeColor(float DeltaTime)
-{
-	m_ChangeTimeVar += DeltaTime;
-
-	if (m_ChangeTimeVar > m_ChangeTime)
-	{
-		m_ChangeTimeVar = 0.0f;
-
-		int RandNum = RandomRange(1, 3);
-
-		switch (RandNum)
-		{
-			case 1:
-				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
-				break;
-			case 2:
-				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
-				break;
-			case 3:
-				m_Material->SetMaterial(m_ChangeColor[RandNum - 1]);
-				break;
-		}
-	}
-}
-
-void Gonner_Com::CreateBubbleEffect(float DeltaTime)
-{
-	if (m_isSkullItem == true)
-		return;
-	
-	m_BubbleTimeVar += DeltaTime;
-
-	if (m_BubbleTimeVar >= m_BubbleTime)
-	{
-		m_BubbleTimeVar = 0.0f;
-
-		GameObject* newBubble = GameObject::CreateObject("BubbleEffect", m_PrevEffectLayer);
-		BubbleEffect_Com* newBubbleCom = newBubble->AddComponent< BubbleEffect_Com>("BubbleEffect");
-		newBubble->GetTransform()->SetWorldPos(m_Pos);
-
-		SAFE_RELEASE(newBubble);
-		SAFE_RELEASE(newBubbleCom);
-	}
-}
-
-void Gonner_Com::CreateBugEffect(float DeltaTime)
-{
-	m_BugEffectTimeVar += DeltaTime;
-
-	if (m_BugEffectTimeVar >= m_BugEffectTime)
-	{
-		m_BugEffectTimeVar = 0.0f;
-
-		for (size_t i = 0; i < 3; i++)
-		{
-			GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
-			BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
-
-			Vector3 Pos = m_leftPos;
-
-			if (m_Animation->GetDir() == MD_LEFT)
-			{
-				newEffect->GetTransform()->SetWorldRotZFromNoneAxis((25.0f + (i + 1) * 20.0f) * -1.0f);
-				newEffect->GetTransform()->SetWorldPos(Pos.x + m_Scale.x * 2.0f, Pos.y, 1.0f);
-			}
-			else
-			{
-				newEffect->GetTransform()->SetWorldRotZFromNoneAxis(25.0f + (i + 1) * 20.0f);
-				newEffect->GetTransform()->SetWorldPos(Pos.x - m_Scale.x * 0.5f, Pos.y, 1.0f);
-			}
-
-			SAFE_RELEASE(newEffect);
-			SAFE_RELEASE(newEffectCom);
-		}
-		SoundManager::Get()->FindSoundEffect("BugEffect")->Play();
-	}
-}
-
-void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
-{
-	for (size_t i = 0; i < 8; i++)
-	{
-		GameObject* newEffect = GameObject::CreateObject("BugEffect", m_PrevEffectLayer);
-		BugEffect_Com* newEffectCom = newEffect->AddComponent<BugEffect_Com>("BugEffect");
-
-		float x = cosf(DegreeToRadian(45.0f * i));
-		float y = sinf(DegreeToRadian(45.0f * i));
-
-		newEffect->GetTransform()->SetWorldRotZ(45.0f * i);
-		newEffect->GetTransform()->SetWorldPos(m_Pos.x + (x * 100.0f), m_Pos.y + (y * 100.0f), 1.0f);
-		newEffect->GetTransform()->SetWorldScale(128.0f, 128.0f * 2.0f, 1.0f);
-
-		SAFE_RELEASE(newEffect);
-		SAFE_RELEASE(newEffectCom);
-	}
 }

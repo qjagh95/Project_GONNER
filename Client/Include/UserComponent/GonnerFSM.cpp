@@ -136,7 +136,7 @@ void Gonner_Com::FS_JUMP(float DeltaTime)
 	DirCheck();
 	Move(DeltaTime);
 
-	if (m_downTile ->GetTileOption() == T2D_NOMOVE)
+	if (m_downTile->GetTileOption() == T2D_NOMOVE && m_GravityCom->GetIsJump() == false)
 		ChangeState(GS_IDLE, m_AniName, m_Animation);
 
 	if (m_leftTile->GetTileOption() == T2D_NOMOVE || m_rightTile->GetTileOption() == T2D_NOMOVE)

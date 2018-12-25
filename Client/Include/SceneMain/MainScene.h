@@ -16,6 +16,9 @@ public:
 	void Render(float DeltaTime) override;
 
 private:
+	void Load();
+
+private:
 	UIBar_Com* m_TestBar;
 	Text_Com* m_TestText;
 
