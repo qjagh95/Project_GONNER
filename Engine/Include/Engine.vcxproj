@@ -267,10 +267,17 @@
     <ClInclude Include="UserComponent\FragmentEffect_Com.h" />
     <ClInclude Include="UserComponent\GunItem_Com.h" />
     <ClInclude Include="UserComponent\Gun_Com.h" />
+    <ClInclude Include="UserComponent\HeartItem_Com.h" />
+    <ClInclude Include="UserComponent\HeartUI_Com.h" />
+    <ClInclude Include="UserComponent\LifeItemUI_Com.h" />
+    <ClInclude Include="UserComponent\LifeItem_Com.h" />
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h" />
     <ClInclude Include="UserComponent\MenuEnemy_Com.h" />
     <ClInclude Include="UserComponent\MenuLogo_Com.h" />
+    <ClInclude Include="UserComponent\Monster_Base.h" />
+    <ClInclude Include="UserComponent\ReloadBullet_Com.h" />
     <ClInclude Include="UserComponent\ShotEffect_Com.h" />
+    <ClInclude Include="UserComponent\Heart_Com.h" />
     <ClInclude Include="UserComponent\UserComponent_Base.h" />
   </ItemGroup>
   <ItemGroup>
@@ -357,10 +364,17 @@
     <ClCompile Include="UserComponent\FragmentEffect_Com.cpp" />
     <ClCompile Include="UserComponent\GunItem_Com.cpp" />
     <ClCompile Include="UserComponent\Gun_Com.cpp" />
+    <ClCompile Include="UserComponent\HeartItem_Com.cpp" />
+    <ClCompile Include="UserComponent\HeartUI_Com.cpp" />
+    <ClCompile Include="UserComponent\LifeItemUI_Com.cpp" />
+    <ClCompile Include="UserComponent\LifeItem_Com.cpp" />
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp" />
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp" />
     <ClCompile Include="UserComponent\MenuLogo_Com.cpp" />
+    <ClCompile Include="UserComponent\Monster_Base.cpp" />
+    <ClCompile Include="UserComponent\ReloadBullet_Com.cpp" />
     <ClCompile Include="UserComponent\ShotEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\Heart_Com.cpp" />
     <ClCompile Include="UserComponent\UserComponent_Base.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,10 +1,11 @@
 #pragma once
 #include "UserComponent_Base.h"
 
+#include "../Component/ColliderRect_Com.h"
+
 JEONG_BEGIN
 
-class Animation2D_Com;
-class JEONG_DLL GunItem_Com : public UserComponent_Base
+class JEONG_DLL ReloadBullet_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -14,19 +15,18 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	GunItem_Com* Clone() override;
+	ReloadBullet_Com* Clone() override;
 	void AfterClone() override;
 
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
-
-	float m_Rot;
+	ColliderRect_Com* m_RectColl;
 
 protected:
-	GunItem_Com();
-	GunItem_Com(const GunItem_Com& CopyData);
-	~GunItem_Com();
+	ReloadBullet_Com();
+	ReloadBullet_Com(const ReloadBullet_Com& CopyData);
+	~ReloadBullet_Com();
 
 public:
 	friend class GameObject;

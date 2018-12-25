@@ -277,11 +277,17 @@
     <Filter Include="Core\08. Object\Component\UserComponent\11. BulletUI">
       <UniqueIdentifier>{bfcc8d55-b3b5-4140-ac73-5aeeac724fa7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\12. HeartUI">
-      <UniqueIdentifier>{3c7083f3-9446-4f90-bef4-6df717efb2f8}</UniqueIdentifier>
+    <Filter Include="Core\08. Object\Component\UserComponent\12. HeartItem">
+      <UniqueIdentifier>{39ab2ba9-be32-479d-9612-d280a8a0b59a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\13. ReloadItem">
-      <UniqueIdentifier>{b6d61396-33b4-464b-9a93-3af8ec83b92f}</UniqueIdentifier>
+    <Filter Include="Core\08. Object\Component\UserComponent\13. LifeItem">
+      <UniqueIdentifier>{65ff680d-48fe-4d96-922b-8a0c3962bc22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\14. MonsterBase">
+      <UniqueIdentifier>{16878340-c232-4283-b611-73f4b4d86ca0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\14. MonsterBase\Base">
+      <UniqueIdentifier>{cb9a88a8-9923-4b89-a231-af4979685dcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -546,6 +552,27 @@
     <ClInclude Include="UserComponent\BulletUI_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\11. BulletUI</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\HeartItem_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\ReloadBullet_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\HeartUI_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Monster_Base.h">
+      <Filter>Core\08. Object\Component\UserComponent\14. MonsterBase\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\LifeItem_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\LifeItemUI_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Heart_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -801,6 +828,27 @@
     </ClCompile>
     <ClCompile Include="UserComponent\BulletUI_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\11. BulletUI</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\HeartItem_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\ReloadBullet_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\HeartUI_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Monster_Base.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\14. MonsterBase\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\LifeItem_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\LifeItemUI_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Heart_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

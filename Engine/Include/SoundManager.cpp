@@ -33,6 +33,9 @@ bool JEONG::SoundManager::Init()
 	CreateSoundEffect("Button", TEXT("sfx_button_crunch01.wav"));
 	CreateSoundEffect("BugEffect", TEXT("BugEffect.wav"));
 	CreateSoundEffect("BugChange", TEXT("BugChange.wav"));
+	CreateSoundEffect("BulletColl", TEXT("BulletColl.wav"));
+	CreateSoundEffect("EatGun", TEXT("EatGun.wav"));
+	CreateSoundEffect("Reload", TEXT("Reload.wav"));
 
 	return true;
 }

@@ -19,6 +19,7 @@ public:
 
 	void FS_IDLE(float DeltaTime);
 	void FS_SHOT(float DeltaTime);
+	void FS_RELOAD(float DeltaTime);
 
 	void ChangeColor(float DeltaTime);
 	Material_Com* GetMaterial() const { return m_Material; }
@@ -41,6 +42,9 @@ private:
 
 	float m_ChangeTimeVar;
 	float m_ChangeTime;
+
+	float m_ReloadTime;
+	float m_ReloadTimeVar;
 
 	bool m_isShot;
 	

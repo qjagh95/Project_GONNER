@@ -150,6 +150,11 @@ void Gonner_Com::FS_JUMP(float DeltaTime)
 		ChangeState(GS_WALLSTOP, m_AniName, m_Animation);
 	}
 
+	if (m_GravityCom->GetForce() <= 0.0f)
+		m_isJumpAttack = true;
+	else
+		m_isJumpAttack = false;
+
 	if (KeyInput::Get()->KeyDown("Jump"))
 	{
 		m_GravityCom->SetForce(650.0f);
@@ -157,6 +162,7 @@ void Gonner_Com::FS_JUMP(float DeltaTime)
 
 		ChangeState(GS_DOUBLEJUMP, m_AniName, m_Animation);
 	}
+
 }
 
 void Gonner_Com::FS_DOUBLEJUMP(float DeltaTime)
@@ -189,6 +195,11 @@ void Gonner_Com::FS_DOUBLEJUMP(float DeltaTime)
 		m_GravityCom->SetForce(0.0f);
 		ChangeState(GS_WALLSTOP, m_AniName, m_Animation);
 	}
+
+	if (m_GravityCom->GetForce() <= 0.0f)
+		m_isJumpAttack = true;
+	else
+		m_isJumpAttack = false;
 }
 
 void Gonner_Com::FS_WALLSTOP(float DeltaTime)

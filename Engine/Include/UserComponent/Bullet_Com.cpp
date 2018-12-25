@@ -76,7 +76,6 @@ bool Bullet_Com::Init()
 	m_BallonCount = RandomRange(1, 3);
 	m_FragmentCount = RandomRange(1, 3);
 
-
 	return true;
 }
 
@@ -133,6 +132,7 @@ int Bullet_Com::Update(float DeltaTime)
 				SAFE_RELEASE(FragmentCom);
 			}
 
+			SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
 			m_Scene->CreateWave(Pos, 0.8f, 0.1f);
 			m_Object->SetIsActive(false);
 			SetIsActive(false);
@@ -177,6 +177,7 @@ int Bullet_Com::Update(float DeltaTime)
 				SAFE_RELEASE(FragmentCom);
 			}
 
+			SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
 			m_Scene->CreateWave(Pos, 0.8f, 0.1f);
 			SetIsActive(false);
 			m_Object->SetIsActive(false);

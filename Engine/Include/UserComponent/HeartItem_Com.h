@@ -3,8 +3,7 @@
 
 JEONG_BEGIN
 
-class Animation2D_Com;
-class JEONG_DLL GunItem_Com : public UserComponent_Base
+class JEONG_DLL HeartItem_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -14,19 +13,23 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	GunItem_Com* Clone() override;
+	HeartItem_Com* Clone() override;
 	void AfterClone() override;
 
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
 
-	float m_Rot;
+	float m_ChangeTimeVar;
+	float m_ChangeTime;
+
+	bool m_isEquip;
+	Vector4 m_Color[3];
 
 protected:
-	GunItem_Com();
-	GunItem_Com(const GunItem_Com& CopyData);
-	~GunItem_Com();
+	HeartItem_Com();
+	HeartItem_Com(const HeartItem_Com& CopyData);
+	~HeartItem_Com();
 
 public:
 	friend class GameObject;

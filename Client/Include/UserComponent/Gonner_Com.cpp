@@ -85,6 +85,8 @@ int Gonner_Com::Input(float DeltaTime)
 		SetIsActive(false);
 		m_Object->SetIsActive(false);
 	}
+
+	m_isJumpAttack = false;
 	return 0;
 }
 
@@ -271,10 +273,9 @@ void Gonner_Com::BasicInit()
 
 	m_BugAngle = 0.0f;
 	m_ChangeTime = 0.1f;
-
 	m_BubbleTime = 0.1f;
-
 	m_BugEffectTime = 1.0f;
+	m_isJumpAttack = false;
 
 	m_ChangeColor[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
 	m_ChangeColor[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);

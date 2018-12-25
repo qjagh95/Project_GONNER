@@ -24,10 +24,10 @@ GunItem_Com::~GunItem_Com()
 
 bool GunItem_Com::Init()
 {
-	Renderer_Com* BubbleRender = m_Object->AddComponent<Renderer_Com>("GunItem");
-	BubbleRender->SetMesh("TextureRect");
-	BubbleRender->SetRenderState(ALPHA_BLEND);
-	SAFE_RELEASE(BubbleRender);
+	Renderer_Com* GunItemRender = m_Object->AddComponent<Renderer_Com>("GunItem");
+	GunItemRender->SetMesh("TextureRect");
+	GunItemRender->SetRenderState(ALPHA_BLEND);
+	SAFE_RELEASE(GunItemRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("GunItemAni");
@@ -59,13 +59,10 @@ bool GunItem_Com::Init()
 
 int GunItem_Com::Input(float DeltaTime)
 {
-	if (m_isEquip == false)
-	{
-		if (m_Transform->GetWorldRotationZ() >= 90.0f || m_Transform->GetWorldRotationZ() <= -90.0f)
-			m_Rot *= -1.0f;
+	if (m_Transform->GetWorldRotationZ() >= 90.0f || m_Transform->GetWorldRotationZ() <= -90.0f)
+		m_Rot *= -1.0f;
 
-		m_Transform->RotationZ(m_Rot, DeltaTime);
-	}
+	m_Transform->RotationZ(m_Rot, DeltaTime);
 
 	return 0;
 }

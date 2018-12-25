@@ -36,13 +36,15 @@ private:
 	void YellowLightChange(float DeltaTime);
 	void On(float DeltaTime);
 	void Off(float DeltaTime);
-	void Move(float DeltaTime);
+	void TargetMove(float DeltaTime);
+	void RotMove(float DeltaTime);
 
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
 
 	bool m_isMove;
+	bool m_isGoingPos;
 	bool m_isDisable;
 
 	float m_LightTimeVar;
@@ -51,8 +53,9 @@ private:
 	float m_StaticTime;
 	float m_StaticTimeVar;
 	int m_Index;
+	float m_DirAngle;
+	float m_RotSpeed;
 
-	Vector4 m_Color[BT_MAX];
 	BULLETUI_STATE m_State;
 	Vector3 m_GoingPos;
 	Vector3 m_CirclePos;

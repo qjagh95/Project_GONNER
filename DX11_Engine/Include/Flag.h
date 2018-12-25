@@ -233,6 +233,7 @@ enum GUN_STATE
 {
 	GGS_IDLE,
 	GGS_SHOT,
+	GGS_RELOAD,
 	GGS_MAX,
 };
 

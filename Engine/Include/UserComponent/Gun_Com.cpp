@@ -57,12 +57,13 @@ bool Gun_Com::Init()
 
 	m_AniName[GGS_IDLE] = "GunIdle";
 	m_AniName[GGS_SHOT] = "GunIdle";
+	m_AniName[GGS_RELOAD] = "GunIdle";
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
 
 	m_ChangeTimeVar = 0.0f;
-	m_ChangeTime = 0.1f;
+	m_ChangeTime = 0.3f;
 
 	ChangeState(GGS_IDLE, m_AniName, m_Animation);
 
@@ -75,13 +76,16 @@ bool Gun_Com::Init()
 	for (int i = 0; i < 20; i++)
 	{
 		GameObject* BulletUIObject = GameObject::CreateObject("BulletUI", UILayer);
-		BulletUI_Com* newUICom = BulletUIObject->AddComponent< BulletUI_Com>("BulletUI");
+		BulletUI_Com* newUICom = BulletUIObject->AddComponent<BulletUI_Com>("BulletUI");
 		BulletUI_Com::SetTargetGun(this);
 		newUICom->SetIndex(i);
 
 		SAFE_RELEASE(BulletUIObject);
 		SAFE_RELEASE(newUICom);
 	}
+
+	m_ReloadTimeVar = 0.0f;
+	m_ReloadTime = 0.02f;
 
 	SAFE_RELEASE(UILayer);
 	return true;
@@ -101,6 +105,9 @@ int Gun_Com::Update(float DeltaTime)
 
 	ChangeColor(DeltaTime);
 
+	if (KeyInput::Get()->KeyDown("Reload"))
+		ChangeState(GGS_RELOAD, m_AniName, m_Animation);
+
 	switch (m_State)
 	{
 		case GGS_IDLE:
@@ -108,6 +115,9 @@ int Gun_Com::Update(float DeltaTime)
 			break;
 		case GGS_SHOT:
 			FS_SHOT(DeltaTime);
+			break;
+		case GGS_RELOAD:
+			FS_RELOAD(DeltaTime);
 			break;
 	}
 	return 0;
@@ -154,6 +164,9 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 			if (m_Animation->GetPrevFrame() == m_Animation->GetFrame())
 				return;
 
+			if (m_BulletCount == 0)
+				return;
+
 			GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_Layer);
 			Bullet_Com* newBullet = newbulletObject->AddComponent<Bullet_Com>("Bullet");
 			newbulletObject->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
@@ -180,6 +193,11 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 
 			SoundManager::Get()->FindSoundEffect("Shot")->Play();
 
+			if (m_BulletCount > 0)
+				m_BulletCount--;
+			else
+				m_BulletCount = 0;
+
 			SAFE_RELEASE(newbulletObject);
 			SAFE_RELEASE(newBullet);
 			SAFE_RELEASE(newShotEffectObject);
@@ -188,6 +206,28 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 	}
 
 	if (KeyInput::Get()->KeyUp("Attack"))
+		ChangeState(GGS_IDLE, m_AniName, m_Animation);
+}
+
+void Gun_Com::FS_RELOAD(float DeltaTime)
+{
+	if (m_BulletCount == 20)
+	{
+		ChangeState(GGS_IDLE, m_AniName, m_Animation);
+		return;
+	}
+
+	//TODO : 여기가아니라 내일할 총알 리로드오브젝트생성 후 충돌함수에서 재생.
+	SoundManager::Get()->FindSoundEffect("Reload")->Play();
+	m_ReloadTimeVar += DeltaTime;
+
+	if (m_ReloadTimeVar >= m_ReloadTime)
+	{
+		m_ReloadTimeVar = 0.0f;
+		m_BulletCount++;
+	}
+
+	if (m_BulletCount >= 20)
 		ChangeState(GGS_IDLE, m_AniName, m_Animation);
 }
 

@@ -55,6 +55,9 @@ public:
 	Stage2D_Com* GetStage() const { return m_Stage; }
 
 	void GunItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void MonsterHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 
 private:
 	void BasicInit();
@@ -109,6 +112,7 @@ private:
 	bool m_isSkullItem;
 	float m_BubbleTimeVar;
 	float m_BubbleTime;
+	bool m_isJumpAttack;
 
 	float m_BugEffectTime;
 	float m_BugEffectTimeVar;

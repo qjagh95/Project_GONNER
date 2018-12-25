@@ -17,16 +17,11 @@ public:
 	GunItem_Com* Clone() override;
 	void AfterClone() override;
 
-	void SetEquip(bool Value) { m_isEquip = Value; }
-	bool GetEquip() { return m_isEquip; }
-
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
 
 	float m_Rot;
-	bool m_isEquip;
-	int m_BulletCount;
 
 protected:
 	GunItem_Com();
