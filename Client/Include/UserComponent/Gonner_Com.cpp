@@ -16,6 +16,7 @@
 #include <UserComponent/BugEffect_Com.h>
 #include <UserComponent/HeartUI_Com.h>
 
+
 Gonner_Com::Gonner_Com()
 	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
 {
@@ -41,6 +42,8 @@ Gonner_Com::Gonner_Com()
 	m_GunObject = NULLPTR;
 	m_HeartObject = NULLPTR;
 	m_Heart = NULLPTR;
+	m_SkullObject = NULLPTR;
+	m_Skull = NULLPTR;
 	
 	m_ChangeTimeVar = 0.0f;
 	m_ChangeTime = 0.0f;
@@ -73,6 +76,9 @@ Gonner_Com::~Gonner_Com()
 	
 	SAFE_RELEASE(m_HeartObject);
 	SAFE_RELEASE(m_Heart);
+
+	SAFE_RELEASE(m_SkullObject);
+	SAFE_RELEASE(m_Skull);
 }
 
 bool Gonner_Com::Init()
@@ -139,8 +145,8 @@ int Gonner_Com::Update(float DeltaTime)
 		case GS_WALLSTOP:
 			FS_WALLSTOP(DeltaTime);
 			break;
-		case GS_KNIGHT:
-			FS_KNIGHT(DeltaTime);
+		case GS_HIT:
+			FS_HIT(DeltaTime);
 			break;
 		case GS_WALLJUMP:
 			FS_WALLJUMP(DeltaTime);
@@ -315,6 +321,7 @@ void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
 		newEffect->GetTransform()->SetWorldPos(m_Pos.x + (x * 100.0f), m_Pos.y + (y * 100.0f), 1.0f);
 		newEffect->GetTransform()->SetWorldScale(128.0f, 128.0f * 2.0f, 1.0f);
 
+
 		SAFE_RELEASE(newEffect);
 		SAFE_RELEASE(newEffectCom);
 	}
@@ -339,36 +346,29 @@ void Gonner_Com::ItemUpdate(float DeltaTime)
 			}
 			break;
 		}
-
-		m_GunObject->Update(DeltaTime);
 	}
 
 	if(m_Heart != NULLPTR)
 		m_Heart->GetAnimation()->SetDir(m_Animation->GetDir());
+
+	if (m_Skull != NULLPTR)
+		m_Skull->GetAnimation()->SetDir(m_Animation->GetDir());
 }
 
 void Gonner_Com::ItemLateUpdate(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->LateUpdate(DeltaTime);
 }
 
 void Gonner_Com::ItemCollsion(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->Collision(DeltaTime);
 }
 
 void Gonner_Com::ItemCollsionLate(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->CollisionLateUpdate(DeltaTime);
 }
 
 void Gonner_Com::ItemRender(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR)
-		m_GunObject->Render(DeltaTime);
 }
 
 void Gonner_Com::BasicInit()
@@ -393,6 +393,7 @@ void Gonner_Com::BasicInit()
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::GunItemHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::ReloadBulletHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::HeartItemHit);
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::LifeItemHit);
 	SAFE_RELEASE(RectColl);
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
@@ -503,7 +504,7 @@ void Gonner_Com::AnimationInit()
 	m_AniName[GS_JUMP] = "Jump"; 
 	m_AniName[GS_DOUBLEJUMP] = "Jump"; 
 	m_AniName[GS_WALLSTOP] = "WallStop"; 
-	m_AniName[GS_KNIGHT] = "Knight";
+	m_AniName[GS_HIT] = "Knight";
 	m_AniName[GS_WALLJUMP] = "Jump";
 
 #ifdef _DEBUG

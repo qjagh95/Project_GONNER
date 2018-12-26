@@ -1,9 +1,10 @@
 #pragma once
-#include "UserComponent_Base.h"
+#include <UserComponent/UserComponent_Base.h>
+#include <Component/Animation2D_Com.h>
 
-JEONG_BEGIN
+JEONG_USING
 
-class JEONG_DLL Skull_Com : public UserComponent_Base
+class Skull_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -41,5 +42,3 @@ protected:
 public:
 	friend class GameObject;
 };
-
-JEONG_END

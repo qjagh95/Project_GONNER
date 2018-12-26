@@ -256,29 +256,7 @@
     <ClInclude Include="Type.h" />
     <ClInclude Include="Flag.h" />
     <ClInclude Include="NumberManager.h" />
-    <ClInclude Include="UserComponent\BalloonEffect_Com.h" />
-    <ClInclude Include="UserComponent\BoomEffect_Com.h" />
-    <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
-    <ClInclude Include="UserComponent\BugEffect_Com.h" />
-    <ClInclude Include="UserComponent\BulletUI_Com.h" />
-    <ClInclude Include="UserComponent\Bullet_Com.h" />
-    <ClInclude Include="UserComponent\Fade_Com.h" />
-    <ClInclude Include="UserComponent\Fire_Com.h" />
-    <ClInclude Include="UserComponent\FragmentEffect_Com.h" />
-    <ClInclude Include="UserComponent\GunItem_Com.h" />
-    <ClInclude Include="UserComponent\Gun_Com.h" />
-    <ClInclude Include="UserComponent\HeartItem_Com.h" />
-    <ClInclude Include="UserComponent\HeartUI_Com.h" />
-    <ClInclude Include="UserComponent\LifeItemUI_Com.h" />
-    <ClInclude Include="UserComponent\LifeItem_Com.h" />
-    <ClInclude Include="UserComponent\LogoAlphaBat_Com.h" />
-    <ClInclude Include="UserComponent\MenuEnemy_Com.h" />
-    <ClInclude Include="UserComponent\MenuLogo_Com.h" />
     <ClInclude Include="UserComponent\Monster_Base.h" />
-    <ClInclude Include="UserComponent\ReloadBullet_Com.h" />
-    <ClInclude Include="UserComponent\ShotEffect_Com.h" />
-    <ClInclude Include="UserComponent\Heart_Com.h" />
-    <ClInclude Include="UserComponent\Skull_Com.h" />
     <ClInclude Include="UserComponent\UserComponent_Base.h" />
   </ItemGroup>
   <ItemGroup>
@@ -354,29 +332,7 @@
     <ClCompile Include="TimeManager.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="NumberManager.cpp" />
-    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BoomEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
-    <ClCompile Include="UserComponent\Bullet_Com.cpp" />
-    <ClCompile Include="UserComponent\Fade_Com.cpp" />
-    <ClCompile Include="UserComponent\Fire_Com.cpp" />
-    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\GunItem_Com.cpp" />
-    <ClCompile Include="UserComponent\Gun_Com.cpp" />
-    <ClCompile Include="UserComponent\HeartItem_Com.cpp" />
-    <ClCompile Include="UserComponent\HeartUI_Com.cpp" />
-    <ClCompile Include="UserComponent\LifeItemUI_Com.cpp" />
-    <ClCompile Include="UserComponent\LifeItem_Com.cpp" />
-    <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp" />
-    <ClCompile Include="UserComponent\MenuEnemy_Com.cpp" />
-    <ClCompile Include="UserComponent\MenuLogo_Com.cpp" />
     <ClCompile Include="UserComponent\Monster_Base.cpp" />
-    <ClCompile Include="UserComponent\ReloadBullet_Com.cpp" />
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\Heart_Com.cpp" />
-    <ClCompile Include="UserComponent\Skull_Com.cpp" />
     <ClCompile Include="UserComponent\UserComponent_Base.cpp" />
   </ItemGroup>
   <ItemGroup>

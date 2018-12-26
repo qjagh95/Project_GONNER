@@ -273,7 +273,7 @@ void Gonner_Com::FS_WALLSTOP(float DeltaTime)
 	}
 }
 
-void Gonner_Com::FS_KNIGHT(float DeltaTime)
+void Gonner_Com::FS_HIT(float DeltaTime)
 {
 }
 

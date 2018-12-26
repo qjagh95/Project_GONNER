@@ -217,21 +217,6 @@
     <Filter Include="Core\03. Header">
       <UniqueIdentifier>{642d290c-399b-4462-9eda-78d5c20537d6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\01. LogoAlphaBat">
-      <UniqueIdentifier>{aa1f1ba4-efc3-4332-8b25-072de2d50328}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\03. Fade">
-      <UniqueIdentifier>{c52762dc-eece-4642-8e30-f523e66f2f5d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\02. MenuEnemy">
-      <UniqueIdentifier>{000acea0-0d1a-4763-83a1-b1a27b31d12e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\04. MenuLogo">
-      <UniqueIdentifier>{283b014c-30a5-4766-a2ff-f8b568211378}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\05. Fire">
-      <UniqueIdentifier>{75a4810f-7ee1-4569-bc13-ae42c74e26e1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com">
       <UniqueIdentifier>{07f17435-ce98-41ad-a82d-57f59ed0145b}</UniqueIdentifier>
     </Filter>
@@ -253,40 +238,16 @@
     <Filter Include="Core\16. NumberManager">
       <UniqueIdentifier>{f2e7d268-087a-41da-8b3d-6d956a5a9d51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\06. BubbleEffect">
-      <UniqueIdentifier>{ddb8b0b0-af67-48c2-9d91-07064bb8f3ce}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\09. BugEffect">
-      <UniqueIdentifier>{c39718b2-dd1e-46a0-a6ef-de90cb07e128}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\08. Gun">
-      <UniqueIdentifier>{ac71154e-84a3-4ba9-b2bb-87b00c1d8543}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\07. GunItem">
-      <UniqueIdentifier>{35929411-fd95-4074-a5f7-ea0e5801753b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\10. Bullet">
-      <UniqueIdentifier>{1a25372f-8b3c-4f35-ad91-fe995e37404b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\BaseComponent\15. Number">
       <UniqueIdentifier>{92fb79fa-5f04-4934-b4a7-6f8e806b517f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\17. StageManager">
       <UniqueIdentifier>{bfd5af0d-d45e-4467-bfa3-c588f850f3fe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\11. BulletUI">
-      <UniqueIdentifier>{bfcc8d55-b3b5-4140-ac73-5aeeac724fa7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\12. HeartItem">
-      <UniqueIdentifier>{39ab2ba9-be32-479d-9612-d280a8a0b59a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\13. LifeItem">
-      <UniqueIdentifier>{65ff680d-48fe-4d96-922b-8a0c3962bc22}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\14. MonsterBase">
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase">
       <UniqueIdentifier>{16878340-c232-4283-b611-73f4b4d86ca0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\14. MonsterBase\Base">
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\Base">
       <UniqueIdentifier>{cb9a88a8-9923-4b89-a231-af4979685dcc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -486,21 +447,6 @@
     <ClInclude Include="UserComponent\UserComponent_Base.h">
       <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\LogoAlphaBat_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\MenuEnemy_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Fade_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\03. Fade</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\MenuLogo_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\04. MenuLogo</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Fire_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\05. Fire</Filter>
-    </ClInclude>
     <ClInclude Include="Component\AtlasOneImage_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
     </ClInclude>
@@ -519,62 +465,11 @@
     <ClInclude Include="NumberManager.h">
       <Filter>Core\16. NumberManager</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\BubbleEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\06. BubbleEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\GunItem_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\07. GunItem</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Gun_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BugEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Bullet_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="StageManager.h">
       <Filter>Core\17. StageManager</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\BoomEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BalloonEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\ShotEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\FragmentEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BulletUI_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\11. BulletUI</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\HeartItem_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\ReloadBullet_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\HeartUI_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\Monster_Base.h">
-      <Filter>Core\08. Object\Component\UserComponent\14. MonsterBase\Base</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\LifeItem_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\LifeItemUI_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Heart_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Skull_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -766,21 +661,6 @@
     <ClCompile Include="UserComponent\UserComponent_Base.cpp">
       <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\01. LogoAlphaBat</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\MenuEnemy_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\02. MenuEnemy</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Fade_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\03. Fade</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\MenuLogo_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\04. MenuLogo</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Fire_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\05. Fire</Filter>
-    </ClCompile>
     <ClCompile Include="Component\AtlasOneImage_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
     </ClCompile>
@@ -799,62 +679,11 @@
     <ClCompile Include="NumberManager.cpp">
       <Filter>Core\16. NumberManager</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\06. BubbleEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\GunItem_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\07. GunItem</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Gun_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BugEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\09. BugEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Bullet_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="StageManager.cpp">
       <Filter>Core\17. StageManager</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\BoomEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\08. Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\10. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BulletUI_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\11. BulletUI</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\HeartItem_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\ReloadBullet_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\HeartUI_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\Monster_Base.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\14. MonsterBase\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\LifeItem_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\LifeItemUI_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Heart_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\12. HeartItem</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Skull_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\13. LifeItem</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

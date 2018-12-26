@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "Monster_Base.h"
 
+#include "../Component/ColliderRect_Com.h"
+#include "../Component/Animation2D_Com.h"
+
 JEONG_USING
 
 Monster_Base::Monster_Base()
@@ -14,10 +17,14 @@ Monster_Base::Monster_Base(const Monster_Base & CopyData)
 
 Monster_Base::~Monster_Base()
 {
+	SAFE_RELEASE(m_Material);
+	SAFE_RELEASE(m_Animation);
+	SAFE_RELEASE(m_RectColl);
 }
 
 bool Monster_Base::Init()
 {
+
 	return true;
 }
 

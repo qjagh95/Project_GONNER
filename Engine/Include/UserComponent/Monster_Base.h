@@ -1,9 +1,7 @@
 #pragma once
 #include "UserComponent_Base.h"
-#include "../Component/ColliderRect_Com.h"
 
 JEONG_BEGIN
-
 class JEONG_DLL Monster_Base : public UserComponent_Base
 {
 public:
@@ -20,7 +18,9 @@ public:
 protected:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+	ColliderRect_Com* m_RectColl;
 	MONSTER_TYPE m_Type;
+	int m_Hp;
 
 protected:
 	Monster_Base();

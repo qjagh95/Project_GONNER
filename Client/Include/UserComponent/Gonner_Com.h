@@ -7,6 +7,7 @@
 #include <UserComponent/Gun_Com.h>
 #include <UserComponent/GunItem_Com.h>
 #include <UserComponent/Heart_Com.h>
+#include <UserComponent/Skull_Com.h>
 
 JEONG_USING
 
@@ -21,7 +22,7 @@ enum GONNER_STATE
 	GS_DOUBLEJUMP,
 	GS_WALLSTOP,
 	GS_WALLJUMP,
-	GS_KNIGHT,
+	GS_HIT,
 	GS_MAX,
 };
 
@@ -45,7 +46,7 @@ public:
 	void FS_JUMP(float DeltaTime);
 	void FS_DOUBLEJUMP(float DeltaTime);
 	void FS_WALLSTOP(float DeltaTime);
-	void FS_KNIGHT(float DeltaTime);
+	void FS_HIT(float DeltaTime);
 	void FS_WALLJUMP(float DeltaTime);
 
 	void Move(float DeltaTime);
@@ -59,6 +60,7 @@ public:
 	void HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void MonsterHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 
 private:
 	void BasicInit();
@@ -83,6 +85,7 @@ private:
 	Vector2 m_WinSize;
 
 	Vector3 m_upPos;
+
 	Vector3 m_downPos;
 	Vector3 m_leftPos;
 	Vector3 m_rightPos;
@@ -128,6 +131,9 @@ private:
 
 	GameObject* m_HeartObject;
 	Heart_Com* m_Heart;
+
+	GameObject* m_SkullObject;
+	Skull_Com* m_Skull;
 
 protected:
 	Gonner_Com();

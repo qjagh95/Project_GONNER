@@ -26,6 +26,7 @@
 #include <UserComponent/BubbleEffect_Com.h>
 #include <UserComponent/GunItem_Com.h>
 #include <UserComponent/HeartItem_Com.h>
+#include <UserComponent/LifeItem_Com.h>
 
 MainScene::MainScene()
 {
@@ -92,7 +93,13 @@ bool MainScene::Init()
 	GameObject* heartItemObject = GameObject::CreateObject("HeartItem", Default);
 	HeartItem_Com* heartItemCom = heartItemObject->AddComponent<HeartItem_Com>("HeartItem");
 	heartItemObject->GetTransform()->SetWorldPos(500.0f, 800.0f, 1.0f);
+
+	GameObject* LifeItemObject = GameObject::CreateObject("LifeItem", Default);
+	LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
+	LifeItemObject->GetTransform()->SetWorldPos(600.0f, 800.0f, 1.0f);
 	
+	SAFE_RELEASE(LifeItemObject);
+	SAFE_RELEASE(LifeItemCom);
 	SAFE_RELEASE(heartItemObject);
 	SAFE_RELEASE(heartItemCom);
 	SAFE_RELEASE(newFade);
