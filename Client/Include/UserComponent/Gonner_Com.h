@@ -58,9 +58,11 @@ public:
 
 	void GunItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
-	void MonsterHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	
+	static Vector3 m_GonnerPos;
 
 private:
 	void BasicInit();

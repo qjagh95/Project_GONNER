@@ -39,6 +39,7 @@ bool JEONG::SoundManager::Init()
 	CreateSoundEffect("HeartEat", TEXT("HeartEat.wav"));
 	CreateSoundEffect("ReloadBulletCreate", TEXT("ReloadBulletCreate.wav"));
 	CreateSoundEffect("DelayFinish", TEXT("DelayFinish.wav"));
+	CreateSoundEffect("LifeEat", TEXT("LifeEat.wav"));
 
 	return true;
 }

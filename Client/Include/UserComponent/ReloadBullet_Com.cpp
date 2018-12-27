@@ -1,5 +1,6 @@
 #include "ClientHeader.h"
 #include "ReloadBullet_Com.h"
+#include "Gonner_Com.h"
 
 ReloadBullet_Com::ReloadBullet_Com()
 {
@@ -67,7 +68,7 @@ bool ReloadBullet_Com::Init()
 
 int ReloadBullet_Com::Input(float DeltaTime)
 {
-	m_TargetPos = m_Target->GetTransform()->GetWorldPos();
+	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	return 0;
 }

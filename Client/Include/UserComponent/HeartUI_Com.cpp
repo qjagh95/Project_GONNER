@@ -69,7 +69,6 @@ int HeartUI_Com::Input(float DeltaTime)
 
 int HeartUI_Com::Update(float DeltaTime)
 {
-
 	Vector3 TargetPos = m_Target->GetTransform()->GetWorldPos();
 
 	m_StaticTimeVar += DeltaTime;

@@ -3,6 +3,7 @@
 #include "Bullet_Com.h"
 #include "ShotEffect_Com.h"
 #include "BulletUI_Com.h"
+#include "Gonner_Com.h"
 
 int Gun_Com::m_BulletCount = 20;
 bool Gun_Com::m_isReloading = false;
@@ -76,7 +77,6 @@ bool Gun_Com::Init()
 	{
 		GameObject* BulletUIObject = GameObject::CreateObject("BulletUI", UILayer);
 		BulletUI_Com* newUICom = BulletUIObject->AddComponent<BulletUI_Com>("BulletUI");
-		BulletUI_Com::SetTargetGun(this);
 		newUICom->SetIndex(i);
 
 		SAFE_RELEASE(BulletUIObject);
@@ -97,6 +97,18 @@ int Gun_Com::Input(float DeltaTime)
 
 int Gun_Com::Update(float DeltaTime)
 {
+	Vector3 TargetPos = Gonner_Com::m_GonnerPos;
+
+	switch (m_Animation->GetDir())
+	{
+		case MD_LEFT:
+			m_Transform->SetWorldPos(TargetPos.x - 10.0f, TargetPos.y - 10.0f, 1.0f);
+		break;
+		case MD_RIGHT:
+			m_Transform->SetWorldPos(TargetPos.x + 10.0f, TargetPos.y - 10.0f, 1.0f);
+		break;
+	}
+
 	m_Pos = m_Transform->GetWorldPos();
 
 	ChangeColor(DeltaTime);
@@ -105,7 +117,6 @@ int Gun_Com::Update(float DeltaTime)
 	{
 		if (m_isReloading == false)
 			m_isReloading = true;
-		
 	}
 
 	DelayTime(DeltaTime);

@@ -43,7 +43,6 @@ void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float Delta
 
 		m_HeartObject = GameObject::CreateObject("HeartObject", prevLayer);
 		m_Heart = m_HeartObject->AddComponent<Heart_Com>("Heart");
-		m_Heart->SetTarget(m_Object);
 		m_HeartObject->SetScene(m_Scene);
 		m_HeartObject->SetLayer(m_Layer);
 
@@ -88,16 +87,22 @@ void Gonner_Com::LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaT
 
 		m_SkullObject = GameObject::CreateObject("Life", m_AfterEffectLayer);
 		m_Skull = m_SkullObject->AddComponent< Skull_Com>("Life");
-		Skull_Com::SetTarget(m_Object);
-
+		
+		SoundManager::Get()->FindSoundEffect("LifeEat")->Play();
 		m_isSkullItem = true;
 	}
 }
 
-void Gonner_Com::MonsterHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
+void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
 {
 	if (Dest->GetTag() == "MonsterBody")
 	{
+		if (m_State != GS_JUMP || m_State != GS_DOUBLEJUMP)
+			return;
 
+		if (m_isJumpAttack == false)
+			return;
+
+		//이펙트생성
 	}
 }

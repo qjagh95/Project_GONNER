@@ -18,7 +18,6 @@ public:
 	void AfterClone() override;
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
-	void SetTarget(GameObject* target) { m_Target = target; }
 
 private:
 	void ChangeColor(float DeltaTime);
@@ -32,7 +31,6 @@ private:
 	float m_ChangeTime;
 
 	Vector4 m_Color[3];
-	GameObject* m_Target;
 	Vector3 m_TargetPos;
 
 protected:

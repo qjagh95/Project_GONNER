@@ -2,12 +2,12 @@
 #include "LifeUI_Com.h"
 #include "Skull_Com.h"
 #include "Gun_Com.h"
+#include "Gonner_Com.h"
 
 JEONG_USING
 
 float LifeUI_Com::m_Range = 80.0f;
 float LifeUI_Com::m_MoveSpeed = 1200.0f;
-GameObject* LifeUI_Com::m_Target = NULLPTR;
 
 LifeUI_Com::LifeUI_Com()
 {
@@ -105,8 +105,7 @@ int LifeUI_Com::Input(float DeltaTime)
 
 int LifeUI_Com::Update(float DeltaTime)
 {
-	if(m_Target != NULLPTR)
-		m_TargetPos = m_Target->GetTransform()->GetWorldPos();
+	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	if (m_isMove == false)
 		SetPos(m_Index);
@@ -210,12 +209,6 @@ void LifeUI_Com::On(float DeltaTime)
 void LifeUI_Com::Off(float DeltaTime)
 {
 	GrayLightChange(DeltaTime);
-
-	if (m_isGoingPos == false)
-		return;
-
-	Vector3 Lerp = Vector3::Lerp(m_Transform->GetWorldPos(), Vector3(m_GoingPos.x, m_GoingPos.y - 30.0f, 1.0f), DeltaTime * 3.0f);
-	m_Transform->SetWorldPos(Lerp);
 }
 
 void LifeUI_Com::TargetMove(float DeltaTime)
@@ -266,7 +259,7 @@ void LifeUI_Com::SetPos(int Index)
 	m_CirclePos -= CameraPos;
 	m_CirclePos.z = 0.0f;
 
-	float Angle = -90.0f + (Index * 15.0f);
+	float Angle = 175.0f + (Index * -30.0f);
 	float x = cosf(DegreeToRadian(Angle));
 	float y = sinf(DegreeToRadian(Angle));
 

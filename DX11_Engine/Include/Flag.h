@@ -239,11 +239,10 @@ enum GUN_STATE
 
 enum MONSTER_TYPE
 {
-	MT_M1,
-	MT_M2,
-	MT_M3,
-	MT_M4,
-	MT_M5,
+	MT_GUARD,
+	MT_BASIC,
+	MT_AIRDOWN,
+	MT_TRACE,
 	MT_MAX,
 };
 

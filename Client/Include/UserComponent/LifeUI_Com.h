@@ -31,8 +31,6 @@ public:
 	void SetIndex(int Index);
 	void SetPos(int Index);
 
-	static void SetTarget(GameObject* target) { m_Target = target; }
-
 private:
 	void GrayLightChange(float DeltaTime);
 	void LightChange(float DeltaTime);
@@ -65,7 +63,6 @@ private:
 
 	static float m_Range;
 	static float m_MoveSpeed;
-	static GameObject* m_Target;
 
 	Vector3 m_TargetPos;
 

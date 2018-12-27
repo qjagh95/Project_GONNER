@@ -1,7 +1,6 @@
 #include "ClientHeader.h"
 #include "Gonner_Com.h"
-#include "GameObject.h"
-#include "KeyInput.h"
+#include "Skull_Com.h"
 
 #include "Component/ColliderRect_Com.h"
 #include "Component/ColliderCircle_Com.h"
@@ -16,6 +15,7 @@
 #include <UserComponent/BugEffect_Com.h>
 #include <UserComponent/HeartUI_Com.h>
 
+Vector3 Gonner_Com::m_GonnerPos;
 
 Gonner_Com::Gonner_Com()
 	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
@@ -104,10 +104,12 @@ int Gonner_Com::Input(float DeltaTime)
 
 int Gonner_Com::Update(float DeltaTime)
 {
+
 	ChangeColor(DeltaTime);
 	CreateBubbleEffect(DeltaTime);
 
 	m_Pos = m_Transform->GetWorldPos();
+	m_GonnerPos = m_Pos;
 
 	m_upPos = Vector3(m_Pos.x, m_Pos.y + m_ScaleHalf.y + 1.0f, 0.0f);
 	m_downPos = Vector3(m_Pos.x, m_Pos.y - m_ScaleHalf.y - 1.0f, 0.0f);
@@ -331,22 +333,11 @@ void Gonner_Com::ItemUpdate(float DeltaTime)
 {
 	if (m_GunObject != NULLPTR && m_Gun != NULLPTR)
 	{
-		switch (m_Animation->GetDir())
-		{
-			case MD_LEFT:
-			{
-				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x - 10.0f, m_Pos.y - 10.0f, 1.0f);
-				m_Gun->GetAnimation()->SetDir(MD_LEFT);
-			}
-			break;
-			case MD_RIGHT:
-			{
-				m_GunObject->GetTransform()->SetWorldPos(m_Pos.x + 10.0f, m_Pos.y - 10.0f, 1.0f);
-				m_Gun->GetAnimation()->SetDir(MD_RIGHT);
-			}
-			break;
-		}
+	
 	}
+
+	if (m_Gun != NULLPTR)
+		m_Gun->GetAnimation()->SetDir(m_Animation->GetDir());
 
 	if(m_Heart != NULLPTR)
 		m_Heart->GetAnimation()->SetDir(m_Animation->GetDir());
@@ -394,6 +385,7 @@ void Gonner_Com::BasicInit()
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::ReloadBulletHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::HeartItemHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::LifeItemHit);
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::MonsterHitFirst);
 	SAFE_RELEASE(RectColl);
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);

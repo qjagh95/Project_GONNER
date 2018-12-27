@@ -15,12 +15,22 @@ public:
 	virtual Monster_Base* Clone() override;
 	virtual void AfterClone() override;
 
+	static bool m_isEditor;
+
+protected:
+	void ChangeColor(float DeltaTime);
+
 protected:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
 	ColliderRect_Com* m_RectColl;
 	MONSTER_TYPE m_Type;
+	string* m_AniName;
 	int m_Hp;
+
+private:
+	float m_ChangeTime;
+	float m_ChangeTimeVar;
 
 protected:
 	Monster_Base();

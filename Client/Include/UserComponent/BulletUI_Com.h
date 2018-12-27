@@ -30,7 +30,6 @@ public:
 	void SetState(BULLETUI_STATE state) { m_State = state; }
 	void SetIndex(int Index);
 	void SetPos(int Index);
-	static void SetTargetGun(Gun_Com* Gun) { m_TargetGun = Gun; }
 
 private:
 	void GrayLightChange(float DeltaTime);
@@ -61,9 +60,8 @@ private:
 	Vector3 m_GoingPos;
 	Vector3 m_CirclePos;
 	Vector3 m_ResultPos;
+	Vector3 m_TargetPos;
 
-	static Vector3 m_GunPos;
-	static Gun_Com* m_TargetGun;
 	static float m_Range;
 	static float m_MoveSpeed;
 

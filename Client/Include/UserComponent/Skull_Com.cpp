@@ -1,15 +1,16 @@
 #include "ClientHeader.h"
 #include "Skull_Com.h"
 #include "LifeUI_Com.h"
+#include "Gonner_Com.h"
 
 JEONG_USING
 
 int Skull_Com::m_LifeCount = 5;
-GameObject* Skull_Com::m_Target = NULLPTR;
+
 
 Skull_Com::Skull_Com()
 {
-	m_Target = NULLPTR;
+
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
 }
@@ -64,7 +65,6 @@ bool Skull_Com::Init()
 		GameObject* newLifeUI = GameObject::CreateObject("LifeUI", UILayer);
 		LifeUI_Com* newLifeUICom = newLifeUI->AddComponent< LifeUI_Com>("LifeUI");
 		newLifeUICom->SetIndex(i);
-		LifeUI_Com::SetTarget(m_Target);
 
 		SAFE_RELEASE(newLifeUI);
 		SAFE_RELEASE(newLifeUICom);
@@ -82,7 +82,7 @@ int Skull_Com::Input(float DeltaTime)
 int Skull_Com::Update(float DeltaTime)
 {
 	ChangeColor(DeltaTime);
-	m_TargetPos = m_Target->GetTransform()->GetWorldPos();
+	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	if (m_Animation->GetDir() == MD_LEFT)
 		m_Transform->SetWorldPos(m_TargetPos.x - 5.0f, m_TargetPos.y + 10.0f, 1.0f);

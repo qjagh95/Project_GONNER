@@ -17,7 +17,6 @@ public:
 	Skull_Com* Clone() override;
 	void AfterClone() override;
 	
-	static void SetTarget(GameObject* target) { m_Target = target; }
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
 
 	static int m_LifeCount;
@@ -28,7 +27,6 @@ private:
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
-	static GameObject* m_Target;
 	Vector3 m_TargetPos;
 
 	float m_ChangeColorTimeVar;

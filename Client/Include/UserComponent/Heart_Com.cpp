@@ -2,12 +2,12 @@
 #include "Heart_Com.h"
 #include "Gun_Com.h"
 #include "ReloadBullet_Com.h"
+#include "Gonner_Com.h"
 
 JEONG_USING
 
 Heart_Com::Heart_Com()
 {
-	m_Target = NULLPTR;
 }
 
 Heart_Com::Heart_Com(const Heart_Com & CopyData)
@@ -71,14 +71,13 @@ int Heart_Com::Update(float DeltaTime)
 
 	if (KeyInput::Get()->KeyDown("Reload"))
 		CreateReloadBullet(DeltaTime);
-	
 
 	return 0;
 }
 
 int Heart_Com::LateUpdate(float DeltaTime)
 {
-	m_TargetPos = m_Target->GetTransform()->GetWorldPos();
+	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	switch (m_Animation->GetDir())
 	{
@@ -160,16 +159,15 @@ void Heart_Com::CreateReloadBullet(float DeltaTime)
 	GameObject* newReloadBullet = GameObject::CreateObject("ReloadBullet", defaultLayer);
 	ReloadBullet_Com* newReloadCom = newReloadBullet->AddComponent< ReloadBullet_Com>("ReloadBullet");
 	newReloadCom->GetAnimation()->SetDir(m_Animation->GetDir());
-	newReloadCom->SetTarget(m_Target);
 
 	if (m_Animation->GetDir() == MD_LEFT)
 	{
-		newReloadBullet->GetTransform()->SetWorldPos(m_TargetPos.x + 30.0f, m_TargetPos.y + 15.0f, 1.0f);
+		newReloadBullet->GetTransform()->SetWorldPos(m_TargetPos.x + 30.0f, m_TargetPos.y + 20.0f, 1.0f);
 		newReloadBullet->GetTransform()->SetWorldRotZ(-25.0f);
 	}
 	else if (m_Animation->GetDir() == MD_RIGHT)
 	{
-		newReloadBullet->GetTransform()->SetWorldPos(m_TargetPos.x - 30.0f, m_TargetPos.y + 15.0f, 1.0f);
+		newReloadBullet->GetTransform()->SetWorldPos(m_TargetPos.x - 30.0f, m_TargetPos.y + 20.0f, 1.0f);
 		newReloadBullet->GetTransform()->SetWorldRotZ(25.0f);
 	}
 

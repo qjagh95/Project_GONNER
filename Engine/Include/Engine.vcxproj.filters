@@ -247,8 +247,20 @@
     <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase">
       <UniqueIdentifier>{16878340-c232-4283-b611-73f4b4d86ca0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\Base">
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\01. GuardM">
+      <UniqueIdentifier>{75ab9e46-f1e3-42cc-ac23-8aa66b9f9f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\00. Base">
       <UniqueIdentifier>{cb9a88a8-9923-4b89-a231-af4979685dcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\02. AirDownM">
+      <UniqueIdentifier>{288a44a6-5749-4927-bf06-d71182f1158a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\03. TraceM">
+      <UniqueIdentifier>{d73cb5ff-2ab4-4c72-9242-73ed4742e72d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM">
+      <UniqueIdentifier>{29c0b2e3-b823-4e9c-bc27-bc4704d9a960}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -469,7 +481,19 @@
       <Filter>Core\17. StageManager</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Monster_Base.h">
-      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\Base</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\00. Base</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\GuardM_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\01. GuardM</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\AirDownM_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\02. AirDownM</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\TraceM_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\03. TraceM</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BasicM_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -683,7 +707,19 @@
       <Filter>Core\17. StageManager</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Monster_Base.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\Base</Filter>
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\00. Base</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\GuardM_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\01. GuardM</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\AirDownM_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\02. AirDownM</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\TraceM_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\03. TraceM</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BasicM_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

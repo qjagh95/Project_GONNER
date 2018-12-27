@@ -41,47 +41,50 @@
     <Filter Include="Scene\02. MenuScene\Component">
       <UniqueIdentifier>{f9500d82-ec68-4c27-b50e-45e2a487fdf2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\03. MainScene\Component\Gonner">
-      <UniqueIdentifier>{18b92bd0-5470-48d1-9bb9-33730ef97690}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\03. MainScene\Component\Monster">
       <UniqueIdentifier>{09bcc5ab-dc8c-43f1-aafa-18b1d49f82ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="UserComponent">
       <UniqueIdentifier>{c10f9c04-a82a-46b9-ac92-748c5de925bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\01. LogoAlphaBat">
+    <Filter Include="UserComponent\Other">
+      <UniqueIdentifier>{b0461e06-a267-4b40-867d-e564d175a99f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserComponent\Other\01. LogoAlphaBat">
       <UniqueIdentifier>{42a1491a-5a7f-4764-8add-456b189ef665}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\02. MenuEnemy">
+    <Filter Include="UserComponent\Other\02. MenuEnemy">
       <UniqueIdentifier>{0da503e5-6ab9-4654-83b3-3f9bd693a870}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\04. Fade">
+    <Filter Include="UserComponent\Other\04. Fade">
       <UniqueIdentifier>{ef6ab832-107f-4645-993e-40912454b49b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\03 MenuLogo">
+    <Filter Include="UserComponent\Other\03 MenuLogo">
       <UniqueIdentifier>{e9c0656d-6bd3-4e45-8326-c9bc59d07b59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\05. Fire">
+    <Filter Include="UserComponent\Other\05. Fire">
       <UniqueIdentifier>{1c92b2f6-7361-454f-900b-6464cbfc3e3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\06. BubbleEffect">
+    <Filter Include="UserComponent\Other\06. BubbleEffect">
       <UniqueIdentifier>{b0f808b3-900e-4999-b828-62fc328d8690}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\07. Gun">
+    <Filter Include="UserComponent\Other\07. Gun">
       <UniqueIdentifier>{eab09fca-b269-4616-8de6-12fc26d155bf}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\08. BugEffect">
+    <Filter Include="UserComponent\Other\08. BugEffect">
       <UniqueIdentifier>{783adcf0-9365-45ab-9bc4-f64c5a80610c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\09. Bullet">
+    <Filter Include="UserComponent\Other\09. Bullet">
       <UniqueIdentifier>{f3ca56e2-ac74-4cd0-a675-56cdc60fa6c2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\10. Heart">
+    <Filter Include="UserComponent\Other\10. Heart">
       <UniqueIdentifier>{33dd1cb6-038b-45a7-abbe-f17cef374a9b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\11. Life">
+    <Filter Include="UserComponent\Other\11. Life">
       <UniqueIdentifier>{a3970e21-5688-42ee-8e69-0170e1806789}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserComponent\Gonner">
+      <UniqueIdentifier>{212fa6b7-6c1d-4a88-9c4c-cae7ad335ade}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -100,86 +103,86 @@
     <ClCompile Include="SceneMain\MenuScene.cpp">
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\Gonner_Com.cpp">
-      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
-      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\GonnerFSM.cpp">
-      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\Monster_Com.cpp">
       <Filter>Scene\03. MainScene\Component\Monster</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp">
-      <Filter>UserComponent\01. LogoAlphaBat</Filter>
+      <Filter>UserComponent\Other\01. LogoAlphaBat</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp">
-      <Filter>UserComponent\02. MenuEnemy</Filter>
+      <Filter>UserComponent\Other\02. MenuEnemy</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Fade_Com.cpp">
-      <Filter>UserComponent\04. Fade</Filter>
+      <Filter>UserComponent\Other\04. Fade</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\MenuLogo_Com.cpp">
-      <Filter>UserComponent\03 MenuLogo</Filter>
+      <Filter>UserComponent\Other\03 MenuLogo</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Fire_Com.cpp">
-      <Filter>UserComponent\05. Fire</Filter>
+      <Filter>UserComponent\Other\05. Fire</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\BubbleEffect_Com.cpp">
-      <Filter>UserComponent\06. BubbleEffect</Filter>
+      <Filter>UserComponent\Other\06. BubbleEffect</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Gun_Com.cpp">
-      <Filter>UserComponent\07. Gun</Filter>
+      <Filter>UserComponent\Other\07. Gun</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\GunItem_Com.cpp">
-      <Filter>UserComponent\07. Gun</Filter>
+      <Filter>UserComponent\Other\07. Gun</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
-      <Filter>UserComponent\07. Gun</Filter>
+      <Filter>UserComponent\Other\07. Gun</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\BugEffect_Com.cpp">
-      <Filter>UserComponent\08. BugEffect</Filter>
+      <Filter>UserComponent\Other\08. BugEffect</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\BoomEffect_Com.cpp">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Bullet_Com.cpp">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\BulletUI_Com.cpp">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Heart_Com.cpp">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\HeartItem_Com.cpp">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\HeartUI_Com.cpp">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\ReloadBullet_Com.cpp">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\LifeItem_Com.cpp">
-      <Filter>UserComponent\11. Life</Filter>
+      <Filter>UserComponent\Other\11. Life</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\LifeUI_Com.cpp">
-      <Filter>UserComponent\11. Life</Filter>
+      <Filter>UserComponent\Other\11. Life</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Skull_Com.cpp">
-      <Filter>UserComponent\11. Life</Filter>
+      <Filter>UserComponent\Other\11. Life</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\Gonner_Com.cpp">
+      <Filter>UserComponent\Gonner</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\GonnerFSM.cpp">
+      <Filter>UserComponent\Gonner</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
+      <Filter>UserComponent\Gonner</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -198,77 +201,77 @@
     <ClInclude Include="SceneMain\MenuScene.h">
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\Gonner_Com.h">
-      <Filter>Scene\03. MainScene\Component\Gonner</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\Monster_Com.h">
       <Filter>Scene\03. MainScene\Component\Monster</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h">
-      <Filter>UserComponent\01. LogoAlphaBat</Filter>
+      <Filter>UserComponent\Other\01. LogoAlphaBat</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\MenuEnemy_Com.h">
-      <Filter>UserComponent\02. MenuEnemy</Filter>
+      <Filter>UserComponent\Other\02. MenuEnemy</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Fade_Com.h">
-      <Filter>UserComponent\04. Fade</Filter>
+      <Filter>UserComponent\Other\04. Fade</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\MenuLogo_Com.h">
-      <Filter>UserComponent\03 MenuLogo</Filter>
+      <Filter>UserComponent\Other\03 MenuLogo</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Fire_Com.h">
-      <Filter>UserComponent\05. Fire</Filter>
+      <Filter>UserComponent\Other\05. Fire</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\BubbleEffect_Com.h">
-      <Filter>UserComponent\06. BubbleEffect</Filter>
+      <Filter>UserComponent\Other\06. BubbleEffect</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Gun_Com.h">
-      <Filter>UserComponent\07. Gun</Filter>
+      <Filter>UserComponent\Other\07. Gun</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\GunItem_Com.h">
-      <Filter>UserComponent\07. Gun</Filter>
+      <Filter>UserComponent\Other\07. Gun</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\ShotEffect_Com.h">
-      <Filter>UserComponent\07. Gun</Filter>
+      <Filter>UserComponent\Other\07. Gun</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\BugEffect_Com.h">
-      <Filter>UserComponent\08. BugEffect</Filter>
+      <Filter>UserComponent\Other\08. BugEffect</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\BalloonEffect_Com.h">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\BoomEffect_Com.h">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Bullet_Com.h">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\BulletUI_Com.h">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Heart_Com.h">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\HeartItem_Com.h">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\HeartUI_Com.h">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\ReloadBullet_Com.h">
-      <Filter>UserComponent\10. Heart</Filter>
+      <Filter>UserComponent\Other\10. Heart</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\LifeItem_Com.h">
-      <Filter>UserComponent\11. Life</Filter>
+      <Filter>UserComponent\Other\11. Life</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\LifeUI_Com.h">
-      <Filter>UserComponent\11. Life</Filter>
+      <Filter>UserComponent\Other\11. Life</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Skull_Com.h">
-      <Filter>UserComponent\11. Life</Filter>
+      <Filter>UserComponent\Other\11. Life</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\FragmentEffect_Com.h">
-      <Filter>UserComponent\09. Bullet</Filter>
+      <Filter>UserComponent\Other\09. Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\Gonner_Com.h">
+      <Filter>UserComponent\Gonner</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,11 +1,10 @@
 #include "ClientHeader.h"
 #include "BulletUI_Com.h"
 #include "Gun_Com.h"
+#include "Gonner_Com.h"
 
 JEONG_USING
 
-Gun_Com* BulletUI_Com::m_TargetGun = NULLPTR;
-Vector3 BulletUI_Com::m_GunPos;
 float BulletUI_Com::m_Range = 80.0f;
 float BulletUI_Com::m_MoveSpeed = 1200.0f;
 
@@ -105,7 +104,7 @@ int BulletUI_Com::Input(float DeltaTime)
 
 int BulletUI_Com::Update(float DeltaTime)
 {
-	m_GunPos = m_TargetGun->GetTransform()->GetWorldPos();
+	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	if (m_isMove == false)
 		SetPos(m_Index);
@@ -261,7 +260,7 @@ void BulletUI_Com::SetIndex(int Index)
 void BulletUI_Com::SetPos(int Index)
 {
 	Vector3 CameraPos = m_Scene->GetMainCameraTransform()->GetWorldPos();
-	m_CirclePos = m_GunPos;
+	m_CirclePos = m_TargetPos;
 	m_CirclePos -= CameraPos;
 	m_CirclePos.z = 0.0f;
 
