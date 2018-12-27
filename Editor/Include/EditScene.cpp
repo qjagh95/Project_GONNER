@@ -39,8 +39,6 @@ bool EditScene::Init()
 	KeyInput::Get()->AddKey("RandomTile", VK_SHIFT);
 	KeyInput::Get()->AddKey("TileClear", VK_F1);
 
-	TileImage_Com::m_isEditorMode = true;
-
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(Default);

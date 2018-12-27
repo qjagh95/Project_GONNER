@@ -16,6 +16,8 @@
 #include <UserComponent/HeartUI_Com.h>
 
 Vector3 Gonner_Com::m_GonnerPos;
+Vector3 Gonner_Com::m_GonnerScale = Vector3(64.0f, 64.0f, 1.0f);
+Vector3 Gonner_Com::m_GonnerScaleHalf = Vector3(32.0f, 32.0f, 1.0f);
 
 Gonner_Com::Gonner_Com()
 	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
@@ -104,7 +106,6 @@ int Gonner_Com::Input(float DeltaTime)
 
 int Gonner_Com::Update(float DeltaTime)
 {
-
 	ChangeColor(DeltaTime);
 	CreateBubbleEffect(DeltaTime);
 

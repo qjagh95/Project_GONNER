@@ -86,6 +86,9 @@
     <Filter Include="UserComponent\Gonner">
       <UniqueIdentifier>{212fa6b7-6c1d-4a88-9c4c-cae7ad335ade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="UserComponent\Other\12. BasicEffect">
+      <UniqueIdentifier>{d4d01a88-670d-494f-823f-136bd9aa3dce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneMain\MainScene.cpp">
@@ -121,26 +124,11 @@
     <ClCompile Include="UserComponent\Fire_Com.cpp">
       <Filter>UserComponent\Other\05. Fire</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp">
-      <Filter>UserComponent\Other\06. BubbleEffect</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\Gun_Com.cpp">
       <Filter>UserComponent\Other\07. Gun</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\GunItem_Com.cpp">
       <Filter>UserComponent\Other\07. Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
-      <Filter>UserComponent\Other\07. Gun</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BugEffect_Com.cpp">
-      <Filter>UserComponent\Other\08. BugEffect</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
-      <Filter>UserComponent\Other\09. Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\BoomEffect_Com.cpp">
-      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Bullet_Com.cpp">
       <Filter>UserComponent\Other\09. Bullet</Filter>
@@ -169,9 +157,6 @@
     <ClCompile Include="UserComponent\Skull_Com.cpp">
       <Filter>UserComponent\Other\11. Life</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
-      <Filter>UserComponent\Other\09. Bullet</Filter>
-    </ClCompile>
     <ClCompile Include="WinMain.cpp">
       <Filter>WinMain</Filter>
     </ClCompile>
@@ -183,6 +168,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
       <Filter>UserComponent\Gonner</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BasicEffect_Com.cpp">
+      <Filter>UserComponent\Other\12. BasicEffect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -219,26 +207,11 @@
     <ClInclude Include="UserComponent\Fire_Com.h">
       <Filter>UserComponent\Other\05. Fire</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\BubbleEffect_Com.h">
-      <Filter>UserComponent\Other\06. BubbleEffect</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\Gun_Com.h">
       <Filter>UserComponent\Other\07. Gun</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\GunItem_Com.h">
       <Filter>UserComponent\Other\07. Gun</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\ShotEffect_Com.h">
-      <Filter>UserComponent\Other\07. Gun</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BugEffect_Com.h">
-      <Filter>UserComponent\Other\08. BugEffect</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BalloonEffect_Com.h">
-      <Filter>UserComponent\Other\09. Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BoomEffect_Com.h">
-      <Filter>UserComponent\Other\09. Bullet</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Bullet_Com.h">
       <Filter>UserComponent\Other\09. Bullet</Filter>
@@ -267,11 +240,11 @@
     <ClInclude Include="UserComponent\Skull_Com.h">
       <Filter>UserComponent\Other\11. Life</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\FragmentEffect_Com.h">
-      <Filter>UserComponent\Other\09. Bullet</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\Gonner_Com.h">
       <Filter>UserComponent\Gonner</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BasicEffect_Com.h">
+      <Filter>UserComponent\Other\12. BasicEffect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -63,6 +63,8 @@ public:
 	void LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	
 	static Vector3 m_GonnerPos;
+	static Vector3 m_GonnerScale;
+	static Vector3 m_GonnerScaleHalf;
 
 private:
 	void BasicInit();

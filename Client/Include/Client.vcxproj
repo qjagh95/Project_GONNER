@@ -230,15 +230,11 @@
     <ClCompile Include="SceneMain\MainScene.cpp" />
     <ClCompile Include="SceneMain\MenuScene.cpp" />
     <ClCompile Include="SceneMain\StaticTestScene.cpp" />
-    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BoomEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
-    <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BasicEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
     <ClCompile Include="UserComponent\Fire_Com.cpp" />
-    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp" />
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp" />
     <ClCompile Include="UserComponent\GonnerFSM.cpp" />
     <ClCompile Include="UserComponent\GunItem_Com.cpp" />
@@ -256,7 +252,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="UserComponent\ReloadBullet_Com.cpp" />
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp" />
     <ClCompile Include="UserComponent\Skull_Com.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -266,15 +261,11 @@
     <ClInclude Include="SceneMain\MainScene.h" />
     <ClInclude Include="SceneMain\MenuScene.h" />
     <ClInclude Include="SceneMain\StaticTestScene.h" />
-    <ClInclude Include="UserComponent\BalloonEffect_Com.h" />
-    <ClInclude Include="UserComponent\BoomEffect_Com.h" />
-    <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
-    <ClInclude Include="UserComponent\BugEffect_Com.h" />
+    <ClInclude Include="UserComponent\BasicEffect_Com.h" />
     <ClInclude Include="UserComponent\BulletUI_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
     <ClInclude Include="UserComponent\Fire_Com.h" />
-    <ClInclude Include="UserComponent\FragmentEffect_Com.h" />
     <ClInclude Include="UserComponent\GunItem_Com.h" />
     <ClInclude Include="UserComponent\Gun_Com.h" />
     <ClInclude Include="UserComponent\HeartItem_Com.h" />
@@ -288,7 +279,6 @@
     <ClInclude Include="UserComponent\Monster_Com.h" />
     <ClInclude Include="UserComponent\Gonner_Com.h" />
     <ClInclude Include="UserComponent\ReloadBullet_Com.h" />
-    <ClInclude Include="UserComponent\ShotEffect_Com.h" />
     <ClInclude Include="UserComponent\Skull_Com.h" />
   </ItemGroup>
   <ItemGroup>

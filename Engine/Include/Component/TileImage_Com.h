@@ -35,8 +35,6 @@ public:
 
 	void SetNearObject(GameObject* NearObject, float Distance);
 
-public:
-	static bool m_isEditorMode;
 
 private:
 	float m_Distance;

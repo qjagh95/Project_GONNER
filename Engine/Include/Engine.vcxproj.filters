@@ -262,6 +262,9 @@
     <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM">
       <UniqueIdentifier>{29c0b2e3-b823-4e9c-bc27-bc4704d9a960}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\03. Effect">
+      <UniqueIdentifier>{9984f4c8-99c5-4dc6-94d6-a44c2ea160e0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -495,6 +498,27 @@
     <ClInclude Include="UserComponent\BasicM_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\BalloonEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BasicEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BoomEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BubbleEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BugEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\FragmentEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\ShotEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -720,6 +744,27 @@
     </ClCompile>
     <ClCompile Include="UserComponent\BasicM_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BasicEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BoomEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BugEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

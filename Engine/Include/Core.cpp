@@ -10,6 +10,7 @@
 JEONG_USING
 SINGLETON_VAR_INIT(Core)
 bool Core::m_isLoop = true;
+bool Core::m_isEditor = false;
 WPARAM Core::m_wParam;
 
 Core::Core()

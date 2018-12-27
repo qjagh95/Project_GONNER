@@ -1,12 +1,14 @@
 #include "stdafx.h"
 #include "Monster_Base.h"
 
+#include "../Core.h"
+#include "../Component/Gravity_Com.h"
 #include "../Component/ColliderRect_Com.h"
 #include "../Component/Animation2D_Com.h"
 
 JEONG_USING
 
-bool Monster_Base::m_isEditor = false;
+GameObject* Monster_Base::m_Target;
 
 Monster_Base::Monster_Base()
 {
@@ -30,7 +32,10 @@ Monster_Base::Monster_Base()
 	
 	m_ChangeTimeVar = 0.0f;
 
-	ZeroMemory(m_AniName, sizeof(string*));
+	m_Gravity = NULLPTR;
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+	m_RectColl = NULLPTR;
 }
 
 Monster_Base::Monster_Base(const Monster_Base & CopyData)
@@ -43,6 +48,7 @@ Monster_Base::~Monster_Base()
 	SAFE_RELEASE(m_Material);
 	SAFE_RELEASE(m_Animation);
 	SAFE_RELEASE(m_RectColl);
+	SAFE_RELEASE(m_Gravity);
 }
 
 bool Monster_Base::Init()
@@ -71,15 +77,15 @@ int Monster_Base::Input(float DeltaTime)
 
 int Monster_Base::Update(float DeltaTime)
 {
-	if (m_isEditor == true)
-		return;
+	if (Core::m_isEditor == true)
+		return 0;
+
+	ChangeColor(DeltaTime);
 
 	if (m_Hp == 0)
 	{
 		SetIsActive(false);
 		m_Object->SetIsActive(false);
-
-		//ÀÌÆåÆ®»ý¼º
 	}
 
 	return 0;
@@ -109,6 +115,14 @@ Monster_Base * Monster_Base::Clone()
 
 void Monster_Base::AfterClone()
 {
+}
+
+void Monster_Base::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
+{
+	if (Dest->GetTag() == "BulletBody")
+	{
+		m_Hp--;
+	}
 }
 
 void Monster_Base::ChangeColor(float DeltaTime)

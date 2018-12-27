@@ -13,11 +13,10 @@ public:
 	 virtual void Collision(float DeltaTime) override;
 	 virtual void CollisionLateUpdate(float DeltaTime) override;
 	 virtual void Render(float DeltaTime) override;
-	 virtual UserComponent_Base* Clone() override;
+	 virtual UserComponent_Base* Clone() override = 0;
 	 virtual void AfterClone() override {}
 
-	 void ChangeState(int State, string * AnimationName, Animation2D_Com * animation);
-	 void ChangeColor(float DeltaTime);
+	 void ChangeState(int State, string* AnimationName, Animation2D_Com* animation);
 
 protected:
 	int m_State;
@@ -26,7 +25,7 @@ protected:
 protected:
 	UserComponent_Base();
 	UserComponent_Base(const UserComponent_Base& userCom);
-	virtual ~UserComponent_Base();
+	virtual ~UserComponent_Base() = 0;
 };
 
 JEONG_END

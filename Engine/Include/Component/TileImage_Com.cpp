@@ -1,9 +1,8 @@
 #include "stdafx.h"
 #include "TileImage_Com.h"
+#include "../Core.h"
 
 JEONG_USING
-
-bool JEONG::TileImage_Com::m_isEditorMode = false;
 
 JEONG::TileImage_Com::TileImage_Com()
 {
@@ -42,7 +41,7 @@ bool JEONG::TileImage_Com::Init()
 	m_Distance = 350.0f;
 	m_Transform->SetWorldPivot(0.0f, -0.5f, 0.0f);
 	
-	if(m_isEditorMode == false)
+	if(Core::m_isEditor == false)
 		m_Transform->SetWorldScale(Vector3(0.0f, 0.0f, 1.0f));
 	else
 		m_Transform->SetWorldScale(Vector3(128.0f, 128.0f, 1.0f));
@@ -97,7 +96,7 @@ int JEONG::TileImage_Com::Update(float DeltaTime)
 			m_CBuffer.Light = Vector4::One;
 	}
 	
-	if (m_isEditorMode == false)
+	if (Core::m_isEditor == false)
 	{
 		if (m_isMove == true)
 		{
@@ -209,7 +208,7 @@ void JEONG::TileImage_Com::SetNearObject(GameObject * NearObject, float Distance
 	{
 		m_isMove = true;
 
-		if (m_isEditorMode == true)
+		if (Core::m_isEditor == true)
 			return;
 		
 		if (NearObject != NULLPTR)

@@ -23,10 +23,11 @@
 
 #include "../UserComponent/Gonner_Com.h"
 #include "../UserComponent/Monster_Com.h"
-#include <UserComponent/BubbleEffect_Com.h>
-#include <UserComponent/GunItem_Com.h>
-#include <UserComponent/HeartItem_Com.h>
-#include <UserComponent/LifeItem_Com.h>
+#include "UserComponent/BubbleEffect_Com.h"
+#include "UserComponent/GunItem_Com.h"
+#include "UserComponent/HeartItem_Com.h"
+#include "UserComponent/LifeItem_Com.h"
+#include <UserComponent/GuardM_Com.h>
 
 MainScene::MainScene()
 {
@@ -97,7 +98,14 @@ bool MainScene::Init()
 	GameObject* LifeItemObject = GameObject::CreateObject("LifeItem", Default);
 	LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
 	LifeItemObject->GetTransform()->SetWorldPos(600.0f, 800.0f, 1.0f);
-	
+
+	GameObject* GuardObject = GameObject::CreateObject("Guard", Default);
+	GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
+	GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
+	GuardM_Com::m_Target = GonnerObject;
+
+	SAFE_RELEASE(GuardObject);
+	SAFE_RELEASE(GuardCom);
 	SAFE_RELEASE(LifeItemObject);
 	SAFE_RELEASE(LifeItemCom);
 	SAFE_RELEASE(heartItemObject);
@@ -135,18 +143,6 @@ bool MainScene::Init()
 
 int MainScene::Input(float DeltaTime)
 {
-	////루프
-	//if (GetAsyncKeyState(VK_NUMPAD1) & 0x8000)
-	//{
-	//	auto sound_effect_instance = SoundManager::Get()->FindSoundEffect("BGM")->CreateInstance();
-	//	sound_effect_instance->Play(true);
-	//	SoundManager::Get()->CreateBGMList("BGM", move(sound_effect_instance));
-	//}
-
-	////단발
-	//if (GetAsyncKeyState(VK_NUMPAD0) & 0x8000)
-	//	SoundManager::Get()->FindSoundEffect("Effect")->Play();
-
 	if (GetAsyncKeyState(VK_HOME) & 0x8000)
 	{
 		SceneManager::Get()->CreateNextScene();

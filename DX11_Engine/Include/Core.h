@@ -16,6 +16,7 @@ public:
 	HINSTANCE GetHinstance() const { return m_hIstance; }
 
 	void ShotDown() { m_isLoop = false; }
+	static bool m_isEditor;
 
 private:
 	int Input(float DeltaTime);

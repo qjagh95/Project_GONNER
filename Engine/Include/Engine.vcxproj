@@ -257,9 +257,16 @@
     <ClInclude Include="Flag.h" />
     <ClInclude Include="NumberManager.h" />
     <ClInclude Include="UserComponent\AirDownM_Com.h" />
+    <ClInclude Include="UserComponent\BalloonEffect_Com.h" />
+    <ClInclude Include="UserComponent\BasicEffect_Com.h" />
     <ClInclude Include="UserComponent\BasicM_Com.h" />
+    <ClInclude Include="UserComponent\BoomEffect_Com.h" />
+    <ClInclude Include="UserComponent\BubbleEffect_Com.h" />
+    <ClInclude Include="UserComponent\BugEffect_Com.h" />
+    <ClInclude Include="UserComponent\FragmentEffect_Com.h" />
     <ClInclude Include="UserComponent\GuardM_Com.h" />
     <ClInclude Include="UserComponent\Monster_Base.h" />
+    <ClInclude Include="UserComponent\ShotEffect_Com.h" />
     <ClInclude Include="UserComponent\TraceM_Com.h" />
     <ClInclude Include="UserComponent\UserComponent_Base.h" />
   </ItemGroup>
@@ -337,9 +344,16 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="NumberManager.cpp" />
     <ClCompile Include="UserComponent\AirDownM_Com.cpp" />
+    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BasicEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BasicM_Com.cpp" />
+    <ClCompile Include="UserComponent\BoomEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BubbleEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\FragmentEffect_Com.cpp" />
     <ClCompile Include="UserComponent\GuardM_Com.cpp" />
     <ClCompile Include="UserComponent\Monster_Base.cpp" />
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp" />
     <ClCompile Include="UserComponent\TraceM_Com.cpp" />
     <ClCompile Include="UserComponent\UserComponent_Base.cpp" />
   </ItemGroup>

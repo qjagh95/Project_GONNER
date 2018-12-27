@@ -3,17 +3,16 @@
 
 JEONG_BEGIN
 
-enum GUARD_STATE
+enum AIRDOWN_STATE
 {
 	GS_IDLE,
 	GS_MOVE,
 	GS_HIT,
-	GS_GUARD,
-	GS_GUARDDOWN,
+	GS_DOWN,
 	GS_MAX,
 };
 
-class JEONG_DLL GuardM_Com : public Monster_Base
+class JEONG_DLL AirDownM_Com : public Monster_Base
 {
 public:
 	bool Init() override;
@@ -23,27 +22,13 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	GuardM_Com* Clone() override;
+	AirDownM_Com* Clone() override;
 	void AfterClone() override;
 
-private:
-	void FS_IDLE(float DeltaTime);
-	void FS_MOVE(float DeltaTime);
-	void FS_HIT(float DeltaTime);
-	void FS_GUARD(float DeltaTime);
-	void FS_GUARDDOWN(float DeltaTime);
-
-private:
-	float m_IdleTime;
-	float m_IdleTimeVar;
-
-	float m_GuardTime;
-	float m_GuardTimeVar;
-
 protected:
-	GuardM_Com();
-	GuardM_Com(const GuardM_Com& CopyData);
-	~GuardM_Com();
+	AirDownM_Com();
+	AirDownM_Com(const AirDownM_Com& CopyData);
+	~AirDownM_Com();
 
 public:
 	friend class GameObject;

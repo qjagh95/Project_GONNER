@@ -54,6 +54,8 @@ bool Bullet_Com::Init()
 	RectColl->SetMyTypeName("Bullet");
 	RectColl->PushContinueTypeName("Gonner");
 	RectColl->PushContinueTypeName("Bullet");
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Bullet_Com::MonsterHit);
+
 	SAFE_RELEASE(RectColl);
 
 	m_Material->SetMaterial(Vector4::Yellow);
@@ -223,5 +225,18 @@ void Bullet_Com::ColorLight(float DeltaTime)
 			m_Material->SetMaterial(m_Material->GetDiffuseLight() * 1.1f);
 		else
 			m_Material->SetMaterial(Vector4::Yellow);
+	}
+}
+
+void Bullet_Com::MonsterHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
+{
+	if (Dest->GetTag() == "MonsterBody")
+	{
+		//int RandNum = RandomRange(10, 20);
+
+		//for (int i = 0; i < RandNum; i++)
+		//{
+
+		//}
 	}
 }

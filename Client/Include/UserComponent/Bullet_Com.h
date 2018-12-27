@@ -25,6 +25,8 @@ public:
 	void ColorLight(float DeltaTime);
 	void SetAfterLayer(Layer* layer) { m_AfterEffectLayer = layer; }
 
+	void MonsterHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;

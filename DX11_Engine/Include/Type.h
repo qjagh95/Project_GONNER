@@ -253,4 +253,10 @@ struct JEONG_DLL TileImageCBuffer
 	Vector4 ColorPercent;
 };
 
+struct MonsterRead
+{
+	MONSTER_TYPE Type;
+	Vector3 Pos;
+};
+
 JEONG_END

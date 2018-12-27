@@ -17,6 +17,7 @@ JEONG::UserComponent_Base::UserComponent_Base(const UserComponent_Base & userCom
 
 JEONG::UserComponent_Base::~UserComponent_Base()
 {
+	int a = 0;
 }
 
 bool JEONG::UserComponent_Base::Init()
@@ -49,11 +50,6 @@ void JEONG::UserComponent_Base::CollisionLateUpdate(float DeltaTime)
 
 void JEONG::UserComponent_Base::Render(float DeltaTime)
 {
-}
-
-JEONG::UserComponent_Base * JEONG::UserComponent_Base::Clone()
-{
-	return new UserComponent_Base(*this);
 }
 
 void JEONG::UserComponent_Base::ChangeState(int State, string * AnimationName, Animation2D_Com * animation)

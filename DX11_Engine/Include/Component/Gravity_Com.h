@@ -27,8 +27,8 @@ public:
 
 private:
 	static float m_Gravity;
-	float m_Force;
 	Stage2D_Com* m_Stage;
+	float m_Force;
 	Vector3 m_ObjectScale;
 	bool m_isJump;
 

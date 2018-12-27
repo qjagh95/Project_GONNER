@@ -1,5 +1,7 @@
 #include "ClientHeader.h"
 #include "Gonner_Com.h"
+#include "FragmentEffect_Com.h"
+#include "BasicEffect_Com.h"
 
 #include <UserComponent/HeartUI_Com.h>
 #include <UserComponent/Skull_Com.h>
@@ -69,6 +71,18 @@ void Gonner_Com::ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float De
 		if (m_Gun == NULLPTR)
 			return;
 
+		int RandNum = RandomRange(8, 15);
+		for (int i = 0; i < RandNum; i++)
+		{
+			GameObject* newEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffectLayer);
+			BasicEffect_Com* BasicEffect = newEffect->AddComponent<BasicEffect_Com>("ReloadEffect");
+			BasicEffect->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
+			BasicEffect->SetRandomDirection(Vector4(1.0f, 1.0f, 0.0f, 0.3f));
+
+			SAFE_RELEASE(newEffect);
+			SAFE_RELEASE(BasicEffect);
+		}
+
 		m_Gun->ChangeState(GGS_RELOAD, m_Gun->GetAniName(), m_Gun->GetAnimation());
 	}
 }
@@ -103,6 +117,6 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 		if (m_isJumpAttack == false)
 			return;
 
-		//ÀÌÆåÆ®»ý¼º
+		///
 	}
 }
