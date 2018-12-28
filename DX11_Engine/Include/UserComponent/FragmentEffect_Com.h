@@ -18,6 +18,7 @@ public:
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
 	void SetDirection(MOVE_DIR dir);
+	void SetRandomDirection(const Vector4& Color);
 
 private:
 	Material_Com* m_Material;

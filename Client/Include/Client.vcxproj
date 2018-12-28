@@ -230,7 +230,6 @@
     <ClCompile Include="SceneMain\MainScene.cpp" />
     <ClCompile Include="SceneMain\MenuScene.cpp" />
     <ClCompile Include="SceneMain\StaticTestScene.cpp" />
-    <ClCompile Include="UserComponent\BasicEffect_Com.cpp" />
     <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
@@ -247,7 +246,6 @@
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp" />
     <ClCompile Include="UserComponent\MenuEnemy_Com.cpp" />
     <ClCompile Include="UserComponent\MenuLogo_Com.cpp" />
-    <ClCompile Include="UserComponent\Monster_Com.cpp" />
     <ClCompile Include="UserComponent\Gonner_Com.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -261,7 +259,6 @@
     <ClInclude Include="SceneMain\MainScene.h" />
     <ClInclude Include="SceneMain\MenuScene.h" />
     <ClInclude Include="SceneMain\StaticTestScene.h" />
-    <ClInclude Include="UserComponent\BasicEffect_Com.h" />
     <ClInclude Include="UserComponent\BulletUI_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
@@ -276,7 +273,6 @@
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h" />
     <ClInclude Include="UserComponent\MenuEnemy_Com.h" />
     <ClInclude Include="UserComponent\MenuLogo_Com.h" />
-    <ClInclude Include="UserComponent\Monster_Com.h" />
     <ClInclude Include="UserComponent\Gonner_Com.h" />
     <ClInclude Include="UserComponent\ReloadBullet_Com.h" />
     <ClInclude Include="UserComponent\Skull_Com.h" />

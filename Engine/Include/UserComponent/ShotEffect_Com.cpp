@@ -1,14 +1,13 @@
 #include "stdafx.h"
 #include "ShotEffect_Com.h"
 
-#include "Component/Animation2D_Com.h"
+#include "../Component/Animation2D_Com.h"
 
 JEONG_USING
 
 ShotEffect_Com::ShotEffect_Com()
 {
 }
-
 
 ShotEffect_Com::ShotEffect_Com(const ShotEffect_Com & CopyData)
 	:UserComponent_Base(CopyData)

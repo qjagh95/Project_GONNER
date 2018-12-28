@@ -25,6 +25,8 @@ public:
 	void SetNear(float Near);
 	void SetFar(float Far);
 
+	void SetShake(float Range, float LiveTime);
+
 	Matrix GetViewMatrix() const;
 	Matrix GetProjection() const;
 
@@ -32,6 +34,9 @@ public:
 	void SetTarget(Component_Base* pTarget);
 
 	void AddZoom(float Value);
+
+private:
+	void CameraShake(float DeltaTime);
 
 private:
 	Matrix m_View;
@@ -43,8 +48,17 @@ private:
 	float m_Near;
 	float m_Far;
 
+	float m_ShakeTime;
+	float m_ShakeTimeVar;
+
+	float m_ShakeRangeX;
+	float m_ShakeRangeY;
+
 	Vector3 m_MaxPos;
 	Vector2 m_WinSize;
+	Vector3 m_SavePos;
+
+	bool m_isShake;
 
 	Transform_Com* m_Target;
 	static Vector2 CameraZoom;

@@ -1,9 +1,10 @@
 #include "ClientHeader.h"
 #include "Gun_Com.h"
 #include "Bullet_Com.h"
-#include "ShotEffect_Com.h"
 #include "BulletUI_Com.h"
 #include "Gonner_Com.h"
+
+#include <UserComponent/ShotEffect_Com.h>
 
 int Gun_Com::m_BulletCount = 20;
 bool Gun_Com::m_isReloading = false;
@@ -92,6 +93,7 @@ bool Gun_Com::Init()
 
 int Gun_Com::Input(float DeltaTime)
 {
+
 	return 0;
 }
 

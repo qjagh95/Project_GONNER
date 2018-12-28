@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "FragmentEffect_Com.h"
 
-#include "Component/Animation2D_Com.h"
+#include "../Component/Animation2D_Com.h"
 
 JEONG_USING
 

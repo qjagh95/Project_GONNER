@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BugEffect_Com.h"
 
-#include <Component/Animation2D_Com.h>
+#include "../Component/Animation2D_Com.h"
 
 JEONG_USING
 
@@ -37,7 +37,7 @@ bool BugEffect_Com::Init()
 	m_Material->SetMaterial(Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f));
 
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("BugEffectAni");
-	
+
 	vector<Clip2DFrame>	vecClipFrame;
 	Clip2DFrame	tFrame = {};
 	for (int i = 0; i < 8; ++i)

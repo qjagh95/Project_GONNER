@@ -265,6 +265,9 @@
     <Filter Include="Core\08. Object\Component\UserComponent\03. Effect">
       <UniqueIdentifier>{9984f4c8-99c5-4dc6-94d6-a44c2ea160e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\05. FollowM">
+      <UniqueIdentifier>{2b21869b-1c5f-413a-89d4-d4b2261c9257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -498,9 +501,6 @@
     <ClInclude Include="UserComponent\BasicM_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\BalloonEffect_Com.h">
-      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
-    </ClInclude>
     <ClInclude Include="UserComponent\BasicEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClInclude>
@@ -513,10 +513,25 @@
     <ClInclude Include="UserComponent\BugEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\ShotEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
     <ClInclude Include="UserComponent\FragmentEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClInclude>
-    <ClInclude Include="UserComponent\ShotEffect_Com.h">
+    <ClInclude Include="UserComponent\FollowM_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\05. FollowM</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\DieEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\HitEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\DieBoomEffect_Com.h">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="UserComponent\BallonEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClInclude>
   </ItemGroup>
@@ -745,9 +760,6 @@
     <ClCompile Include="UserComponent\BasicM_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\04. BasicM</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\BalloonEffect_Com.cpp">
-      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
-    </ClCompile>
     <ClCompile Include="UserComponent\BasicEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClCompile>
@@ -760,10 +772,25 @@
     <ClCompile Include="UserComponent\BugEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClCompile>
+    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
     <ClCompile Include="UserComponent\FragmentEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\ShotEffect_Com.cpp">
+    <ClCompile Include="UserComponent\FollowM_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\02. MonsterBase\05. FollowM</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\DieEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\HitEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\DieBoomEffect_Com.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\BallonEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClCompile>
   </ItemGroup>

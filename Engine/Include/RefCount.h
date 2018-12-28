@@ -16,7 +16,7 @@ public:
 	bool GetIsActive() const { return isActive; }
 	bool GetIsShow() const { return isShow; }
 	
-	void SetIsActive(bool Val) { isActive = Val; };
+	void SetIsActive(bool Val) { isActive = Val; }
 	void SetIsShow(bool Val) { isShow = Val; }
 
 protected:

@@ -7,10 +7,8 @@ JEONG_USING
 
 int Skull_Com::m_LifeCount = 5;
 
-
 Skull_Com::Skull_Com()
 {
-
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
 }
@@ -85,9 +83,9 @@ int Skull_Com::Update(float DeltaTime)
 	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	if (m_Animation->GetDir() == MD_LEFT)
-		m_Transform->SetWorldPos(m_TargetPos.x - 5.0f, m_TargetPos.y + 10.0f, 1.0f);
+		m_Transform->SetWorldPos(m_TargetPos.x - 8.0f, m_TargetPos.y + 8.0f, 1.0f);
 	else
-		m_Transform->SetWorldPos(m_TargetPos.x + 5.0f, m_TargetPos.y + 10.0f, 1.0f);
+		m_Transform->SetWorldPos(m_TargetPos.x + 8.0f, m_TargetPos.y + 8.0f, 1.0f);
 
 	return 0;
 }

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BubbleEffect_Com.h"
 
-#include <Component/Animation2D_Com.h>
+#include "../Component/Animation2D_Com.h"
 
 JEONG_USING
 
@@ -15,15 +15,6 @@ BubbleEffect_Com::BubbleEffect_Com()
 BubbleEffect_Com::BubbleEffect_Com(const BubbleEffect_Com & CopyData)
 	:UserComponent_Base(CopyData)
 {
-	m_Material = CopyData.m_Material;
-	m_Animation = CopyData.m_Animation;
-
-	m_ScaleVar = CopyData.m_ScaleVar;
-
-	m_ChangeTimeVar = 0.0f;
-	m_ChangeTime = CopyData.m_ChangeTime;
-
-	memcpy(m_ChangeColor, CopyData.m_ChangeColor, sizeof(Vector4) * 3);
 }
 
 BubbleEffect_Com::~BubbleEffect_Com()
@@ -91,7 +82,7 @@ bool BubbleEffect_Com::Init()
 	m_ChangeColor[2] = Vector4(80.0f / 255.0f, 187.0f / 255.0f, 166.0f / 255.0f, 1.0f);
 
 	m_Animation->ChangeClip("BubbleEffect");
-	
+
 	m_UpDir.x = cosf(DegreeToRadian((float)RandomRange(45, 140)));
 	m_UpDir.y = sinf(DegreeToRadian((float)RandomRange(45, 140)));
 
@@ -174,8 +165,8 @@ void BubbleEffect_Com::ScaleAction(float DeltaTime)
 		m_StartTimeVar = 0.0f;
 		m_isStart = true;
 	}
- 
-	if(m_isStart == true)
+
+	if (m_isStart == true)
 		m_Transform->AddScaleXY(-300.0f, DeltaTime);
 
 	if (m_Transform->GetWorldScale() <= Vector3::Zero)

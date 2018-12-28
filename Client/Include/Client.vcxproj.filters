@@ -26,9 +26,6 @@
     <Filter Include="Scene\03. MainScene">
       <UniqueIdentifier>{981a1623-d2b2-41ac-9a94-a2c1168dcda0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\03. MainScene\Component">
-      <UniqueIdentifier>{19c2ecfe-8b36-43ca-9162-6834275c2d8d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\03. MainScene\SceneMain">
       <UniqueIdentifier>{37e08126-db94-4993-b4d6-5ca798c17fbd}</UniqueIdentifier>
     </Filter>
@@ -40,9 +37,6 @@
     </Filter>
     <Filter Include="Scene\02. MenuScene\Component">
       <UniqueIdentifier>{f9500d82-ec68-4c27-b50e-45e2a487fdf2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\03. MainScene\Component\Monster">
-      <UniqueIdentifier>{09bcc5ab-dc8c-43f1-aafa-18b1d49f82ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="UserComponent">
       <UniqueIdentifier>{c10f9c04-a82a-46b9-ac92-748c5de925bf}</UniqueIdentifier>
@@ -65,14 +59,8 @@
     <Filter Include="UserComponent\Other\05. Fire">
       <UniqueIdentifier>{1c92b2f6-7361-454f-900b-6464cbfc3e3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\Other\06. BubbleEffect">
-      <UniqueIdentifier>{b0f808b3-900e-4999-b828-62fc328d8690}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UserComponent\Other\07. Gun">
       <UniqueIdentifier>{eab09fca-b269-4616-8de6-12fc26d155bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UserComponent\Other\08. BugEffect">
-      <UniqueIdentifier>{783adcf0-9365-45ab-9bc4-f64c5a80610c}</UniqueIdentifier>
     </Filter>
     <Filter Include="UserComponent\Other\09. Bullet">
       <UniqueIdentifier>{f3ca56e2-ac74-4cd0-a675-56cdc60fa6c2}</UniqueIdentifier>
@@ -85,9 +73,6 @@
     </Filter>
     <Filter Include="UserComponent\Gonner">
       <UniqueIdentifier>{212fa6b7-6c1d-4a88-9c4c-cae7ad335ade}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="UserComponent\Other\12. BasicEffect">
-      <UniqueIdentifier>{d4d01a88-670d-494f-823f-136bd9aa3dce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -105,9 +90,6 @@
     </ClCompile>
     <ClCompile Include="SceneMain\MenuScene.cpp">
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Monster_Com.cpp">
-      <Filter>Scene\03. MainScene\Component\Monster</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\LogoAlphaBat_Com.cpp">
       <Filter>UserComponent\Other\01. LogoAlphaBat</Filter>
@@ -169,9 +151,6 @@
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
       <Filter>UserComponent\Gonner</Filter>
     </ClCompile>
-    <ClCompile Include="UserComponent\BasicEffect_Com.cpp">
-      <Filter>UserComponent\Other\12. BasicEffect</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHeader.h">
@@ -188,9 +167,6 @@
     </ClInclude>
     <ClInclude Include="SceneMain\MenuScene.h">
       <Filter>Scene\02. MenuScene\SceneMain</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Monster_Com.h">
-      <Filter>Scene\03. MainScene\Component\Monster</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\LogoAlphaBat_Com.h">
       <Filter>UserComponent\Other\01. LogoAlphaBat</Filter>
@@ -242,9 +218,6 @@
     </ClInclude>
     <ClInclude Include="UserComponent\Gonner_Com.h">
       <Filter>UserComponent\Gonner</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\BasicEffect_Com.h">
-      <Filter>UserComponent\Other\12. BasicEffect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

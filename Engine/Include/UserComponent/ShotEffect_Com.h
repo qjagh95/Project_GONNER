@@ -1,7 +1,6 @@
 #pragma once
 #include "UserComponent_Base.h"
 
-
 JEONG_BEGIN
 
 class JEONG_DLL ShotEffect_Com : public UserComponent_Base
@@ -30,6 +29,7 @@ protected:
 
 public:
 	friend class GameObject;
+
 };
 
 JEONG_END

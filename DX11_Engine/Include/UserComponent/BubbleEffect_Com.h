@@ -2,8 +2,7 @@
 #include "UserComponent_Base.h"
 
 JEONG_BEGIN
-class Material_Com;
-class Animation2D_Com;
+
 class JEONG_DLL BubbleEffect_Com : public UserComponent_Base
 {
 public:
@@ -34,7 +33,6 @@ private:
 	bool m_isStart;
 
 	Vector3 m_UpDir;
-
 	Vector4 m_ChangeColor[3];
 
 protected:

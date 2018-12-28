@@ -39,6 +39,8 @@ private:
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+	Layer* m_AfterEffectLayer;
+
 	Vector3 m_Pos;
 
 	string m_AniName[GGS_MAX];
@@ -52,8 +54,6 @@ private:
 
 	float m_ReloadDelayTime;
 	float m_ReloadDelayTimeVar;
-
-	Layer* m_AfterEffectLayer;
 
 protected:
 	Gun_Com();

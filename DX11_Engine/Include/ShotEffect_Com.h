@@ -3,13 +3,7 @@
 
 JEONG_BEGIN
 
-enum EFFECT_STATE
-{
-	ES_IDLE,
-	ES_DIE,
-};
-
-class JEONG_DLL BallonEffect_Com : public UserComponent_Base
+class JEONG_DLL ShotEffect_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -19,7 +13,7 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	BallonEffect_Com* Clone() override;
+	ShotEffect_Com* Clone() override;
 	void AfterClone() override;
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
@@ -27,19 +21,11 @@ public:
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
-	Vector3 m_Scale;
-	EFFECT_STATE m_State;
-
-	float m_UpTimeVar;
-	float m_UpTime;
-	float m_UpSpeed;
-	float m_MoveSpeed;
-	bool m_isMove;
 
 protected:
-	BallonEffect_Com();
-	BallonEffect_Com(const BallonEffect_Com& CopyData);
-	~BallonEffect_Com();
+	ShotEffect_Com();
+	ShotEffect_Com(const ShotEffect_Com& CopyData);
+	~ShotEffect_Com();
 
 public:
 	friend class GameObject;

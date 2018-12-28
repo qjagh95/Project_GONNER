@@ -26,6 +26,8 @@ public:
 	GuardM_Com* Clone() override;
 	void AfterClone() override;
 
+	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
+
 private:
 	void FS_IDLE(float DeltaTime);
 	void FS_MOVE(float DeltaTime);

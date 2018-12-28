@@ -28,6 +28,10 @@ JEONG::Camera_Com::Camera_Com(const Camera_Com & camera)
 
 bool JEONG::Camera_Com::Init()
 {
+	m_isShake = false;
+
+	float m_ShakeTime = 0.0f;
+	float m_ShakeTimeVar = 0.0f; 
 
 	m_WinSize.x = (float)Device::Get()->GetWinSize().Width;
 	m_WinSize.y = (float)Device::Get()->GetWinSize().Height;
@@ -116,40 +120,8 @@ void JEONG::Camera_Com::SetCameraType(CAMERA_TYPE eType)
 			break;
 
 		case CT_ORTHO:
-			/*
-			화면을 800 600이라고 가정한다. 스케일값이 100이라고 가정한다.
-
-			(버텍스 데이터)     (월드행렬)
-			 0,    0.5, 0, 1	100 0   0 0
-			 0.5, -0.5, 0, 1	0   100 0 0
-			-0.5, -0.5, 0, 1	0   0   1 0
-								100 100 0 1
-
-			(100) = (0 0 * 0) + (1 0 * 1) + (2 0 * 3) + (3 0 * 3)
-			(150) = (0 1 * 0) + (1 1 * 1) + (2 1 * 3) + (3 1 * 3)
-
-			위에서 월드행렬에 곱한 버텍스데이터를 직교투영행렬공식에 변환과정.
-			100, 150, 0, 1		1/400 0      0 0
-			150, 50,  0, 1		0     1/-300 0 0
-			50,  50,  0, 1		0     0      1 0
-			-1,   1,  1, 1
-
-			곱한 값
-			-0.75, 0.5
-			-0.625, 0.83
-
-			직교투영 공식
-			2/(right-left)      0					0            0
-			0					2/(top-bottom)      0            0
-			0					0					1/(zf-zn)	 0
-			(left+right)/(left-right)  (top+bottom)/(bottom-top)  zn/(zn-zf)
-			*/
-
-			//여기서 Pos가 뒤집어진 결과가 나온다. 
-			//그래서 인덱스를 반대로 돌려줘야 정상적인 출력이 가능하다. (좌상단으로 좌표를 잡았을경우)
 			m_Projection = XMMatrixOrthographicOffCenterLH(CameraZoom.x, m_Width, CameraZoom.y, m_Height, m_Near, m_Far);
 			break;
-			//투영공식을 위 공식을 통하여 내보내겠다는 뜻.
 	}
 }
 
@@ -229,4 +201,30 @@ void JEONG::Camera_Com::AddZoom(float Value)
 		CameraZoom.y = 0.0f;
 
 	m_Projection = XMMatrixOrthographicOffCenterLH(CameraZoom.x, m_Width, CameraZoom.y, m_Height, m_Near, m_Far);
+}
+void JEONG::Camera_Com::SetShake(float Range, float LiveTime)
+{
+	m_isShake = true;
+	m_ShakeTime = LiveTime;
+
+	m_ShakeRangeX = (float)RandomRange(-Range, Range);
+	m_ShakeRangeY = (float)RandomRange(-Range, Range);
+
+	m_SavePos = m_Transform->GetWorldPos();
+}
+
+
+void JEONG::Camera_Com::CameraShake(float DeltaTime)
+{
+	if (m_isShake == false)
+		return;
+
+	m_Transform->SetWorldPos(m_SavePos.x + m_ShakeRangeX, m_SavePos.y + m_ShakeRangeX, 0.0f);
+
+	m_ShakeTimeVar += DeltaTime;
+	if (m_ShakeTimeVar >= m_ShakeTime)
+	{
+		m_ShakeTimeVar = 0.0f;
+		m_isShake = false;
+	}
 }

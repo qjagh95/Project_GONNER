@@ -92,7 +92,6 @@ int ReloadBullet_Com::Update(float DeltaTime)
 		float Angle = ShotDir.GetAngle(Look);
 		float Distance = m_Transform->GetWorldPos().GetDistance(m_TargetPos);
 
-		//외적 z값이 0보다 크거나 작거나에따라서 앞뒤판단
 		Vector3 Cross = ShotDir.Cross(Look);
 		Cross.Nomallize();
 

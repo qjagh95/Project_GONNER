@@ -74,6 +74,7 @@ Gonner_Com::~Gonner_Com()
 	SAFE_RELEASE(m_PrevEffectLayer);
 
 	SAFE_RELEASE(m_Gun);
+	SAFE_RELEASE(m_Gun);
 	SAFE_RELEASE(m_GunObject);
 	
 	SAFE_RELEASE(m_HeartObject);

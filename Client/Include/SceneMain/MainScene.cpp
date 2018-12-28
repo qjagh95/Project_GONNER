@@ -22,7 +22,6 @@
 #include "Component/Gravity_Com.h"
 
 #include "../UserComponent/Gonner_Com.h"
-#include "../UserComponent/Monster_Com.h"
 #include "UserComponent/BubbleEffect_Com.h"
 #include "UserComponent/GunItem_Com.h"
 #include "UserComponent/HeartItem_Com.h"
@@ -78,10 +77,6 @@ bool MainScene::Init()
 		SAFE_RELEASE(gonner_Com);
 	}
 
-	GameObject* monsterObject = GameObject::CreateObject("Monster", Default, true);
-	Monster_Com* newMonster = monsterObject->AddComponent< Monster_Com>("monster");
-	mainCamera->SetTarget(GonnerObject);
-
 	GameObject* gunItemObject = GameObject::CreateObject("GunItem", Default);
 	GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
 	gunItemObject->GetTransform()->SetWorldPos(300.0f, 800.0f, 1.0f);
@@ -114,8 +109,6 @@ bool MainScene::Init()
 	SAFE_RELEASE(newFadeCom);
 	SAFE_RELEASE(gunItemCom);
 	SAFE_RELEASE(gunItemObject);
-	SAFE_RELEASE(monsterObject);
-	SAFE_RELEASE(newMonster);
 	SAFE_RELEASE(BackCom);
 	SAFE_RELEASE(BackObject);
 	SAFE_RELEASE(pStage);

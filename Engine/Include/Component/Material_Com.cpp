@@ -200,8 +200,6 @@ void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & K
 	if (RegisterNumber > 0)
 		SAFE_RELEASE(getMaterial->vecDiffuseTexture[RegisterNumber]);
 
-	//텍스쳐가 없다면 맵에 추가한 후
-	//가져다 쓴다.
 	ResourceManager::Get()->CreateTexture(KeyName, FileName, PathKey);
 	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
 }

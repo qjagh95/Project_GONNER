@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "BalloonEffect_Com.h"
+#include "BallonEffect_Com.h"
 
 #include "../Component/Animation2D_Com.h"
 
@@ -117,23 +117,23 @@ int BallonEffect_Com::Update(float DeltaTime)
 
 		m_Transform->Move(AXIS_Y, m_UpSpeed, DeltaTime);
 	}
-	
+
 	//어차피 나중에 0됨.
-	if(m_Animation->GetDir() == MD_LEFT)
+	if (m_Animation->GetDir() == MD_LEFT)
 		m_Transform->Move(AXIS_X, m_MoveSpeed, DeltaTime);
 	else
 		m_Transform->Move(AXIS_X, -m_MoveSpeed, DeltaTime);
-	
-	if(m_State == ES_IDLE)
+
+	if (m_State == ES_IDLE)
 		m_Transform->AddScaleXY(-5.0f, DeltaTime);
 
 	Vector3 CurScale = m_Transform->GetWorldScale();
 
-	if(CurScale <= m_Scale * 0.5f)
+	if (CurScale <= m_Scale * 0.5f)
 	{
 		m_State = ES_DIE;
 
-		if(m_Animation->GetClipName() != "Die")
+		if (m_Animation->GetClipName() != "Die")
 			m_Animation->ChangeClip("Die");
 	}
 
@@ -170,4 +170,10 @@ BallonEffect_Com * BallonEffect_Com::Clone()
 
 void BallonEffect_Com::AfterClone()
 {
+}
+
+void BallonEffect_Com::SetPos(const Vector3 & Pos, const Vector4 & Color)
+{
+	m_Transform->SetWorldPos(Pos);
+	m_Material->SetMaterial(Color);
 }

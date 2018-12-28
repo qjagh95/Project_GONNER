@@ -3,10 +3,6 @@
 #include <Component/Animation2D_Com.h>
 #include <Component/Stage2D_Com.h>
 
-#include "BoomEffect_Com.h"
-#include "BalloonEffect_Com.h"
-#include "FragmentEffect_Com.h"
-
 JEONG_USING
 class Bullet_Com : public UserComponent_Base
 {
@@ -24,8 +20,6 @@ public:
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
 	void ColorLight(float DeltaTime);
 	void SetAfterLayer(Layer* layer) { m_AfterEffectLayer = layer; }
-
-	void MonsterHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 
 private:
 	Material_Com* m_Material;

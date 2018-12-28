@@ -52,6 +52,11 @@ void JEONG::UserComponent_Base::Render(float DeltaTime)
 {
 }
 
+UserComponent_Base * UserComponent_Base::Clone()
+{
+	return new UserComponent_Base(*this);
+}
+
 void JEONG::UserComponent_Base::ChangeState(int State, string * AnimationName, Animation2D_Com * animation)
 {
 	m_PrevState = m_State;

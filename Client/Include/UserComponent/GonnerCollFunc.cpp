@@ -1,8 +1,8 @@
 #include "ClientHeader.h"
 #include "Gonner_Com.h"
-#include "FragmentEffect_Com.h"
-#include "BasicEffect_Com.h"
 
+#include <UserComponent/BasicEffect_Com.h>
+#include <UserComponent/FragmentEffect_Com.h>
 #include <UserComponent/HeartUI_Com.h>
 #include <UserComponent/Skull_Com.h>
 
@@ -16,12 +16,10 @@ void Gonner_Com::GunItemHit(Collider_Com * Src, Collider_Com * Dest, float Delta
 		Dest->GetGameObject()->SetIsActive(false);
 		
 		if (m_GunObject != NULLPTR || m_Gun != NULLPTR)
-			return;
+			return ;
 
 		m_GunObject = GameObject::CreateObject("GunObject", m_AfterEffectLayer);
 		m_Gun = m_GunObject->AddComponent<Gun_Com>("Gun");
-		m_GunObject->SetScene(m_Scene);
-		m_GunObject->SetLayer(m_Layer);
 		m_GunObject->GetTransform()->SetWorldRotZFromNoneAxis(-90.0f);
 		Gun_Com::m_isEquip = true;
 
@@ -100,7 +98,7 @@ void Gonner_Com::LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaT
 			return;
 
 		m_SkullObject = GameObject::CreateObject("Life", m_AfterEffectLayer);
-		m_Skull = m_SkullObject->AddComponent< Skull_Com>("Life");
+		m_Skull = m_SkullObject->AddComponent<Skull_Com>("Life");
 		
 		SoundManager::Get()->FindSoundEffect("LifeEat")->Play();
 		m_isSkullItem = true;
@@ -117,6 +115,6 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 		if (m_isJumpAttack == false)
 			return;
 
-		///
+	///몬스터가져와야함.
 	}
 }

@@ -3,7 +3,6 @@
 
 JEONG_BEGIN
 
-class Animation2D_Com;
 class JEONG_DLL BoomEffect_Com : public UserComponent_Base
 {
 public:
@@ -30,5 +29,5 @@ public:
 	friend class GameObject;
 };
 
-JEONG_END
 
+JEONG_END

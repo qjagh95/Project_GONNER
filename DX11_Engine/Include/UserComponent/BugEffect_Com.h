@@ -1,10 +1,9 @@
 #pragma once
 #include "UserComponent_Base.h"
 
-JEONG_BEGIN
 
-class Animation2D_Com;
-class JEONG_DLL BugEffect_Com : public UserComponent_Base
+JEONG_BEGIN
+class JEONG_DLL  BugEffect_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;

@@ -9,7 +9,6 @@ enum EFFECT_STATE
 	ES_DIE,
 };
 
-class Animation2D_Com;
 class JEONG_DLL BallonEffect_Com : public UserComponent_Base
 {
 public:

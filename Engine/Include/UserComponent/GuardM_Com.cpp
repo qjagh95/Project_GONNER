@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "GuardM_Com.h"
+#include "BasicEffect_Com.h"
 
 #include "../Component/Animation2D_Com.h"
 #include "../Component/ColliderRect_Com.h"
@@ -37,7 +38,7 @@ bool GuardM_Com::Init()
 	m_Hp = 2;
 
 	m_RectColl->SetInfo(Vector3::Zero, Vector3(128.0f, 128.0f, 1.0f));
-	m_Material->SetDiffuseTexture(0, "Guard", TEXT("Monster\\bigsprites3.png"));
+	//m_Material->SetDiffuseTexture(0, "Guard", TEXT("Monster\\bigsprites3.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("GuardAni");
 	m_Transform->SetWorldScale(128.0f, 128.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
@@ -79,7 +80,7 @@ bool GuardM_Com::Init()
 	tFrame.RightBottom = Vector2(128.0f, 512.0f);
 	vecClipFrame.push_back(tFrame);
 
-	m_Animation->AddClip("Hit", A2D_ATLS, AO_LOOP, 0.5f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
+	m_Animation->AddClip("Hit", A2D_ATLS, AO_ONCE_STOP, 0.6f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
 	vecClipFrame.clear();
 
 	for (int i = 0; i < 7; ++i)
@@ -108,7 +109,7 @@ bool GuardM_Com::Init()
 	m_AniName[GS_GUARD] = "Guard";
 	m_AniName[GS_GUARDDOWN] = "GuardDown";
 
-	ChangeState(GS_GUARDDOWN, m_AniName, m_Animation);
+	ChangeState(GS_IDLE, m_AniName, m_Animation);
 
 	return true;
 }
@@ -121,6 +122,8 @@ int GuardM_Com::Input(float DeltaTime)
 int GuardM_Com::Update(float DeltaTime)
 {
 	Monster_Base::Update(DeltaTime);
+
+	TargetDirCheck(DeltaTime);
 
 	switch (m_State)
 	{
@@ -168,6 +171,37 @@ GuardM_Com * GuardM_Com::Clone()
 
 void GuardM_Com::AfterClone()
 {
+}
+
+void GuardM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
+{
+	if(Dest->GetTag() == "BulletBody")
+	{
+		Vector3 dPos = Dest->GetGameObject()->GetTransform()->GetWorldPos();
+		SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
+
+		m_Scene->CreateWave(dPos, 0.8f, 0.1f);
+		Dest->GetGameObject()->SetIsActive(false);
+
+		if (m_Hp > 0)
+		{
+			ChangeState(GS_HIT, m_AniName, m_Animation);
+			m_Hp--;
+		}
+
+		int RandNum = RandomRange(10, 20);
+
+		for (size_t i = 0; i < RandNum; i++)
+		{
+			GameObject* newEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffect);
+			BasicEffect_Com* BasicEffect = newEffect->AddComponent<BasicEffect_Com>("ReloadEffect");
+			BasicEffect->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
+			BasicEffect->SetRandomDirection(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f));
+
+			SAFE_RELEASE(newEffect);
+			SAFE_RELEASE(BasicEffect);
+		}
+	}
 }
 
 void GuardM_Com::FS_IDLE(float DeltaTime)
