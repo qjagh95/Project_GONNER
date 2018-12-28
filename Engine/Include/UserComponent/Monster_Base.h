@@ -37,12 +37,24 @@ protected:
 	Layer* m_AfterEffect;
 	Layer* m_PrevEffect;
 	Vector3 m_Pos;
+	Vector3 m_Scale;
+	Vector3 m_CenterPos;
+	Vector3 m_CenterLeftPos;
+	Vector3 m_CenterRightPos;
+	Vector3 m_UpPos;
+
+	Tile2D_Com* m_UpTile;
+	Tile2D_Com* m_DownTile;
+	Tile2D_Com* m_LeftTile;
+	Tile2D_Com* m_RightTile;
+	Stage2D_Com* m_Stage;
 
 	Vector3 m_CrossDir;
 
 	string m_AniName[255];
 	int m_Hp;
 	float m_Range;
+	Camera_Com* m_Camera;
 
 private:
 	float m_ChangeTime;

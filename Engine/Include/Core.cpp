@@ -38,6 +38,7 @@ Core::~Core()
 	ExcelManager::Delete();
 	NumberManager::Delete();
 	StageManager::Delete();
+	CountManager::Delete();
 
 	CoUninitialize();
 }

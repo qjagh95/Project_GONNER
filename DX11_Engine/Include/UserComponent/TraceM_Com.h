@@ -2,16 +2,6 @@
 #include "Monster_Base.h"
 
 JEONG_BEGIN
-
-enum TRACE_STATE
-{
-	TS_IDLE,
-	TS_MOVE,
-	TS_HIT,
-	TS_TRACE,
-	TS_MAX,
-};
-
 class JEONG_DLL TraceM_Com : public Monster_Base
 {
 public:

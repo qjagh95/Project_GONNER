@@ -2,16 +2,6 @@
 #include "Monster_Base.h"
 
 JEONG_BEGIN
-
-enum AIRDOWN_STATE
-{
-	GS_IDLE,
-	GS_MOVE,
-	GS_HIT,
-	GS_DOWN,
-	GS_MAX,
-};
-
 class JEONG_DLL AirDownM_Com : public Monster_Base
 {
 public:

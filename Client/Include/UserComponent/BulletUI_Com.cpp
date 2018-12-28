@@ -109,7 +109,7 @@ int BulletUI_Com::Update(float DeltaTime)
 	if (m_isMove == false)
 		SetPos(m_Index);
 
-	if (m_Index > Gun_Com::m_BulletCount)
+	if (m_Index > CountManager::Get()->m_BulletCount)
 		m_State = BT_OFF;
 	else
 		m_State = BT_ON;
@@ -245,7 +245,7 @@ void BulletUI_Com::SetIndex(int Index)
 {
 	m_Index = Index + 1;
 	
-	if (m_Index <= Gun_Com::m_BulletCount)
+	if (m_Index <= CountManager::Get()->m_BulletCount)
 	{
 		m_State = BT_OFF;
 		m_Material->SetMaterial(Vector4::Gray);

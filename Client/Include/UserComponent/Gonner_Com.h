@@ -58,10 +58,12 @@ public:
 
 	void GunItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
-	void MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
-	
+	void MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void MonsterHitDoing(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void MonsterHitEnd(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+
 	static Vector3 m_GonnerPos;
 	static Vector3 m_GonnerScale;
 	static Vector3 m_GonnerScaleHalf;
@@ -74,10 +76,6 @@ private:
 	void CreateBugEffect(float DeltaTime);
 	void CreateBugChangeEffect(float DeltaTime);
 	void ItemUpdate(float DeltaTime);
-	void ItemLateUpdate(float DeltaTime);
-	void ItemCollsion(float DeltaTime);
-	void ItemCollsionLate(float DeltaTime);
-	void ItemRender(float DeltaTime);
 
 private:
 	Animation2D_Com* m_Animation;
@@ -89,13 +87,13 @@ private:
 	Vector2 m_WinSize;
 
 	Vector3 m_upPos;
-
 	Vector3 m_downPos;
 	Vector3 m_leftPos;
 	Vector3 m_rightPos;
 	
 	Gravity_Com* m_GravityCom;
 	Stage2D_Com* m_Stage;
+	Camera_Com* m_Camera;
 
 	WaveCBuffer m_WaveCBuffer;
 

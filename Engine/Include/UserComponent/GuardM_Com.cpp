@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GuardM_Com.h"
 #include "BasicEffect_Com.h"
+#include "HitEffect_Com.h"
 
 #include "../Component/Animation2D_Com.h"
 #include "../Component/ColliderRect_Com.h"
@@ -37,9 +38,9 @@ bool GuardM_Com::Init()
 
 	m_Hp = 2;
 
-	m_RectColl->SetInfo(Vector3::Zero, Vector3(128.0f, 128.0f, 1.0f));
 	//m_Material->SetDiffuseTexture(0, "Guard", TEXT("Monster\\bigsprites3.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("GuardAni");
+	m_RectColl->SetInfo(Vector3(30.0f, 0.0f, 0.0f), Vector3(100.0f, 100.0f, 1.0f));
 	m_Transform->SetWorldScale(128.0f, 128.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
 
@@ -103,13 +104,13 @@ bool GuardM_Com::Init()
 	m_Animation->AddClip("GuardDown", A2D_ATLS, AO_ONCE_STOP, 0.5f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
 	vecClipFrame.clear();
 
-	m_AniName[GS_IDLE] = "Idle";
-	m_AniName[GS_MOVE] = "Move";
-	m_AniName[GS_HIT] = "Hit";
-	m_AniName[GS_GUARD] = "Guard";
-	m_AniName[GS_GUARDDOWN] = "GuardDown";
+	m_AniName[GUS_IDLE] = "Idle";
+	m_AniName[GUS_MOVE] = "Move";
+	m_AniName[GUS_HIT] = "Hit";
+	m_AniName[GUS_GUARD] = "Guard";
+	m_AniName[GUS_GUARDDOWN] = "GuardDown";
 
-	ChangeState(GS_IDLE, m_AniName, m_Animation);
+	ChangeState(GUS_IDLE, m_AniName, m_Animation);
 
 	return true;
 }
@@ -127,19 +128,19 @@ int GuardM_Com::Update(float DeltaTime)
 
 	switch (m_State)
 	{
-		case GS_IDLE:
+		case GUS_IDLE:
 			FS_IDLE(DeltaTime);
 			break;
-		case GS_MOVE:
+		case GUS_MOVE:
 			FS_MOVE(DeltaTime);
 			break;
-		case GS_HIT:
+		case GUS_HIT:
 			FS_HIT(DeltaTime);
 			break;
-		case GS_GUARD:
+		case GUS_GUARD:
 			FS_GUARD(DeltaTime);
 			break;
-		case GS_GUARDDOWN:
+		case GUS_GUARDDOWN:
 			FS_GUARDDOWN(DeltaTime);
 			break;
 	}
@@ -180,12 +181,13 @@ void GuardM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaT
 		Vector3 dPos = Dest->GetGameObject()->GetTransform()->GetWorldPos();
 		SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
 
+		m_Camera->SetShake(5.0f, 0.3f);
 		m_Scene->CreateWave(dPos, 0.8f, 0.1f);
 		Dest->GetGameObject()->SetIsActive(false);
 
 		if (m_Hp > 0)
 		{
-			ChangeState(GS_HIT, m_AniName, m_Animation);
+			ChangeState(GUS_HIT, m_AniName, m_Animation);
 			m_Hp--;
 		}
 
@@ -201,6 +203,12 @@ void GuardM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaT
 			SAFE_RELEASE(newEffect);
 			SAFE_RELEASE(BasicEffect);
 		}
+
+		GameObject* newHitEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffect);
+		HitEffect_Com* HitEffect = newHitEffect->AddComponent<HitEffect_Com>("ReloadEffect");
+		HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f)));
+		SAFE_RELEASE(newHitEffect);
+		SAFE_RELEASE(HitEffect);
 	}
 }
 

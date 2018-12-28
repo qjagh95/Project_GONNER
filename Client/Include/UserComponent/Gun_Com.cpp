@@ -6,7 +6,6 @@
 
 #include <UserComponent/ShotEffect_Com.h>
 
-int Gun_Com::m_BulletCount = 20;
 bool Gun_Com::m_isReloading = false;
 bool Gun_Com::m_isEquip = false;
 
@@ -25,6 +24,8 @@ Gun_Com::~Gun_Com()
 	SAFE_RELEASE(m_Material);
 	SAFE_RELEASE(m_Animation);
 	SAFE_RELEASE(m_AfterEffectLayer);
+	Safe_Release_VecList(m_vecBulletUIObject);
+	Safe_Release_VecList(m_vecBulletUI);
 }
 
 bool Gun_Com::Init()
@@ -80,8 +81,8 @@ bool Gun_Com::Init()
 		BulletUI_Com* newUICom = BulletUIObject->AddComponent<BulletUI_Com>("BulletUI");
 		newUICom->SetIndex(i);
 
-		SAFE_RELEASE(BulletUIObject);
-		SAFE_RELEASE(newUICom);
+		m_vecBulletUIObject.push_back(BulletUIObject);
+		m_vecBulletUI.push_back(newUICom);
 	}
 
 	m_ReloadTimeVar = 0.0f;
@@ -179,7 +180,7 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 			if (m_Animation->GetPrevFrame() == m_Animation->GetFrame())
 				return;
 
-			if (m_BulletCount == 0)
+			if (CountManager::Get()->m_BulletCount == 0)
 				return;
 
 			GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_Layer);
@@ -208,10 +209,10 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 
 			SoundManager::Get()->FindSoundEffect("Shot")->Play();
 
-			if (m_BulletCount > 0)
-				m_BulletCount--;
+			if (CountManager::Get()->m_BulletCount > 0)
+				CountManager::Get()->m_BulletCount--;
 			else
-				m_BulletCount = 0;
+				CountManager::Get()->m_BulletCount = 0;
 
 			SAFE_RELEASE(newbulletObject);
 			SAFE_RELEASE(newBullet);
@@ -226,7 +227,7 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 
 void Gun_Com::FS_RELOAD(float DeltaTime)
 {
-	if (m_BulletCount == 20)
+	if (CountManager::Get()->m_BulletCount == 20)
 	{
 		ChangeState(GGS_IDLE, m_AniName, m_Animation);
 		return;
@@ -237,10 +238,10 @@ void Gun_Com::FS_RELOAD(float DeltaTime)
 	if (m_ReloadTimeVar >= m_ReloadTime)
 	{
 		m_ReloadTimeVar = 0.0f;
-		m_BulletCount++;
+		CountManager::Get()->m_BulletCount++;
 	}
 
-	if (m_BulletCount >= 20)
+	if (CountManager::Get()->m_BulletCount >= 20)
 		ChangeState(GGS_IDLE, m_AniName, m_Animation);
 }
 
@@ -268,7 +269,6 @@ void Gun_Com::ChangeColor(float DeltaTime)
 	}
 }
 
-
 void Gun_Com::DelayTime(float DeltaTime)
 {
 	if (m_isReloading == false)
@@ -282,5 +282,21 @@ void Gun_Com::DelayTime(float DeltaTime)
 		m_isReloading = false;
 
 		SoundManager::Get()->FindSoundEffect("DelayFinish")->Play();
+	}
+}
+
+void Gun_Com::ClearUI()
+{
+	for (size_t i = 0; i < m_vecBulletUI.size(); i++)
+	{
+		m_vecBulletUI[i]->SetIsActive(false);
+		SAFE_RELEASE(m_vecBulletUI[i]);
+	}
+
+	for (size_t i = 0; i < m_vecBulletUIObject.size(); i++)
+	{
+		m_vecBulletUIObject[i]->SetIsActive(false);
+		SAFE_RELEASE(m_vecBulletUIObject[i]);
+
 	}
 }

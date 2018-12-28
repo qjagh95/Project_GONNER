@@ -110,7 +110,7 @@ int LifeUI_Com::Update(float DeltaTime)
 	if (m_isMove == false)
 		SetPos(m_Index);
 
-	if (m_Index > Skull_Com::m_LifeCount)
+	if (m_Index > CountManager::Get()->m_LifeCount)
 		m_State = LS_OFF;
 	else
 		m_State = LS_ON;
@@ -192,7 +192,6 @@ void LifeUI_Com::LightChange(float DeltaTime)
 		else
 			m_Material->SetMaterial(Vector4(170.0f / 255.0f, 230.0f / 255.0f, 236.0f / 255.0f, 1.0f));
 	}
-
 }
 
 void LifeUI_Com::On(float DeltaTime)
@@ -209,6 +208,9 @@ void LifeUI_Com::On(float DeltaTime)
 void LifeUI_Com::Off(float DeltaTime)
 {
 	GrayLightChange(DeltaTime);
+
+	Vector3 Lerp = Vector3::Lerp(m_Transform->GetWorldPos(), Vector3(m_GoingPos.x, m_GoingPos.y - 5.0f, 1.0f), DeltaTime * 3.0f);
+	m_Transform->SetWorldPos(Lerp);
 }
 
 void LifeUI_Com::TargetMove(float DeltaTime)
@@ -240,7 +242,7 @@ void LifeUI_Com::SetIndex(int Index)
 {
 	m_Index = Index + 1;
 
-	if (m_Index <= Skull_Com::m_LifeCount)
+	if (m_Index <= CountManager::Get()->m_LifeCount)
 	{
 		m_State = LS_OFF;
 		m_Material->SetMaterial(Vector4::Gray);

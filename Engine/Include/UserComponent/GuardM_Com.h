@@ -2,17 +2,6 @@
 #include "Monster_Base.h"
 
 JEONG_BEGIN
-
-enum GUARD_STATE
-{
-	GS_IDLE,
-	GS_MOVE,
-	GS_HIT,
-	GS_GUARD,
-	GS_GUARDDOWN,
-	GS_MAX,
-};
-
 class JEONG_DLL GuardM_Com : public Monster_Base
 {
 public:

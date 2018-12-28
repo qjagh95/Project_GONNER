@@ -75,6 +75,8 @@ bool MainScene::Init()
 		Gonner_Com* gonner_Com = GonnerObject->AddComponent<Gonner_Com>("GonnerCom");
 		gonner_Com->SetStage(pStage);
 		SAFE_RELEASE(gonner_Com);
+
+		mainCamera->SetTarget(GonnerObject);
 	}
 
 	GameObject* gunItemObject = GameObject::CreateObject("GunItem", Default);

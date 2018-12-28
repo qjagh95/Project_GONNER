@@ -73,7 +73,10 @@ Gonner_Com::~Gonner_Com()
 	SAFE_RELEASE(m_AfterEffectLayer);
 	SAFE_RELEASE(m_PrevEffectLayer);
 
-	SAFE_RELEASE(m_Gun);
+	//강제 Release (어디서 카운트 + 되는지 못찾겠다 ㅜ)
+	if(m_Gun != NULLPTR)
+		m_Gun->Release();
+
 	SAFE_RELEASE(m_Gun);
 	SAFE_RELEASE(m_GunObject);
 	
@@ -163,23 +166,19 @@ int Gonner_Com::Update(float DeltaTime)
 
 int Gonner_Com::LateUpdate(float DeltaTime)
 {
-	ItemLateUpdate(DeltaTime);
 	return 0;
 }
 
 void Gonner_Com::Collision(float DeltaTime)
 {
-	ItemCollsion(DeltaTime);
 }
 
 void Gonner_Com::CollisionLateUpdate(float DeltaTime)
 {
-	ItemCollsionLate(DeltaTime);
 }
 
 void Gonner_Com::Render(float DeltaTime)
 {
-	ItemRender(DeltaTime);
 }
 
 Gonner_Com * Gonner_Com::Clone()
@@ -333,11 +332,6 @@ void Gonner_Com::CreateBugChangeEffect(float DeltaTime)
 
 void Gonner_Com::ItemUpdate(float DeltaTime)
 {
-	if (m_GunObject != NULLPTR && m_Gun != NULLPTR)
-	{
-	
-	}
-
 	if (m_Gun != NULLPTR)
 		m_Gun->GetAnimation()->SetDir(m_Animation->GetDir());
 
@@ -348,25 +342,10 @@ void Gonner_Com::ItemUpdate(float DeltaTime)
 		m_Skull->GetAnimation()->SetDir(m_Animation->GetDir());
 }
 
-void Gonner_Com::ItemLateUpdate(float DeltaTime)
-{
-}
-
-void Gonner_Com::ItemCollsion(float DeltaTime)
-{
-}
-
-void Gonner_Com::ItemCollsionLate(float DeltaTime)
-{
-}
-
-void Gonner_Com::ItemRender(float DeltaTime)
-{
-}
-
 void Gonner_Com::BasicInit()
 {
 	m_WinSize = Device::Get()->GetWinSizeVector2();
+	m_Camera = m_Scene->GetMainCamera();
 
 	KeyInput::Get()->AddKey("Jump", VK_SPACE);
 	KeyInput::Get()->AddKey("Attack", 'X');
@@ -388,6 +367,8 @@ void Gonner_Com::BasicInit()
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::HeartItemHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::LifeItemHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::MonsterHitFirst);
+	RectColl->SetCollsionCallback(CCT_DOING, this, &Gonner_Com::MonsterHitDoing);
+	RectColl->SetCollsionCallback(CCT_END, this, &Gonner_Com::MonsterHitEnd);
 	SAFE_RELEASE(RectColl);
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);

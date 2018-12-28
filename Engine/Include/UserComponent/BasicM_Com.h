@@ -3,14 +3,6 @@
 
 JEONG_BEGIN
 
-enum TRACE_STATE
-{
-	TS_IDLE,
-	TS_MOVE,
-	TS_HIT,
-	TS_MAX,
-};
-
 class JEONG_DLL  BasicM_Com : public Monster_Base
 {
 public:

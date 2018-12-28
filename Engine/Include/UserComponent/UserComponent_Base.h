@@ -17,6 +17,7 @@ public:
 	 virtual void AfterClone() override {}
 
 	 void ChangeState(int State, string* AnimationName, Animation2D_Com* animation);
+	 int GetState() const { return m_State; }
 
 protected:
 	int m_State;

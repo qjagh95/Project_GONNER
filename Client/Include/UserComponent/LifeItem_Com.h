@@ -17,9 +17,14 @@ public:
 	LifeItem_Com* Clone() override;
 	void AfterClone() override;
 
+	void SetDrop(bool Value) { m_isDrop = Value; }
+
 private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+	bool m_isDrop;
+	float m_MoveRange;
+	float m_MoveDir;
 
 protected:
 	LifeItem_Com();

@@ -17,6 +17,7 @@ public:
 	void AfterClone() override;
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
+	void SetPos(const Vector3& Pos, const Vector4& Color);
 
 private:
 	Material_Com* m_Material;

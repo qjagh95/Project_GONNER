@@ -268,6 +268,9 @@
     <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\05. FollowM">
       <UniqueIdentifier>{2b21869b-1c5f-413a-89d4-d4b2261c9257}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\18. CountManager">
+      <UniqueIdentifier>{90e1fd76-5455-4b11-aede-fe335175a471}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -534,6 +537,9 @@
     <ClInclude Include="UserComponent\BallonEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
     </ClInclude>
+    <ClInclude Include="CountManager.h">
+      <Filter>Core\18. CountManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -792,6 +798,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\BallonEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CountManager.cpp">
+      <Filter>Core\18. CountManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

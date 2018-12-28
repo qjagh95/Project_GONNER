@@ -3,7 +3,7 @@
 #include <Component/Animation2D_Com.h>
 
 JEONG_USING
-
+class BulletUI_Com;
 class Gun_Com : public UserComponent_Base
 {
 public:
@@ -24,12 +24,9 @@ public:
 	void ChangeColor(float DeltaTime);
 	Material_Com* GetMaterial() const { return m_Material; }
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
-
-	void SetBulletCount(int Count) { m_BulletCount = Count; }
-	int GetBulletCount() const { return m_BulletCount; }
 	string* GetAniName() { return m_AniName; }
+	void ClearUI();
 
-	static int m_BulletCount;
 	static bool m_isReloading;
 	static bool m_isEquip;
 
@@ -54,6 +51,9 @@ private:
 
 	float m_ReloadDelayTime;
 	float m_ReloadDelayTimeVar;
+
+	vector<GameObject*> m_vecBulletUIObject; //클리어제외 아무것도 안함.
+	vector<BulletUI_Com*> m_vecBulletUI; //클리어제외 아무것도 안함.
 
 protected:
 	Gun_Com();

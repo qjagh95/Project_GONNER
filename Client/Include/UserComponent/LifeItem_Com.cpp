@@ -9,6 +9,7 @@ LifeItem_Com::LifeItem_Com()
 {
 	m_Animation = NULLPTR;
 	m_Material = NULLPTR;
+	m_isDrop = false;
 }
 
 LifeItem_Com::LifeItem_Com(const LifeItem_Com & CopyData)
@@ -30,6 +31,7 @@ bool LifeItem_Com::Init()
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	m_Material->SetMaterial(Vector4::White);
+	m_Material->SetDiffuseTexture(0, "LifeItem", TEXT("Monster\\player.png"));
 
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("LifeItemAni");
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
@@ -56,6 +58,31 @@ bool LifeItem_Com::Init()
 	RectColl->PushContinueTypeName("Monster");
 	SAFE_RELEASE(RectColl);
 
+	int RandNum = RandomRange(1, 3);
+	switch (RandNum)
+	{
+		case 1:
+			m_MoveRange = 50.0f;
+			break;
+		case 2:
+			m_MoveRange = 60.0f;
+			break;
+		case 3:
+			m_MoveRange = 80.0f;
+			break;
+	}
+
+	int RandNum2 = RandomRange(1, 2);
+	switch (RandNum2)
+	{
+		case 1:
+			m_MoveDir = 1.0f;
+			break;
+		case 2:
+			m_MoveDir = -1.0f;
+			break;
+	}
+
 	return true;
 }
 
@@ -66,6 +93,14 @@ int LifeItem_Com::Input(float DeltaTime)
 
 int LifeItem_Com::Update(float DeltaTime)
 {
+	if (m_isDrop == true)
+	{
+		m_MoveRange -= 100.0f * DeltaTime;
+
+		if (m_MoveRange >= 0.0f)
+			m_Transform->Move(AXIS_X, 100.0f * m_MoveDir, DeltaTime);
+	}
+
 	return 0;
 }
 

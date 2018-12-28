@@ -3,7 +3,7 @@
 #include <Component/Animation2D_Com.h>
 
 JEONG_USING
-
+class HeartUI_Com;
 class Heart_Com : public UserComponent_Base
 {
 public:
@@ -18,6 +18,7 @@ public:
 	void AfterClone() override;
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
+	void ClearUI();
 
 private:
 	void ChangeColor(float DeltaTime);
@@ -32,6 +33,9 @@ private:
 
 	Vector4 m_Color[3];
 	Vector3 m_TargetPos;
+
+	GameObject* m_HeartUIObject;
+	HeartUI_Com* m_HeartUI;
 
 protected:
 	Heart_Com();

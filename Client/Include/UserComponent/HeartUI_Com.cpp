@@ -1,6 +1,7 @@
 #include "ClientHeader.h"
 #include "HeartUI_Com.h"
 #include "Gun_Com.h"
+#include "Gonner_Com.h"
 
 HeartUI_Com::HeartUI_Com()
 {
@@ -69,7 +70,7 @@ int HeartUI_Com::Input(float DeltaTime)
 
 int HeartUI_Com::Update(float DeltaTime)
 {
-	Vector3 TargetPos = m_Target->GetTransform()->GetWorldPos();
+	Vector3 TargetPos = Gonner_Com::m_GonnerPos;
 
 	m_StaticTimeVar += DeltaTime;
 

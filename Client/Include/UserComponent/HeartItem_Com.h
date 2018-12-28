@@ -18,6 +18,7 @@ public:
 	void AfterClone() override;
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
+	void SetDrop(bool Value) { m_isDrop = Value; }
 
 private:
 	Material_Com* m_Material;
@@ -28,6 +29,9 @@ private:
 
 	bool m_isEquip;
 	Vector4 m_Color[3];
+	bool m_isDrop;
+	float m_MoveRange;
+	float m_MoveDir;
 
 protected:
 	HeartItem_Com();

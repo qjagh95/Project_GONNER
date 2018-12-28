@@ -8,6 +8,7 @@ JEONG_USING
 GunItem_Com::GunItem_Com()
 {
 	m_ComType = CT_GUNITEM;
+	m_isDrop = false;
 }
 
 GunItem_Com::GunItem_Com(const GunItem_Com & CopyData)
@@ -29,6 +30,7 @@ bool GunItem_Com::Init()
 	SAFE_RELEASE(GunItemRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "GunItem", TEXT("weapons.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("GunItemAni");
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
@@ -53,6 +55,32 @@ bool GunItem_Com::Init()
 	SAFE_RELEASE(RectColl);
 
 	m_Rot = 20.0f;
+	
+	int RandNum = RandomRange(1, 3);
+	switch (RandNum)
+	{ 
+		case 1:
+			m_MoveRange = 50.0f;
+			break;
+		case 2:
+			m_MoveRange = 60.0f;
+			break;
+		case 3:
+			m_MoveRange = 80.0f;
+			break;
+	}
+
+	int RandNum2 = RandomRange(1, 2);
+	switch (RandNum2)
+	{
+		case 1:
+			m_MoveDir = 1.0f;
+			break;
+		case 2:
+			m_MoveDir = -1.0f;
+			break;
+	}
+
 	return true;
 }
 
@@ -61,7 +89,15 @@ int GunItem_Com::Input(float DeltaTime)
 	if (m_Transform->GetWorldRotationZ() >= 90.0f || m_Transform->GetWorldRotationZ() <= -90.0f)
 		m_Rot *= -1.0f;
 
-	m_Transform->RotationZ(m_Rot, DeltaTime);
+	if(m_isDrop == false)
+		m_Transform->RotationZ(m_Rot, DeltaTime);
+	else
+	{
+		m_MoveRange -= 100.0f * DeltaTime;
+
+		if (m_MoveRange >= 0.0f)
+			m_Transform->Move(AXIS_X, 100.0f * m_MoveDir, DeltaTime);
+	}
 
 	return 0;
 }

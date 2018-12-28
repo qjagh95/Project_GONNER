@@ -5,7 +5,7 @@
 
 JEONG_USING
 
-int Skull_Com::m_LifeCount = 5;
+int Skull_Com::m_LifeMax = 5;
 
 Skull_Com::Skull_Com()
 {
@@ -22,6 +22,7 @@ Skull_Com::~Skull_Com()
 {
 	SAFE_RELEASE(m_Material);
 	SAFE_RELEASE(m_Animation);
+	Safe_Release_VecList(m_vecLifeObject);
 }
 
 bool Skull_Com::Init()
@@ -61,10 +62,10 @@ bool Skull_Com::Init()
 	for (int i = 0; i < 5; i++)
 	{
 		GameObject* newLifeUI = GameObject::CreateObject("LifeUI", UILayer);
-		LifeUI_Com* newLifeUICom = newLifeUI->AddComponent< LifeUI_Com>("LifeUI");
+		LifeUI_Com* newLifeUICom = newLifeUI->AddComponent<LifeUI_Com>("LifeUI");
 		newLifeUICom->SetIndex(i);
 
-		SAFE_RELEASE(newLifeUI);
+		m_vecLifeObject.push_back(newLifeUI);
 		SAFE_RELEASE(newLifeUICom);
 	}
 
@@ -114,6 +115,12 @@ Skull_Com * Skull_Com::Clone()
 
 void Skull_Com::AfterClone()
 {
+}
+
+void Skull_Com::ClearUI()
+{
+	for (size_t i = 0; i < m_vecLifeObject.size(); i++)
+		m_vecLifeObject[i]->SetIsActive(false);
 }
 
 void Skull_Com::ChangeColor(float DeltaTime)

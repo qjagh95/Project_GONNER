@@ -10,6 +10,7 @@ HeartItem_Com::HeartItem_Com()
 {
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
+	m_isDrop = false;
 }
 
 HeartItem_Com::HeartItem_Com(const HeartItem_Com & CopyData)
@@ -58,6 +59,30 @@ bool HeartItem_Com::Init()
 	RectColl->PushContinueTypeName("Monster");
 	SAFE_RELEASE(RectColl);
 
+	int RandNum = RandomRange(1, 3);
+	switch (RandNum)
+	{
+		case 1:
+			m_MoveRange = 50.0f;
+			break;
+		case 2:
+			m_MoveRange = 60.0f;
+			break;
+		case 3:
+			m_MoveRange = 80.0f;
+			break;
+	}
+
+	int RandNum2 = RandomRange(1, 2);
+	switch (RandNum2)
+	{
+		case 1:
+			m_MoveDir = 1.0f;
+			break;
+		case 2:
+			m_MoveDir = -1.0f;
+			break;
+	}
 	return true;
 }
 
@@ -68,6 +93,14 @@ int HeartItem_Com::Input(float DeltaTime)
 
 int HeartItem_Com::Update(float DeltaTime)
 {
+	if (m_isDrop == true)
+	{
+		m_MoveRange -= 100.0f * DeltaTime;
+
+		if (m_MoveRange >= 0.0f)
+			m_Transform->Move(AXIS_X, 100.0f * m_MoveDir, DeltaTime);
+	}
+
 	return 0;
 }
 

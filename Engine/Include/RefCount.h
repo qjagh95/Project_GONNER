@@ -18,6 +18,7 @@ public:
 	
 	void SetIsActive(bool Val) { isActive = Val; }
 	void SetIsShow(bool Val) { isShow = Val; }
+	void SetCount(int count) { ReferanceCount = count; }
 
 protected:
 	string m_TagName;

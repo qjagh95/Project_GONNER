@@ -18,8 +18,9 @@ public:
 	void AfterClone() override;
 	
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
+	void ClearUI();
 
-	static int m_LifeCount;
+	static int m_LifeMax;
 
 private:
 	void ChangeColor(float DeltaTime);
@@ -28,6 +29,7 @@ private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
 	Vector3 m_TargetPos;
+	vector<GameObject*> m_vecLifeObject;
 
 	float m_ChangeColorTimeVar;
 	float m_ChangeColorTime;

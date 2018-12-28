@@ -85,6 +85,7 @@ using namespace libxl;
 #include "BineryReader.h"
 #include "NumberManager.h"
 #include "StageManager.h"
+#include "CountManager.h"
 
 #include "Scene/SceneManager.h"
 #include "Scene/Scene.h"

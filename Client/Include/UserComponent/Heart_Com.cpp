@@ -3,6 +3,7 @@
 #include "Gun_Com.h"
 #include "ReloadBullet_Com.h"
 #include "Gonner_Com.h"
+#include "HeartUI_Com.h"
 
 JEONG_USING
 
@@ -19,6 +20,8 @@ Heart_Com::~Heart_Com()
 {
 	SAFE_RELEASE(m_Material);
 	SAFE_RELEASE(m_Animation);
+	SAFE_RELEASE(m_HeartUIObject);
+	SAFE_RELEASE(m_HeartUI);
 }
 
 bool Heart_Com::Init()
@@ -56,6 +59,13 @@ bool Heart_Com::Init()
 	vecClipFrame.clear();
 
 	m_Animation->ChangeClip("HeartItem");
+
+	Layer* UILayer = m_Scene->FindLayer("UI");
+
+	m_HeartUIObject = GameObject::CreateObject("HeartUI", UILayer);
+	m_HeartUI = m_HeartUIObject->AddComponent<HeartUI_Com>("HeartUI");
+
+	SAFE_RELEASE(UILayer);
 
 	return true;
 }
@@ -118,6 +128,12 @@ Heart_Com * Heart_Com::Clone()
 
 void Heart_Com::AfterClone()
 {
+}
+
+void Heart_Com::ClearUI()
+{
+	m_HeartUIObject->SetIsActive(false);
+	m_HeartUI->SetIsActive(false);
 }
 
 void Heart_Com::ChangeColor(float DeltaTime)
