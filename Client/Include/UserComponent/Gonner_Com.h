@@ -77,6 +77,8 @@ private:
 	void CreateBugChangeEffect(float DeltaTime);
 	void ItemUpdate(float DeltaTime);
 
+	void OutItem();
+
 private:
 	Animation2D_Com* m_Animation;
 	string m_AniName[GS_MAX];

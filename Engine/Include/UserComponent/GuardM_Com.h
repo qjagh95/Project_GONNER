@@ -24,12 +24,19 @@ private:
 	void FS_GUARD(float DeltaTime);
 	void FS_GUARDDOWN(float DeltaTime);
 
+	void GuardRangeCheck(float DeltaTime);
+
 private:
 	float m_IdleTime;
 	float m_IdleTimeVar;
 
+	float m_MoveTime;
+	float m_MoveTimeVar;
+
 	float m_GuardTime;
 	float m_GuardTimeVar;
+
+	float m_GuardRange;
 
 protected:
 	GuardM_Com();

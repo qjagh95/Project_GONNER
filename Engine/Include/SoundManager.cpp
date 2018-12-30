@@ -43,6 +43,7 @@ bool JEONG::SoundManager::Init()
 	CreateSoundEffect("MonsterDie", TEXT("sfx_death_test_01.wav"));
 	CreateSoundEffect("DieBoom", TEXT("DieBoom.wav"));
 	CreateSoundEffect("ChangeStateBug", TEXT("ChangeStateBug.wav"));
+	CreateSoundEffect("JumpAttack", TEXT("JumpAttack.wav"));
 
 	return true;
 }

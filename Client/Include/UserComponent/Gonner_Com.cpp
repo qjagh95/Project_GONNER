@@ -14,6 +14,9 @@
 #include <UserComponent/BubbleEffect_Com.h>
 #include <UserComponent/BugEffect_Com.h>
 #include <UserComponent/HeartUI_Com.h>
+#include <UserComponent/HeartItem_Com.h>
+#include <UserComponent/LifeItem_Com.h>
+
 
 Vector3 Gonner_Com::m_GonnerPos;
 Vector3 Gonner_Com::m_GonnerScale = Vector3(64.0f, 64.0f, 1.0f);
@@ -335,11 +338,80 @@ void Gonner_Com::ItemUpdate(float DeltaTime)
 	if (m_Gun != NULLPTR)
 		m_Gun->GetAnimation()->SetDir(m_Animation->GetDir());
 
-	if(m_Heart != NULLPTR)
+	 if(m_Heart != NULLPTR)
 		m_Heart->GetAnimation()->SetDir(m_Animation->GetDir());
 
 	if (m_Skull != NULLPTR)
 		m_Skull->GetAnimation()->SetDir(m_Animation->GetDir());
+}
+
+void Gonner_Com::OutItem()
+{
+	if (m_GunObject != NULLPTR)
+	{
+		m_Gun->ClearUI();
+		m_Gun->SetIsActive(false);
+		m_GunObject->SetIsActive(false);
+
+		SAFE_RELEASE(m_GunObject);
+		SAFE_RELEASE(m_Gun);
+
+		GameObject* gunItemObject = GameObject::CreateObject("GunItem", m_Layer);
+		GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
+		Gravity_Com* newGrivaty = gunItemObject->AddComponent<Gravity_Com>("Gravity");
+		newGrivaty->SetStage(m_Stage);
+		newGrivaty->SetForce((float)RandomRange(200, 500));
+		gunItemCom->SetDrop(true);
+		gunItemObject->GetTransform()->SetWorldPos(m_upPos.x, m_upPos.y, 1.0f);
+
+		SAFE_RELEASE(gunItemObject);
+		SAFE_RELEASE(gunItemCom);
+		SAFE_RELEASE(newGrivaty);
+	}
+
+	if (m_HeartObject != NULLPTR)
+	{
+		m_Heart->ClearUI();
+		m_Heart->SetIsActive(false);
+		m_HeartObject->SetIsActive(false);
+
+		SAFE_RELEASE(m_HeartObject);
+		SAFE_RELEASE(m_Heart);
+
+		GameObject* heartItemObject = GameObject::CreateObject("HeartItem", m_Layer);
+		HeartItem_Com* heartItemCom = heartItemObject->AddComponent<HeartItem_Com>("HeartItem");
+		Gravity_Com* newGrivaty = heartItemObject->AddComponent<Gravity_Com>("Gravity");
+		newGrivaty->SetStage(m_Stage);
+		heartItemCom->SetDrop(true);
+		newGrivaty->SetForce((float)RandomRange(200, 500));
+		heartItemObject->GetTransform()->SetWorldPos(m_upPos.x, m_upPos.y, 1.0f);
+
+		SAFE_RELEASE(newGrivaty);
+		SAFE_RELEASE(heartItemObject);
+		SAFE_RELEASE(heartItemCom);
+
+	}
+	if (m_SkullObject != NULLPTR)
+	{
+		m_Skull->ClearUI();
+		m_Skull->SetIsActive(false);
+		m_SkullObject->SetIsActive(false);
+
+		SAFE_RELEASE(m_Skull);
+		SAFE_RELEASE(m_SkullObject);
+
+		GameObject* LifeItemObject = GameObject::CreateObject("LifeItem", m_Layer);
+		LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
+		Gravity_Com* newGrivaty = LifeItemObject->AddComponent<Gravity_Com>("Gravity");
+		newGrivaty->SetStage(m_Stage);
+		newGrivaty->SetForce((float)RandomRange(200, 500));
+		LifeItemCom->SetDrop(true);
+		LifeItemObject->GetTransform()->SetWorldPos(m_upPos.x, m_upPos.y, 1.0f);
+
+		SAFE_RELEASE(LifeItemObject);
+		SAFE_RELEASE(LifeItemCom);
+		SAFE_RELEASE(newGrivaty);
+	}
 }
 
 void Gonner_Com::BasicInit()

@@ -12,7 +12,6 @@
 #include <UserComponent/HitEffect_Com.h>
 #include <UserComponent/Monster_Base.h>
 
-
 void Gonner_Com::GunItemHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
 	if (Dest->GetTag() == "GunItemBody")
@@ -46,15 +45,11 @@ void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float Delta
 			return;
 		
 		Layer* prevLayer = m_Scene->FindLayer("PrevEffectLayer");
-		Layer* UILayer = m_Scene->FindLayer("UI");
 
 		m_HeartObject = GameObject::CreateObject("HeartObject", prevLayer);
 		m_Heart = m_HeartObject->AddComponent<Heart_Com>("Heart");
-		m_HeartObject->SetScene(m_Scene);
-		m_HeartObject->SetLayer(m_Layer);
 
 		SAFE_RELEASE(prevLayer);
-		SAFE_RELEASE(UILayer);
 		SoundManager::Get()->FindSoundEffect("ReloadBulletCreate")->Play();
 	}
 }
@@ -131,6 +126,8 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 				m_BugJumpCount = 0;
 				m_Camera->SetShake(10.0f, 0.2f);
 				SoundManager::Get()->FindSoundEffect("ChangeStateBug")->Play();
+
+				OutItem();
 			}
 			else
 			{
@@ -139,6 +136,8 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 				HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f)));
 				SAFE_RELEASE(newHitEffect);
 				SAFE_RELEASE(HitEffect);
+
+				SoundManager::Get()->FindSoundEffect("JumpAttack")->Play();
 
 				m_Camera->SetShake(10.0f, 0.2f);
 				getMonster->AddHp(-1);
@@ -155,71 +154,7 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 			m_Camera->SetShake(10.0f, 0.3f);
 			SoundManager::Get()->FindSoundEffect("ChangeStateBug")->Play();
 
-			if (m_GunObject != NULLPTR)
-			{
-				m_Gun->ClearUI();
-				m_Gun->SetIsActive(false);
-				m_GunObject->SetIsActive(false);
-
-				m_Gun = NULLPTR;
-				m_GunObject = NULLPTR;
-
-				GameObject* gunItemObject = GameObject::CreateObject("GunItem", m_Layer);
-				GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
-				Gravity_Com* newGrivaty = gunItemObject->AddComponent<Gravity_Com>("Gravity");
-				newGrivaty->SetStage(m_Stage);
-				newGrivaty->SetForce((float)RandomRange(200, 500));
-				gunItemCom->SetDrop(true);
-				gunItemObject->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.x, 1.0f);
-
-				SAFE_RELEASE(gunItemObject);
-				SAFE_RELEASE(gunItemCom);
-				SAFE_RELEASE(newGrivaty);
-			}
-
-			if (m_HeartObject != NULLPTR)
-			{
-				m_Heart->ClearUI();
-				m_Heart->SetIsActive(false);
-				m_HeartObject->SetIsActive(false);
-
-				m_Heart = NULLPTR;
-				m_HeartObject = NULLPTR;
-
-				GameObject* heartItemObject = GameObject::CreateObject("HeartItem", m_Layer);
-				HeartItem_Com* heartItemCom = heartItemObject->AddComponent<HeartItem_Com>("HeartItem");
-				Gravity_Com* newGrivaty = heartItemObject->AddComponent<Gravity_Com>("Gravity");
-				newGrivaty->SetStage(m_Stage);
-				heartItemCom->SetDrop(true);
-				newGrivaty->SetForce((float)RandomRange(200, 500));
-				heartItemObject->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.x, 1.0f);
-
-				SAFE_RELEASE(newGrivaty);
-				SAFE_RELEASE(heartItemObject);
-				SAFE_RELEASE(heartItemCom);
-
-			}
-			if (m_SkullObject != NULLPTR)
-			{
-				m_Skull->ClearUI();
-				m_Skull->SetIsActive(false);
-				m_SkullObject->SetIsActive(false);
-
-				m_Skull = NULLPTR;
-				m_SkullObject = NULLPTR;
-
-				GameObject* LifeItemObject = GameObject::CreateObject("LifeItem", m_Layer);
-				LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
-				Gravity_Com* newGrivaty = LifeItemObject->AddComponent<Gravity_Com>("Gravity");
-				newGrivaty->SetStage(m_Stage);
-				newGrivaty->SetForce((float)RandomRange(200, 500));
-				LifeItemCom->SetDrop(true);
-				LifeItemObject->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.x, 1.0f);
-
-				SAFE_RELEASE(LifeItemObject);
-				SAFE_RELEASE(LifeItemCom);
-				SAFE_RELEASE(newGrivaty);
-			}
+			OutItem();
 		}
 #ifdef _DEBUG
 #else

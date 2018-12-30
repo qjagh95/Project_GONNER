@@ -24,8 +24,7 @@ JEONG::CollsionManager::~CollsionManager()
 
 bool JEONG::CollsionManager::Init()
 {
-	CreateGroup("Default", Vector3(0.0f, 0.0f, 0.0f), Vector3(5000.f, 5000.f, 0.f), 10, 10, 1, CGT_2D);
-	CreateGroup("BackGround", Vector3(0.0f, 0.0f, 0.0f), Vector3(5000.f, 5000.f, 0.f), 10, 10, 1, CGT_2D);
+	CreateGroup("Default", Vector3(0.0f, 0.0f, 0.0f), Vector3(3000.0f, 3000.0f, 0.0f), 5, 5, 1, CGT_2D);
 	CreateGroup("UI", Vector3(0.0f, 0.0f, 0.0f), Vector3((float)Device::Get()->GetWinSize().Width, (float)Device::Get()->GetWinSize().Width, 0.0f), 4, 4, 1, CGT_2D);
 
 	return true;

@@ -15,6 +15,17 @@ public:
 	AirDownM_Com* Clone() override;
 	void AfterClone() override;
 
+	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
+
+private:
+	void FS_IDLE(float DeltaTime);
+	void FS_DOWN(float DeltaTime);
+	void FS_UP(float DeltaTime);
+	void FS_HIT(float DeltaTime);
+
+private:
+	Vector3 m_SavePos;
+
 protected:
 	AirDownM_Com();
 	AirDownM_Com(const AirDownM_Com& CopyData);

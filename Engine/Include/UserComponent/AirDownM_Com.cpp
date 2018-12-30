@@ -57,3 +57,23 @@ AirDownM_Com * AirDownM_Com::Clone()
 void AirDownM_Com::AfterClone()
 {
 }
+
+void AirDownM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
+{
+}
+
+void AirDownM_Com::FS_IDLE(float DeltaTime)
+{
+}
+
+void AirDownM_Com::FS_DOWN(float DeltaTime)
+{
+}
+
+void AirDownM_Com::FS_UP(float DeltaTime)
+{
+}
+
+void AirDownM_Com::FS_HIT(float DeltaTime)
+{
+}

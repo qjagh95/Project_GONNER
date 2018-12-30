@@ -18,6 +18,11 @@ GuardM_Com::GuardM_Com()
 
 	m_GuardTime = 2.0f;
 	m_GuardTimeVar = 0.0f;
+
+	m_GuardRange = 200.0f;
+
+	m_MoveTime = 3.0f;
+	m_MoveTimeVar = 0.0f;
 }
 
 GuardM_Com::GuardM_Com(const GuardM_Com & CopyData)
@@ -36,9 +41,9 @@ bool GuardM_Com::Init()
 	m_Gravity = m_Object->AddComponent<Gravity_Com>("Gravity");
 	m_Gravity->SetStage(StageManager::Get()->FindCurStage());
 
-	m_Hp = 2;
+	m_Hp = 3;
 
-	//m_Material->SetDiffuseTexture(0, "Guard", TEXT("Monster\\bigsprites3.png"));
+	m_Material->SetDiffuseTexture(0, "Guard", TEXT("Monster\\bigsprites3.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("GuardAni");
 	m_RectColl->SetInfo(Vector3(30.0f, 0.0f, 0.0f), Vector3(100.0f, 100.0f, 1.0f));
 	m_Transform->SetWorldScale(128.0f, 128.0f, 1.0f);
@@ -81,7 +86,7 @@ bool GuardM_Com::Init()
 	tFrame.RightBottom = Vector2(128.0f, 512.0f);
 	vecClipFrame.push_back(tFrame);
 
-	m_Animation->AddClip("Hit", A2D_ATLS, AO_ONCE_STOP, 0.6f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
+	m_Animation->AddClip("Hit", A2D_ATLS, AO_ONCE_STOP, 0.3f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
 	vecClipFrame.clear();
 
 	for (int i = 0; i < 7; ++i)
@@ -101,7 +106,7 @@ bool GuardM_Com::Init()
 		vecClipFrame.push_back(tFrame);
 	}
 
-	m_Animation->AddClip("GuardDown", A2D_ATLS, AO_ONCE_STOP, 0.5f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
+	m_Animation->AddClip("GuardDown", A2D_ATLS, AO_ONCE_STOP, 0.3f, vecClipFrame, "Guard", L"Monster\\bigsprites3.png");
 	vecClipFrame.clear();
 
 	m_AniName[GUS_IDLE] = "Idle";
@@ -123,8 +128,6 @@ int GuardM_Com::Input(float DeltaTime)
 int GuardM_Com::Update(float DeltaTime)
 {
 	Monster_Base::Update(DeltaTime);
-
-	TargetDirCheck(DeltaTime);
 
 	switch (m_State)
 	{
@@ -180,54 +183,155 @@ void GuardM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaT
 	{
 		Vector3 dPos = Dest->GetGameObject()->GetTransform()->GetWorldPos();
 		SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
+		Dest->GetGameObject()->SetIsActive(false);
 
 		m_Camera->SetShake(5.0f, 0.3f);
 		m_Scene->CreateWave(dPos, 0.8f, 0.1f);
-		Dest->GetGameObject()->SetIsActive(false);
+
+		HitEffectOut(DeltaTime);
 
 		if (m_Hp > 0)
 		{
+			if (m_State == GUS_GUARD || m_State == GUS_GUARDDOWN)
+				return;
+
 			ChangeState(GUS_HIT, m_AniName, m_Animation);
 			m_Hp--;
 		}
-
-		int RandNum = RandomRange(10, 20);
-
-		for (size_t i = 0; i < RandNum; i++)
-		{
-			GameObject* newEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffect);
-			BasicEffect_Com* BasicEffect = newEffect->AddComponent<BasicEffect_Com>("ReloadEffect");
-			BasicEffect->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
-			BasicEffect->SetRandomDirection(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f));
-
-			SAFE_RELEASE(newEffect);
-			SAFE_RELEASE(BasicEffect);
-		}
-
-		GameObject* newHitEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffect);
-		HitEffect_Com* HitEffect = newHitEffect->AddComponent<HitEffect_Com>("ReloadEffect");
-		HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f)));
-		SAFE_RELEASE(newHitEffect);
-		SAFE_RELEASE(HitEffect);
 	}
 }
 
 void GuardM_Com::FS_IDLE(float DeltaTime)
 {
+	m_IdleTimeVar += DeltaTime;
+
+	if (m_IdleTimeVar >= m_IdleTime)
+	{
+		m_IdleTimeVar = 0.0f;
+
+		int RandNum = RandomRange(1, 2);
+
+		switch (RandNum)
+		{
+		case 1:
+			m_Animation->SetDir(MD_LEFT);
+			break;
+		case 2:
+			m_Animation->SetDir(MD_RIGHT);
+			break;
+		}
+		ChangeState(GUS_MOVE, m_AniName, m_Animation);
+	}
+	
+	GuardRangeCheck(DeltaTime);
 }
 
 void GuardM_Com::FS_MOVE(float DeltaTime)
 {
+	m_MoveTimeVar += DeltaTime;
+
+	RangeTargetDirCheck(DeltaTime);
+
+	if (m_Animation->GetDir() == MD_LEFT)
+	{
+		if (m_LeftTile->GetTileOption() != T2D_NOMOVE || m_DownLeftTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, -200.0f, DeltaTime);
+	}
+	else if (m_Animation->GetDir() == MD_RIGHT)
+	{
+		if (m_RightTile->GetTileOption() != T2D_NOMOVE || m_DownRightTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, 200.0f, DeltaTime);
+	}
+
+	if (m_MoveTimeVar > m_MoveTime)
+	{
+		m_MoveTimeVar = 0.0f;
+		ChangeState(GUS_IDLE, m_AniName, m_Animation);
+	}
+
+	GuardRangeCheck(DeltaTime);
 }
+
 
 void GuardM_Com::FS_HIT(float DeltaTime)
 {
+	Vector3	Dir = m_TargetPos - m_Pos;
+
+	if (Dir.x <= 0.0f)
+	{
+		m_MoveDir = -1.0f;
+		m_Animation->SetDir(MD_LEFT);
+	}
+	else if (Dir.x > 0.0f)
+	{
+		m_MoveDir = 1.0f;
+		m_Animation->SetDir(MD_RIGHT);
+	}
+
+	if (m_Animation->GetDir() == MD_LEFT)
+	{
+		if (m_RightTile->GetTileOption() != T2D_NOMOVE || m_DownRightTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, 100.0f, DeltaTime);
+	}
+	else if (m_Animation->GetDir() == MD_RIGHT)
+	{
+		if (m_LeftTile->GetTileOption() != T2D_NOMOVE || m_DownLeftTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, -100.0f, DeltaTime);
+	}
+
+	if (m_Animation->GetIsEnd() == true)
+	{
+		int RandNum = RandomRange(1, 2);
+
+		switch (RandNum)
+		{
+		case 1:
+			ChangeState(GUS_IDLE, m_AniName, m_Animation);
+			break;
+		case 2:
+			ChangeState(GUS_MOVE, m_AniName, m_Animation);
+			break;
+		}
+	}
 }
 
 void GuardM_Com::FS_GUARD(float DeltaTime)
 {
+	m_GuardTimeVar += DeltaTime;
+
+	if (m_GuardTimeVar >= m_GuardTime)
+	{
+		m_GuardTimeVar = 0.0f;
+		ChangeState(GUS_GUARDDOWN, m_AniName, m_Animation);
+	}
 }
 
 void GuardM_Com::FS_GUARDDOWN(float DeltaTime)
 {
+	if (m_Animation->GetFrame() == 3)
+	{
+		int RandNum = RandomRange(1, 2);
+
+		switch (RandNum)
+		{
+		case 1:
+			ChangeState(GUS_IDLE, m_AniName, m_Animation);
+			break;
+		case 2:
+			ChangeState(GUS_MOVE, m_AniName, m_Animation);
+			break;
+		}
+	}
+}
+
+void GuardM_Com::GuardRangeCheck(float DeltaTime)
+{
+	if (m_Pos.GetDistance(m_TargetPos) >= m_GuardRange)
+		return;
+
+	m_GuardTimeVar = 0.0f;
+	m_MoveTimeVar = 0.0f;
+	m_IdleTimeVar = 0.0f;
+
+	ChangeState(GUS_GUARD, m_AniName, m_Animation);
 }

@@ -419,6 +419,21 @@ JEONG::Layer * JEONG::Scene::FindLayer(const string & TagName)
 	return NULLPTR;
 }
 
+JEONG::Layer * JEONG::Scene::FindLayerNoneCount(const string & TagName)
+{
+	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
+	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		if ((*StartIter)->GetTag() == TagName)
+		{
+			return (*StartIter);
+		}
+	}
+	return NULLPTR;
+}
+
 bool JEONG::Scene::SortLayerFunc(const JEONG::Layer * Src, const JEONG::Layer * Dest)
 {
 	return Src->GetZOrder() < Dest->GetZOrder();

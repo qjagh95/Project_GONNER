@@ -72,6 +72,7 @@ bool Gun_Com::Init()
 	Scene* getScene = SceneManager::Get()->GetCurScene();
 	m_AfterEffectLayer = getScene->FindLayer("AfterEffectLayer");
 	Layer* UILayer = getScene->FindLayer("UI");
+	m_DefaultLayer = getScene->FindLayerNoneCount("Default");
 
 	SAFE_RELEASE(getScene);
 
@@ -183,7 +184,7 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 			if (CountManager::Get()->m_BulletCount == 0)
 				return;
 
-			GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_Layer);
+			GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_DefaultLayer);
 			Bullet_Com* newBullet = newbulletObject->AddComponent<Bullet_Com>("Bullet");
 			newbulletObject->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
 			newBullet->GetAnimation()->SetDir(m_Animation->GetDir());

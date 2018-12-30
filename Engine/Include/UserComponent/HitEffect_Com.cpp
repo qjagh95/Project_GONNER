@@ -7,16 +7,17 @@ JEONG_USING
 
 HitEffect_Com::HitEffect_Com()
 {
+
 }
 
 HitEffect_Com::HitEffect_Com(const HitEffect_Com & CopyData)
 {
-	SAFE_RELEASE(m_Material);
-	SAFE_RELEASE(m_Animation);
 }
 
 HitEffect_Com::~HitEffect_Com()
 {
+	SAFE_RELEASE(m_Material);
+	SAFE_RELEASE(m_Animation);
 }
 
 bool HitEffect_Com::Init()
@@ -54,7 +55,6 @@ bool HitEffect_Com::Init()
 	vecClipFrame.clear();
 
 	m_Animation->ChangeClip("HitEffect");
-
 	return true;
 }
 
@@ -67,7 +67,6 @@ int HitEffect_Com::Update(float DeltaTime)
 {
 	if (m_Animation->GetIsEnd() == true)
 	{
-		SetIsActive(false);
 		m_Object->SetIsActive(false);
 	}
 

@@ -37,6 +37,7 @@ private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
 	Layer* m_AfterEffectLayer;
+	Layer* m_DefaultLayer;
 
 	Vector3 m_Pos;
 

@@ -209,6 +209,9 @@ void LifeUI_Com::Off(float DeltaTime)
 {
 	GrayLightChange(DeltaTime);
 
+	if (m_isGoingPos == false)
+		return;
+
 	Vector3 Lerp = Vector3::Lerp(m_Transform->GetWorldPos(), Vector3(m_GoingPos.x, m_GoingPos.y - 5.0f, 1.0f), DeltaTime * 3.0f);
 	m_Transform->SetWorldPos(Lerp);
 }

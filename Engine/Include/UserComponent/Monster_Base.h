@@ -26,7 +26,9 @@ public:
 
 protected:
 	void ChangeColor(float DeltaTime);
-	void TargetDirCheck(float DeltaTime);
+	void HitChangeColor(float DeltaTime);
+	void RangeTargetDirCheck(float DeltaTime);
+	void HitEffectOut(float DeltaTime);
 
 protected:
 	Material_Com* m_Material;
@@ -41,19 +43,29 @@ protected:
 	Vector3 m_CenterPos;
 	Vector3 m_CenterLeftPos;
 	Vector3 m_CenterRightPos;
+	Vector3 m_DownLeftPos;
+	Vector3 m_DownRightPos;
+	Vector3 m_UpLeftPos;
+	Vector3 m_UpRightPos;
 	Vector3 m_UpPos;
 
 	Tile2D_Com* m_UpTile;
 	Tile2D_Com* m_DownTile;
 	Tile2D_Com* m_LeftTile;
 	Tile2D_Com* m_RightTile;
+	Tile2D_Com* m_UpLeftTile;
+	Tile2D_Com* m_UpRightTile;
+	Tile2D_Com* m_DownLeftTile;
+	Tile2D_Com* m_DownRightTile;
+
 	Stage2D_Com* m_Stage;
 
 	Vector3 m_CrossDir;
 
 	string m_AniName[255];
 	int m_Hp;
-	float m_Range;
+	float m_LookRange;
+	float m_MoveDir;
 	Camera_Com* m_Camera;
 
 private:

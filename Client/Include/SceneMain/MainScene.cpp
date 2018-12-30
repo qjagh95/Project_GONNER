@@ -27,6 +27,7 @@
 #include "UserComponent/HeartItem_Com.h"
 #include "UserComponent/LifeItem_Com.h"
 #include <UserComponent/GuardM_Com.h>
+#include <UserComponent/BasicM_Com.h>
 
 MainScene::MainScene()
 {
@@ -38,6 +39,8 @@ MainScene::~MainScene()
 
 bool MainScene::Init()
 {
+	//¾À¿¡¼­ ¹ì Ãß°¡. (¸â¹ö·Î µé°íÀÖ¾î¾ßÇÔ)
+
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
 	mainCamera->GetTransform()->SetWorldPos(Vector3(0.0f, 500.0f, 0.0f));
@@ -79,14 +82,14 @@ bool MainScene::Init()
 		mainCamera->SetTarget(GonnerObject);
 	}
 
-	GameObject* gunItemObject = GameObject::CreateObject("GunItem", Default);
-	GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
-	gunItemObject->GetTransform()->SetWorldPos(300.0f, 800.0f, 1.0f);
-
 	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer, false);
 	Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");
 	newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_OUT);
 	newFadeCom->Start();
+
+	GameObject* gunItemObject = GameObject::CreateObject("GunItem", Default);
+	GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
+	gunItemObject->GetTransform()->SetWorldPos(300.0f, 800.0f, 1.0f);
 
 	GameObject* heartItemObject = GameObject::CreateObject("HeartItem", Default);
 	HeartItem_Com* heartItemCom = heartItemObject->AddComponent<HeartItem_Com>("HeartItem");
@@ -100,6 +103,11 @@ bool MainScene::Init()
 	GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
 	GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
 	GuardM_Com::m_Target = GonnerObject;
+
+	//GameObject* BasicObject = GameObject::CreateObject("Basic", Default);
+	//BasicM_Com* BasicCom = BasicObject->AddComponent<BasicM_Com>("Basic");
+	//BasicObject->GetTransform()->SetWorldPos(1000.0f, 1000.0f, 1.0f);
+	//BasicM_Com::m_Target = GonnerObject;
 
 	SAFE_RELEASE(GuardObject);
 	SAFE_RELEASE(GuardCom);

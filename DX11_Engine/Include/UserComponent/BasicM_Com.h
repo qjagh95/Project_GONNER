@@ -3,7 +3,8 @@
 
 JEONG_BEGIN
 
-class JEONG_DLL  BasicM_Com : public Monster_Base
+class Collider_Com;
+class JEONG_DLL BasicM_Com : public Monster_Base
 {
 public:
 	bool Init() override;
@@ -15,6 +16,20 @@ public:
 	void Render(float DeltaTime) override;
 	BasicM_Com* Clone() override;
 	void AfterClone() override;
+
+	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
+
+private:
+	void FS_IDLE(float DeltaTime);
+	void FS_MOVE(float DeltaTime);
+	void FS_HIT(float DeltaTime);
+
+private:
+	float m_IdleTime;
+	float m_IdleTimeVar;
+
+	float m_MoveTime;
+	float m_MoveTimeVar;
 
 protected:
 	BasicM_Com();

@@ -42,6 +42,7 @@ bool HeartUI_Com::Init()
 	SAFE_RELEASE(HeartItemRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "HeartUI", TEXT("Monster\\player.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("HeartUIAni");
 	m_Transform->SetWorldScale(100.0f, 100.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);

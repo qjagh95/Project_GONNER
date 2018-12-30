@@ -3,6 +3,8 @@
 #include "DieEffect_Com.h"
 #include "DieBoomEffect_Com.h"
 #include "BallonEffect_Com.h"
+#include "BasicEffect_Com.h"
+#include "HitEffect_Com.h"
 
 #include "../Core.h"
 #include "../Component/Gravity_Com.h"
@@ -25,6 +27,12 @@ Monster_Base::Monster_Base()
 	m_LeftTile = NULLPTR;
 	m_RightTile = NULLPTR;
 	m_Stage = NULLPTR;
+	m_UpLeftTile = NULLPTR;
+	m_UpRightTile = NULLPTR;
+	m_DownLeftTile = NULLPTR;
+	m_DownRightTile = NULLPTR;
+
+	m_MoveDir = 1.0f;
 
 	int RendNum = RandomRange(1, 4);
 
@@ -51,7 +59,7 @@ Monster_Base::Monster_Base()
 	m_Animation = NULLPTR;
 	m_RectColl = NULLPTR;
 
-	m_Range = 300.0f;
+	m_LookRange = 300.0f;
 }
 
 Monster_Base::Monster_Base(const Monster_Base & CopyData)
@@ -65,8 +73,6 @@ Monster_Base::~Monster_Base()
 	SAFE_RELEASE(m_Animation);
 	SAFE_RELEASE(m_RectColl);
 	SAFE_RELEASE(m_Gravity);
-	SAFE_RELEASE(m_AfterEffect);
-	SAFE_RELEASE(m_PrevEffect);
 }
 
 bool Monster_Base::Init()
@@ -75,8 +81,8 @@ bool Monster_Base::Init()
 
 	m_Hp = 1;
 
-	m_AfterEffect = m_Scene->FindLayer("AfterEffectLayer");
-	m_PrevEffect = m_Scene->FindLayer("PrevEffectLayer");
+	m_AfterEffect = m_Scene->FindLayerNoneCount("AfterEffectLayer");
+	m_PrevEffect = m_Scene->FindLayerNoneCount("PrevEffectLayer");
 
 	Renderer_Com* MonsterRender = m_Object->AddComponent<Renderer_Com>("MonsterRender");
 	MonsterRender->SetMesh("TextureRect");
@@ -108,17 +114,26 @@ int Monster_Base::Update(float DeltaTime)
 		return 0;
 
 	m_Scale = m_Transform->GetWorldScale();
+	Vector3 ScaleHalf = m_Scale * 0.5f;
 	m_Pos = m_Transform->GetWorldPos();
 	m_TargetPos = m_Target->GetTransform()->GetWorldPos();
-	m_CenterPos = Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f);
-	m_CenterLeftPos = Vector3(m_CenterPos.x - m_Scale.x * 0.5f, m_CenterPos.y, 1.0f);
-	m_CenterRightPos = Vector3(m_CenterPos.x + m_Scale.x * 0.5f, m_CenterPos.y, 1.0f);
+	m_CenterPos = Vector3(m_Pos.x, m_Pos.y + ScaleHalf.y, 1.0f);
+	m_CenterLeftPos = Vector3(m_CenterPos.x - ScaleHalf.x, m_CenterPos.y, 1.0f);
+	m_CenterRightPos = Vector3(m_CenterPos.x + ScaleHalf.x, m_CenterPos.y, 1.0f);
 	m_UpPos = Vector3(m_Pos.x, m_Pos.y + m_Scale.y, 1.0f);
+	m_DownLeftPos = Vector3(m_Pos.x - ScaleHalf.x, m_Pos.y, 1.0f);
+	m_DownRightPos = Vector3(m_Pos.x + ScaleHalf.x, m_Pos.y, 1.0f);
+	m_UpLeftPos = Vector3(m_UpPos.x - ScaleHalf.x , m_UpPos.y, 1.0f);
+	m_UpRightPos = Vector3(m_UpPos.x + ScaleHalf.x, m_UpPos.y, 1.0f);
 
 	m_UpTile = m_Stage->GetTile2D(m_UpPos);
 	m_DownTile = m_Stage->GetTile2D(m_Pos);
 	m_LeftTile = m_Stage->GetTile2D(m_CenterLeftPos);
 	m_RightTile = m_Stage->GetTile2D(m_CenterRightPos);
+	m_UpLeftTile = m_Stage->GetTile2D(m_UpLeftPos);
+	m_UpRightTile = m_Stage->GetTile2D(m_UpRightPos);
+	m_DownLeftTile = m_Stage->GetTile2D(m_DownLeftPos);
+	m_DownRightTile = m_Stage->GetTile2D(m_DownRightPos);
 
 	ChangeColor(DeltaTime);
 
@@ -142,6 +157,9 @@ int Monster_Base::Update(float DeltaTime)
 			GameObject* BullonObject = GameObject::CreateObject("DieEffect", m_AfterEffect);
 			BallonEffect_Com* BullonCom = BullonObject->AddComponent<BallonEffect_Com>("DieEffect");
 			BullonCom->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y, 1.0f), Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 0.2f));
+
+			SAFE_RELEASE(BullonObject);
+			SAFE_RELEASE(BullonCom);
 		}
 
 		SAFE_RELEASE(DieEffect);
@@ -201,15 +219,59 @@ void Monster_Base::ChangeColor(float DeltaTime)
 	}
 }
 
-void Monster_Base::TargetDirCheck(float DeltaTime)
+void Monster_Base::HitChangeColor(float DeltaTime)
 {
-	if (m_Pos.GetDistance(m_TargetPos) >= m_Range)
+	m_ChangeTimeVar += DeltaTime;
+
+	if (m_ChangeTimeVar >= m_ChangeTime)
+	{
+		m_ChangeTimeVar = 0.0f;
+
+		if (m_Material->GetDiffuseLight() == Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f))
+			m_Material->SetMaterial(m_Material->GetDiffuseLight() * 1.1f);
+		else
+			m_Material->SetMaterial(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f));
+	}
+}
+
+void Monster_Base::RangeTargetDirCheck(float DeltaTime)
+{
+	if (m_Pos.GetDistance(m_TargetPos) >= m_LookRange)
 		return;
 
 	m_CrossDir = m_TargetPos - m_Pos;
 
 	if (m_CrossDir.x <= 0.0f)
+	{
+		m_MoveDir = -1.0f;
 		m_Animation->SetDir(MD_LEFT);
-	else if(m_CrossDir.x > 0.0f)
+	}
+	else if (m_CrossDir.x > 0.0f)
+	{
+		m_MoveDir = 1.0f;
 		m_Animation->SetDir(MD_RIGHT);
+	}
+}
+
+void Monster_Base::HitEffectOut(float DeltaTime)
+{
+	int RandNum = RandomRange(10, 20);
+
+	for (size_t i = 0; i < RandNum; i++)
+	{
+		GameObject* newEffect = GameObject::CreateObject("BasicEffect", m_AfterEffect);
+		BasicEffect_Com* BasicEffect = newEffect->AddComponent<BasicEffect_Com>("BasicEffect");
+		BasicEffect->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
+		BasicEffect->SetRandomDirection(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f));
+
+		SAFE_RELEASE(newEffect);
+		SAFE_RELEASE(BasicEffect);
+	}
+
+	GameObject* newHitEffect = GameObject::CreateObject("HitEffect", m_AfterEffect);
+	HitEffect_Com* HitEffect = newHitEffect->AddComponent<HitEffect_Com>("HitEffect");
+	HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f)));
+
+	SAFE_RELEASE(newHitEffect);
+	SAFE_RELEASE(HitEffect);
 }
