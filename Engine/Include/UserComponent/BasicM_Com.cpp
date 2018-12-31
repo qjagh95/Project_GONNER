@@ -143,9 +143,6 @@ void BasicM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaT
 		SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
 		Dest->GetGameObject()->SetIsActive(false);
 
-		m_Camera->SetShake(5.0f, 0.3f);
-		m_Scene->CreateWave(dPos, 0.8f, 0.1f);
-
 		HitEffectOut(DeltaTime);
 
 		if (m_Hp > 0)
@@ -157,8 +154,23 @@ void BasicM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float DeltaT
 			else if (Dir.x > 0.0f)
 				m_Animation->SetDir(MD_RIGHT);
 
+			m_Camera->SetShake(5.0f, 0.3f);
+			m_Scene->CreateWave(m_CenterPos, 0.8f, 0.05f);
+
 			ChangeState(BSM_HIT, m_AniName, m_Animation);
 			m_Hp--;
+		}
+	}
+
+	if (Dest->GetTag() == "GonnerBody")
+	{
+		if (m_GonnerJumpAttack == true)
+		{
+			if (m_Hp > 0)
+			{
+				m_Camera->SetShake(5.0f, 0.3f);
+				ChangeState(BSM_HIT, m_AniName, m_Animation);
+			}
 		}
 	}
 }

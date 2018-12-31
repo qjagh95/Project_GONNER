@@ -19,10 +19,15 @@ public:
 	void SetHP(int Hp) { m_Hp = Hp; }
 	void AddHp(int Hp) { m_Hp += Hp; }
 	int GetHP() const { return m_Hp; }
+	void SetIsJumpAttack(bool Value) { m_GonnerJumpAttack = Value; }
 
 	virtual void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	virtual void SetPos(const Vector3& Pos) {};
 	static GameObject* m_Target; //플레이어 - 클라 // 몬스터 - 엔진 어쩔수없이 한번 더 선언
 	static Vector3 m_TargetPos;
+
+	Animation2D_Com* GetAnimation() const { return m_Animation; }
+	Material_Com* GetMaterial() const { return m_Material; }
 
 protected:
 	void ChangeColor(float DeltaTime);
@@ -59,18 +64,20 @@ protected:
 	Tile2D_Com* m_DownRightTile;
 
 	Stage2D_Com* m_Stage;
-
 	Vector3 m_CrossDir;
 
 	string m_AniName[255];
 	int m_Hp;
 	float m_LookRange;
 	float m_MoveDir;
+	bool m_GonnerJumpAttack;
 	Camera_Com* m_Camera;
 
 private:
 	float m_ChangeTime;
 	float m_ChangeTimeVar;
+	float m_DirCheckTime;
+	float m_DirCheckTimeVar;
 
 protected:
 	Monster_Base();

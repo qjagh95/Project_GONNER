@@ -16,6 +16,7 @@ public:
 	void AfterClone() override;
 
 	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
+	void SetPos(const Vector3& Pos) override { m_Transform->SetWorldPos(Pos); }
 
 private:
 	void FS_IDLE(float DeltaTime);

@@ -16,15 +16,18 @@ public:
 	void AfterClone() override;
 
 	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
+	void SetPos(const Vector3& Pos) override;
 
 private:
 	void FS_IDLE(float DeltaTime);
 	void FS_DOWN(float DeltaTime);
 	void FS_UP(float DeltaTime);
-	void FS_HIT(float DeltaTime);
+
+	void CircleMove(float DeltaTime);
 
 private:
 	Vector3 m_SavePos;
+	float m_Angle;
 
 protected:
 	AirDownM_Com();

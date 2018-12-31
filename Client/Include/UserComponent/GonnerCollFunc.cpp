@@ -105,6 +105,7 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 	if (Dest->GetTag() == "MonsterBody")
 	{
 		Monster_Base* getMonster = Dest->GetGameObject()->FindComponentFromTypeNoneCount<Monster_Base>(CT_MONSTER);
+		getMonster->SetIsJumpAttack(m_isJumpAttack);
 
 		if (m_State == GS_BUGDOWN || m_State == GS_BUGIDLE || m_State == GS_BUGJUMP)
 			return;
@@ -133,7 +134,7 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 			{
 				GameObject* newHitEffect = GameObject::CreateObject("Hit", m_AfterEffectLayer);
 				HitEffect_Com* HitEffect = newHitEffect->AddComponent<HitEffect_Com>("Hit");
-				HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f)));
+				HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 0.4f)));
 				SAFE_RELEASE(newHitEffect);
 				SAFE_RELEASE(HitEffect);
 
@@ -141,8 +142,8 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 
 				m_Camera->SetShake(10.0f, 0.2f);
 				getMonster->AddHp(-1);
-				ChangeState(GS_JUMP, m_AniName, m_Animation);
 				m_GravityCom->SetForce(600.0f);
+				ChangeState(GS_JUMP, m_AniName, m_Animation);
 			}
 	
 		}

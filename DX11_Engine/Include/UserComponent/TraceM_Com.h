@@ -14,6 +14,17 @@ public:
 	void Render(float DeltaTime) override;
 	TraceM_Com* Clone() override;
 	void AfterClone() override;
+	
+	void SetPos(const Vector3& Pos) override { m_Transform->SetWorldPos(Pos); }
+
+private:
+	void FS_IDLE(float DeltaTime);
+	void TS_MOVE(float DeltaTime);
+	void TS_TRACE(float DeltaTime);
+	void TS_HIT(float DeltaTime);
+
+	void TraceMove(float DeltaTime);
+	void RangeCheck(float DeltaTime);
 
 protected:
 	TraceM_Com();

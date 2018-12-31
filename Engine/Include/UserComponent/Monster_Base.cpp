@@ -32,6 +32,10 @@ Monster_Base::Monster_Base()
 	m_DownLeftTile = NULLPTR;
 	m_DownRightTile = NULLPTR;
 
+	m_DirCheckTime = 0.1f;
+	m_DirCheckTimeVar = 0.0f;
+
+	m_GonnerJumpAttack = false;
 	m_MoveDir = 1.0f;
 
 	int RendNum = RandomRange(1, 4);
@@ -137,7 +141,7 @@ int Monster_Base::Update(float DeltaTime)
 
 	ChangeColor(DeltaTime);
 
-	if (m_Hp == 0)
+	if (m_Hp <= 0)
 	{
 		SetIsActive(false);
 		m_Object->SetIsActive(false);
@@ -239,17 +243,24 @@ void Monster_Base::RangeTargetDirCheck(float DeltaTime)
 	if (m_Pos.GetDistance(m_TargetPos) >= m_LookRange)
 		return;
 
-	m_CrossDir = m_TargetPos - m_Pos;
+	m_DirCheckTimeVar += DeltaTime;
 
-	if (m_CrossDir.x <= 0.0f)
+	if (m_DirCheckTimeVar >= m_DirCheckTime)
 	{
-		m_MoveDir = -1.0f;
-		m_Animation->SetDir(MD_LEFT);
-	}
-	else if (m_CrossDir.x > 0.0f)
-	{
-		m_MoveDir = 1.0f;
-		m_Animation->SetDir(MD_RIGHT);
+		m_DirCheckTimeVar = 0.0f;
+
+		m_CrossDir = m_TargetPos - m_Pos;
+
+		if (m_CrossDir.x < 30.0f)
+		{
+			m_MoveDir = -1.0f;
+			m_Animation->SetDir(MD_LEFT);
+		}
+		else if (m_CrossDir.x > 30.0f)
+		{
+			m_MoveDir = 1.0f;
+			m_Animation->SetDir(MD_RIGHT);
+		}
 	}
 }
 

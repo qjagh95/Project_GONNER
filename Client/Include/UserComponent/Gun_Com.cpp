@@ -40,6 +40,7 @@ bool Gun_Com::Init()
 	SAFE_RELEASE(GunRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "Gun", TEXT("weapons.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("Gun");
 
 	vector<Clip2DFrame>	vecClipFrame;

@@ -2,7 +2,8 @@
 #include "Monster_Base.h"
 
 JEONG_BEGIN
-class JEONG_DLL AirDownM_Com : public Monster_Base
+
+class JEONG_DLL ReflectM_Com : public Monster_Base
 {
 public:
 	bool Init() override;
@@ -12,27 +13,16 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	AirDownM_Com* Clone() override;
+	ReflectM_Com* Clone() override;
 	void AfterClone() override;
 
 	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
-	void SetPos(const Vector3& Pos) override;
-
-private:
-	void FS_IDLE(float DeltaTime);
-	void FS_DOWN(float DeltaTime);
-	void FS_UP(float DeltaTime);
-
-	void CircleMove(float DeltaTime);
-
-private:
-	Vector3 m_SavePos;
-	float m_Angle;
+	void SetPos(const Vector3& Pos) override { m_Transform->SetWorldPos(Pos); }
 
 protected:
-	AirDownM_Com();
-	AirDownM_Com(const AirDownM_Com& CopyData);
-	~AirDownM_Com();
+	ReflectM_Com();
+	ReflectM_Com(const ReflectM_Com& CopyData);
+	~ReflectM_Com();
 
 public:
 	friend class GameObject;

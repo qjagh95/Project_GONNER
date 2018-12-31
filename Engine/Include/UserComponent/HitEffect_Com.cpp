@@ -27,10 +27,11 @@ bool HitEffect_Com::Init()
 	HitEffectRender->SetRenderState(ALPHA_BLEND);
 	SAFE_RELEASE(HitEffectRender);
 
-	m_Transform->SetWorldScale(128.0f, 128.0f, 1.0f);
+	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "HitEffect", TEXT("Monster\\bloodParticles.png"));
 	m_Material->SetMaterial(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f));
 
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("HitEffectAni");

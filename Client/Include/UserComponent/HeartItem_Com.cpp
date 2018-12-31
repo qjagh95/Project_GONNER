@@ -32,6 +32,7 @@ bool HeartItem_Com::Init()
 	SAFE_RELEASE(HeartItemRender);
 
 	m_Material = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
+	m_Material->SetDiffuseTexture(0, "HeartItem", TEXT("Monster\\player.png"));
 	m_Material->SetMaterial(Vector4::White);
 	
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("HeartItemAni");

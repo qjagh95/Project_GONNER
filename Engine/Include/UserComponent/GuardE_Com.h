@@ -1,9 +1,9 @@
 #pragma once
-#include "Monster_Base.h"
+#include "UserComponent_Base.h"
 
 JEONG_BEGIN
 
-class JEONG_DLL FollowM_Com : public Monster_Base
+class GuardE_Com : public UserComponent_Base
 {
 public:
 	bool Init() override;
@@ -13,16 +13,15 @@ public:
 	void Collision(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
-	FollowM_Com* Clone() override;
+	GuardE_Com* Clone() override;
 	void AfterClone() override;
 
-	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
-	void SetPos(const Vector3& Pos) override { m_Transform->SetWorldPos(Pos); }
+	void SetPos(const Vector3& Pos);
 
 protected:
-	FollowM_Com();
-	FollowM_Com(const FollowM_Com& CopyData);
-	~FollowM_Com();
+	GuardE_Com();
+	GuardE_Com(const GuardE_Com& CopyData);
+	~GuardE_Com();
 
 public:
 	friend class GameObject;
