@@ -8,6 +8,9 @@ Fade_Com::Fade_Com()
 	m_isStart = false;
 	m_isOver = false;
 	m_isInOut = false;
+
+	m_CBuffer = {};
+	m_Option = FO_INOUT;
 }
 
 Fade_Com::Fade_Com(const Fade_Com & CopyData)

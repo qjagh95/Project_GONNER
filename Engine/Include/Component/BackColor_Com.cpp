@@ -6,6 +6,8 @@ JEONG_USING
 BackColor_Com::BackColor_Com()
 {
 	m_ComType = CT_BACKCOLOR;
+	m_Material = NULLPTR;
+	m_Color = Vector4::Zero;
 }
 
 BackColor_Com::BackColor_Com(const BackColor_Com & CopyData)

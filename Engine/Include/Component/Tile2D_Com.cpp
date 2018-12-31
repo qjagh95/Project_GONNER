@@ -8,12 +8,21 @@
 JEONG_USING
 
 JEONG::Tile2D_Com::Tile2D_Com()
-	:m_Shader(NULLPTR), m_Mesh(NULLPTR), m_Layout(NULLPTR), m_TileImage(NULLPTR), m_TileImageObject(NULLPTR),
-	m_Dir(0), m_NearObject(NULLPTR), m_NearMaterial(NULLPTR), m_DefaultLayer(NULLPTR)
 {
 	m_ComType = CT_STAGE2D;
 	SetTag("Stage2D");
 	m_isLine = true;
+	m_TileOption = {};
+	m_TileType = {};
+	m_Shader = NULLPTR;
+	m_Mesh = NULLPTR;
+	m_Layout = NULLPTR;
+	m_TileImageObject = NULLPTR;
+	m_TileImage = NULLPTR;
+	m_NearObject = NULLPTR;
+	m_NearMaterial = NULLPTR;
+	m_DefaultLayer = NULLPTR;
+	m_Dir = 1;
 }
 
 JEONG::Tile2D_Com::Tile2D_Com(const Tile2D_Com& CopyData)

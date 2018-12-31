@@ -15,6 +15,8 @@ TitleBar_Com::TitleBar_Com()
 	m_ComType = CT_TITLEBAR;
 	SetTag("TitleBar");
 	m_isOver = false;
+
+	m_TitleObject = NULLPTR;
 }
 
 TitleBar_Com::TitleBar_Com(const TitleBar_Com & CopyData)

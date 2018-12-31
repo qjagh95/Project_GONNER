@@ -7,7 +7,8 @@ JEONG_USING
 
 HitEffect_Com::HitEffect_Com()
 {
-
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
 }
 
 HitEffect_Com::HitEffect_Com(const HitEffect_Com & CopyData)

@@ -7,8 +7,8 @@ JEONG_USING
 
 AtlasOneImage_Com::AtlasOneImage_Com()
 {
+	m_CBuffer = {};
 }
-
 
 AtlasOneImage_Com::AtlasOneImage_Com(const AtlasOneImage_Com & CopyData)
 	:Component_Base(CopyData)

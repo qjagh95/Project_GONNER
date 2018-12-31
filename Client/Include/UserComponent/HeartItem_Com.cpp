@@ -11,6 +11,11 @@ HeartItem_Com::HeartItem_Com()
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
 	m_isDrop = false;
+	m_ChangeTimeVar = 0.0f;
+	m_ChangeTime = 0.0f;
+	m_isEquip = false;
+	m_MoveRange = 0.0f;
+	m_MoveDir = 0.0f;
 }
 
 HeartItem_Com::HeartItem_Com(const HeartItem_Com & CopyData)

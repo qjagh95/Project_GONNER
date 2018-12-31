@@ -45,10 +45,8 @@ void Timer::Update()
 		TimeVar = 0.0f;
 	}
 
-#ifdef _DEBUG
 	static char Buffer[255] = {};
 	sprintf_s(Buffer, "Frame : %f", ReturnFrame);
 
 	SetWindowTextA(Core::Get()->GetHwnd(), Buffer);
-#endif
 }

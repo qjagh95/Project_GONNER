@@ -14,6 +14,7 @@ Bullet_Com::Bullet_Com()
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
 	m_AfterEffectLayer = NULLPTR;
+	m_Stage = NULLPTR;
 }
 
 Bullet_Com::Bullet_Com(const Bullet_Com & CopyData)

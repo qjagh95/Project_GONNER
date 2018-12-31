@@ -7,6 +7,10 @@ JEONG_USING
 
 BasicEffect_Com::BasicEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+	m_MoveSpeed = 0.0f;
+	m_Dir = Vector3::Zero;
 }
 
 BasicEffect_Com::BasicEffect_Com(const BasicEffect_Com & CopyData)

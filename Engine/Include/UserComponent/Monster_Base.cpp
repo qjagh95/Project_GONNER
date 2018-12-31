@@ -102,8 +102,6 @@ bool Monster_Base::Init()
 	m_Material->SetMaterial(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 1.0f));
 	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
 
-	m_Stage = StageManager::Get()->FindCurStage();
-
 	return true;
 }
 
@@ -117,8 +115,12 @@ int Monster_Base::Update(float DeltaTime)
 	if (Core::m_isEditor == true)
 		return 0;
 
+	if (m_Stage == NULLPTR)
+		m_Stage = StageManager::Get()->FindCurStage();
+
 	m_Scale = m_Transform->GetWorldScale();
 	Vector3 ScaleHalf = m_Scale * 0.5f;
+
 	m_Pos = m_Transform->GetWorldPos();
 	m_TargetPos = m_Target->GetTransform()->GetWorldPos();
 	m_CenterPos = Vector3(m_Pos.x, m_Pos.y + ScaleHalf.y, 1.0f);

@@ -3,12 +3,16 @@
 
 JEONG_USING
 
-float Gravity_Com::m_Gravity = 1500.0f;
+float Gravity_Com::m_Gravity;
 
 Gravity_Com::Gravity_Com()
 {
 	m_ComType = CT_GRAVITY;
 	m_Stage = NULLPTR;
+	m_Force = 0.0f;
+	m_Gravity = 1500.0f;
+	m_ObjectScale = Vector3::Zero;
+	m_isJump = false;
 }
 
 Gravity_Com::Gravity_Com(const Gravity_Com & CopyData)
@@ -25,8 +29,9 @@ bool Gravity_Com::Init()
 {
 	m_Force = 0.0f;
 	m_isJump = false;
-
+	m_Stage = NULLPTR;
 	m_ObjectScale = m_Object->GetTransform()->GetWorldScale();
+
 	return true;
 }
 
@@ -37,10 +42,13 @@ int Gravity_Com::Input(float DeltaTime)
 
 int Gravity_Com::Update(float DeltaTime)
 {
-	float ZAngle = abs(m_Object->GetTransform()->GetWorldRotationZ());
-
+	if (m_Stage == NULLPTR)
+		m_Stage = StageManager::Get()->FindCurStage();
+	
 	m_Force -= m_Gravity * DeltaTime;
-	m_Object->GetTransform()->Move(AXIS_Y, m_Force, DeltaTime);
+
+	if(isnan(m_Force) == false)
+		m_Object->GetTransform()->Move(AXIS_Y, m_Force, DeltaTime);
 
 	if (m_Force >= 0.0f)
 		m_isJump = true;

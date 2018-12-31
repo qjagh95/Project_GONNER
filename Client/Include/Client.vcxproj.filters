@@ -50,9 +50,6 @@
     <Filter Include="UserComponent\Other\03 MenuLogo">
       <UniqueIdentifier>{e9c0656d-6bd3-4e45-8326-c9bc59d07b59}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UserComponent\Other\05. Fire">
-      <UniqueIdentifier>{1c92b2f6-7361-454f-900b-6464cbfc3e3e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="UserComponent\Other\07. Gun">
       <UniqueIdentifier>{eab09fca-b269-4616-8de6-12fc26d155bf}</UniqueIdentifier>
     </Filter>
@@ -96,9 +93,6 @@
     </ClCompile>
     <ClCompile Include="UserComponent\MenuLogo_Com.cpp">
       <Filter>UserComponent\Other\03 MenuLogo</Filter>
-    </ClCompile>
-    <ClCompile Include="UserComponent\Fire_Com.cpp">
-      <Filter>UserComponent\Other\05. Fire</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\Gun_Com.cpp">
       <Filter>UserComponent\Other\07. Gun</Filter>
@@ -153,9 +147,6 @@
     <ClInclude Include="SceneMain\MainScene.h">
       <Filter>Scene\03. MainScene\SceneMain</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMain\StaticTestScene.h">
-      <Filter>Scene\StaticTextScene\SceneMain</Filter>
-    </ClInclude>
     <ClInclude Include="SceneMain\LogoScene.h">
       <Filter>Scene\01. LogoScene\SceneMain</Filter>
     </ClInclude>
@@ -173,9 +164,6 @@
     </ClInclude>
     <ClInclude Include="UserComponent\MenuLogo_Com.h">
       <Filter>UserComponent\Other\03 MenuLogo</Filter>
-    </ClInclude>
-    <ClInclude Include="UserComponent\Fire_Com.h">
-      <Filter>UserComponent\Other\05. Fire</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\Gun_Com.h">
       <Filter>UserComponent\Other\07. Gun</Filter>
@@ -212,6 +200,9 @@
     </ClInclude>
     <ClInclude Include="UserComponent\Gonner_Com.h">
       <Filter>UserComponent\Gonner</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMain\StaticTestScene.h">
+      <Filter>Scene\StaticTextScene\SceneMain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

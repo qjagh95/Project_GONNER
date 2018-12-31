@@ -10,6 +10,21 @@ JEONG::Camera_Com::Camera_Com()
 {
 	m_ComType = CT_CAMERA;
 	m_CameraType = CT_PERSPECTIVE;
+	m_View.Identity();
+	m_Projection.Identity();
+	m_Width = 0.0f;
+	m_Height = 0.0f;
+	m_ViewAngle = 0.0f;
+	m_Near = 0.0f;
+	m_Far = 0.0f;
+	m_ShakeTime = 0.0f;
+	m_ShakeTimeVar = 0.0f;
+	m_ShakeRangeX = 0.0f;
+	m_ShakeRangeY = 0.0f;
+	m_MaxPos = Vector3::Zero;
+	m_WinSize = Vector2::Zero;
+	m_SavePos = Vector3::Zero;
+	m_isShake = false;
 	m_Target = NULLPTR;
 }
 

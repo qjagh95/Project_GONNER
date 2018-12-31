@@ -16,6 +16,14 @@ JEONG::Bar_Com::Bar_Com()
 {
 	SetTag("Bar");
 	m_Percent = 0.0f;
+	m_Dir = BD_LEFT;
+	m_MinValue = 0.0f;
+	m_MaxValue = 0.0f;
+	m_Value = 0.0f;
+	m_ValueLenth = 0.0f;
+	m_Percent = 0.0f;
+	m_RectCollider = NULLPTR;
+	m_Scale = Vector3::Zero;
 }
 
 JEONG::Bar_Com::Bar_Com(const Bar_Com & CopyData)

@@ -22,8 +22,6 @@ RenderTarget::RenderTarget()
 	m_DepthState = NULLPTR;
 	m_FullScreenShader = NULLPTR;
 	m_Sampler = NULLPTR;
-
-	ZeroMemory(m_ClearColor, sizeof(float) * 4);
 }
 
 RenderTarget::~RenderTarget()

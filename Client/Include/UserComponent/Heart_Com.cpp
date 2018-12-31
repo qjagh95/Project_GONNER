@@ -9,6 +9,10 @@ JEONG_USING
 
 Heart_Com::Heart_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+	m_HeartUIObject = NULLPTR;
+	m_HeartUI = NULLPTR;
 }
 
 Heart_Com::Heart_Com(const Heart_Com & CopyData)

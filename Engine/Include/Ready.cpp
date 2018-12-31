@@ -7,6 +7,8 @@ JEONG_USING
 
 Ready::Ready()
 {
+	m_Renderer = NULLPTR;
+	m_Material = NULLPTR;
 }
 
 Ready::Ready(const Ready & CopyData)

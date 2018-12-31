@@ -20,9 +20,18 @@ SINGLETON_VAR_INIT(JEONG::KeyInput)
 bool KeyInput::m_isMosueShow = false;
 
 JEONG::KeyInput::KeyInput()
-	:m_NewKey(NULLPTR), m_MouseObject(NULLPTR), m_EquipObject(NULLPTR), m_MouseWorldPoint(NULLPTR) ,m_ShowCursor(false), m_isEquip(false)
 {
-	
+	m_NewKey = NULLPTR;
+	m_MouseScreenPos = Vector2::Zero;	
+	m_MouseWorldPos = Vector2::Zero;
+	m_MouseGap = Vector2::Zero;	
+	m_MouseObject = NULLPTR;
+	m_MouseWorldPoint = NULLPTR;
+	m_MouseWindowPoint = NULLPTR;
+	m_ShowCursor = false;
+	m_EquipObject = NULLPTR;
+	m_isEquip = false;
+	m_CameraPos = Vector3::Zero;
 }
 
 JEONG::KeyInput::~KeyInput()

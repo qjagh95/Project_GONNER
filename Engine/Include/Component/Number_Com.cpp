@@ -5,6 +5,7 @@ JEONG_USING
 
 Number_Com::Number_Com()
 {
+	m_Number = 0;
 }
 
 Number_Com::~Number_Com()

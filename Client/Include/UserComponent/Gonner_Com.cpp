@@ -2,6 +2,8 @@
 #include "Gonner_Com.h"
 #include "Skull_Com.h"
 
+#include <Core.h>
+
 #include "Component/ColliderRect_Com.h"
 #include "Component/ColliderCircle_Com.h"
 #include "Component/ColliderOBB2D_Com.h"
@@ -23,43 +25,49 @@ Vector3 Gonner_Com::m_GonnerScale = Vector3(64.0f, 64.0f, 1.0f);
 Vector3 Gonner_Com::m_GonnerScaleHalf = Vector3(32.0f, 32.0f, 1.0f);
 
 Gonner_Com::Gonner_Com()
-	: m_Animation(NULLPTR), m_GravityCom(NULLPTR)
 {
-	m_BugAngle = 0.0f;
-	m_isBugJump = false;
-	m_isDirChangeLeft = false;
-	m_isDirChangeRight = false;
-	m_isSkullItem = false;
-
-	m_BugJumpMax = 6;
-	m_BugJumpCount = 0;
-
-	m_PumpSpeed = 180.0f;
-
+	m_GravityCom = NULLPTR;
+	m_Stage = NULLPTR;
+	m_Camera = NULLPTR;
 	m_downTile = NULLPTR;
 	m_upTile = NULLPTR;
 	m_leftTile = NULLPTR;
 	m_rightTile = NULLPTR;
-
-	m_PrevEffectLayer = NULLPTR;
-	m_AfterEffectLayer = NULLPTR;
-	m_Gun = NULLPTR;
 	m_GunObject = NULLPTR;
+	m_Gun = NULLPTR;
 	m_HeartObject = NULLPTR;
 	m_Heart = NULLPTR;
 	m_SkullObject = NULLPTR;
 	m_Skull = NULLPTR;
-	
+	m_PrevEffectLayer = NULLPTR;
+	m_AfterEffectLayer = NULLPTR;
+	m_Animation = NULLPTR;
+	m_Pos = Vector3::Zero;
+	m_Scale = Vector3::Zero;
+	m_ScaleHalf = Vector3::Zero;
+	m_WinSize = Vector2::Zero;
+	m_upPos = Vector3::Zero;
+	m_leftPos = Vector3::Zero;
+	m_downPos = Vector3::Zero;
+	m_rightPos = Vector3::Zero;
+	m_CBuffer = {};
+	m_WaveCBuffer = {};
+	m_BugAngle = 0.0f;
+	m_BugJumpMax = 6;
+	m_BugJumpCount = 0;
+	m_PumpSpeed = 0.0f;
 	m_ChangeTimeVar = 0.0f;
 	m_ChangeTime = 0.0f;
-
 	m_DownAngle = 0.0f;
-
 	m_BubbleTimeVar = 0.0f;
 	m_BubbleTime = 0.0f;
-
 	m_BugEffectTime = 0.0f;
 	m_BugEffectTimeVar = 0.0f;
+	m_isSkullItem = false;
+	m_isJumpAttack = false;
+	m_isBugJump = false;
+	m_isDirChangeLeft = false;
+	m_isDirChangeRight = false;
 }
 
 Gonner_Com::Gonner_Com(const Gonner_Com & userCom)
@@ -101,6 +109,9 @@ bool Gonner_Com::Init()
 
 int Gonner_Com::Input(float DeltaTime)
 {
+	if (m_Stage == NULLPTR)
+		m_Stage = StageManager::Get()->FindCurStage();
+
 	if (GetAsyncKeyState(VK_F2) & 0x8000)
 	{
 		SetIsActive(false);

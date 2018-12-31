@@ -7,8 +7,10 @@ JEONG_USING
 
 DieEffect_Com::DieEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+	m_SavePos = Vector3::Zero;
 }
-
 
 DieEffect_Com::DieEffect_Com(const DieEffect_Com & CopyData)
 	:UserComponent_Base(CopyData)

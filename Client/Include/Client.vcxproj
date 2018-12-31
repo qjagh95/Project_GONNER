@@ -22,7 +22,7 @@
     <ProjectGuid>{01D44970-CDCE-4AB0-879B-FC65D03D8A81}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>Client</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -192,7 +192,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PrecompiledHeader>Use</PrecompiledHeader>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>JEONG_IMPORTNDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -233,7 +233,6 @@
     <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
-    <ClCompile Include="UserComponent\Fire_Com.cpp" />
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp" />
     <ClCompile Include="UserComponent\GonnerFSM.cpp" />
     <ClCompile Include="UserComponent\GunItem_Com.cpp" />
@@ -262,7 +261,6 @@
     <ClInclude Include="UserComponent\BulletUI_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
-    <ClInclude Include="UserComponent\Fire_Com.h" />
     <ClInclude Include="UserComponent\GunItem_Com.h" />
     <ClInclude Include="UserComponent\Gun_Com.h" />
     <ClInclude Include="UserComponent\HeartItem_Com.h" />

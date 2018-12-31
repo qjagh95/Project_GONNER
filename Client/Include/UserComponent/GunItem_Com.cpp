@@ -9,6 +9,9 @@ GunItem_Com::GunItem_Com()
 {
 	m_ComType = CT_GUNITEM;
 	m_isDrop = false;
+
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
 }
 
 GunItem_Com::GunItem_Com(const GunItem_Com & CopyData)

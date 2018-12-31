@@ -2,7 +2,6 @@
 #include "MenuEnemy_Com.h"
 
 MenuEnemy_Com::MenuEnemy_Com()
-	:m_Animation(NULLPTR)
 {
 	m_ScaleStartTime = 0.0f;
 	m_ScaleStartTimeVar = 0.0f;
@@ -12,8 +11,12 @@ MenuEnemy_Com::MenuEnemy_Com()
 	m_LightChangeTime = 0.0f;
 	m_isScaleStart = false;
 	m_isColorStart = false;
-
+	m_Type = ME_M1;
+	m_CBuffer = {};
+	m_ResultScale = Vector3::Zero;
 	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+
 }
 
 MenuEnemy_Com::MenuEnemy_Com(const MenuEnemy_Com & CopyData)

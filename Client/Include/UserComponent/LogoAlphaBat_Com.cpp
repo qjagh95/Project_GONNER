@@ -4,9 +4,13 @@
 JEONG_USING
 
 LogoAlphaBat_Com::LogoAlphaBat_Com()
-	:m_ChangeTime(0.15f), m_TimeVar(0.0f), m_isReturn(false), m_AlphaAngle(0.0f), m_Count(0)
 {
-
+	m_ChangeTime = 0.0f;
+	m_TimeVar = 0.0f;
+	m_CBuffer = {};
+	m_isReturn = false;
+	m_Count = 0;
+	m_AlphaAngle = 0.0f;
 }
 
 LogoAlphaBat_Com::LogoAlphaBat_Com(const LogoAlphaBat_Com & CopyData)

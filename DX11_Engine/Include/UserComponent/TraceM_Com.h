@@ -19,12 +19,16 @@ public:
 
 private:
 	void FS_IDLE(float DeltaTime);
-	void TS_MOVE(float DeltaTime);
-	void TS_TRACE(float DeltaTime);
-	void TS_HIT(float DeltaTime);
+	void FS_TRACE(float DeltaTime);
+	void FS_HIT(float DeltaTime);
 
 	void TraceMove(float DeltaTime);
 	void RangeCheck(float DeltaTime);
+
+private:
+	float m_HitAngle;
+	float m_TraceTime;
+	float m_TraceTimeVar;
 
 protected:
 	TraceM_Com();

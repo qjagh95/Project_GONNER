@@ -5,12 +5,26 @@
 JEONG_USING
 
 JEONG::Stage2D_Com::Stage2D_Com()
-	:m_vecTile2DCom(NULLPTR), m_vecTileObject(NULLPTR),
-	m_TileObjectCapacity(10), m_TileObjectSize(0),m_Tile2DComCapacity(10), m_Tile2DComSize(0)
 {
 	m_ComType = CT_TILE2D;
 	SetTag("Stage2D");
 	m_isLineOn = true;
+	m_vecTileObject = NULLPTR;
+	m_vecTile2DCom = NULLPTR;
+	m_TileObjectCapacity = 0;
+	m_TileObjectSize = 0;
+	m_Tile2DComCapacity = 0;
+	m_Tile2DComSize = 0;
+	m_TileCountX = 0;
+	m_TileCountY = 0;
+	m_TileType = {};
+	m_TileScale = Vector3::Zero;
+	m_StartPos = Vector3::Zero;
+	m_isLineOn = false;
+	m_StartX = 0;
+	m_StartY = 0;
+	m_EndX = 0;
+	m_EndY = 0;
 }
 
 JEONG::Stage2D_Com::Stage2D_Com(const Stage2D_Com& CopyData)

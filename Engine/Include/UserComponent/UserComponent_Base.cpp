@@ -8,6 +8,8 @@ JEONG_USING
 JEONG::UserComponent_Base::UserComponent_Base()
 {
 	m_isUserComponent = true;
+	m_State = 0;
+	m_PrevState = 0;
 }
 
 JEONG::UserComponent_Base::UserComponent_Base(const UserComponent_Base & userCom)
@@ -52,7 +54,7 @@ void JEONG::UserComponent_Base::Render(float DeltaTime)
 {
 }
 
-UserComponent_Base * UserComponent_Base::Clone()
+JEONG::UserComponent_Base * JEONG::UserComponent_Base::Clone()
 {
 	return new UserComponent_Base(*this);
 }

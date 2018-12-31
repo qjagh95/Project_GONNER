@@ -7,6 +7,8 @@ JEONG_USING
 
 ShotEffect_Com::ShotEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
 }
 
 ShotEffect_Com::ShotEffect_Com(const ShotEffect_Com & CopyData)

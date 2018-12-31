@@ -11,7 +11,10 @@ bool Gun_Com::m_isEquip = false;
 
 Gun_Com::Gun_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
 	m_AfterEffectLayer = NULLPTR;
+	m_DefaultLayer = NULLPTR;
 }
 
 Gun_Com::Gun_Com(const Gun_Com & CopyData)

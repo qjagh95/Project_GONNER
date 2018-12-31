@@ -101,28 +101,38 @@ bool MainScene::Init()
 	LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
 	LifeItemObject->GetTransform()->SetWorldPos(600.0f, 800.0f, 1.0f);
 
-	//GameObject* GuardObject = GameObject::CreateObject("Guard", Default);
-	//GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
-	//GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
-	//GuardM_Com::m_Target = GonnerObject;
+	GameObject* GuardObject = GameObject::CreateObject("Guard", Default);
+	GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
+	GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
+	GuardM_Com::m_Target = GonnerObject;
+
+	SAFE_RELEASE(GuardObject);
+	SAFE_RELEASE(GuardCom);
 
 	//GameObject* BasicObject = GameObject::CreateObject("Basic", Default);
 	//BasicM_Com* BasicCom = BasicObject->AddComponent<BasicM_Com>("Basic");
 	//BasicObject->GetTransform()->SetWorldPos(1000.0f, 1000.0f, 1.0f);
 	//BasicM_Com::m_Target = GonnerObject;
 
+	//SAFE_RELEASE(BasicObject);
+	//SAFE_RELEASE(BasicCom);
+
 	//GameObject* AirDonwObject = GameObject::CreateObject("AirDown", Default);
 	//AirDownM_Com* AirDown = AirDonwObject->AddComponent<AirDownM_Com>("AirDown");
 	//AirDown->SetPos(Vector3(1000.0f, 1300.0f, 1.0f));
 	//AirDownM_Com::m_Target = GonnerObject;
 
-	GameObject* TraceObject = GameObject::CreateObject("Follow", Default);
-	TraceM_Com* Trace = TraceObject->AddComponent<TraceM_Com>("Follow");
-	Trace->SetPos(Vector3(1000.0f, 1200.0f, 1.0f));
-	TraceM_Com::m_Target = GonnerObject;
+	//SAFE_RELEASE(AirDonwObject);
+	//SAFE_RELEASE(AirDown);
 
-	SAFE_RELEASE(TraceObject);
-	SAFE_RELEASE(Trace);
+	//GameObject* TraceObject = GameObject::CreateObject("Follow", Default);
+	//TraceM_Com* Trace = TraceObject->AddComponent<TraceM_Com>("Follow");
+	//Trace->SetPos(Vector3(1000.0f, 1200.0f, 1.0f));
+	//TraceM_Com::m_Target = GonnerObject;
+
+	//SAFE_RELEASE(TraceObject);
+	//SAFE_RELEASE(Trace);
+
 	SAFE_RELEASE(LifeItemObject);
 	SAFE_RELEASE(LifeItemCom);
 	SAFE_RELEASE(heartItemObject);

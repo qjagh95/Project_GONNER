@@ -7,6 +7,16 @@ JEONG_USING
 
 BallonEffect_Com::BallonEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+	m_Scale = Vector3::Zero;
+	m_State = ES_DIE;
+
+	m_UpTimeVar = 0.0f;
+	m_UpTime = 0.0f;
+	m_UpSpeed = 0.0f;
+	m_MoveSpeed = 0.0f;
+	m_isMove = false;
 }
 
 BallonEffect_Com::BallonEffect_Com(const BallonEffect_Com & CopyData)

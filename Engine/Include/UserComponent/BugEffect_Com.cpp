@@ -7,6 +7,9 @@ JEONG_USING
 
 BugEffect_Com::BugEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+	m_Alpha = 0.0f;
 }
 
 BugEffect_Com::BugEffect_Com(const BugEffect_Com & CopyData)

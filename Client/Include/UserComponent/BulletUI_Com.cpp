@@ -11,6 +11,28 @@ float BulletUI_Com::m_MoveSpeed = 1200.0f;
 BulletUI_Com::BulletUI_Com()
 {
 	m_Index = 0;
+
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+
+	m_isMove = false;
+	m_isGoingPos = false;
+	m_isDisable = false;
+
+	m_LightTimeVar = 0.0f;
+	m_LightTime = 0.0f;
+
+	m_StaticTime = 0.0f;
+	m_StaticTimeVar = 0.0f;
+	m_Index = 0;
+	m_DirAngle = 0.0f;
+	m_RotSpeed = 0.0f;
+
+	m_State = BT_ON;
+	m_GoingPos = Vector3::Zero;
+	m_CirclePos = Vector3::Zero;
+	m_ResultPos = Vector3::Zero;
+	m_TargetPos = Vector3::Zero;
 }
 
 BulletUI_Com::BulletUI_Com(const BulletUI_Com & CopyData)

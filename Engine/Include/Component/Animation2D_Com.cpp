@@ -15,6 +15,8 @@ Animation2D_Com::Animation2D_Com()
 	m_ComType = CT_ANIMATION2D;
 	m_isEnd = false;
 	m_PrevFrame = 0;
+	m_CurClip = NULLPTR;
+	m_CBuffer = {};
 }
 
 Animation2D_Com::Animation2D_Com(const Animation2D_Com& copyData)

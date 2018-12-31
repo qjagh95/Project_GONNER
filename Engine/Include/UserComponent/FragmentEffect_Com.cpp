@@ -7,6 +7,11 @@ JEONG_USING
 
 FragmentEffect_Com::FragmentEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
+
+	m_MoveSpeed = 0.0f;
+	m_Dir = Vector3::Zero;
 }
 
 FragmentEffect_Com::FragmentEffect_Com(const FragmentEffect_Com & CopyData)

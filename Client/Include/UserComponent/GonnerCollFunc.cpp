@@ -116,7 +116,7 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 		{
 			MessageBox(Core::Get()->GetHwnd(), TEXT("³¡"), TEXT("³¡"), MB_OK);
 			return;
-	`	}
+		}
 #endif
 		if (m_isJumpAttack == true)
 		{

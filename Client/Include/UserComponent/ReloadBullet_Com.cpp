@@ -7,6 +7,16 @@ ReloadBullet_Com::ReloadBullet_Com()
 	m_RectColl = NULLPTR;
 	m_Animation = NULLPTR;
 	m_Material = NULLPTR;
+
+	m_TargetPos = Vector3::Zero;
+
+	m_ChangeColorTimeVar = 0.0f;
+	m_ChangeColorTime = 0.0f;
+
+	m_MoveTime = 0.0f;
+	m_MoveTimeVar = 0.0f;
+	m_MoveSpeed = 0.0f;
+	m_isRot = 0.0f;
 }
 
 ReloadBullet_Com::ReloadBullet_Com(const ReloadBullet_Com & CopyData)

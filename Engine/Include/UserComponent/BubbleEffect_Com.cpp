@@ -9,7 +9,13 @@ BubbleEffect_Com::BubbleEffect_Com()
 {
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
-
+	m_ScaleVar = Vector3::Zero;
+	m_ChangeTimeVar = 0.0f;
+	m_ChangeTime = 0.0f;
+	m_StartTime = 0.0f;
+	m_StartTimeVar = 0.0f;
+	m_isStart = false;
+	m_UpDir = Vector3::Zero;
 }
 
 BubbleEffect_Com::BubbleEffect_Com(const BubbleEffect_Com & CopyData)

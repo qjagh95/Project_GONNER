@@ -9,6 +9,14 @@ HeartUI_Com::HeartUI_Com()
 	m_Material = NULLPTR;
 	m_isGoingPos = false;
 	m_isMove = false;
+	m_isDelayTime = 0.0f;
+	m_isMove = 0.0f;
+	m_GoingPos = Vector3::Zero;
+	m_StaticTime = 0.0f;
+	m_StaticTimeVar = 0.0f;
+	m_ColorChangeTimeVar = 0.0f;
+	m_ColorChangeTime = 0.0f;
+	m_isGoingPos = false;
 }
 
 HeartUI_Com::HeartUI_Com(const HeartUI_Com & CopyData)

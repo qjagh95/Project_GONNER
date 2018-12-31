@@ -7,6 +7,8 @@ JEONG_USING
 
 BoomEffect_Com::BoomEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR; 
 }
 
 BoomEffect_Com::BoomEffect_Com(const BoomEffect_Com & CopyData)

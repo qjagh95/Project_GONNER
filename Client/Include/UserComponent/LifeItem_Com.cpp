@@ -10,6 +10,8 @@ LifeItem_Com::LifeItem_Com()
 	m_Animation = NULLPTR;
 	m_Material = NULLPTR;
 	m_isDrop = false;
+	m_MoveRange = 0.0f;
+	m_MoveDir = 0.0f;
 }
 
 LifeItem_Com::LifeItem_Com(const LifeItem_Com & CopyData)

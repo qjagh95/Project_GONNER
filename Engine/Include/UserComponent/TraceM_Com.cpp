@@ -25,6 +25,9 @@ bool TraceM_Com::Init()
 	Monster_Base::Init();
 
 	m_Hp = 2;
+	m_HitAngle = 0.0f;
+	m_TraceTime = 0.0f;
+	m_TraceTimeVar = 0.0f;
 
 	m_Material->SetDiffuseTexture(0, "Trace", TEXT("Monster\\smallenemies.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("Trace");
@@ -37,8 +40,8 @@ bool TraceM_Com::Init()
 	Clip2DFrame	tFrame = {};
 	for (int i = 0; i < 6; ++i)
 	{
-		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 128.0f);
-		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 192.0f);
+		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 64.0f);
+		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 128.0f);
 		vecClipFrame.push_back(tFrame);
 	}
 
@@ -47,8 +50,8 @@ bool TraceM_Com::Init()
 
 	for (int i = 0; i < 6; ++i)
 	{
-		tFrame.LeftTop = Vector2(0.0f + i * 64.0f, 128.0f);
-		tFrame.RightBottom = Vector2(0.0f + (i + 1) * 64.0f, 192.0f);
+		tFrame.LeftTop = Vector2(384.0f + i * 64.0f, 64.0f);
+		tFrame.RightBottom = Vector2(384.0f + (i + 1) * 64.0f, 128.0f);
 		vecClipFrame.push_back(tFrame);
 	}
 
@@ -57,20 +60,19 @@ bool TraceM_Com::Init()
 
 	for (int i = 0; i < 4; ++i)
 	{
-		tFrame.LeftTop = Vector2(384.0f + i * 64.0f, 128.0f);
-		tFrame.RightBottom = Vector2(384.0f + (i + 1) * 64.0f, 192.0f);
+		tFrame.LeftTop = Vector2(768.0f + i * 64.0f, 64.0f);
+		tFrame.RightBottom = Vector2(768.0f + (i + 1) * 64.0f, 128.0f);
 		vecClipFrame.push_back(tFrame);
 	}
 
-	m_Animation->AddClip("Hit", A2D_ATLS, AO_LOOP, 0.3f, vecClipFrame, "Trace", L"Monster\\smallenemies.png");
+	m_Animation->AddClip("Hit", A2D_ATLS, AO_LOOP, 1.0f, vecClipFrame, "Trace", L"Monster\\smallenemies.png");
 	vecClipFrame.clear();
 
 	m_AniName[TRS_IDLE] = "Idle";
-	m_AniName[TRS_MOVE] = "Move";
 	m_AniName[TRS_TRACE] = "Move";
 	m_AniName[TRS_HIT] = "Hit";
 
-	ChangeState(TRS_IDLE, m_AniName, m_Animation);
+	ChangeState(TRS_HIT, m_AniName, m_Animation);
 
 	return true;
 }
@@ -128,10 +130,7 @@ void TraceM_Com::AfterClone()
 
 void TraceM_Com::FS_IDLE(float DeltaTime)
 {
-}
-
-void TraceM_Com::FS_MOVE(float DeltaTime)
-{
+	RangeCheck(DeltaTime);
 }
 
 void TraceM_Com::FS_TRACE(float DeltaTime)
@@ -141,6 +140,17 @@ void TraceM_Com::FS_TRACE(float DeltaTime)
 
 void TraceM_Com::FS_HIT(float DeltaTime)
 {
+	m_HitAngle += 100.0f * DeltaTime;
+	m_Transform->SetWorldRotZFromNoneAxis(m_HitAngle);
+		
+	if (m_Transform->GetWorldRotationZ() >= 360.0f);
+	{
+		m_HitAngle = 0.0f;
+		m_Transform->SetWorldRotZ(0.0f);
+
+		if (m_Animation->GetIsEnd() == true)
+			ChangeState(TRS_IDLE, m_AniName, m_Animation);
+	}
 }
 
 void TraceM_Com::TraceMove(float DeltaTime)
@@ -151,12 +161,14 @@ void TraceM_Com::TraceMove(float DeltaTime)
 	float Angle = m_Pos.GetAngle(m_TargetPos);
 
 	m_Transform->SetWorldRotZ(Angle);
-	m_Transform->Move(Look, 300.0f, DeltaTime);
+
+	if(m_LeftTile->GetTileOption() != T2D_NOMOVE || m_RightTile->GetTileOption() != T2D_NOMOVE || m_DownTile->GetTileOption() != T2D_NOMOVE || m_UpTile->GetTileOption() != T2D_NOMOVE)
+		m_Transform->Move(Look, 300.0f, DeltaTime);
 }
 
 void TraceM_Com::RangeCheck(float DeltaTime)
 {
-	float Range = 100;
+	float Range = 200.0f;
 
 	if (m_Pos.GetDistance(m_TargetPos) >= Range)
 		return;

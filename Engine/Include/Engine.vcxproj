@@ -195,7 +195,6 @@
     <ClInclude Include="Component\FreeCamera_Com.h" />
     <ClInclude Include="Component\Gravity_Com.h" />
     <ClInclude Include="Component\IconSlot_Com.h" />
-    <ClInclude Include="Component\Light_Com.h" />
     <ClInclude Include="Component\NButton_Com.h" />
     <ClInclude Include="Component\Number_Com.h" />
     <ClInclude Include="Component\Stage2D_Com.h" />
@@ -291,7 +290,6 @@
     <ClCompile Include="Component\FreeCamera_Com.cpp" />
     <ClCompile Include="Component\Gravity_Com.cpp" />
     <ClCompile Include="Component\IconSlot_Com.cpp" />
-    <ClCompile Include="Component\Light_Com.cpp" />
     <ClCompile Include="Component\NButton_Com.cpp" />
     <ClCompile Include="Component\Number_Com.cpp" />
     <ClCompile Include="Component\Stage2D_Com.cpp" />

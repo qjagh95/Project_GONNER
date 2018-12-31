@@ -7,8 +7,9 @@ JEONG_USING
 
 DieBoomEffect_Com::DieBoomEffect_Com()
 {
+	m_Material = NULLPTR;
+	m_Animation = NULLPTR;
 }
-
 
 DieBoomEffect_Com::DieBoomEffect_Com(const DieBoomEffect_Com & CopyData)
 	:UserComponent_Base(CopyData)

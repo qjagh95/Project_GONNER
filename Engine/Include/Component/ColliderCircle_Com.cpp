@@ -20,6 +20,10 @@ JEONG_USING
 ColliderCircle_Com::ColliderCircle_Com()
 {
 	m_CollType = CT_CIRCLE;
+
+	m_WorldInfo = {};
+	m_VirtualInfo = {};
+
 #ifdef _DEBUG
 	m_DepthDisable = RenderManager::Get()->FindRenderState(DEPTH_DISABLE);
 	m_Mesh = ResourceManager::Get()->FindMesh("ColliderCircle");

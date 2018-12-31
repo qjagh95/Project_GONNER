@@ -32,7 +32,6 @@ private:
 	bool m_isOver;
 	bool m_isInOut;
 	FadeCBuffer m_CBuffer;
-
 	FADE_OPTION m_Option;
 
 protected:

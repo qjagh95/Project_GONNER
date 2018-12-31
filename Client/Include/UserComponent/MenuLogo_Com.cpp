@@ -5,6 +5,7 @@ JEONG_USING
 
 MenuLogo_Com::MenuLogo_Com()
 {
+	m_CBuffer = {};
 }
 
 MenuLogo_Com::MenuLogo_Com(const MenuLogo_Com & CopyData)

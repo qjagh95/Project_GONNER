@@ -9,6 +9,11 @@ NButton_Com::NButton_Com()
 	m_ComType = CT_BUTTON;
 	SetTag("NButton");
 	m_isMouse = false;
+	m_RectColl = NULLPTR;
+
+	m_ButtonState = {};
+	m_ButtonCBuffer = {};
+	m_SaveScale = Vector3::Zero;
 }
 
 NButton_Com::NButton_Com(const NButton_Com & CopyData)

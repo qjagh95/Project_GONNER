@@ -22,7 +22,7 @@ void Gonner_Com::FS_BUGDOWN(float DeltaTime)
 
 	Tile2D_Com* downTile = m_Stage->GetTile2D(m_downPos);
 	
-	if (downTile->GetTileOption() == T2D_NOMOVE)
+	if (downTile != NULLPTR && downTile->GetTileOption() == T2D_NOMOVE)
 	{
 		m_DownAngle = 0.0f;
 		m_Transform->SetWorldRotZ(0.0f);

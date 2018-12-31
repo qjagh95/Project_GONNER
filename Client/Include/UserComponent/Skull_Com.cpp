@@ -11,6 +11,10 @@ Skull_Com::Skull_Com()
 {
 	m_Material = NULLPTR;
 	m_Animation = NULLPTR;
+	m_TargetPos = Vector3::Zero;
+	m_ChangeColorTimeVar = 0.0f;
+	m_ChangeColorTime = 0.0f;
+	m_vecLifeObject.clear();
 }
 
 Skull_Com::Skull_Com(const Skull_Com & CopyData)
