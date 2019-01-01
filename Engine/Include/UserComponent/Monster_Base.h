@@ -21,7 +21,6 @@ public:
 	int GetHP() const { return m_Hp; }
 	void SetIsJumpAttack(bool Value) { m_GonnerJumpAttack = Value; }
 
-
 	virtual void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	virtual void SetPos(const Vector3& Pos) {};
 	static GameObject* m_Target; //플레이어 - 클라 // 몬스터 - 엔진 어쩔수없이 한번 더 선언

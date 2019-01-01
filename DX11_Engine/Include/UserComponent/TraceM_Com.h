@@ -15,6 +15,7 @@ public:
 	TraceM_Com* Clone() override;
 	void AfterClone() override;
 	
+	void BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
 	void SetPos(const Vector3& Pos) override { m_Transform->SetWorldPos(Pos); }
 
 private:
@@ -29,6 +30,7 @@ private:
 	float m_HitAngle;
 	float m_TraceTime;
 	float m_TraceTimeVar;
+	float m_Dir;
 
 protected:
 	TraceM_Com();

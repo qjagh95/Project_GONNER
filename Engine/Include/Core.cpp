@@ -23,8 +23,6 @@ Core::Core()
 	ClearColor[3] = 0.0f;
 
 	PathManager::Get();
-
-	AllocConsole();
 }
 
 Core::~Core()

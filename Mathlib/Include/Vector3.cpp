@@ -1200,3 +1200,13 @@ Vector3 Vector3::Lerp(const Vector3& Start, const Vector3& End, float Time)
 	Vector3 result = Vector3(X);
 	return result;
 }
+
+Vector3 Vector3::Reflect(const Vector3 & Start, Vector3& Normal)
+{
+	XMVECTOR i = XMLoadFloat3((XMFLOAT3*)&Start);
+	XMVECTOR n = XMLoadFloat3((XMFLOAT3*)&Normal);
+	XMVECTOR X = XMVector3Reflect(i, n);
+
+	Vector3 result = Vector3(X);
+	return result;
+}

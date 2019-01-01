@@ -46,9 +46,7 @@ int Gravity_Com::Update(float DeltaTime)
 		m_Stage = StageManager::Get()->FindCurStage();
 	
 	m_Force -= m_Gravity * DeltaTime;
-
-	if(isnan(m_Force) == false)
-		m_Object->GetTransform()->Move(AXIS_Y, m_Force, DeltaTime);
+	m_Object->GetTransform()->Move(AXIS_Y, m_Force, DeltaTime);
 
 	if (m_Force >= 0.0f)
 		m_isJump = true;

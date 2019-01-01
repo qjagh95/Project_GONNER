@@ -33,7 +33,6 @@ bool BasicM_Com::Init()
 	Monster_Base::Init();
 
 	m_Gravity = m_Object->AddComponent<Gravity_Com>("Gravity");
-	m_Gravity->SetStage(StageManager::Get()->FindCurStage());
 
 	m_Hp = 2;
 

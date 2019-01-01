@@ -39,8 +39,6 @@ bool GuardM_Com::Init()
 	Monster_Base::Init();
 
 	m_Gravity = m_Object->AddComponent<Gravity_Com>("Gravity");
-	m_Gravity->SetStage(StageManager::Get()->FindCurStage());
-
 	m_Hp = 3;
 
 	m_Material->SetDiffuseTexture(0, "Guard", TEXT("Monster\\bigsprites3.png"));

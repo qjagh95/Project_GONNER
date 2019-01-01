@@ -26,14 +26,15 @@ bool TraceM_Com::Init()
 
 	m_Hp = 2;
 	m_HitAngle = 0.0f;
-	m_TraceTime = 0.0f;
+	m_TraceTime = 3.0f;
 	m_TraceTimeVar = 0.0f;
+	m_Dir = 0.0f;
 
 	m_Material->SetDiffuseTexture(0, "Trace", TEXT("Monster\\smallenemies.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("Trace");
 	m_RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 1.0f));
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
-	m_Transform->SetWorldPivot(0.5f, 0.0f, 0.0f);
+	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
 	m_Animation->SetDir(MD_RIGHT);
 
 	vector<Clip2DFrame>	vecClipFrame;
@@ -72,7 +73,7 @@ bool TraceM_Com::Init()
 	m_AniName[TRS_TRACE] = "Move";
 	m_AniName[TRS_HIT] = "Hit";
 
-	ChangeState(TRS_HIT, m_AniName, m_Animation);
+	ChangeState(TRS_IDLE, m_AniName, m_Animation);
 
 	return true;
 }
@@ -140,30 +141,61 @@ void TraceM_Com::FS_TRACE(float DeltaTime)
 
 void TraceM_Com::FS_HIT(float DeltaTime)
 {
-	m_HitAngle += 100.0f * DeltaTime;
-	m_Transform->SetWorldRotZFromNoneAxis(m_HitAngle);
-		
-	if (m_Transform->GetWorldRotationZ() >= 360.0f);
+	if (m_Dir == 1.0f)
+	{
+		if (m_LeftTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, -100.0f, DeltaTime);
+	}
+	else
+	{
+		if (m_RightTile->GetTileOption() != T2D_NOMOVE)
+			m_Transform->Move(AXIS_X, 100.0f, DeltaTime);
+	}
+	
+	m_Transform->RotationZFromNoneAxis(1000.0f * DeltaTime);
+
+	if (m_Transform->GetWorldRotationZ() >= 360.0f)
 	{
 		m_HitAngle = 0.0f;
 		m_Transform->SetWorldRotZ(0.0f);
 
 		if (m_Animation->GetIsEnd() == true)
-			ChangeState(TRS_IDLE, m_AniName, m_Animation);
+			ChangeState(TRS_TRACE, m_AniName, m_Animation);
 	}
 }
 
 void TraceM_Com::TraceMove(float DeltaTime)
 {
+	m_TraceTimeVar += DeltaTime;
+
+	if (m_TraceTimeVar >= m_TraceTime)
+	{
+		m_TraceTimeVar = 0.0f;
+		ChangeState(TRS_IDLE, m_AniName, m_Animation);
+		return;
+	}
+
 	Vector3 Look = m_TargetPos - m_Pos;
+
+	if (Look.x < 0.0f)
+		m_Animation->SetDir(MD_LEFT);
+	else
+		m_Animation->SetDir(MD_RIGHT);
+
 	Look.Nomallize();
 
-	float Angle = m_Pos.GetAngle(m_TargetPos);
+	float Angle = m_TargetPos.GetAngle(m_Pos);
+	m_Transform->SetWorldRotZ(-Angle);
 
-	m_Transform->SetWorldRotZ(Angle);
+	Vector3 LookPos = m_Pos + Look;
+	LookPos += (m_Scale * Look);
 
-	if(m_LeftTile->GetTileOption() != T2D_NOMOVE || m_RightTile->GetTileOption() != T2D_NOMOVE || m_DownTile->GetTileOption() != T2D_NOMOVE || m_UpTile->GetTileOption() != T2D_NOMOVE)
-		m_Transform->Move(Look, 300.0f, DeltaTime);
+	Tile2D_Com* LookTile = m_Stage->GetTile2D(LookPos);
+
+	if (LookTile->GetTileOption() != T2D_NOMOVE)
+		m_Transform->Move(Look, 200.0f, DeltaTime);
+	else
+		ChangeState(TRS_IDLE, m_AniName, m_Animation);
 }
 
 void TraceM_Com::RangeCheck(float DeltaTime)
@@ -174,4 +206,45 @@ void TraceM_Com::RangeCheck(float DeltaTime)
 		return;
 
 	ChangeState(TRS_TRACE, m_AniName, m_Animation);
+}
+
+void TraceM_Com::BulletHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
+{
+	if (Dest->GetTag() == "BulletBody")
+	{
+		Vector3 dPos = Dest->GetGameObject()->GetTransform()->GetWorldPos();
+		SoundManager::Get()->FindSoundEffect("BulletColl")->Play();
+		Dest->GetGameObject()->SetIsActive(false);
+
+		HitEffectOut(DeltaTime);
+
+		if (m_Hp > 0)
+		{
+			Vector3 Look = Dest->GetGameObject()->GetTransform()->GetWorldPos();
+			Look -= m_Pos;
+
+			if (Look.x < 0.0f)
+				m_Dir = -1.0f;
+			else if(Look.x > 0.0f)
+				m_Dir = 1.0f;
+
+			m_Camera->SetShake(5.0f, 0.3f);
+			m_Scene->CreateWave(m_CenterPos, 0.8f, 0.05f);
+			ChangeState(TRS_HIT, m_AniName, m_Animation);
+			m_Hp--;
+		}
+	}
+
+	if (Dest->GetTag() == "GonnerBody")
+	{
+		if (m_GonnerJumpAttack == true)
+		{
+			if (m_Hp > 0)
+			{
+				m_Camera->SetShake(5.0f, 0.3f);
+				ChangeState(TRS_HIT, m_AniName, m_Animation);
+				m_Hp--;
+			}
+		}
+	}
 }

@@ -99,7 +99,10 @@ int LifeItem_Com::Update(float DeltaTime)
 	{
 		m_MoveRange -= 100.0f * DeltaTime;
 
-		if (m_MoveRange >= 0.0f)
+		Vector3 Pos = m_Transform->GetWorldPos();
+		Pos += m_Transform->GetWorldScale() * m_MoveDir;
+
+		if (StageManager::Get()->FindCurStage()->GetTile2D(Pos)->GetTileOption() != T2D_NOMOVE && m_MoveRange >= 0.0f)
 			m_Transform->Move(AXIS_X, 100.0f * m_MoveDir, DeltaTime);
 	}
 
