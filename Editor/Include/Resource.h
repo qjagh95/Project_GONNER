@@ -7,9 +7,16 @@
 #define IDR_MAINFRAME                   128
 #define IDR_PunRealEditorTYPE           130
 #define IDD_DIALOG_EDIT                 310
+#define IDD_MOBTOOL                     313
 #define IDC_TAGNAME                     1004
+#define IDC_X                           1004
+#define IDC_Y                           1005
+#define IDC_Z                           1006
+#define IDC_X2                          1007
 #define IDC_SCALEX                      1008
+#define IDC_Y2                          1008
 #define IDC_TRANSFORMGROUP              1009
+#define IDC_Z2                          1009
 #define IDC_POSITIONTEXT                1010
 #define IDC_ROTATIONX                   1011
 #define IDC_POSITIONX                   1012
@@ -71,6 +78,17 @@
 #define IDC_CHECK1                      1067
 #define IDC_EDIT1                       1068
 #define IDC_EDIT2                       1069
+#define IDC_TOOLOPEN                    1070
+#define IDC_CLOSE                       1072
+#define IDC_SELECTIMAGE                 1073
+#define IDC_EDIT3                       1075
+#define IDC_COMBO2                      1076
+#define IDC_EDIT5                       1077
+#define IDC_EDIT4                       1079
+#define IDC_EDIT6                       1080
+#define IDC_LIST1                       1081
+#define IDC_BUTTON2                     1083
+#define IDC_BUTTON3                     1084
 #define ID_GAMEOBJECT                   32771
 #define ID_GAMEOBJECT_32772             32772
 
@@ -78,9 +96,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        313
+#define _APS_NEXT_RESOURCE_VALUE        316
 #define _APS_NEXT_COMMAND_VALUE         32773
-#define _APS_NEXT_CONTROL_VALUE         1070
+#define _APS_NEXT_CONTROL_VALUE         1085
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

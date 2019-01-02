@@ -38,8 +38,6 @@ public:
 #endif
 
 protected:  
-	//분할윈도우 (동적분할과 정적분할이 있음)
-
 	EditorView* m_EditorView;
 	EditorForm* m_EditorForm;
 

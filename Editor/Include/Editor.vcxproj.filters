@@ -30,6 +30,9 @@
     <Filter Include="02. Control\EditorApp%28Window%29">
       <UniqueIdentifier>{59911a50-2ff7-4587-9805-d7c42c893952}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02. Control\MonsterEdit">
+      <UniqueIdentifier>{511de1f4-d83b-40d3-881a-ffe4c532f784}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainFrame.h">
@@ -59,6 +62,9 @@
     <ClInclude Include="Editor.h">
       <Filter>02. Control\EditorApp%28Window%29</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterEdit.h">
+      <Filter>02. Control\MonsterEdit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MainFrame.cpp">
@@ -81,6 +87,9 @@
     </ClCompile>
     <ClCompile Include="Editor.cpp">
       <Filter>02. Control\EditorApp%28Window%29</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterEdit.cpp">
+      <Filter>02. Control\MonsterEdit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

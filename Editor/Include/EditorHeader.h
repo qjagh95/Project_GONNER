@@ -40,6 +40,7 @@
 #include <Core.h>
 
 #include "MainFrame.h"
+#include <afxcontrolbars.h>
 
 JEONG_USING
 

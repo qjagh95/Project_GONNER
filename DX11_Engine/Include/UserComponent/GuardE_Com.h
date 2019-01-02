@@ -1,9 +1,9 @@
 #pragma once
-#include "UserComponent_Base.h"
+#include "EditorMonster_Base.h"
 
 JEONG_BEGIN
 
-class GuardE_Com : public UserComponent_Base
+class JEONG_DLL GuardE_Com : public EditorMonster_Base
 {
 public:
 	bool Init() override;
@@ -17,6 +17,7 @@ public:
 	void AfterClone() override;
 
 	void SetPos(const Vector3& Pos);
+	void MouseHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime) override;
 
 protected:
 	GuardE_Com();

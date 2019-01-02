@@ -271,6 +271,9 @@
     <Filter Include="Core\08. Object\Component\UserComponent\02. MonsterBase\05. ReflectM">
       <UniqueIdentifier>{2b21869b-1c5f-413a-89d4-d4b2261c9257}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\08. Object\Component\UserComponent\04. EditorMonster\Base">
+      <UniqueIdentifier>{abeb8323-7ac0-48ec-b878-02828a2e8873}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -552,6 +555,9 @@
     <ClInclude Include="UserComponent\ReflectE_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster</Filter>
     </ClInclude>
+    <ClInclude Include="UserComponent\EditorMonster_Base.h">
+      <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Copy.bat">
@@ -825,6 +831,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\ReflectE_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="UserComponent\EditorMonster_Base.cpp">
+      <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

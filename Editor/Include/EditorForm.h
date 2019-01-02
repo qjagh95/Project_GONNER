@@ -2,6 +2,7 @@
 #include <Component/Stage2D_Com.h>
 // EditorForm Æû ºäÀÔ´Ï´Ù.
 JEONG_USING
+class MonsterEdit;
 class EditorForm : public CFormView
 {
 	DECLARE_DYNCREATE(EditorForm)
@@ -45,6 +46,8 @@ public:
 	int m_BackColorA;
 
 	BOOL m_isLine;
+	MonsterEdit* m_MobTool;
+	static bool m_isOpenTool;
 
 	GameObject* GetStageObject() const { return m_StageObject; }
 	Stage2D_Com* GetStageComponent() const { return m_StageCom; }
@@ -118,7 +121,7 @@ public:
 	afx_msg void OnBnClickedCheck1();
 	afx_msg void OnEnChangeEdit1();
 	afx_msg void OnEnChangeEdit2();
-
+	afx_msg void OnBnClickedToolopen();
 };
 
 

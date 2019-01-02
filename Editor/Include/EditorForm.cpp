@@ -3,6 +3,7 @@
 #include "EditorHeader.h"
 #include "Editor.h"
 #include "EditorForm.h"
+#include "MonsterEdit.h"
 #include "afxwin.h"
 #include <BineryReader.h>
 #include <BineryWriter.h>
@@ -12,6 +13,7 @@
 
 // EditorForm
 
+bool EditorForm::m_isOpenTool = false;
 IMPLEMENT_DYNCREATE(EditorForm, CFormView)
 
 EditorForm::EditorForm()
@@ -35,6 +37,7 @@ EditorForm::EditorForm()
 	, m_isRandomTile(FALSE)
 	, m_RandomRange1(0)
 	, m_RandomRange2(0)
+	, m_MobTool(NULLPTR)
 {
 	m_TileCountX = 0;
 	m_TileCountY = 0;
@@ -46,6 +49,8 @@ EditorForm::EditorForm()
 	m_StageTransform = NULLPTR;
 
 	m_Path = PathManager::Get()->FindPath(TEXTURE_PATH);
+
+	m_MobTool = new MonsterEdit();
 }
 
 EditorForm::~EditorForm()
@@ -53,6 +58,7 @@ EditorForm::~EditorForm()
 	SAFE_RELEASE(m_StageObject);
 	SAFE_RELEASE(m_StageCom);
 	SAFE_RELEASE(m_StageTransform);
+	SAFE_DELETE(m_MobTool);
 }
 
 void EditorForm::DoDataExchange(CDataExchange* pDX)
@@ -143,6 +149,7 @@ BEGIN_MESSAGE_MAP(EditorForm, CFormView)
 	ON_BN_CLICKED(IDC_CHECK1, &EditorForm::OnBnClickedCheck1)
 	ON_EN_CHANGE(IDC_EDIT1, &EditorForm::OnEnChangeEdit1)
 	ON_EN_CHANGE(IDC_EDIT2, &EditorForm::OnEnChangeEdit2)
+	ON_BN_CLICKED(IDC_TOOLOPEN, &EditorForm::OnBnClickedToolopen)
 END_MESSAGE_MAP()
 
 // EditorForm 진단입니다.
@@ -950,142 +957,6 @@ void EditorForm::OnEnChangeTilerotation()
 	UpdateData(FALSE);
 }
 
-//void EditorForm::OnEnChangeScalex()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"SacleX : %d 변경", m_ScaleX);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangeScaley()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"SacleY : %d 변경", m_ScaleY);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangeScalez()
-//{
-//	UpdateData(TRUE);
-//
-//	if (RenderManager::Get()->GetGameMode() == GM_2D)
-//	{
-//		m_ScaleZ = 0;
-//
-//		wchar_t Buffer[255];
-//		wsprintf(Buffer, L"Error! 2D 모드일땐 ScaleZ값 변경불가");
-//		AddWorkText(Buffer);
-//
-//		UpdateData(FALSE);
-//		return;
-//	}
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"SacleZ : %d 변경", m_ScaleZ);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangeRotationx()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"RotationX : %d 변경", m_RotationX);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangeRotationy()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"RotationY : %d 변경", m_RotationY);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangeRotationz()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"RotationZ : %d 변경", m_RotationZ);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangePositionx()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"PosX : %d 변경", m_PosX);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangePositiony()
-//{
-//	UpdateData(TRUE);
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"PosY : %d 변경", m_PosY);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//
-//void EditorForm::OnEnChangePositionz()
-//{
-//	UpdateData(TRUE);
-//
-//	if (RenderManager::Get()->GetGameMode() == GM_2D)
-//	{
-//		m_PosZ = 0;
-//
-//		wchar_t Buffer[255];
-//		wsprintf(Buffer, L"Error! 2D 모드일땐 PosZ값 변경불가");
-//		AddWorkText(Buffer);
-//
-//		UpdateData(FALSE);
-//		return;
-//	}
-//
-//	wchar_t Buffer[255];
-//	wsprintf(Buffer, L"PosZ : %d 변경", m_PosZ);
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-//void EditorForm::OnEnChangeTagname()
-//{
-//	UpdateData(TRUE);
-//
-//	CString Buffer;
-//	Buffer = "TagName : ";
-//	Buffer += m_TagName;
-//	Buffer += " 설정";
-//
-//	AddWorkText(Buffer);
-//
-//	UpdateData(FALSE);
-//}
-
 void EditorForm::OnBnClickedCheck1()
 {
 	UpdateData(TRUE);
@@ -1126,6 +997,28 @@ void EditorForm::OnEnChangeEdit2()
 	}
 	else if (m_RandomRange2 > m_TileImageBox.GetCount())
 		m_RandomRange2 = m_TileImageBox.GetCount();
+
+	UpdateData(FALSE);
+}
+
+
+void EditorForm::OnBnClickedToolopen()
+{
+	UpdateData(TRUE);
+
+	if (m_isOpenTool == true)
+	{
+		AddWorkText("Error! 이미 열려있습니다.");
+		UpdateData(FALSE);
+		return;
+	}
+
+	AddWorkText("Tool Open");
+
+	m_MobTool->Create(IDD_MOBTOOL, this);
+	m_MobTool->ShowWindow(SW_SHOW);
+	m_MobTool->SetForm(this);
+	m_isOpenTool = true;
 
 	UpdateData(FALSE);
 }

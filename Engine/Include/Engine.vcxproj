@@ -267,6 +267,7 @@
     <ClInclude Include="UserComponent\BugEffect_Com.h" />
     <ClInclude Include="UserComponent\DieBoomEffect_Com.h" />
     <ClInclude Include="UserComponent\DieEffect_Com.h" />
+    <ClInclude Include="UserComponent\EditorMonster_Base.h" />
     <ClInclude Include="UserComponent\ReflectE_Com.h" />
     <ClInclude Include="UserComponent\ReflectM_Com.h" />
     <ClInclude Include="UserComponent\FragmentEffect_Com.h" />
@@ -363,6 +364,7 @@
     <ClCompile Include="UserComponent\BugEffect_Com.cpp" />
     <ClCompile Include="UserComponent\DieBoomEffect_Com.cpp" />
     <ClCompile Include="UserComponent\DieEffect_Com.cpp" />
+    <ClCompile Include="UserComponent\EditorMonster_Base.cpp" />
     <ClCompile Include="UserComponent\ReflectE_Com.cpp" />
     <ClCompile Include="UserComponent\ReflectM_Com.cpp" />
     <ClCompile Include="UserComponent\FragmentEffect_Com.cpp" />
