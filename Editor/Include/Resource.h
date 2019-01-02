@@ -1,7 +1,3 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++에서 생성한 포함 파일입니다.
-// Editor.rc에서 사용되고 있습니다.
-//
 #define IDD_ABOUTBOX                    100
 #define IDP_OLE_INIT_FAILED             100
 #define IDR_MAINFRAME                   128
@@ -47,6 +43,7 @@
 #define IDC_SIZEXTEXT2                  1033
 #define IDC_TILECREATEBUTTON            1034
 #define IDC_TRANSFORMGROUP2             1035
+#define IDC_MONSTERLOAD                 1035
 #define IDC_SCALEZ2                     1036
 #define IDC_COLORB                      1036
 #define IDC_STARTPOSX                   1037
@@ -89,6 +86,9 @@
 #define IDC_LIST1                       1081
 #define IDC_BUTTON2                     1083
 #define IDC_BUTTON3                     1084
+#define IDC_LOAD                        1084
+#define IDC_BUTTON4                     1085
+#define IDC_MONLOAD                     1086
 #define ID_GAMEOBJECT                   32771
 #define ID_GAMEOBJECT_32772             32772
 

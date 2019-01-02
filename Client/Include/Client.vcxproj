@@ -229,7 +229,10 @@
     <ClCompile Include="SceneMain\LogoScene.cpp" />
     <ClCompile Include="SceneMain\MainScene.cpp" />
     <ClCompile Include="SceneMain\MenuScene.cpp" />
-    <ClCompile Include="SceneMain\StaticTestScene.cpp" />
+    <ClCompile Include="SceneMain\SecondScene.cpp" />
+    <ClCompile Include="SnakeBody_Com.cpp" />
+    <ClCompile Include="SnakeHead_Com.cpp" />
+    <ClCompile Include="SnekeTail_Com.cpp" />
     <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
@@ -257,7 +260,10 @@
     <ClInclude Include="SceneMain\LogoScene.h" />
     <ClInclude Include="SceneMain\MainScene.h" />
     <ClInclude Include="SceneMain\MenuScene.h" />
-    <ClInclude Include="SceneMain\StaticTestScene.h" />
+    <ClInclude Include="SceneMain\SecondScene.h" />
+    <ClInclude Include="SnakeBody_Com.h" />
+    <ClInclude Include="SnakeHead_Com.h" />
+    <ClInclude Include="SnekeTail_Com.h" />
     <ClInclude Include="UserComponent\BulletUI_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />

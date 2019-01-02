@@ -4,12 +4,10 @@
 #include "Editor.h"
 #include "EditorForm.h"
 #include "MonsterEdit.h"
+#include "EditScene.h"
 #include "afxwin.h"
 #include <BineryReader.h>
 #include <BineryWriter.h>
-
-//로그를 텍스트파일로 시간입력해서. (엑셀)
-//Control Z 되돌리기..?
 
 // EditorForm
 
@@ -150,6 +148,7 @@ BEGIN_MESSAGE_MAP(EditorForm, CFormView)
 	ON_EN_CHANGE(IDC_EDIT1, &EditorForm::OnEnChangeEdit1)
 	ON_EN_CHANGE(IDC_EDIT2, &EditorForm::OnEnChangeEdit2)
 	ON_BN_CLICKED(IDC_TOOLOPEN, &EditorForm::OnBnClickedToolopen)
+
 END_MESSAGE_MAP()
 
 // EditorForm 진단입니다.
@@ -361,7 +360,7 @@ void EditorForm::OnCbnSelchangeTileselect()
 	UpdateData(TRUE);
 
 	CString Buffer;
-	m_TileTypeBox.GetLBText(m_TileTypeBox.GetCurSel(),Buffer);
+	m_TileTypeBox.GetLBText(m_TileTypeBox.GetCurSel(), Buffer);
 	Buffer += " 선택";
 
 	AddWorkText(Buffer);

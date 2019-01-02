@@ -3,7 +3,7 @@
 
 JEONG_USING
 
-class StaticTestScene : public SceneComponent
+class SecondScene : public SceneComponent
 {
 public:
 	bool Init() override;
@@ -15,7 +15,7 @@ public:
 	void Render(float DeltaTime) override;
 
 public:
-	StaticTestScene();
-	~StaticTestScene();
+	SecondScene();
+	~SecondScene();
 };
 

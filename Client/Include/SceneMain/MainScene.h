@@ -14,7 +14,7 @@ public:
 	void Render(float DeltaTime) override;
 
 private:
-	void Load();
+	void Load(Layer* Default);
 
 public:
 	MainScene();

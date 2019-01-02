@@ -26,6 +26,7 @@ Vector3 Gonner_Com::m_GonnerScaleHalf = Vector3(32.0f, 32.0f, 1.0f);
 
 Gonner_Com::Gonner_Com()
 {
+	m_ComType = CT_GONNER;
 	m_GravityCom = NULLPTR;
 	m_Stage = NULLPTR;
 	m_Camera = NULLPTR;

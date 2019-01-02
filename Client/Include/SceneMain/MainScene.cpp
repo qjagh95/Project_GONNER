@@ -1,7 +1,7 @@
 #include "ClientHeader.h"
 #include "MainScene.h"
 #include "MenuScene.h"
-#include "StaticTestScene.h"
+#include "SecondScene.h"
 #include "GameObject.h"
 
 #include "Thread.h"
@@ -101,7 +101,8 @@ bool MainScene::Init()
 	GameObject* LifeItemObject = GameObject::CreateObject("LifeItem", Default);
 	LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
 	LifeItemObject->GetTransform()->SetWorldPos(600.0f, 800.0f, 1.0f);
-
+	
+	Load(Default);
 	//GameObject* GuardObject = GameObject::CreateObject("Guard", Default);
 	//GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
 	//GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
@@ -180,7 +181,7 @@ int MainScene::Input(float DeltaTime)
 	if (GetAsyncKeyState(VK_HOME) & 0x8000)
 	{
 		SceneManager::Get()->CreateNextScene();
-		SceneManager::Get()->AddSceneComponent<StaticTestScene>("StaticTestScene", false);
+		SceneManager::Get()->AddSceneComponent<SecondScene>("SecondScene", false);
 	}
 
 	return 0;
@@ -208,7 +209,82 @@ void MainScene::Render(float DeltaTime)
 {
 }
 
-//나중추가
-void MainScene::Load()
+void MainScene::Load(Layer* Default)
 {
+	BineryRead Reader("OneData.data");
+
+	size_t vecSize;
+	Reader.ReadData(vecSize);
+
+	for (size_t i = 0; i < vecSize; i++)
+	{
+		int type;
+		Reader.ReadData(type);
+
+		int Dir;
+		Reader.ReadData(Dir);
+
+		Vector3 Pos;
+		Reader.ReadData(Pos);
+
+		switch (type)
+		{
+		case MT_GUARD:
+		{
+			GameObject* newObject = GameObject::CreateObject("Guard", Default);
+			GuardM_Com* newGuard = newObject->AddComponent<GuardM_Com>("Guard");
+			newObject->GetTransform()->SetWorldPos(Pos);
+			newGuard->GetAnimation()->SetDir((MOVE_DIR)Dir);
+
+			SAFE_RELEASE(newGuard);
+			SAFE_RELEASE(newObject);
+		}
+		break;
+		case MT_TRACE:
+		{
+			GameObject* newObject = GameObject::CreateObject("Trace", Default);
+			TraceM_Com* newTrace = newObject->AddComponent<TraceM_Com>("Trace");
+			newTrace->GetAnimation()->SetDir((MOVE_DIR)Dir);
+			newObject->GetTransform()->SetWorldPos(Pos);
+
+			SAFE_RELEASE(newTrace);
+			SAFE_RELEASE(newObject);
+
+		}
+		break;
+		case MT_BASIC:
+		{
+			GameObject* newObject = GameObject::CreateObject("Basic", Default);
+			BasicM_Com* newBasic = newObject->AddComponent<BasicM_Com>("Basic");
+			newBasic->GetAnimation()->SetDir((MOVE_DIR)Dir);
+			newObject->GetTransform()->SetWorldPos(Pos);
+
+			SAFE_RELEASE(newBasic);
+			SAFE_RELEASE(newObject);
+		}
+		break;
+		case MT_AIRDOWN:
+		{
+			GameObject* newObject = GameObject::CreateObject("AirDown", Default);
+			AirDownM_Com* newAirDown = newObject->AddComponent<AirDownM_Com>("AirDown");
+			newAirDown->GetAnimation()->SetDir((MOVE_DIR)Dir);
+			newObject->GetTransform()->SetWorldPos(Pos);
+
+			SAFE_RELEASE(newAirDown);
+			SAFE_RELEASE(newObject);
+		}
+		break;
+		case MT_REFLECT:
+		{
+			GameObject* newObject = GameObject::CreateObject("Reflect", Default);
+			ReflectM_Com* newReflect = newObject->AddComponent<ReflectM_Com>("Reflect");
+			newReflect->GetAnimation()->SetDir((MOVE_DIR)Dir);
+			newObject->GetTransform()->SetWorldPos(Pos);
+
+			SAFE_RELEASE(newReflect);
+			SAFE_RELEASE(newObject);
+		}
+		break;
+		}
+	}
 }

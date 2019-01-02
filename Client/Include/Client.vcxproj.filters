@@ -8,23 +8,11 @@
     <Filter Include="Scene">
       <UniqueIdentifier>{2a2d40a1-7704-49a6-96be-552fac6b045e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Scene\StaticTextScene">
-      <UniqueIdentifier>{23a968b4-dfdd-4c29-868b-6a4acd6f91ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\StaticTextScene\SceneMain">
-      <UniqueIdentifier>{7eda37a0-9ada-4e94-9ffe-48e12225805b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Scene\01. LogoScene">
       <UniqueIdentifier>{961fe0d4-10f7-49c4-b1a2-39579ed466d0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\01. LogoScene\SceneMain">
       <UniqueIdentifier>{aeb6d4c5-563b-47ed-bc79-8a877a3d4711}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\03. MainScene">
-      <UniqueIdentifier>{981a1623-d2b2-41ac-9a94-a2c1168dcda0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Scene\03. MainScene\SceneMain">
-      <UniqueIdentifier>{37e08126-db94-4993-b4d6-5ca798c17fbd}</UniqueIdentifier>
     </Filter>
     <Filter Include="Scene\02. MenuScene">
       <UniqueIdentifier>{656c188b-ac89-4e97-b252-ce1c7f931da2}</UniqueIdentifier>
@@ -65,16 +53,28 @@
     <Filter Include="UserComponent\Gonner">
       <UniqueIdentifier>{212fa6b7-6c1d-4a88-9c4c-cae7ad335ade}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scene\04. SecondScene">
+      <UniqueIdentifier>{23a968b4-dfdd-4c29-868b-6a4acd6f91ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\04. SecondScene\SceneMain">
+      <UniqueIdentifier>{7eda37a0-9ada-4e94-9ffe-48e12225805b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\03. FirstScene">
+      <UniqueIdentifier>{981a1623-d2b2-41ac-9a94-a2c1168dcda0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\03. FirstScene\SceneMain">
+      <UniqueIdentifier>{37e08126-db94-4993-b4d6-5ca798c17fbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UserComponent\Other\12. Snake">
+      <UniqueIdentifier>{2c0b469d-0fb6-4f42-985e-06b7776e7004}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SceneMain\MainScene.cpp">
-      <Filter>Scene\03. MainScene\SceneMain</Filter>
+      <Filter>Scene\03. FirstScene\SceneMain</Filter>
     </ClCompile>
     <ClCompile Include="ClientHeader.cpp">
       <Filter>WinMain</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneMain\StaticTestScene.cpp">
-      <Filter>Scene\StaticTextScene\SceneMain</Filter>
     </ClCompile>
     <ClCompile Include="SceneMain\LogoScene.cpp">
       <Filter>Scene\01. LogoScene\SceneMain</Filter>
@@ -139,13 +139,25 @@
     <ClCompile Include="UserComponent\GonnerCollFunc.cpp">
       <Filter>UserComponent\Gonner</Filter>
     </ClCompile>
+    <ClCompile Include="SceneMain\SecondScene.cpp">
+      <Filter>Scene\04. SecondScene\SceneMain</Filter>
+    </ClCompile>
+    <ClCompile Include="SnakeHead_Com.cpp">
+      <Filter>UserComponent\Other\12. Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="SnakeBody_Com.cpp">
+      <Filter>UserComponent\Other\12. Snake</Filter>
+    </ClCompile>
+    <ClCompile Include="SnekeTail_Com.cpp">
+      <Filter>UserComponent\Other\12. Snake</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ClientHeader.h">
       <Filter>WinMain</Filter>
     </ClInclude>
     <ClInclude Include="SceneMain\MainScene.h">
-      <Filter>Scene\03. MainScene\SceneMain</Filter>
+      <Filter>Scene\03. FirstScene\SceneMain</Filter>
     </ClInclude>
     <ClInclude Include="SceneMain\LogoScene.h">
       <Filter>Scene\01. LogoScene\SceneMain</Filter>
@@ -201,8 +213,17 @@
     <ClInclude Include="UserComponent\Gonner_Com.h">
       <Filter>UserComponent\Gonner</Filter>
     </ClInclude>
-    <ClInclude Include="SceneMain\StaticTestScene.h">
-      <Filter>Scene\StaticTextScene\SceneMain</Filter>
+    <ClInclude Include="SceneMain\SecondScene.h">
+      <Filter>Scene\04. SecondScene\SceneMain</Filter>
+    </ClInclude>
+    <ClInclude Include="SnakeHead_Com.h">
+      <Filter>UserComponent\Other\12. Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="SnakeBody_Com.h">
+      <Filter>UserComponent\Other\12. Snake</Filter>
+    </ClInclude>
+    <ClInclude Include="SnekeTail_Com.h">
+      <Filter>UserComponent\Other\12. Snake</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

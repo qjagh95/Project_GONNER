@@ -17,20 +17,23 @@ public:
 	int Update(float DeltaTime) override;
 	void CollisionLateUpdate(float DeltaTime) override;
 
+	vector<SaveData> m_vecSaveData;
+	vector<GameObject*> m_vecSaveObject;
+	int m_Index;
+
 private:
 	void ToolOnActive(float DeltaTime, EditorForm* editorForm);
-	void ToolOffActive(float DeltaTime, EditorForm* editorForm);
-
+	void ToolOffActive(float DeltaTime);
 	void ChangeTile(const Vector3& mPos, EditorForm* form, Stage2D_Com* TileStage);
 
 private:
 	BackColor_Com* m_BackColorCom;
 	wstring m_Path;
-	vector<SaveData> m_vecSaveData;
-	vector<GameObject*> m_vecSaveObject;
 	bool m_isSelect;
-	int m_Index;
 	bool m_isCreate;
+
+	MainFrame* m_MainFrame;
+	EditorForm*	m_EditorForm;
 
 public:
 	EditScene();

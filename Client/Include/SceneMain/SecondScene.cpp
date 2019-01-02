@@ -1,17 +1,17 @@
 #include "ClientHeader.h"
-#include "StaticTestScene.h"
+#include "SecondScene.h"
 #include "MainScene.h"
 #include "UserComponent/Gonner_Com.h"
 
-StaticTestScene::StaticTestScene()
+SecondScene::SecondScene()
 {
 }
 
-StaticTestScene::~StaticTestScene()
+SecondScene::~SecondScene()
 {
 }
 
-bool StaticTestScene::Init()
+bool SecondScene::Init()
 {
 	//Layer* Default = m_Scene->FindLayer("Default");
 	//Layer* UILayer = m_Scene->FindLayer("UI");
@@ -32,12 +32,12 @@ bool StaticTestScene::Init()
 	return true;
 }
 
-int StaticTestScene::Input(float DeltaTime)
+int SecondScene::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int StaticTestScene::Update(float DeltaTime)
+int SecondScene::Update(float DeltaTime)
 {
 	if (GetAsyncKeyState(VK_NEXT) & 0x8000)
 	{
@@ -48,19 +48,19 @@ int StaticTestScene::Update(float DeltaTime)
 	return 0;
 }
 
-int StaticTestScene::LateUpdate(float DeltaTime)
+int SecondScene::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void StaticTestScene::Collision(float DeltaTime)
+void SecondScene::Collision(float DeltaTime)
 {
 }
 
-void StaticTestScene::CollisionLateUpdate(float DeltaTime)
+void SecondScene::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void StaticTestScene::Render(float DeltaTime)
+void SecondScene::Render(float DeltaTime)
 {
 }

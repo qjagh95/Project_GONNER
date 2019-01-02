@@ -1,8 +1,11 @@
 #pragma once
 #include <Component/Stage2D_Com.h>
+
+
 // EditorForm Æû ºäÀÔ´Ï´Ù.
 JEONG_USING
 class MonsterEdit;
+class EditScene;
 class EditorForm : public CFormView
 {
 	DECLARE_DYNCREATE(EditorForm)
@@ -47,6 +50,7 @@ public:
 
 	BOOL m_isLine;
 	MonsterEdit* m_MobTool;
+	EditScene* m_EditScene;
 	static bool m_isOpenTool;
 
 	GameObject* GetStageObject() const { return m_StageObject; }
