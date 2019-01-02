@@ -47,8 +47,9 @@ Core::~Core()
 	CoUninitialize();
 }
 
-bool Core::Init(HINSTANCE hInst, unsigned int Width, unsigned int Height, const TCHAR * TitleName, const TCHAR * ClassName, int iIconID, int iSmallIconID, bool bWindowMode)
+bool Core::Init(HINSTANCE hInst, unsigned int Width, unsigned int Height, const TCHAR * TitleName, const TCHAR * ClassName, int iIconID, int iSmallIconID, bool isEditorMode, bool bWindowMode)
 {
+	m_isEditor = isEditorMode;
 	m_hIstance = hInst;
 	m_WinSize.Width = Width;
 	m_WinSize.Height = Height;
@@ -61,8 +62,9 @@ bool Core::Init(HINSTANCE hInst, unsigned int Width, unsigned int Height, const 
 	return Init(m_hIstance,m_hWnd, Width, Height, bWindowMode);
 }
 
-bool Core::Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Height, bool bWindowMode)
+bool Core::Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Height, bool EditorMode, bool bWindowMode)
 {
+	m_isEditor = EditorMode;
 	m_hIstance = hInst;
 	m_hWnd = hWnd;
 	m_WinSize.Width = Width;

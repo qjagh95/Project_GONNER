@@ -30,6 +30,8 @@ private:
 	float m_HitAngle;
 	float m_TraceTime;
 	float m_TraceTimeVar;
+	float m_IdleTime;
+	float m_IdleTimeVar;
 	float m_Dir;
 
 protected:

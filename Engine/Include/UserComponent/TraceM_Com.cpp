@@ -26,13 +26,15 @@ bool TraceM_Com::Init()
 
 	m_Hp = 2;
 	m_HitAngle = 0.0f;
-	m_TraceTime = 3.0f;
+	m_TraceTime = 2.5f;
 	m_TraceTimeVar = 0.0f;
 	m_Dir = 0.0f;
+	m_IdleTime = 3.0f;
+	m_IdleTimeVar = 0.0f;
 
 	m_Material->SetDiffuseTexture(0, "Trace", TEXT("Monster\\smallenemies.png"));
 	m_Animation = m_Object->AddComponent<Animation2D_Com>("Trace");
-	m_RectColl->SetInfo(Vector3(0.0f, 0.0f, 0.0f), Vector3(64.0f, 64.0f, 1.0f));
+	m_RectColl->SetInfo(Vector3(0.0f, 10.0f, 0.0f), Vector3(60.0f, 60.0f, 1.0f));
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
 	m_Transform->SetWorldPivot(0.5f, 0.5f, 0.0f);
 	m_Animation->SetDir(MD_RIGHT);
@@ -85,6 +87,9 @@ int TraceM_Com::Input(float DeltaTime)
 
 int TraceM_Com::Update(float DeltaTime)
 {
+	if (m_Stage == NULLPTR)
+		m_Stage = StageManager::Get()->FindCurStage();
+
 	Monster_Base::Update(DeltaTime);
 
 	switch (m_State)
@@ -131,7 +136,13 @@ void TraceM_Com::AfterClone()
 
 void TraceM_Com::FS_IDLE(float DeltaTime)
 {
-	RangeCheck(DeltaTime);
+	m_IdleTimeVar += DeltaTime;
+
+	if (m_IdleTimeVar >= m_IdleTime)
+	{
+		m_IdleTimeVar = 0.0f;
+		RangeCheck(DeltaTime);
+	}
 }
 
 void TraceM_Com::FS_TRACE(float DeltaTime)
@@ -154,7 +165,7 @@ void TraceM_Com::FS_HIT(float DeltaTime)
 	
 	m_Transform->RotationZFromNoneAxis(1000.0f * DeltaTime);
 
-	if (m_Transform->GetWorldRotationZ() >= 360.0f)
+	if (m_Transform->GetWorldRotationZ() >= 180.0f)
 	{
 		m_HitAngle = 0.0f;
 		m_Transform->SetWorldRotZ(0.0f);

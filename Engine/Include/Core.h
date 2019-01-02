@@ -4,8 +4,8 @@ JEONG_BEGIN
 class JEONG_DLL Core
 {
 public:
-	bool Init(HINSTANCE hInst, unsigned int Width,	unsigned int Height, const TCHAR* TitleName, const TCHAR* ClassName, int iIconID, int iSmallIconID,	bool bWindowMode = true);
-	bool Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Height, bool bWindowMode = true);
+	bool Init(HINSTANCE hInst, unsigned int Width,	unsigned int Height, const TCHAR* TitleName, const TCHAR* ClassName, int iIconID, int iSmallIconID, bool isEditorMode = false, bool bWindowMode = true);
+	bool Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Height, bool EditorMode = false, bool bWindowMode = true);
 	int Run();
 	void Logic();
 

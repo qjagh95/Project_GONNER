@@ -14,7 +14,7 @@ public:
 	void Render(float DeltaTime) override;
 
 private:
-	void Load(Layer* Default);
+	void Load(Layer* Default, GameObject* GonnerObject);
 
 public:
 	MainScene();

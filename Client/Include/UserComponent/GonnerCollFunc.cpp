@@ -177,3 +177,11 @@ void Gonner_Com::MonsterHitEnd(Collider_Com* Src, Collider_Com* Dest, float Delt
 	{
 	}
 }
+
+void Gonner_Com::SnakeHeadHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
+{
+	if (Dest->GetTag() == "SnakeHeadBody")
+	{
+
+	}
+}

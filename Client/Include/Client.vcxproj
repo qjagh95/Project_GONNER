@@ -230,9 +230,6 @@
     <ClCompile Include="SceneMain\MainScene.cpp" />
     <ClCompile Include="SceneMain\MenuScene.cpp" />
     <ClCompile Include="SceneMain\SecondScene.cpp" />
-    <ClCompile Include="SnakeBody_Com.cpp" />
-    <ClCompile Include="SnakeHead_Com.cpp" />
-    <ClCompile Include="SnekeTail_Com.cpp" />
     <ClCompile Include="UserComponent\BulletUI_Com.cpp" />
     <ClCompile Include="UserComponent\Bullet_Com.cpp" />
     <ClCompile Include="UserComponent\Fade_Com.cpp" />
@@ -253,6 +250,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\ReloadBullet_Com.cpp" />
     <ClCompile Include="UserComponent\Skull_Com.cpp" />
+    <ClCompile Include="UserComponent\SnakeBody_Com.cpp" />
+    <ClCompile Include="UserComponent\SnakeHead_Com.cpp" />
+    <ClCompile Include="UserComponent\SnekeTail_Com.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +261,6 @@
     <ClInclude Include="SceneMain\MainScene.h" />
     <ClInclude Include="SceneMain\MenuScene.h" />
     <ClInclude Include="SceneMain\SecondScene.h" />
-    <ClInclude Include="SnakeBody_Com.h" />
-    <ClInclude Include="SnakeHead_Com.h" />
-    <ClInclude Include="SnekeTail_Com.h" />
     <ClInclude Include="UserComponent\BulletUI_Com.h" />
     <ClInclude Include="UserComponent\Bullet_Com.h" />
     <ClInclude Include="UserComponent\Fade_Com.h" />
@@ -280,6 +277,9 @@
     <ClInclude Include="UserComponent\Gonner_Com.h" />
     <ClInclude Include="UserComponent\ReloadBullet_Com.h" />
     <ClInclude Include="UserComponent\Skull_Com.h" />
+    <ClInclude Include="UserComponent\SnakeBody_Com.h" />
+    <ClInclude Include="UserComponent\SnakeHead_Com.h" />
+    <ClInclude Include="UserComponent\SnekeTail_Com.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\DirectXTK\DirectXTK_Desktop_2017_Win10.vcxproj" />

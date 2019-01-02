@@ -142,13 +142,13 @@
     <ClCompile Include="SceneMain\SecondScene.cpp">
       <Filter>Scene\04. SecondScene\SceneMain</Filter>
     </ClCompile>
-    <ClCompile Include="SnakeHead_Com.cpp">
+    <ClCompile Include="UserComponent\SnakeBody_Com.cpp">
       <Filter>UserComponent\Other\12. Snake</Filter>
     </ClCompile>
-    <ClCompile Include="SnakeBody_Com.cpp">
+    <ClCompile Include="UserComponent\SnakeHead_Com.cpp">
       <Filter>UserComponent\Other\12. Snake</Filter>
     </ClCompile>
-    <ClCompile Include="SnekeTail_Com.cpp">
+    <ClCompile Include="UserComponent\SnekeTail_Com.cpp">
       <Filter>UserComponent\Other\12. Snake</Filter>
     </ClCompile>
   </ItemGroup>
@@ -216,13 +216,13 @@
     <ClInclude Include="SceneMain\SecondScene.h">
       <Filter>Scene\04. SecondScene\SceneMain</Filter>
     </ClInclude>
-    <ClInclude Include="SnakeHead_Com.h">
+    <ClInclude Include="UserComponent\SnakeBody_Com.h">
       <Filter>UserComponent\Other\12. Snake</Filter>
     </ClInclude>
-    <ClInclude Include="SnakeBody_Com.h">
+    <ClInclude Include="UserComponent\SnakeHead_Com.h">
       <Filter>UserComponent\Other\12. Snake</Filter>
     </ClInclude>
-    <ClInclude Include="SnekeTail_Com.h">
+    <ClInclude Include="UserComponent\SnekeTail_Com.h">
       <Filter>UserComponent\Other\12. Snake</Filter>
     </ClInclude>
   </ItemGroup>

@@ -88,9 +88,8 @@ BOOL EditorApp::InitInstance()
 
 	auto abc = ((MainFrame*)m_pMainWnd)->GetActiveView();
 
-	Core::Get()->Init(m_hInstance, abc->m_hWnd, 1920, 1080);
+	Core::Get()->Init(m_hInstance, abc->m_hWnd, 1920, 1080, true);
 	Core::Get()->SetGameMode(GM_2D);
-	Core::m_isEditor = true;
 
 	SceneManager::Get()->AddSceneComponent<EditScene>("EditScene");
 

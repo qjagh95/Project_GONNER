@@ -160,6 +160,8 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 			newObject->GetTransform()->SetWorldPos(Vector3(mPos.x, mPos.y, 0.0f));
 			newGuard->GetAnimation()->SetDir(Dir);
 
+			m_vecSaveObject.push_back(newObject);
+
 			SAFE_RELEASE(newGuard);
 			SAFE_RELEASE(newObject);
 
@@ -191,7 +193,7 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 
 			Save.Pos = mPos;
 			Save.Dir = Dir;
-			Save.Type = MT_GUARD;
+			Save.Type = MT_TRACE;
 
 			TCHAR Buffer[255] = {};
 			wsprintf(Buffer, L"Trace 몬스터 추가. Index : %d", m_Index);
@@ -212,12 +214,13 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 			newBasic->SetIndex(m_Index);
 
 			m_vecSaveObject.push_back(newObject);
+
 			SAFE_RELEASE(newBasic);
 			SAFE_RELEASE(newObject);
 
 			Save.Pos = mPos;
 			Save.Dir = Dir;
-			Save.Type = MT_GUARD;
+			Save.Type = MT_BASIC;
 
 			TCHAR Buffer[255] = {};
 			wsprintf(Buffer, L"Basic 몬스터 추가. Index : %d", m_Index);
@@ -238,12 +241,13 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 			newAirDown->SetIndex(m_Index);
 
 			m_vecSaveObject.push_back(newObject);
+
 			SAFE_RELEASE(newAirDown);
 			SAFE_RELEASE(newObject);
 
 			Save.Pos = mPos;
 			Save.Dir = Dir;
-			Save.Type = MT_GUARD;
+			Save.Type = MT_AIRDOWN;
 
 			TCHAR Buffer[255] = {};
 			wsprintf(Buffer, L"AirDown 몬스터 추가. Index : %d", m_Index);
@@ -269,7 +273,7 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 
 			Save.Pos = mPos;
 			Save.Dir = Dir;
-			Save.Type = MT_GUARD;
+			Save.Type = MT_REFLECT;
 
 			TCHAR Buffer[255] = {};
 			wsprintf(Buffer, L"Reflect 몬스터 추가. Index : %d", m_Index);
@@ -326,6 +330,21 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 
 			m_EditorForm->m_MobTool->RedrawWindow();
 		}
+	}
+
+	if (KeyInput::Get()->KeyDown("Delete"))
+	{
+		if (m_EditorForm->m_MobTool->m_MonsterList.GetCurSel() == -1)
+			return;
+
+		size_t CurSel = m_EditorForm->m_MobTool->m_MonsterList.GetCurSel();
+		m_vecSaveObject[(m_vecSaveObject.size() - 1) - CurSel]->SetIsActive(false);
+
+		m_vecSaveData.erase(m_vecSaveData.begin() + (m_vecSaveData.size()- 1) - CurSel);
+		m_vecSaveObject.erase(m_vecSaveObject.begin() + (m_vecSaveObject.size() - 1) - CurSel);
+		
+		m_EditorForm->m_MobTool->m_MonsterList.DeleteString(m_EditorForm->m_MobTool->m_MonsterList.GetCurSel());
+		m_Index--;
 	}
 
 }

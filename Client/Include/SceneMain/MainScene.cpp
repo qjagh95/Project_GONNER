@@ -42,8 +42,6 @@ MainScene::~MainScene()
 
 bool MainScene::Init()
 {
-	//¾À¿¡¼­ ¹ì Ãß°¡. (¸â¹ö·Î µé°íÀÖ¾î¾ßÇÔ)
-
 	Camera_Com* mainCamera = m_Scene->GetMainCamera();
 	mainCamera->SetCameraType(CT_ORTHO);
 	mainCamera->GetTransform()->SetWorldPos(Vector3(0.0f, 500.0f, 0.0f));
@@ -102,7 +100,8 @@ bool MainScene::Init()
 	LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
 	LifeItemObject->GetTransform()->SetWorldPos(600.0f, 800.0f, 1.0f);
 	
-	Load(Default);
+	//Load(Default, GonnerObject);
+
 	//GameObject* GuardObject = GameObject::CreateObject("Guard", Default);
 	//GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
 	//GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
@@ -209,7 +208,7 @@ void MainScene::Render(float DeltaTime)
 {
 }
 
-void MainScene::Load(Layer* Default)
+void MainScene::Load(Layer* Default, GameObject* GonnerObject)
 {
 	BineryRead Reader("OneData.data");
 
@@ -234,7 +233,7 @@ void MainScene::Load(Layer* Default)
 			GameObject* newObject = GameObject::CreateObject("Guard", Default);
 			GuardM_Com* newGuard = newObject->AddComponent<GuardM_Com>("Guard");
 			newObject->GetTransform()->SetWorldPos(Pos);
-			newGuard->GetAnimation()->SetDir((MOVE_DIR)Dir);
+			GuardM_Com::m_Target = GonnerObject;
 
 			SAFE_RELEASE(newGuard);
 			SAFE_RELEASE(newObject);
@@ -244,8 +243,8 @@ void MainScene::Load(Layer* Default)
 		{
 			GameObject* newObject = GameObject::CreateObject("Trace", Default);
 			TraceM_Com* newTrace = newObject->AddComponent<TraceM_Com>("Trace");
-			newTrace->GetAnimation()->SetDir((MOVE_DIR)Dir);
 			newObject->GetTransform()->SetWorldPos(Pos);
+			TraceM_Com::m_Target = GonnerObject;
 
 			SAFE_RELEASE(newTrace);
 			SAFE_RELEASE(newObject);
@@ -256,8 +255,8 @@ void MainScene::Load(Layer* Default)
 		{
 			GameObject* newObject = GameObject::CreateObject("Basic", Default);
 			BasicM_Com* newBasic = newObject->AddComponent<BasicM_Com>("Basic");
-			newBasic->GetAnimation()->SetDir((MOVE_DIR)Dir);
 			newObject->GetTransform()->SetWorldPos(Pos);
+			BasicM_Com::m_Target = GonnerObject;
 
 			SAFE_RELEASE(newBasic);
 			SAFE_RELEASE(newObject);
@@ -267,8 +266,8 @@ void MainScene::Load(Layer* Default)
 		{
 			GameObject* newObject = GameObject::CreateObject("AirDown", Default);
 			AirDownM_Com* newAirDown = newObject->AddComponent<AirDownM_Com>("AirDown");
-			newAirDown->GetAnimation()->SetDir((MOVE_DIR)Dir);
 			newObject->GetTransform()->SetWorldPos(Pos);
+			AirDownM_Com::m_Target = GonnerObject;
 
 			SAFE_RELEASE(newAirDown);
 			SAFE_RELEASE(newObject);
@@ -278,8 +277,8 @@ void MainScene::Load(Layer* Default)
 		{
 			GameObject* newObject = GameObject::CreateObject("Reflect", Default);
 			ReflectM_Com* newReflect = newObject->AddComponent<ReflectM_Com>("Reflect");
-			newReflect->GetAnimation()->SetDir((MOVE_DIR)Dir);
 			newObject->GetTransform()->SetWorldPos(Pos);
+			ReflectM_Com::m_Target = GonnerObject;
 
 			SAFE_RELEASE(newReflect);
 			SAFE_RELEASE(newObject);

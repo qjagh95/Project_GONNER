@@ -82,6 +82,9 @@ int ReflectM_Com::Update(float DeltaTime)
 {
 	Monster_Base::Update(DeltaTime);
 
+	if (m_Stage == NULLPTR)
+		m_Stage = StageManager::Get()->FindCurStage();
+
 	switch (m_State)
 	{
 	case RS_IDLE:
@@ -137,11 +140,6 @@ void ReflectM_Com::BulletHit(Collider_Com * Src, Collider_Com * Dest, float Delt
 		if (m_Hp > 0)
 		{
 			Vector3	Dir = m_TargetPos - m_Pos;
-
-			if (Dir.x <= 0.0f)
-				m_Animation->SetDir(MD_LEFT);
-			else if (Dir.x > 0.0f)
-				m_Animation->SetDir(MD_RIGHT);
 
 			m_Camera->SetShake(5.0f, 0.3f);
 			m_Scene->CreateWave(m_CenterPos, 0.8f, 0.05f);

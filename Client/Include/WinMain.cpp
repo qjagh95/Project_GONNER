@@ -14,11 +14,12 @@ JEONG_USING
 
 int APIENTRY wWinMain(_In_ HINSTANCE hIstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 {
-	if (Core::Get()->Init(hIstance, 1920, 1080, TEXT("JeongRealEngine"), TEXT("JeongRealEngine"), IDI_ICON1, IDI_ICON1) == false)
+	if (Core::Get()->Init(hIstance, 1920, 1080, TEXT("JeongRealEngine"), TEXT("JeongRealEngine"), IDI_ICON1, IDI_ICON1, false) == false)
 	{
 		Core::Delete();
 		return 0;
 	}	
+	Core::Get()->m_isEditor = false;
 	//DLL俊辑 积己等 教臂沛按眉客 咯扁辑 积己等 教臂沛按眉绰 辑肺 促弗按眉烙.
 
 	Core::Get()->SetGameMode(GM_2D);

@@ -63,6 +63,7 @@ public:
 	void MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void MonsterHitDoing(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void MonsterHitEnd(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void SnakeHeadHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 
 	static Vector3 m_GonnerPos;
 	static Vector3 m_GonnerScale;
