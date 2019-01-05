@@ -387,7 +387,6 @@ JEONG::GameObject * JEONG::GameObject::CreateObject(const string & TagName, JEON
 	{
 		if(isStaticObject == false)
 			layer->AddObject(newObject);
-
 		else
 		{
 			JEONG::Scene* pScene = layer->GetScene();

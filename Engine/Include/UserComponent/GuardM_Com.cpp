@@ -232,11 +232,33 @@ void GuardM_Com::FS_MOVE(float DeltaTime)
 
 	if (m_Animation->GetDir() == MD_LEFT)
 	{
+		Vector3 LeftPos = m_Pos;
+		LeftPos.x -= m_Scale.x * 0.5f;
+		LeftPos.y -= 10.0f;
+
+		if (m_Stage->GetTile2D(LeftPos)->GetTileOption() == T2D_NORMAL)
+		{
+			m_Animation->SetDir(MD_RIGHT);
+			ChangeState(GUS_MOVE, m_AniName, m_Animation);
+			return;
+		}
+
 		if (m_LeftTile->GetTileOption() != T2D_NOMOVE || m_DownLeftTile->GetTileOption() != T2D_NOMOVE)
 			m_Transform->Move(AXIS_X, -200.0f, DeltaTime);
 	}
 	else if (m_Animation->GetDir() == MD_RIGHT)
 	{
+		Vector3 RightPos = m_Pos;
+		RightPos.x += m_Scale.x * 0.5f;
+		RightPos.y -= 10.0f;
+
+		if (m_Stage->GetTile2D(RightPos)->GetTileOption() == T2D_NORMAL)
+		{
+			m_Animation->SetDir(MD_LEFT);
+			ChangeState(GUS_MOVE, m_AniName, m_Animation);
+			return;
+		}
+
 		if (m_RightTile->GetTileOption() != T2D_NOMOVE || m_DownRightTile->GetTileOption() != T2D_NOMOVE)
 			m_Transform->Move(AXIS_X, 200.0f, DeltaTime);
 	}

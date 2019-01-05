@@ -1,6 +1,7 @@
 #include "ClientHeader.h"
 #include "Gonner_Com.h"
 #include "Skull_Com.h"
+#include "SnakeHead_Com.h"
 
 #include <Core.h>
 
@@ -110,6 +111,10 @@ bool Gonner_Com::Init()
 
 int Gonner_Com::Input(float DeltaTime)
 {
+	m_Camera = m_Scene->GetMainCamera();
+	m_PrevEffectLayer = m_Scene->FindLayer("PrevEffectLayer");
+	m_AfterEffectLayer = m_Scene->FindLayer("AfterEffectLayer");
+
 	if (m_Stage == NULLPTR)
 		m_Stage = StageManager::Get()->FindCurStage();
 
@@ -176,6 +181,7 @@ int Gonner_Com::Update(float DeltaTime)
 	}
 
 	ItemUpdate(DeltaTime);
+
 	return 0;
 }
 
@@ -203,6 +209,9 @@ Gonner_Com * Gonner_Com::Clone()
 
 void Gonner_Com::Move(float DeltaTime)
 {
+	if (SnakeHead_Com::m_isNext == true)
+		return;
+
 	if (KeyInput::Get()->KeyPress("MoveRight"))
 	{
 		if(m_rightTile != NULLPTR && m_rightTile->GetTileOption() != T2D_NOMOVE)
@@ -429,7 +438,6 @@ void Gonner_Com::OutItem()
 void Gonner_Com::BasicInit()
 {
 	m_WinSize = Device::Get()->GetWinSizeVector2();
-	m_Camera = m_Scene->GetMainCamera();
 
 	KeyInput::Get()->AddKey("Jump", VK_SPACE);
 	KeyInput::Get()->AddKey("Attack", 'X');
@@ -451,8 +459,9 @@ void Gonner_Com::BasicInit()
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::HeartItemHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::LifeItemHit);
 	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::MonsterHitFirst);
-	RectColl->SetCollsionCallback(CCT_DOING, this, &Gonner_Com::MonsterHitDoing);
+	RectColl->SetCollsionCallback(CCT_FIRST, this, &Gonner_Com::SnakeHeadHitFirst);
 	RectColl->SetCollsionCallback(CCT_END, this, &Gonner_Com::MonsterHitEnd);
+
 	SAFE_RELEASE(RectColl);
 
 	m_Transform->SetWorldScale(64.0f, 64.0f, 1.0f);
@@ -471,9 +480,6 @@ void Gonner_Com::BasicInit()
 	m_ChangeColor[0] = Vector4(83.0f / 255.0f, 170.0f / 255.0f, 185.0f / 255.0f, 1.0f);
 	m_ChangeColor[1] = Vector4(78.0f / 255.0f, 197.0f / 255.0f, 152.0f / 255.0f, 1.0f);
 	m_ChangeColor[2] = Vector4(80.0f / 255.0f, 187.0f / 255.0f, 166.0f / 255.0f, 1.0f);
-
-	m_PrevEffectLayer = m_Scene->FindLayer("PrevEffectLayer");
-	m_AfterEffectLayer = m_Scene->FindLayer("AfterEffectLayer");
 }
 
 void Gonner_Com::AnimationInit()

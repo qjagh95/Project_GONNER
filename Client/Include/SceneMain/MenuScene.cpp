@@ -29,6 +29,7 @@
 MenuScene::MenuScene()
 {
 	m_FadeCom = NULLPTR;
+	SetTag("MenuScene");
 }
 
 MenuScene::~MenuScene()

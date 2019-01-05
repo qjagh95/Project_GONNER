@@ -44,6 +44,8 @@ bool JEONG::SoundManager::Init()
 	CreateSoundEffect("DieBoom", TEXT("DieBoom.wav"));
 	CreateSoundEffect("ChangeStateBug", TEXT("ChangeStateBug.wav"));
 	CreateSoundEffect("JumpAttack", TEXT("JumpAttack.wav"));
+	CreateSoundEffect("SnakeEat", TEXT("SnakeEat.wav"));
+	CreateSoundEffect("SnakeOut", TEXT("SnakeOut.wav"));
 
 	return true;
 }

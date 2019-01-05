@@ -1,7 +1,10 @@
 #include "ClientHeader.h"
 #include "Gonner_Com.h"
+#include "SnakeBody_Com.h"
+#include "SnakeHead_Com.h"
 
 #include <Core.h>
+#include <UserComponent/Fade_Com.h>
 #include <UserComponent/BasicEffect_Com.h>
 #include <UserComponent/FragmentEffect_Com.h>
 #include <UserComponent/HeartUI_Com.h>
@@ -183,5 +186,26 @@ void Gonner_Com::SnakeHeadHit(Collider_Com* Src, Collider_Com* Dest, float Delta
 	if (Dest->GetTag() == "SnakeHeadBody")
 	{
 
+	}
+}
+void Gonner_Com::SnakeHeadHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
+{
+	if (Dest->GetTag() == "SnakeHeadBody")
+	{
+		SoundManager::Get()->FindSoundEffect("SnakeEat")->Play();
+
+		GameObject* getObject = Dest->GetGameObject();
+		SnakeHead_Com* getCom = getObject->FindComponentFromTypeNoneCount<SnakeHead_Com>(CT_SNAKEHEAD);
+		getCom->ChangeState(1, getCom->GetAniName(), getCom->GetAnimation());
+
+		Layer* FadeLayer = m_Scene->FindLayer("Fade");
+
+		GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer, false);
+		Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");
+		newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_IN);
+		newFadeCom->SetFadeSpeed(0.6f);
+		newFadeCom->Start();
+
+		SAFE_RELEASE(FadeLayer);
 	}
 }

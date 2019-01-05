@@ -14,9 +14,9 @@ public:
 	void ChangeScene(Scene* scene);
 	bool CheckStaticObject(const string& TagName);
 	GameObject* FindStaticObject(const string& TagName);
+	list<GameObject*> m_staticObjectList;
 
 private:
-	list<GameObject*> m_staticObjectList;
 
 public:
 	CLASS_IN_SINGLE(StaticManager)

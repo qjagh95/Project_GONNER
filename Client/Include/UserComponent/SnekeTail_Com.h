@@ -16,8 +16,15 @@ public:
 	void AfterClone() override;
 
 private:
+	void ChangeColor(float DeltaTime);
+
+private:
 	Material_Com* m_Material;
 	Animation2D_Com* m_Animation;
+	Vector4 m_ChangeColor[3];
+
+	float m_ChangeTimeVar;
+	float m_ChangeTime;
 
 protected:
 	SnekeTail_Com();

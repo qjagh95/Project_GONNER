@@ -64,10 +64,18 @@ public:
 	void MonsterHitDoing(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void MonsterHitEnd(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 	void SnakeHeadHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
+	void SnakeHeadHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime);
 
 	static Vector3 m_GonnerPos;
 	static Vector3 m_GonnerScale;
 	static Vector3 m_GonnerScaleHalf;
+
+	string* GetAniName() { return m_AniName; }
+	Animation2D_Com* GetAnimation() const { return m_Animation; }
+
+	Gun_Com* GetGunCom() const { return m_Gun; }
+	Heart_Com* GetHeartCom() const { return m_Heart; }
+	Skull_Com* GetSkullCom() const { return m_Skull; }
 
 private:
 	void BasicInit();
@@ -79,6 +87,7 @@ private:
 	void ItemUpdate(float DeltaTime);
 
 	void OutItem();
+
 
 private:
 	Animation2D_Com* m_Animation;

@@ -14,6 +14,8 @@ public:
 	void CollisionLateUpdate(float DeltaTime) override;
 	void Render(float DeltaTime) override;
 
+	void Load(Layer* Default, GameObject* GonnerObject);
+
 public:
 	SecondScene();
 	~SecondScene();

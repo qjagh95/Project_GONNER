@@ -4,9 +4,6 @@
 #include "SecondScene.h"
 #include "GameObject.h"
 
-#include "Thread.h"
-#include "ThreadManager.h"
-
 #include "Scene/Scene.h"
 #include "scene/Layer.h"
 
@@ -21,11 +18,15 @@
 #include "Component/BackColor_Com.h"
 #include "Component/Gravity_Com.h"
 
-#include "../UserComponent/Gonner_Com.h"
+#include "UserComponent/Gonner_Com.h"
 #include "UserComponent/BubbleEffect_Com.h"
 #include "UserComponent/GunItem_Com.h"
 #include "UserComponent/HeartItem_Com.h"
 #include "UserComponent/LifeItem_Com.h"
+#include "UserComponent/SnakeHead_Com.h"
+#include "UserComponent/SnakeBody_Com.h"
+#include "UserComponent/SnekeTail_Com.h"
+
 #include <UserComponent/GuardM_Com.h>
 #include <UserComponent/BasicM_Com.h>
 #include <UserComponent/AirDownM_Com.h>
@@ -34,6 +35,7 @@
 
 MainScene::MainScene()
 {
+	SetTag("MainScene");
 }
 
 MainScene::~MainScene()
@@ -53,6 +55,7 @@ bool MainScene::Init()
 	Layer* FadeLayer = m_Scene->FindLayer("Fade");
 	Layer* UILayer = m_Scene->FindLayer("UI");
 	Layer* TileLayer = m_Scene->FindLayer("Tile");
+	Layer* AfterEffect = m_Scene->FindLayer("AfterEffectLayer");
 
 	GameObject* BackObject = GameObject::CreateObject("BackObject", BackLayer);
 	BackColor_Com* BackCom = BackObject->AddComponent<BackColor_Com>("BackColor");
@@ -83,65 +86,42 @@ bool MainScene::Init()
 		mainCamera->SetTarget(GonnerObject);
 	}
 
-	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer, false);
+	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer);
 	Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");
 	newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_OUT);
+	newFadeCom->SetFadeSpeed(0.6f);
 	newFadeCom->Start();
 
 	GameObject* gunItemObject = GameObject::CreateObject("GunItem", Default);
 	GunItem_Com* gunItemCom = gunItemObject->AddComponent<GunItem_Com>("GunItem");
-	gunItemObject->GetTransform()->SetWorldPos(300.0f, 800.0f, 1.0f);
+	gunItemObject->GetTransform()->SetWorldPos(1306.0f, 1186.0f, 1.0f);
 
 	GameObject* heartItemObject = GameObject::CreateObject("HeartItem", Default);
 	HeartItem_Com* heartItemCom = heartItemObject->AddComponent<HeartItem_Com>("HeartItem");
-	heartItemObject->GetTransform()->SetWorldPos(500.0f, 800.0f, 1.0f);
+	heartItemObject->GetTransform()->SetWorldPos(3075.0f, 1473.0f, 1.0f);
 
 	GameObject* LifeItemObject = GameObject::CreateObject("LifeItem", Default);
 	LifeItem_Com* LifeItemCom = LifeItemObject->AddComponent<LifeItem_Com>("LifeItem");
-	LifeItemObject->GetTransform()->SetWorldPos(600.0f, 800.0f, 1.0f);
+	LifeItemObject->GetTransform()->SetWorldPos(1406.0f, 1186.0f, 1.0f);
 	
-	//Load(Default, GonnerObject);
+	Load(Default, GonnerObject);
 
-	//GameObject* GuardObject = GameObject::CreateObject("Guard", Default);
-	//GuardM_Com* GuardCom = GuardObject->AddComponent<GuardM_Com>("Guard");
-	//GuardObject->GetTransform()->SetWorldPos(900.0f, 1000.0f, 1.0f);
-	//GuardM_Com::m_Target = GonnerObject;
+	GameObject* SnakeObject = GameObject::CreateObject("Head", AfterEffect);
+	SnakeHead_Com* SnakeHead = SnakeObject->AddComponent<SnakeHead_Com>("Head");
+	SnakeHead->GetTransform()->SetWorldPos(Vector3(5012.0f - 430.0f, 830.0f, 1.0f));
 
-	//SAFE_RELEASE(GuardObject);
-	//SAFE_RELEASE(GuardCom);
+	for (size_t i = 0; i < 20; i++)
+	{
+		GameObject* SnakeObject = GameObject::CreateObject("Head", AfterEffect);
+		SnakeBody_Com* SnakeBody = SnakeObject->AddComponent<SnakeBody_Com>("Head");
+		SnakeBody->SetPosRange(Vector3(5012.0f - 430.0f, 740.0f - i * 70.0f, 1.0f), (i + 1) * 2.0f);
 
-	//GameObject* BasicObject = GameObject::CreateObject("Basic", Default);
-	//BasicM_Com* BasicCom = BasicObject->AddComponent<BasicM_Com>("Basic");
-	//BasicObject->GetTransform()->SetWorldPos(1000.0f, 1000.0f, 1.0f);
-	//BasicM_Com::m_Target = GonnerObject;
+		SAFE_RELEASE(SnakeObject);
+		SAFE_RELEASE(SnakeBody);
+	}
 
-	//SAFE_RELEASE(BasicObject);
-	//SAFE_RELEASE(BasicCom);
-
-	//GameObject* AirDonwObject = GameObject::CreateObject("AirDown", Default);
-	//AirDownM_Com* AirDown = AirDonwObject->AddComponent<AirDownM_Com>("AirDown");
-	//AirDown->SetPos(Vector3(1000.0f, 1300.0f, 1.0f));
-	//AirDownM_Com::m_Target = GonnerObject;
-
-	//SAFE_RELEASE(AirDonwObject);
-	//SAFE_RELEASE(AirDown);
-
-	//GameObject* TraceObject = GameObject::CreateObject("Trace", Default);
-	//TraceM_Com* Trace = TraceObject->AddComponent<TraceM_Com>("Trace");
-	//Trace->SetPos(Vector3(1000.0f, 1200.0f, 1.0f));
-	//TraceM_Com::m_Target = GonnerObject;
-
-	//SAFE_RELEASE(TraceObject);
-	//SAFE_RELEASE(Trace);
-
-	GameObject* ReflectObject = GameObject::CreateObject("Reflect", Default);
-	ReflectM_Com* Reflect = ReflectObject->AddComponent<ReflectM_Com>("Reflect");
-	Reflect->SetPos(Vector3(1000.0f, 1100.0f, 1.0f));
-	TraceM_Com::m_Target = GonnerObject;
-
-	SAFE_RELEASE(ReflectObject);
-	SAFE_RELEASE(Reflect);
-
+	SAFE_RELEASE(SnakeObject);
+	SAFE_RELEASE(SnakeHead);
 	SAFE_RELEASE(LifeItemObject);
 	SAFE_RELEASE(LifeItemCom);
 	SAFE_RELEASE(heartItemObject);
@@ -161,6 +141,7 @@ bool MainScene::Init()
 	SAFE_RELEASE(TileLayer);
 	SAFE_RELEASE(BackLayer);
 	SAFE_RELEASE(FadeLayer);
+	SAFE_RELEASE(AfterEffect);
 
 #ifdef _DEBUG
 #else
@@ -179,6 +160,12 @@ int MainScene::Input(float DeltaTime)
 {
 	if (GetAsyncKeyState(VK_HOME) & 0x8000)
 	{
+		GameObject* getGonner = StaticManager::Get()->FindStaticObject("Gonner");
+		getGonner->GetTransform()->SetWorldPos(Vector3(524.0f, 2000.0f, 1.0f));
+
+		Gonner_Com* getCom = getGonner->FindComponentFromTypeNoneCount<Gonner_Com>(CT_GONNER);
+		getCom->ChangeState(GS_IDLE, getCom->GetAniName(), getCom->GetAnimation());
+
 		SceneManager::Get()->CreateNextScene();
 		SceneManager::Get()->AddSceneComponent<SecondScene>("SecondScene", false);
 	}
@@ -266,7 +253,7 @@ void MainScene::Load(Layer* Default, GameObject* GonnerObject)
 		{
 			GameObject* newObject = GameObject::CreateObject("AirDown", Default);
 			AirDownM_Com* newAirDown = newObject->AddComponent<AirDownM_Com>("AirDown");
-			newObject->GetTransform()->SetWorldPos(Pos);
+			newAirDown->SetPos(Pos);
 			AirDownM_Com::m_Target = GonnerObject;
 
 			SAFE_RELEASE(newAirDown);

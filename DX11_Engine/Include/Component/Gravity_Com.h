@@ -27,10 +27,11 @@ public:
 
 private:
 	static float m_Gravity;
-	Stage2D_Com* m_Stage;
 	float m_Force;
+	Stage2D_Com* m_Stage;
 	Vector3 m_ObjectScale;
 	bool m_isJump;
+	float m_DeltaTime;
 
 protected:
 	Gravity_Com();

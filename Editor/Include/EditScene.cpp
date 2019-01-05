@@ -127,8 +127,8 @@ void EditScene::ToolOnActive(float DeltaTime, EditorForm * editorForm)
 	Layer* Default = curScene->FindLayerNoneCount("Default");
 
 	Vector2 mPos;
-	mPos.x = KeyInput::Get()->GetMouseObject()->GetTransform()->GetWorldPos().x + curScene->GetMainCameraTransform()->GetWorldPos().x;
-	mPos.y = KeyInput::Get()->GetMouseObject()->GetTransform()->GetWorldPos().y + curScene->GetMainCameraTransform()->GetWorldPos().y;
+	mPos.x = KeyInput::Get()->GetMouseWorldPos().x;
+	mPos.y = KeyInput::Get()->GetMouseWorldPos().y - 720.0f;
 
 	SAFE_RELEASE(curScene);
 

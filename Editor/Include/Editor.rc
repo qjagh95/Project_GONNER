@@ -109,10 +109,7 @@ END
 
 IDR_MAINFRAME MENU
 BEGIN
-    POPUP "MosnterTool"
-    BEGIN
-        MENUITEM "마 좀 기다리라",                    ID_GAMEOBJECT_32772
-    END
+    MENUITEM "MatherFatherChildren",        65535
 END
 
 
@@ -212,7 +209,7 @@ END
 
 IDD_MOBTOOL DIALOGEX 0, 0, 311, 320
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "나는빡빡이다"
+CAPTION "민머리대머리맨들맨들빡빡이"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "몬스터이미지",IDC_SELECTIMAGE,166,5,134,77
