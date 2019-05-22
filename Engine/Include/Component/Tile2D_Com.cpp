@@ -7,7 +7,7 @@
 
 JEONG_USING
 
-JEONG::Tile2D_Com::Tile2D_Com()
+Tile2D_Com::Tile2D_Com()
 {
 	m_ComType = CT_STAGE2D;
 	SetTag("Stage2D");
@@ -25,13 +25,13 @@ JEONG::Tile2D_Com::Tile2D_Com()
 	m_Dir = 1;
 }
 
-JEONG::Tile2D_Com::Tile2D_Com(const Tile2D_Com& CopyData)
+Tile2D_Com::Tile2D_Com(const Tile2D_Com& CopyData)
 	:Component_Base(CopyData)
 {
 	*this = CopyData;
 }
 
-JEONG::Tile2D_Com::~Tile2D_Com()
+Tile2D_Com::~Tile2D_Com()
 {
 	SAFE_RELEASE(m_Mesh);
 	SAFE_RELEASE(m_Shader);
@@ -43,7 +43,7 @@ JEONG::Tile2D_Com::~Tile2D_Com()
 	Safe_Release_VecList(m_vecImage);
 }
 
-bool JEONG::Tile2D_Com::Init()
+bool Tile2D_Com::Init()
 {
 	m_TileOption = T2D_NORMAL;
 
@@ -58,7 +58,7 @@ bool JEONG::Tile2D_Com::Init()
 	return true;
 }
 
-int JEONG::Tile2D_Com::Input(float DeltaTime)
+int Tile2D_Com::Input(float DeltaTime)
 {
 	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
 		m_NearObject = NULLPTR;
@@ -66,7 +66,7 @@ int JEONG::Tile2D_Com::Input(float DeltaTime)
 	return 0;
 }
 
-int JEONG::Tile2D_Com::Update(float DeltaTime)
+int Tile2D_Com::Update(float DeltaTime)
 {
 	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
 		m_NearObject = NULLPTR;
@@ -81,23 +81,23 @@ int JEONG::Tile2D_Com::Update(float DeltaTime)
 	return 0;
 }
 
-int JEONG::Tile2D_Com::LateUpdate(float DeltaTime)
+int Tile2D_Com::LateUpdate(float DeltaTime)
 {
 
 	return 0;
 }
 
-void JEONG::Tile2D_Com::Collision(float DeltaTime)
+void Tile2D_Com::Collision(float DeltaTime)
 {
 }
 
-void JEONG::Tile2D_Com::CollisionLateUpdate(float DeltaTime)
+void Tile2D_Com::CollisionLateUpdate(float DeltaTime)
 {
 	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
 		m_NearObject = NULLPTR;
 }
 
-void JEONG::Tile2D_Com::Render(float DeltaTime)
+void Tile2D_Com::Render(float DeltaTime)
 {
 	if (m_NearObject != NULLPTR && m_NearObject->GetIsActive() == false)
 		m_NearObject = NULLPTR;
@@ -183,16 +183,16 @@ void JEONG::Tile2D_Com::Render(float DeltaTime)
 	m_Mesh->Render();
 }
 
-JEONG::Tile2D_Com * JEONG::Tile2D_Com::Clone()
+Tile2D_Com * Tile2D_Com::Clone()
 {
 	return new Tile2D_Com(*this);
 }
 
-void JEONG::Tile2D_Com::AfterClone()
+void Tile2D_Com::AfterClone()
 {
 }
 
-void JEONG::Tile2D_Com::Save(BineryWrite & Writer)
+void Tile2D_Com::Save(BineryWrite & Writer)
 {
 	Component_Base::Save(Writer);
 
@@ -215,7 +215,7 @@ void JEONG::Tile2D_Com::Save(BineryWrite & Writer)
 		m_vecImage[i]->Save(Writer);
 }
 
-void JEONG::Tile2D_Com::Load(BineryRead & Reader)
+void Tile2D_Com::Load(BineryRead & Reader)
 {
 	Component_Base::Load(Reader);
 
@@ -276,7 +276,7 @@ void JEONG::Tile2D_Com::Load(BineryRead & Reader)
 		m_vecImage[i]->Load(Reader);
 }
 
-void JEONG::Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
+void Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
 {
 	m_TileType = type;
 	
@@ -297,20 +297,20 @@ void JEONG::Tile2D_Com::SetTileType(STAGE2D_TILE_TYPE type)
 	m_Layout = ShaderManager::Get()->FindInputLayOut(POS_LAYOUT);
 }
 
-void JEONG::Tile2D_Com::SetMesh(const string & KeyName)
+void Tile2D_Com::SetMesh(const string & KeyName)
 {
 	SAFE_RELEASE(m_Mesh);
 
 	m_Mesh = ResourceManager::Get()->FindMesh(KeyName);
 }
 
-void JEONG::Tile2D_Com::SetWorldPos(const Vector3 & Pos)
+void Tile2D_Com::SetWorldPos(const Vector3 & Pos)
 {
 	m_Transform->SetWorldPos(Pos);
 	m_TileImage->GetTransform()->SetWorldPos(Pos);
 }
 
-void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
+void Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 {
 	m_Dir = Dir;
 	m_ImageFileName = FileName;
@@ -356,7 +356,7 @@ void JEONG::Tile2D_Com::SetMainTileImage(const string& FileName, int Dir)
 	}
 }
 
-void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCount)
+void Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCount)
 {
 	if (m_TileImage == NULLPTR || m_ImageFileName.empty() == true)
 		return;
@@ -451,7 +451,7 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 	}
 }
 
-GameObject * JEONG::Tile2D_Com::GetSubTileImageObject(size_t index) const
+GameObject * Tile2D_Com::GetSubTileImageObject(size_t index) const
 {
 	if (m_vecTileImage.empty())
 		return NULLPTR;
@@ -459,7 +459,7 @@ GameObject * JEONG::Tile2D_Com::GetSubTileImageObject(size_t index) const
 	return m_vecTileImage[index];
 }
 
-void JEONG::Tile2D_Com::ClearSubImage()
+void Tile2D_Com::ClearSubImage()
 {
 	for (size_t i = 0; i < m_vecTileImage.size(); i++)
 		m_vecTileImage[i]->SetIsActive(false);
@@ -476,7 +476,7 @@ void JEONG::Tile2D_Com::ClearSubImage()
 	m_ImageFileName.clear();
 }
 
-void JEONG::Tile2D_Com::ClearMainImage()
+void Tile2D_Com::ClearMainImage()
 {
 	if (m_TileImage != NULLPTR && m_TileImageObject != NULLPTR)
 	{
@@ -488,7 +488,7 @@ void JEONG::Tile2D_Com::ClearMainImage()
 	SAFE_RELEASE(m_TileImageObject);
 }
 
-void JEONG::Tile2D_Com::ClearNearObject()
+void Tile2D_Com::ClearNearObject()
 {
 	m_NearObject = NULLPTR;
 }

@@ -1,9 +1,9 @@
 #include "stdafx.h"
 #include "Text_Com.h"
 
-//using namespace JEONG;
+JEONG_USING
 
-JEONG::Text_Com::Text_Com()
+Text_Com::Text_Com()
 	: m_TextFormat(NULLPTR), m_TextLayout(NULLPTR), m_Brush(NULLPTR), m_ShadowBrush(NULLPTR),
 	m_Size(0.0f), m_Opacity(0.0f), m_ShadowOpacity(0.0f)
 {
@@ -31,47 +31,47 @@ JEONG::Text_Com::Text_Com()
 	m_ParagraphAlign = DWRITE_PARAGRAPH_ALIGNMENT_NEAR;
 }
 
-JEONG::Text_Com::Text_Com(const Text_Com& CopyData)
+Text_Com::Text_Com(const Text_Com& CopyData)
 	:Component_Base(CopyData)
 {
 	*this = CopyData;
 	m_TextLayout = NULLPTR;
 }
 
-JEONG::Text_Com::~Text_Com()
+Text_Com::~Text_Com()
 {
 	SAFE_RELEASE(m_TextLayout);
 }
 
-bool JEONG::Text_Com::Init()
+bool Text_Com::Init()
 {
 	return true;
 }
 
-int JEONG::Text_Com::Input(float DeltaTime)
+int Text_Com::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::Text_Com::Update(float DeltaTime)
+int Text_Com::Update(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::Text_Com::LateUpdate(float DeltaTime)
+int Text_Com::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void JEONG::Text_Com::Collision(float DeltaTime)
+void Text_Com::Collision(float DeltaTime)
 {
 }
 
-void JEONG::Text_Com::CollisionLateUpdate(float DeltaTime)
+void Text_Com::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void JEONG::Text_Com::Render(float DeltaTime)
+void Text_Com::Render(float DeltaTime)
 {
 	Vector3	vPos = m_Transform->GetWorldPos();
 
@@ -152,16 +152,16 @@ void JEONG::Text_Com::Render(float DeltaTime)
 	m_2DTarget->EndDraw();
 }
 
-JEONG::Text_Com * JEONG::Text_Com::Clone()
+Text_Com * Text_Com::Clone()
 {
 	return new Text_Com(*this);
 }
 
-void JEONG::Text_Com::AfterClone()
+void Text_Com::AfterClone()
 {
 }
 
-void JEONG::Text_Com::SetFont(TCHAR * pFont, float fSize)
+void Text_Com::SetFont(TCHAR * pFont, float fSize)
 {
 	m_Font = pFont;
 	m_Size = fSize;
@@ -171,37 +171,37 @@ void JEONG::Text_Com::SetFont(TCHAR * pFont, float fSize)
 	m_Brush = FontManager::Get()->CreateBrush(m_Color.x, m_Color.y, m_Color.z, m_Color.w);
 }
 
-void JEONG::Text_Com::SetShadowColor(float r, float g, float b, float a)
+void Text_Com::SetShadowColor(float r, float g, float b, float a)
 {
 	m_ShadowColor = Vector4(r, g, b, a);
 	m_ShadowBrush = FontManager::Get()->CreateBrush(r, g, b, a);
 }
 
-void JEONG::Text_Com::SetShadowColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+void Text_Com::SetShadowColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
 	m_ShadowColor = Vector4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
 	m_ShadowBrush = FontManager::Get()->CreateBrush(r, g, b, a);
 }
 
-void JEONG::Text_Com::SetShadowColor(const Vector4 & vColor)
+void Text_Com::SetShadowColor(const Vector4 & vColor)
 {
 	m_ShadowColor = vColor;
 	m_ShadowBrush = FontManager::Get()->CreateBrush(vColor);
 }
 
-void JEONG::Text_Com::SetColor(float r, float g, float b, float a)
+void Text_Com::SetColor(float r, float g, float b, float a)
 {
 	m_Color = Vector4(r, g, b, a);
 	m_Brush = FontManager::Get()->CreateBrush(r, g, b, a);
 }
 
-void JEONG::Text_Com::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+void Text_Com::SetColor(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 {
 	m_Color = Vector4(r / 255.0f, g / 255.0f, b / 255.0f, a / 255.0f);
 	m_Brush = FontManager::Get()->CreateBrush(r, g, b, a);
 }
 
-void JEONG::Text_Com::SetColor(const Vector4 & vColor)
+void Text_Com::SetColor(const Vector4 & vColor)
 {
 	m_Color = vColor;
 	m_Brush = FontManager::Get()->CreateBrush(vColor);

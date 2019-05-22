@@ -182,10 +182,8 @@ int MenuScene::Input(float DeltaTime)
 int MenuScene::Update(float DeltaTime)
 {
 	if (m_FadeCom != NULLPTR && m_FadeCom->GetIsOver() == true)
-	{
-		SceneManager::Get()->CreateNextScene();
-		SceneManager::Get()->AddSceneComponent<MainScene>("MainScene", false);
-	}
+		SceneManager::Get()->ChangeScene("Stage1");
+	
 	return 0;
 }
 
@@ -218,8 +216,7 @@ void MenuScene::StartButtonActive(float DeltaTime)
 	m_FadeCom->Start();
 
 #ifdef _DEBUG
-	SceneManager::Get()->CreateNextScene();
-	SceneManager::Get()->AddSceneComponent<MainScene>("MainScene", false);
+	SceneManager::Get()->ChangeScene("MainScene");
 #endif
 
 	SAFE_RELEASE(FadeLayer);

@@ -82,13 +82,13 @@ bool KeyInput::Init()
 	return true;
 }
 
-void JEONG::KeyInput::Update(float DeltaTime)
+void KeyInput::Update(float DeltaTime)
 {
-	JEONG::Scene* curScene = JEONG::SceneManager::Get()->GetCurScene();
+	Scene* curScene = SceneManager::Get()->GetCurScene();
 	m_CameraPos = curScene->GetMainCameraTransform()->GetWorldPos();
 
-	unordered_map<string, JEONG::KeyInfo*>::iterator StartIter = m_KeyMap.begin();
-	unordered_map<string, JEONG::KeyInfo*>::iterator EndIter = m_KeyMap.end();
+	unordered_map<string, KeyInfo*>::iterator StartIter = m_KeyMap.begin();
+	unordered_map<string, KeyInfo*>::iterator EndIter = m_KeyMap.end();
 
 	for (; StartIter != EndIter; ++StartIter)
 	{
@@ -162,30 +162,30 @@ void JEONG::KeyInput::Update(float DeltaTime)
 	SAFE_RELEASE(curScene);
 }
 
-void JEONG::KeyInput::RenderMouse(float DeltaTime)
+void KeyInput::RenderMouse(float DeltaTime)
 {
 	m_MouseObject->Render(DeltaTime);
 }
 
-Vector3 JEONG::KeyInput::GetMouseWorldPos() const
+Vector3 KeyInput::GetMouseWorldPos() const
 {
 	return Vector3(m_MouseWorldPos.x, m_MouseWorldPos.y, 0.0f);
 }
 
-void JEONG::KeyInput::ChangeMouseScene(JEONG::Scene * pScene)
+void KeyInput::ChangeMouseScene(Scene * pScene)
 {
 	m_MouseObject->SetScene(pScene);
 }
 
-void JEONG::KeyInput::UpdateMousePos()
+void KeyInput::UpdateMousePos()
 {
 	m_MouseWorldPoint->SetInfo(m_CameraPos);
 	m_MouseObject->LateUpdate(1.0f);
 }
 
-bool JEONG::KeyInput::KeyDown(const string & Name)
+bool KeyInput::KeyDown(const string & Name)
 {
-	JEONG::KeyInfo* getKey = FindKey(Name);
+	KeyInfo* getKey = FindKey(Name);
 
 	if (getKey == NULLPTR)
 		return false;
@@ -193,9 +193,9 @@ bool JEONG::KeyInput::KeyDown(const string & Name)
 	return getKey->KeyDown;
 }
 
-bool JEONG::KeyInput::KeyPress(const string & Name)
+bool KeyInput::KeyPress(const string & Name)
 {
-	JEONG::KeyInfo* getKey = FindKey(Name);
+	KeyInfo* getKey = FindKey(Name);
 
 	if (getKey == NULLPTR)
 		return false;
@@ -203,9 +203,9 @@ bool JEONG::KeyInput::KeyPress(const string & Name)
 	return getKey->KeyPress;
 }
 
-bool JEONG::KeyInput::KeyUp(const string & Name)
+bool KeyInput::KeyUp(const string & Name)
 {
-	JEONG::KeyInfo* getKey = FindKey(Name);
+	KeyInfo* getKey = FindKey(Name);
 
 	if (getKey == NULLPTR)
 		return false;
@@ -213,22 +213,22 @@ bool JEONG::KeyInput::KeyUp(const string & Name)
 	return getKey->KeyUp;
 }
    
-JEONG::KeyInfo* JEONG::KeyInput::FindKey(const string& Name)
+KeyInfo* KeyInput::FindKey(const string& Name)
 {
-	unordered_map<string, JEONG::KeyInfo*>::iterator FindIter = m_KeyMap.find(Name);
+	unordered_map<string, KeyInfo*>::iterator FindIter = m_KeyMap.find(Name);
 
 	if (FindIter == m_KeyMap.end())
 		return NULLPTR;
 	
 	return FindIter->second;
 }
-void JEONG::KeyInput::SetEquipObject(JEONG::GameObject * object)
+void KeyInput::SetEquipObject(GameObject * object)
 {
 	m_EquipObject = object;
 	m_isEquip = true;
 }
 
-void JEONG::KeyInput::ResetEquipObject()
+void KeyInput::ResetEquipObject()
 {
 	if (m_EquipObject != NULLPTR)
 	{
@@ -237,7 +237,7 @@ void JEONG::KeyInput::ResetEquipObject()
 	}
 }
 
-void JEONG::KeyInput::SetCurSorPos(float DeltaTime)
+void KeyInput::SetCurSorPos(float DeltaTime)
 {
 	POINT tempPos;
 	GetCursorPos(&tempPos);

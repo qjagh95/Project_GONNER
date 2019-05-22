@@ -5,12 +5,12 @@
 
 JEONG_USING
 
-JEONG::Shader::Shader()
+Shader::Shader()
  : m_VsBlob(NULLPTR), m_PsBlob(NULLPTR), m_Vs(NULLPTR), m_Ps(NULLPTR)
 {	
 }
 
-JEONG::Shader::~Shader()
+Shader::~Shader()
 {
 	SAFE_RELEASE(m_VsBlob);
 	SAFE_RELEASE(m_PsBlob);
@@ -18,13 +18,13 @@ JEONG::Shader::~Shader()
 	SAFE_RELEASE(m_Ps);
 }
 
-void JEONG::Shader::SetShader()
+void Shader::SetShader()
 {
 	Device::Get()->GetContext()->VSSetShader(m_Vs, NULLPTR, 0);
 	Device::Get()->GetContext()->PSSetShader(m_Ps, NULLPTR, 0);
 }
 
-bool JEONG::Shader::LoadShader(const string & shaderName, const TCHAR * FileName, char * Entry[ST_MAX], const string & PathKey)
+bool Shader::LoadShader(const string & shaderName, const TCHAR * FileName, char * Entry[ST_MAX], const string & PathKey)
 {
 	m_ShaderName = shaderName;
 	SetTag(shaderName);
@@ -38,7 +38,7 @@ bool JEONG::Shader::LoadShader(const string & shaderName, const TCHAR * FileName
 	return true;
 }
 
-bool JEONG::Shader::LoadVertexShader(const TCHAR * FileName, char * Entry, const string & PathKey)
+bool Shader::LoadVertexShader(const TCHAR * FileName, char * Entry, const string & PathKey)
 {
 	const TCHAR* pPath = PathManager::Get()->FindPath(PathKey);
 
@@ -74,7 +74,7 @@ bool JEONG::Shader::LoadVertexShader(const TCHAR * FileName, char * Entry, const
 	return true;
 }
 
-bool JEONG::Shader::LoadPixelShader(const TCHAR * FileName, char * Entry, const string & PathKey)
+bool Shader::LoadPixelShader(const TCHAR * FileName, char * Entry, const string & PathKey)
 {
 	const TCHAR* pPath = PathManager::Get()->FindPath(PathKey);
 

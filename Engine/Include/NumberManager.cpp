@@ -6,11 +6,11 @@ JEONG_USING
 
 SINGLETON_VAR_INIT(NumberManager)
 
-JEONG::NumberManager::NumberManager()
+NumberManager::NumberManager()
 {
 }
 
-JEONG::NumberManager::~NumberManager()
+NumberManager::~NumberManager()
 {
 	for (size_t i = 0; i < m_vecNumber.size(); ++i)
 		SAFE_RELEASE(m_vecNumber[i]);
@@ -21,7 +21,7 @@ JEONG::NumberManager::~NumberManager()
 	m_vecNumber.clear();
 }
 
-bool JEONG::NumberManager::Init()
+bool NumberManager::Init()
 {
 	Scene* getScene = SceneManager::Get()->GetCurScene();
 	Layer* fadeLayer = getScene->FindLayer("Fade");
@@ -47,7 +47,7 @@ bool JEONG::NumberManager::Init()
 	return true;
 }
 
-void JEONG::NumberManager::Input(float DeltaTime)
+void NumberManager::Input(float DeltaTime)
 {
 	if (m_isChangeNumber == true)
 	{
@@ -98,7 +98,7 @@ void JEONG::NumberManager::Input(float DeltaTime)
 	}
 }
 
-void JEONG::NumberManager::ClearVecNumber()
+void NumberManager::ClearVecNumber()
 {
 	for (size_t i = 0; i < m_vecNumber.size(); ++i)
 		SAFE_RELEASE(m_vecNumber[i]);
@@ -106,26 +106,26 @@ void JEONG::NumberManager::ClearVecNumber()
 	m_vecNumber.clear();
 }
 
-void JEONG::NumberManager::SetNumber(int Number)
+void NumberManager::SetNumber(int Number)
 {
 	m_vecNumberValue.clear();
 	m_isChangeNumber = true;
 	m_Number = Number;
 }
 
-void JEONG::NumberManager::AddNumber()
+void NumberManager::AddNumber()
 {
 	m_isChangeNumber = true;
 	m_Number++;
 }
 
-void JEONG::NumberManager::ClearNumber()
+void NumberManager::ClearNumber()
 {
 	m_isChangeNumber = true;
 	m_Number = 0;
 }
 
-void JEONG::NumberManager::SetScene(Scene * pCurScene)
+void NumberManager::SetScene(Scene * pCurScene)
 {
 	if (m_vecNumberObject[0] == NULLPTR)
 		return;

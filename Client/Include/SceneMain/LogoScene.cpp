@@ -74,10 +74,7 @@ int LogoScene::Update(float DeltaTime)
 	SAFE_RELEASE(FadeLayer);
 
 	if (m_FadeCom != NULLPTR && m_FadeCom->GetIsOver() == true)
-	{	
-		SceneManager::Get()->CreateNextScene();
-		SceneManager::Get()->AddSceneComponent<MenuScene>("MenuScene", false);
-	}
+		SceneManager::Get()->ChangeScene("MenuScene");
 
 	return 0;
 }

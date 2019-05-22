@@ -4,7 +4,7 @@
 
 JEONG_USING
 
-JEONG::TileImage_Com::TileImage_Com()
+TileImage_Com::TileImage_Com()
 {
 	m_ComType = CT_TILEIMAGE;
 	m_Material = NULLPTR;
@@ -17,18 +17,18 @@ JEONG::TileImage_Com::TileImage_Com()
 	m_InputDistance = 0.0f;
 }
 
-JEONG::TileImage_Com::TileImage_Com(const TileImage_Com & CopyData)
+TileImage_Com::TileImage_Com(const TileImage_Com & CopyData)
 	:Component_Base(CopyData)
 {
 }
 
-JEONG::TileImage_Com::~TileImage_Com()
+TileImage_Com::~TileImage_Com()
 {
 	SAFE_RELEASE(m_Material);
 	SAFE_RELEASE(m_Renderer);
 }
 
-bool JEONG::TileImage_Com::Init()
+bool TileImage_Com::Init()
 {
 	m_Renderer = m_Object->AddComponent<Renderer_Com>("TileImageRender");
 	m_Renderer->SetMesh("TextureRect");
@@ -71,12 +71,12 @@ bool JEONG::TileImage_Com::Init()
 	return true;
 }
 
-int JEONG::TileImage_Com::Input(float DeltaTime)
+int TileImage_Com::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::TileImage_Com::Update(float DeltaTime)
+int TileImage_Com::Update(float DeltaTime)
 {
 	if (m_NearMaterial != NULLPTR)
 	{
@@ -123,34 +123,34 @@ int JEONG::TileImage_Com::Update(float DeltaTime)
 	return 0;
 }
 
-int JEONG::TileImage_Com::LateUpdate(float DeltaTime)
+int TileImage_Com::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void JEONG::TileImage_Com::Collision(float DeltaTime)
+void TileImage_Com::Collision(float DeltaTime)
 {
 }
 
-void JEONG::TileImage_Com::CollisionLateUpdate(float DeltaTime)
+void TileImage_Com::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void JEONG::TileImage_Com::Render(float DeltaTime)
+void TileImage_Com::Render(float DeltaTime)
 {
  	m_Renderer->UpdateRendererCBuffer("TileImageCBuffer", &m_CBuffer, sizeof(TileImageCBuffer));
 }
 
-JEONG::TileImage_Com * JEONG::TileImage_Com::Clone()
+TileImage_Com * TileImage_Com::Clone()
 {
-	return new JEONG::TileImage_Com(*this);
+	return new TileImage_Com(*this);
 }
 
-void JEONG::TileImage_Com::AfterClone()
+void TileImage_Com::AfterClone()
 {
 }
 
-void JEONG::TileImage_Com::Save(BineryWrite & Writer)
+void TileImage_Com::Save(BineryWrite & Writer)
 {
 	Component_Base::Save(Writer);
 
@@ -159,7 +159,7 @@ void JEONG::TileImage_Com::Save(BineryWrite & Writer)
 	Writer.WriteData(m_Transform->GetWorldScale());
 }
 
-void JEONG::TileImage_Com::Load(BineryRead & Reader)
+void TileImage_Com::Load(BineryRead & Reader)
 {
 	Component_Base::Load(Reader);
 
@@ -174,7 +174,7 @@ void JEONG::TileImage_Com::Load(BineryRead & Reader)
 	m_Transform->SetWorldPos(Pos);
 }
 
-void JEONG::TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const string & PathKey)
+void TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, const string & PathKey)
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetDiffuseTexture(0, KeyName, FileName);
@@ -182,7 +182,7 @@ void JEONG::TileImage_Com::SetTexture(const string& KeyName, wchar_t* FileName, 
 	SAFE_RELEASE(getMaterial);
 }
 
-void JEONG::TileImage_Com::SetDiffuseColor(const Vector4 & Color)
+void TileImage_Com::SetDiffuseColor(const Vector4 & Color)
 {
 	Material_Com* getMaterial = m_Object->FindComponentFromType<Material_Com>(CT_MATERIAL);
 	getMaterial->SetMaterial(Color);
@@ -190,12 +190,12 @@ void JEONG::TileImage_Com::SetDiffuseColor(const Vector4 & Color)
 	SAFE_RELEASE(getMaterial);
 }
 
-void JEONG::TileImage_Com::SetPercentColor(const Vector4 & Color)
+void TileImage_Com::SetPercentColor(const Vector4 & Color)
 {
 	m_CBuffer.ColorPercent = Color;
 }
 
-void JEONG::TileImage_Com::SetNearObject(GameObject * NearObject, float Distance)
+void TileImage_Com::SetNearObject(GameObject * NearObject, float Distance)
 {
 	m_InputDistance = Distance;
 

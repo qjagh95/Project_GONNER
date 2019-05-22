@@ -166,8 +166,7 @@ int MainScene::Input(float DeltaTime)
 		Gonner_Com* getCom = getGonner->FindComponentFromTypeNoneCount<Gonner_Com>(CT_GONNER);
 		getCom->ChangeState(GS_IDLE, getCom->GetAniName(), getCom->GetAnimation());
 
-		SceneManager::Get()->CreateNextScene();
-		SceneManager::Get()->AddSceneComponent<SecondScene>("SecondScene", false);
+		SceneManager::Get()->ChangeScene("Stage2");
 	}
 
 	return 0;

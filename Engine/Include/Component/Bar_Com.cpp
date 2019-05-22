@@ -11,7 +11,7 @@
 
 JEONG_USING
 
-JEONG::Bar_Com::Bar_Com()
+Bar_Com::Bar_Com()
 	:m_RectCollider(NULLPTR)
 {
 	SetTag("Bar");
@@ -26,7 +26,7 @@ JEONG::Bar_Com::Bar_Com()
 	m_Scale = Vector3::Zero;
 }
 
-JEONG::Bar_Com::Bar_Com(const Bar_Com & CopyData)
+Bar_Com::Bar_Com(const Bar_Com & CopyData)
 	:Component_Base(CopyData)
 {
 	m_Dir = CopyData.m_Dir;
@@ -38,12 +38,12 @@ JEONG::Bar_Com::Bar_Com(const Bar_Com & CopyData)
 	m_ValueLenth = CopyData.m_ValueLenth;
 }
 
-JEONG::Bar_Com::~Bar_Com()
+Bar_Com::~Bar_Com()
 {
 	SAFE_RELEASE(m_RectCollider);
 }
 
-bool JEONG::Bar_Com::Init()
+bool Bar_Com::Init()
 {
 	SetDir(BD_LEFT);
 
@@ -68,12 +68,12 @@ bool JEONG::Bar_Com::Init()
 	return true;
 }
 
-int JEONG::Bar_Com::Input(float DeltaTime)
+int Bar_Com::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::Bar_Com::Update(float DeltaTime)
+int Bar_Com::Update(float DeltaTime)
 {
 	Vector3 tempScale = m_Scale;
 	Vector3 TempVar;
@@ -117,34 +117,34 @@ int JEONG::Bar_Com::Update(float DeltaTime)
 	return 0;
 }
 
-int JEONG::Bar_Com::LateUpdate(float DeltaTime)
+int Bar_Com::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void JEONG::Bar_Com::Collision(float DeltaTime)
+void Bar_Com::Collision(float DeltaTime)
 {
 }
 
-void JEONG::Bar_Com::CollisionLateUpdate(float DeltaTime)
+void Bar_Com::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void JEONG::Bar_Com::Render(float DeltaTime)
+void Bar_Com::Render(float DeltaTime)
 {
 }
 
-JEONG::Bar_Com * JEONG::Bar_Com::Clone()
+Bar_Com * Bar_Com::Clone()
 {
-	return new JEONG::Bar_Com(*this);
+	return new Bar_Com(*this);
 }
 
-void JEONG::Bar_Com::AfterClone()
+void Bar_Com::AfterClone()
 {
 	m_RectCollider = (ColliderRect_Com*)FindComponentFromType<ColliderRect_Com>(CT_COLLIDER);
 }
 
-void JEONG::Bar_Com::SetDir(BAR_DIR dir)
+void Bar_Com::SetDir(BAR_DIR dir)
 {
 	m_Dir = dir;
 
@@ -166,7 +166,7 @@ void JEONG::Bar_Com::SetDir(BAR_DIR dir)
 	}
 }
 
-void JEONG::Bar_Com::SetValue(float Value)
+void Bar_Com::SetValue(float Value)
 {
 	m_Value = Value;
 
@@ -180,7 +180,7 @@ void JEONG::Bar_Com::SetValue(float Value)
 	m_Percent = (m_Value - m_MinValue) / m_ValueLenth;
 }
 
-void JEONG::Bar_Com::AddValue(float Value)
+void Bar_Com::AddValue(float Value)
 {
 	m_Value += Value;
 
@@ -196,7 +196,7 @@ void JEONG::Bar_Com::AddValue(float Value)
 	m_Percent = (m_Value - m_MinValue) / m_ValueLenth;
 }
 
-void JEONG::Bar_Com::SetMinMaxValue(float minValue, float maxValue)
+void Bar_Com::SetMinMaxValue(float minValue, float maxValue)
 {
 	m_MinValue = minValue;
 	m_MaxValue = maxValue;
@@ -211,18 +211,18 @@ void JEONG::Bar_Com::SetMinMaxValue(float minValue, float maxValue)
 	m_Percent = (m_Value - m_MinValue) / m_ValueLenth;
 }
 
-void JEONG::Bar_Com::SetScale(const Vector3 & Scale)
+void Bar_Com::SetScale(const Vector3 & Scale)
 {
 	m_Scale = Scale;
 	m_Transform->SetWorldScale(m_Scale);
 }
 
-void JEONG::Bar_Com::SetScale(float x, float y, float z)
+void Bar_Com::SetScale(float x, float y, float z)
 {
 	m_Scale = Vector3(x, y, z);
 	m_Transform->SetWorldScale(Vector3(x, y, z));
 }
 
-void JEONG::Bar_Com::MouseHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
+void Bar_Com::MouseHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
 }

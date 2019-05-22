@@ -12,33 +12,33 @@
 
 JEONG_USING
 
-JEONG::SubsetMaterial::SubsetMaterial()
+SubsetMaterial::SubsetMaterial()
 {
 
 }
-JEONG::SubsetMaterial::~SubsetMaterial()
+SubsetMaterial::~SubsetMaterial()
 {
 	
 }
 
-JEONG::Material_Com::Material_Com()
+Material_Com::Material_Com()
 {
 	m_ComType = CT_MATERIAL;
 }
 
-JEONG::Material_Com::Material_Com(const Material_Com& copyData)
+Material_Com::Material_Com(const Material_Com& copyData)
 	:Component_Base(copyData)
 {
 	m_vecMaterial.clear();
 
 	for (size_t i = 0; i < copyData.m_vecMaterial.size(); i++)
 	{
-		vector<JEONG::SubsetMaterial*> TempVec;
+		vector<SubsetMaterial*> TempVec;
 		m_vecMaterial.push_back(TempVec);
 
 		for (size_t j = 0; j < copyData.m_vecMaterial[i].size(); j++)
 		{
-			JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+			SubsetMaterial* newMaterial = new SubsetMaterial();
 			newMaterial->MatrialInfo = copyData.m_vecMaterial[i][j]->MatrialInfo;
 
 			newMaterial->vecDiffuseSampler.resize(copyData.m_vecMaterial[i][j]->vecDiffuseSampler.size());
@@ -64,7 +64,7 @@ JEONG::Material_Com::Material_Com(const Material_Com& copyData)
 	}
 }
 
-JEONG::Material_Com::~Material_Com()
+Material_Com::~Material_Com()
 {
 	for (size_t i = 0; i < m_vecMaterial.size(); ++i)
 	{
@@ -79,46 +79,46 @@ JEONG::Material_Com::~Material_Com()
 	m_vecMaterial.clear();
 }
 
-bool JEONG::Material_Com::Init()
+bool Material_Com::Init()
 {
 	SetMaterial(Vector4::White);
 
 	return true;
 }
 
-int JEONG::Material_Com::Input(float DeltaTime)
+int Material_Com::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::Material_Com::Update(float DeltaTime)
+int Material_Com::Update(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::Material_Com::LateUpdate(float DeltaTime)
+int Material_Com::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void JEONG::Material_Com::Collision(float DeltaTime)
+void Material_Com::Collision(float DeltaTime)
 {
 }
 
-void JEONG::Material_Com::CollisionLateUpdate(float DeltaTime)
+void Material_Com::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void JEONG::Material_Com::Render(float DeltaTime)
+void Material_Com::Render(float DeltaTime)
 {
 }
 
-JEONG::Material_Com * JEONG::Material_Com::Clone()
+Material_Com * Material_Com::Clone()
 {
 	return new Material_Com(*this);
 }
 
-void JEONG::Material_Com::Save(BineryWrite & Writer)
+void Material_Com::Save(BineryWrite & Writer)
 {
 	Component_Base::Save(Writer);
 
@@ -135,18 +135,18 @@ void JEONG::Material_Com::Save(BineryWrite & Writer)
 
 }
 
-void JEONG::Material_Com::Load(BineryRead & Reader)
+void Material_Com::Load(BineryRead & Reader)
 {
 	Component_Base::Load(Reader);
 
 }
 
-void JEONG::Material_Com::SetMaterial(const Vector4 & Diffuse, int Container, int Subset)
+void Material_Com::SetMaterial(const Vector4 & Diffuse, int Container, int Subset)
 {
 	//컨테이너가 없다면 하나 추가한다.
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 	//서브셋이 없다면 추가한다.
@@ -157,12 +157,12 @@ void JEONG::Material_Com::SetMaterial(const Vector4 & Diffuse, int Container, in
 	m_vecMaterial[Container][Subset]->MatrialInfo.Diffuse = Vector4(Diffuse.x, Diffuse.y , Diffuse.z , Diffuse.w );
 }
 
-void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & KeyName, int Container, int Subset)
+void Material_Com::SetDiffuseTexture(int RegisterNumber, const string & KeyName, int Container, int Subset)
 {
 	//컨테이너가 없다면 하나 추가한다.
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 	//서브셋이 없다면 추가한다.
@@ -170,7 +170,7 @@ void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & K
 		m_vecMaterial[Container].push_back(CreateSubSet());
 
 	//텍스쳐 셋팅준비
-	JEONG::SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
 	Safe_Release_VecList(getMaterial->vecDiffuseTexture);
 
 	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
@@ -179,18 +179,18 @@ void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & K
 	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
 }
 
-void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & KeyName, const TCHAR * FileName, const string & PathKey, int Container, int Subset)
+void Material_Com::SetDiffuseTexture(int RegisterNumber, const string & KeyName, const TCHAR * FileName, const string & PathKey, int Container, int Subset)
 {
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*>	newVec;
+		vector<SubsetMaterial*>	newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 
 	if (Subset >= m_vecMaterial[Container].size())
 		m_vecMaterial[Container].push_back(CreateSubSet());
 
-	JEONG::SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
 
 	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
 		getMaterial->vecDiffuseTexture.resize(RegisterNumber + 1);
@@ -204,18 +204,18 @@ void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, const string & K
 	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
 }
 
-void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, Texture * pTexture, int Container, int Subset)
+void Material_Com::SetDiffuseTexture(int RegisterNumber, Texture * pTexture, int Container, int Subset)
 {
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 
 	if (Subset >= m_vecMaterial[Container].size())
 		m_vecMaterial[Container].push_back(CreateSubSet());
 
-	JEONG::SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
 
 	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
 		getMaterial->vecDiffuseTexture.resize(RegisterNumber + 1);
@@ -223,21 +223,21 @@ void JEONG::Material_Com::SetDiffuseTexture(int RegisterNumber, Texture * pTextu
 	getMaterial->vecDiffuseTexture[RegisterNumber] = pTexture;
 }
 
-void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const string & FileFullPath, int Container, int Subset)
+void Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const string & FileFullPath, int Container, int Subset)
 {
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 
 	if (Subset >= m_vecMaterial[Container].size())
 	{
-		JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+		SubsetMaterial* newMaterial = new SubsetMaterial();
 		m_vecMaterial[Container].push_back(newMaterial);
 	}
 
-	JEONG::SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
 	ResourceManager::Get()->CreateTextureFromFullPath(KeyName, CA2W(FileFullPath.c_str()));
 
 	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
@@ -246,21 +246,21 @@ void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, cons
 	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
 }
 
-void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const wstring & FileFullPath, int Container, int Subset)
+void Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string& KeyName, const wstring & FileFullPath, int Container, int Subset)
 {
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 
 	if (Subset >= m_vecMaterial[Container].size())
 	{
-		JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+		SubsetMaterial* newMaterial = new SubsetMaterial();
 		m_vecMaterial[Container].push_back(newMaterial);
 	}
 
-	JEONG::SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
 	ResourceManager::Get()->CreateTextureFromFullPath(KeyName, FileFullPath.c_str());
 
 	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
@@ -269,21 +269,21 @@ void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, cons
 	getMaterial->vecDiffuseTexture[RegisterNumber] = ResourceManager::Get()->FindTexture(KeyName);
 }
 
-void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string & KeyName, const TCHAR * FullPath, int Container, int Subset)
+void Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, const string & KeyName, const TCHAR * FullPath, int Container, int Subset)
 {
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 
 	if (Subset >= m_vecMaterial[Container].size())
 	{
-		JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+		SubsetMaterial* newMaterial = new SubsetMaterial();
 		m_vecMaterial[Container].push_back(newMaterial);
 	}
 
-	JEONG::SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial *getMaterial = m_vecMaterial[Container][Subset];
 	ResourceManager::Get()->CreateTextureFromFullPath(KeyName, FullPath);
 
 	if (getMaterial->vecDiffuseTexture.capacity() <= RegisterNumber)
@@ -293,22 +293,22 @@ void JEONG::Material_Com::SetDiffuseTextureFromFullPath(int RegisterNumber, cons
 }
 
 //이 함수는 아직 안들어옴.
-void JEONG::Material_Com::SetSampler(int RegisterNumber, const string & KeyName, int Container, int Subset)
+void Material_Com::SetSampler(int RegisterNumber, const string & KeyName, int Container, int Subset)
 {
 	//Sampler를 셋팅한다.
 	if (Container >= m_vecMaterial.size())
 	{
-		vector<JEONG::SubsetMaterial*> newVec;
+		vector<SubsetMaterial*> newVec;
 		m_vecMaterial.push_back(newVec);
 	}
 
 	if (Subset >= m_vecMaterial[Container].size())
 	{
-		JEONG::SubsetMaterial* newMaterial = new JEONG::SubsetMaterial();
+		SubsetMaterial* newMaterial = new SubsetMaterial();
 		m_vecMaterial[Container].push_back(newMaterial);
 	}
 
-	JEONG::SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
 
 	if (getMaterial->vecDiffuseSampler.capacity() <= RegisterNumber)
 		getMaterial->vecDiffuseSampler.resize(RegisterNumber + 1);
@@ -318,9 +318,9 @@ void JEONG::Material_Com::SetSampler(int RegisterNumber, const string & KeyName,
 }
 
 //쉐이더에 셋팅한다.
-void JEONG::Material_Com::SetShader(int Container, int Subset)
+void Material_Com::SetShader(int Container, int Subset)
 {
-	JEONG::SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
+	SubsetMaterial* getMaterial = m_vecMaterial[Container][Subset];
 
 	ShaderManager::Get()->UpdateCBuffer("Material", &getMaterial->MatrialInfo);
 
@@ -337,7 +337,7 @@ void JEONG::Material_Com::SetShader(int Container, int Subset)
 	}
 }
 
-Vector4 JEONG::Material_Com::GetDiffuseLight() const
+Vector4 Material_Com::GetDiffuseLight() const
 {
 	if (m_vecMaterial.size() > 20)
 		return Vector4::White;
@@ -345,15 +345,15 @@ Vector4 JEONG::Material_Com::GetDiffuseLight() const
 	return m_vecMaterial[0][0]->MatrialInfo.Diffuse;
 }
 
-JEONG::SubsetMaterial* JEONG::Material_Com::CreateSubSet()
+SubsetMaterial* Material_Com::CreateSubSet()
 {
-	JEONG::SubsetMaterial* newSubset = new JEONG::SubsetMaterial();
+	SubsetMaterial* newSubset = new SubsetMaterial();
 	newSubset->vecDiffuseSampler.push_back(ResourceManager::Get()->FindSampler(LINER_SAMPLER));
 
 	return newSubset;
 }
 
-void JEONG::SubsetMaterial::Save(BineryWrite& Writer)
+void SubsetMaterial::Save(BineryWrite& Writer)
 {
 	Writer.WriteData(vecDiffuseTexture.size());
 	Writer.WriteData(vecDiffuseSampler.size());
@@ -366,7 +366,7 @@ void JEONG::SubsetMaterial::Save(BineryWrite& Writer)
 
 }
 
-void JEONG::SubsetMaterial::Load(BineryRead& Reader)
+void SubsetMaterial::Load(BineryRead& Reader)
 {
 	//임시
 	size_t tSize = -1;

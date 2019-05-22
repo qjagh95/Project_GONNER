@@ -3,16 +3,16 @@
 #include "RenderTarget.h"
 
 JEONG_USING
-SINGLETON_VAR_INIT(JEONG::RenderManager)
+SINGLETON_VAR_INIT(RenderManager)
 
-JEONG::RenderManager::RenderManager()
+RenderManager::RenderManager()
 	:m_CreateState(NULLPTR)
 {
 	m_GameMode = GM_2D;
 	m_isZoomMode = false;
 }
 
-JEONG::RenderManager::~RenderManager()
+RenderManager::~RenderManager()
 {
 	ShaderManager::Delete();
 	Safe_Release_Map(m_RenderStateMap);
@@ -35,7 +35,7 @@ JEONG::RenderManager::~RenderManager()
 	}
 }
 
-bool JEONG::RenderManager::Init()
+bool RenderManager::Init()
 {
 	if (ShaderManager::Get()->Init() == false)
 	{
@@ -56,7 +56,7 @@ bool JEONG::RenderManager::Init()
 	return true;
 }
 
-void JEONG::RenderManager::AddBlendTargetDesc(BOOL bEnable, D3D11_BLEND srcBlend, D3D11_BLEND destBlend, D3D11_BLEND_OP blendOp, D3D11_BLEND srcAlphaBlend, D3D11_BLEND destAlphaBlend, D3D11_BLEND_OP blendAlphaOp, UINT8 iWriteMask)
+void RenderManager::AddBlendTargetDesc(BOOL bEnable, D3D11_BLEND srcBlend, D3D11_BLEND destBlend, D3D11_BLEND_OP blendOp, D3D11_BLEND srcAlphaBlend, D3D11_BLEND destAlphaBlend, D3D11_BLEND_OP blendAlphaOp, UINT8 iWriteMask)
 {
 	if (m_CreateState == NULLPTR)
 		m_CreateState = new BlendState();
@@ -64,7 +64,7 @@ void JEONG::RenderManager::AddBlendTargetDesc(BOOL bEnable, D3D11_BLEND srcBlend
 	m_CreateState->AddTargetDesc(bEnable, srcBlend, destBlend,blendOp, srcAlphaBlend, destAlphaBlend, blendAlphaOp,iWriteMask);
 }
 
-bool JEONG::RenderManager::CreateDepthStencilState(const string & KeyName, BOOL bDepthEnable, D3D11_DEPTH_WRITE_MASK eMask, D3D11_COMPARISON_FUNC eDepthFunc, BOOL bStencilEnable, UINT8 iStencilReadMask, UINT8 iStencilWriteMask, D3D11_DEPTH_STENCILOP_DESC tFrontFace, D3D11_DEPTH_STENCILOP_DESC tBackFace)
+bool RenderManager::CreateDepthStencilState(const string & KeyName, BOOL bDepthEnable, D3D11_DEPTH_WRITE_MASK eMask, D3D11_COMPARISON_FUNC eDepthFunc, BOOL bStencilEnable, UINT8 iStencilReadMask, UINT8 iStencilWriteMask, D3D11_DEPTH_STENCILOP_DESC tFrontFace, D3D11_DEPTH_STENCILOP_DESC tBackFace)
 {
 	DepthStancilState* newState = (DepthStancilState*)FindRenderState(KeyName);
 
@@ -84,7 +84,7 @@ bool JEONG::RenderManager::CreateDepthStencilState(const string & KeyName, BOOL 
 	return true;
 }
 
-bool JEONG::RenderManager::CreateRenderTarget(const string & KeyName, DXGI_FORMAT TargetFormat, const Vector3 & Pos, const Vector3 & Scale, bool isDebugDraw, const Vector4 & ClearColor, DXGI_FORMAT DepthFormat)
+bool RenderManager::CreateRenderTarget(const string & KeyName, DXGI_FORMAT TargetFormat, const Vector3 & Pos, const Vector3 & Scale, bool isDebugDraw, const Vector4 & ClearColor, DXGI_FORMAT DepthFormat)
 {
 	RenderTarget* newTarget = FindRenderTarget(KeyName);
 
@@ -107,7 +107,7 @@ bool JEONG::RenderManager::CreateRenderTarget(const string & KeyName, DXGI_FORMA
 	return true;
 }
 
-bool JEONG::RenderManager::CreateBlendState(const string & KeyName, BOOL bAlphaCoverage, BOOL bIndependent)
+bool RenderManager::CreateBlendState(const string & KeyName, BOOL bAlphaCoverage, BOOL bIndependent)
 {
 	if (m_CreateState == NULLPTR)
 		return false;
@@ -124,9 +124,9 @@ bool JEONG::RenderManager::CreateBlendState(const string & KeyName, BOOL bAlphaC
 	return true;
 }
 
-JEONG::RenderState * JEONG::RenderManager::FindRenderState(const string & KeyName)
+RenderState * RenderManager::FindRenderState(const string & KeyName)
 {
-	unordered_map<string, JEONG::RenderState*>::iterator FindIter = m_RenderStateMap.find(KeyName);
+	unordered_map<string, RenderState*>::iterator FindIter = m_RenderStateMap.find(KeyName);
 
 	if (FindIter == m_RenderStateMap.end())
 		return NULLPTR;
@@ -136,9 +136,9 @@ JEONG::RenderState * JEONG::RenderManager::FindRenderState(const string & KeyNam
 	return FindIter->second;
 }
 
-JEONG::RenderTarget * JEONG::RenderManager::FindRenderTarget(const string & KeyName)
+RenderTarget * RenderManager::FindRenderTarget(const string & KeyName)
 {
-	unordered_map<string, JEONG::RenderTarget*>::iterator FindIter = m_RenderTargetMap.find(KeyName);
+	unordered_map<string, RenderTarget*>::iterator FindIter = m_RenderTargetMap.find(KeyName);
 
 	if (FindIter == m_RenderTargetMap.end())
 		return NULLPTR;
@@ -146,7 +146,7 @@ JEONG::RenderTarget * JEONG::RenderManager::FindRenderTarget(const string & KeyN
 	return FindIter->second;
 }
 
-void JEONG::RenderManager::AddRenderObject(JEONG::GameObject * object)
+void RenderManager::AddRenderObject(GameObject * object)
 {
 	if (m_GameMode == GM_3D)
 	{
@@ -179,7 +179,7 @@ void JEONG::RenderManager::AddRenderObject(JEONG::GameObject * object)
 	}
 }
 
-void JEONG::RenderManager::Render(float DeltaTime)
+void RenderManager::Render(float DeltaTime)
 {
 	switch (m_GameMode)
 	{
@@ -192,7 +192,7 @@ void JEONG::RenderManager::Render(float DeltaTime)
 	}
 }
 
-void JEONG::RenderManager::Render2D(float DeltaTime)
+void RenderManager::Render2D(float DeltaTime)
 {
 	// 포스트 이펙트 처리용 타겟으로 교체한다.
 	RenderTarget* getTarget = FindRenderTarget("PostEffect");
@@ -228,8 +228,8 @@ void JEONG::RenderManager::Render2D(float DeltaTime)
 	RenderState* alphaState = FindRenderState(ALPHA_BLEND);
 	alphaState->SetState();
 	{
-		unordered_map<string, JEONG::RenderTarget*>::iterator StartIter = m_RenderTargetMap.begin();
-		unordered_map<string, JEONG::RenderTarget*>::iterator EndIter = m_RenderTargetMap.end();
+		unordered_map<string, RenderTarget*>::iterator StartIter = m_RenderTargetMap.begin();
+		unordered_map<string, RenderTarget*>::iterator EndIter = m_RenderTargetMap.end();
 
 		for (; StartIter != EndIter; StartIter++)
 		{
@@ -240,6 +240,6 @@ void JEONG::RenderManager::Render2D(float DeltaTime)
 	SAFE_RELEASE(alphaState);
 }
 
-void JEONG::RenderManager::Render3D(float DeltaTime)
+void RenderManager::Render3D(float DeltaTime)
 {
 }

@@ -5,61 +5,61 @@
 
 JEONG_USING
 
-JEONG::UserComponent_Base::UserComponent_Base()
+UserComponent_Base::UserComponent_Base()
 {
 	m_isUserComponent = true;
 	m_State = 0;
 	m_PrevState = 0;
 }
 
-JEONG::UserComponent_Base::UserComponent_Base(const UserComponent_Base & userCom)
+UserComponent_Base::UserComponent_Base(const UserComponent_Base & userCom)
 	:Component_Base(userCom)
 {
 }
 
-JEONG::UserComponent_Base::~UserComponent_Base()
+UserComponent_Base::~UserComponent_Base()
 {
 	int a = 0;
 }
 
-bool JEONG::UserComponent_Base::Init()
+bool UserComponent_Base::Init()
 {
 	return true;
 }
 
-int JEONG::UserComponent_Base::Input(float DeltaTime)
+int UserComponent_Base::Input(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::UserComponent_Base::Update(float DeltaTime)
+int UserComponent_Base::Update(float DeltaTime)
 {
 	return 0;
 }
 
-int JEONG::UserComponent_Base::LateUpdate(float DeltaTime)
+int UserComponent_Base::LateUpdate(float DeltaTime)
 {
 	return 0;
 }
 
-void JEONG::UserComponent_Base::Collision(float DeltaTime)
+void UserComponent_Base::Collision(float DeltaTime)
 {
 }
 
-void JEONG::UserComponent_Base::CollisionLateUpdate(float DeltaTime)
+void UserComponent_Base::CollisionLateUpdate(float DeltaTime)
 {
 }
 
-void JEONG::UserComponent_Base::Render(float DeltaTime)
+void UserComponent_Base::Render(float DeltaTime)
 {
 }
 
-JEONG::UserComponent_Base * JEONG::UserComponent_Base::Clone()
+UserComponent_Base * UserComponent_Base::Clone()
 {
 	return new UserComponent_Base(*this);
 }
 
-void JEONG::UserComponent_Base::ChangeState(int State, string * AnimationName, Animation2D_Com * animation)
+void UserComponent_Base::ChangeState(int State, string * AnimationName, Animation2D_Com * animation)
 {
 	m_PrevState = m_State;
 	m_State = State;

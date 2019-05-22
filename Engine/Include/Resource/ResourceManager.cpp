@@ -7,18 +7,18 @@
 JEONG_USING
 SINGLETON_VAR_INIT(ResourceManager)
 
-JEONG::ResourceManager::ResourceManager()
+ResourceManager::ResourceManager()
 {
 }
 
-JEONG::ResourceManager::~ResourceManager()
+ResourceManager::~ResourceManager()
 {
 	Safe_Release_Map(m_MeshMap);
 	Safe_Release_Map(m_TextureMap);
 	Safe_Release_Map(m_SamplerMap);
 }
 
-bool JEONG::ResourceManager::Init()
+bool ResourceManager::Init()
 {
 	VertexColor ColorTri[3] =
 	{
@@ -119,9 +119,9 @@ bool JEONG::ResourceManager::Init()
 	return true;
 }
 
-bool JEONG::ResourceManager::CreateMesh(const string & KeyName, const string & ShaderKeyName, const string & LayOutKeyName, void * vertexInfo, int vertexCount, int vertexSize, D3D11_USAGE vertexUsage, D3D11_PRIMITIVE_TOPOLOGY primitiveType, void * indexInfo, int indexCount, int indexSize, D3D11_USAGE indexUsage, DXGI_FORMAT indexFormat)
+bool ResourceManager::CreateMesh(const string & KeyName, const string & ShaderKeyName, const string & LayOutKeyName, void * vertexInfo, int vertexCount, int vertexSize, D3D11_USAGE vertexUsage, D3D11_PRIMITIVE_TOPOLOGY primitiveType, void * indexInfo, int indexCount, int indexSize, D3D11_USAGE indexUsage, DXGI_FORMAT indexFormat)
 {
-	JEONG::Mesh* newMesh = FindMesh(KeyName);
+	Mesh* newMesh = FindMesh(KeyName);
 
 	if (newMesh != NULLPTR)
 	{
@@ -142,7 +142,7 @@ bool JEONG::ResourceManager::CreateMesh(const string & KeyName, const string & S
 	return true;
 }
 
-bool JEONG::ResourceManager::CreateTexture(const string & KeyName, const TCHAR * FileName, const string & PathKey)
+bool ResourceManager::CreateTexture(const string & KeyName, const TCHAR * FileName, const string & PathKey)
 {
 	Texture* newTexture = FindTexture(KeyName);
 
@@ -164,7 +164,7 @@ bool JEONG::ResourceManager::CreateTexture(const string & KeyName, const TCHAR *
 	return true;
 }
 
-bool JEONG::ResourceManager::CreateTextureFromFullPath(const string & KeyName, const TCHAR * FullPath)
+bool ResourceManager::CreateTextureFromFullPath(const string & KeyName, const TCHAR * FullPath)
 {
 	Texture* newTexture = FindTexture(KeyName);
 
@@ -187,7 +187,7 @@ bool JEONG::ResourceManager::CreateTextureFromFullPath(const string & KeyName, c
 	return true;
 }
 
-bool JEONG::ResourceManager::CreateSampler(const string & KeyName, D3D11_FILTER eFilter, D3D11_TEXTURE_ADDRESS_MODE eU, D3D11_TEXTURE_ADDRESS_MODE eV, D3D11_TEXTURE_ADDRESS_MODE eW)
+bool ResourceManager::CreateSampler(const string & KeyName, D3D11_FILTER eFilter, D3D11_TEXTURE_ADDRESS_MODE eU, D3D11_TEXTURE_ADDRESS_MODE eV, D3D11_TEXTURE_ADDRESS_MODE eW)
 {
 	Sampler* newSampler = FindSampler(KeyName);
 
@@ -210,9 +210,9 @@ bool JEONG::ResourceManager::CreateSampler(const string & KeyName, D3D11_FILTER 
 	return true;
 }
 
-JEONG::Mesh* JEONG::ResourceManager::FindMesh(const string & TagName)
+Mesh* ResourceManager::FindMesh(const string & TagName)
 {
-	unordered_map<string, JEONG::Mesh*>::iterator FindIter = m_MeshMap.find(TagName);
+	unordered_map<string, Mesh*>::iterator FindIter = m_MeshMap.find(TagName);
 
 	if (FindIter == m_MeshMap.end())
 		return NULLPTR;
@@ -222,9 +222,9 @@ JEONG::Mesh* JEONG::ResourceManager::FindMesh(const string & TagName)
 	return FindIter->second;
 }
 
-Texture * JEONG::ResourceManager::FindTexture(const string & KeyName)
+Texture * ResourceManager::FindTexture(const string & KeyName)
 {
-	unordered_map<string, JEONG::Texture*>::iterator FindIter = m_TextureMap.find(KeyName);
+	unordered_map<string, Texture*>::iterator FindIter = m_TextureMap.find(KeyName);
 
 	if (FindIter == m_TextureMap.end())
 		return NULLPTR;
@@ -234,9 +234,9 @@ Texture * JEONG::ResourceManager::FindTexture(const string & KeyName)
 	return FindIter->second;
 }
 
-Sampler * JEONG::ResourceManager::FindSampler(const string & KeyName)
+Sampler * ResourceManager::FindSampler(const string & KeyName)
 {
-	unordered_map<string, JEONG::Sampler*>::iterator FindIter = m_SamplerMap.find(KeyName);
+	unordered_map<string, Sampler*>::iterator FindIter = m_SamplerMap.find(KeyName);
 
 	if (FindIter == m_SamplerMap.end())
 		return NULLPTR;

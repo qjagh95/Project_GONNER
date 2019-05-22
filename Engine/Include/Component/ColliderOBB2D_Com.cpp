@@ -118,7 +118,7 @@ void ColliderOBB2D_Com::Render(float DeltaTime)
 	if (m_CollisionGroupName != "UI")
 		matView = m_Scene->GetMainCamera()->GetViewMatrix();
 
-	JEONG::Camera_Com* getCamera = m_Scene->GetMainCamera();
+	Camera_Com* getCamera = m_Scene->GetMainCamera();
 	TransformCBuffer TransCBuffer = {};
 
 	TransCBuffer.World = matScale * matRot * matPos;
@@ -136,7 +136,7 @@ void ColliderOBB2D_Com::Render(float DeltaTime)
 	TransCBuffer.WV.Transpose();
 	TransCBuffer.WVP.Transpose();
 
-	JEONG::ShaderManager::Get()->UpdateCBuffer("Transform", &TransCBuffer);
+	ShaderManager::Get()->UpdateCBuffer("Transform", &TransCBuffer);
 
 	Collider_Com::Render(DeltaTime);
 #endif // _DEBUG
