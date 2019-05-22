@@ -16,10 +16,10 @@
 #include "Scene/SceneManager.h"
 
 JEONG_USING
-SINGLETON_VAR_INIT(JEONG::KeyInput)
+SINGLETON_VAR_INIT(KeyInput)
 bool KeyInput::m_isMosueShow = false;
 
-JEONG::KeyInput::KeyInput()
+KeyInput::KeyInput()
 {
 	m_NewKey = NULLPTR;
 	m_MouseScreenPos = Vector2::Zero;	
@@ -34,7 +34,7 @@ JEONG::KeyInput::KeyInput()
 	m_CameraPos = Vector3::Zero;
 }
 
-JEONG::KeyInput::~KeyInput()
+KeyInput::~KeyInput()
 {
 	SAFE_RELEASE(m_MouseWindowPoint);
 	SAFE_RELEASE(m_MouseWorldPoint);
@@ -43,7 +43,7 @@ JEONG::KeyInput::~KeyInput()
 	Safe_Delete_Map(m_KeyMap);
 }
 
-bool JEONG::KeyInput::Init()
+bool KeyInput::Init()
 {
 	AddKey("MoveLeft", VK_LEFT);
 	AddKey("MoveRight", VK_RIGHT);
@@ -54,7 +54,7 @@ bool JEONG::KeyInput::Init()
 	AddKey("RButton", VK_RBUTTON);
 	AddKey("MButton", VK_MBUTTON);
 
-	m_MouseObject = JEONG::GameObject::CreateObject("MouseObject");
+	m_MouseObject = GameObject::CreateObject("MouseObject");
 	m_MouseObject->GetTransform()->SetWorldScale(Vector3(31.0f, 32.0f, 0.0f));
 	m_MouseObject->GetTransform()->SetWorldPivot(Vector3(0.0f, 1.0f, 0.0f));
 
