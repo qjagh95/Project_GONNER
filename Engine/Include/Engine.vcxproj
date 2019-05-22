@@ -86,7 +86,7 @@
     <OutDir>../Bin\</OutDir>
     <IntDir>../BinObj\</IntDir>
     <TargetName>$(ProjectName)64_Debug</TargetName>
-    <IncludePath>../../DX11_Engine/Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../Include\;../../Mathlib/Include\;</IncludePath>
     <LibraryPath>../Bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,7 +101,7 @@
     <OutDir>../Bin\</OutDir>
     <IntDir>../BinObj\</IntDir>
     <TargetName>$(ProjectName)64</TargetName>
-    <IncludePath>../../DX11_Engine/Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);../Include\;../../Mathlib/Include\;</IncludePath>
     <LibraryPath>../Bin;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -189,7 +189,6 @@
     <ClInclude Include="BineryWriter.h" />
     <ClInclude Include="CollsionManager.h" />
     <ClInclude Include="Component\Animation2D_Com.h" />
-    <ClInclude Include="Component\AtlasOneImage_Com.h" />
     <ClInclude Include="Component\BackColor_Com.h" />
     <ClInclude Include="Component\Bar_Com.h" />
     <ClInclude Include="Component\FreeCamera_Com.h" />
@@ -227,6 +226,7 @@
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="Macro.h" />
+    <ClInclude Include="ObjectManager.h" />
     <ClInclude Include="PathManager.h" />
     <ClInclude Include="Ready.h" />
     <ClInclude Include="RefCount.h" />
@@ -249,7 +249,6 @@
     <ClInclude Include="SlotManager.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="StageManager.h" />
-    <ClInclude Include="StaticManager.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Timer.h" />
@@ -285,7 +284,6 @@
     <ClCompile Include="BineryWriter.cpp" />
     <ClCompile Include="CollsionManager.cpp" />
     <ClCompile Include="Component\Animation2D_Com.cpp" />
-    <ClCompile Include="Component\AtlasOneImage_Com.cpp" />
     <ClCompile Include="Component\BackColor_Com.cpp" />
     <ClCompile Include="Component\Bar_Com.cpp" />
     <ClCompile Include="Component\FreeCamera_Com.cpp" />
@@ -322,6 +320,7 @@
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="KeyInput.cpp" />
+    <ClCompile Include="ObjectManager.cpp" />
     <ClCompile Include="PathManager.cpp" />
     <ClCompile Include="Ready.cpp" />
     <ClCompile Include="RefCount.cpp" />
@@ -343,7 +342,6 @@
     <ClCompile Include="SlotManager.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="StageManager.cpp" />
-    <ClCompile Include="StaticManager.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

@@ -41,8 +41,8 @@ public:
 	bool CheckComponentType(COMPONENT_TYPE eType);
 
 	/////////////////////////////////////프로토타입함수(Clone)/////////////////////////////////////
-	static GameObject* CreateProtoType(const string& TagName, bool isCurrent = true);
-	static GameObject* CreateClone(const string& TagName, Layer* layer = NULLPTR, bool isCurrent = true);
+	static GameObject* CreateProtoType(const string& TagName);
+	static GameObject* CreateClone(const string& TagName, Layer* layer = NULLPTR);
 	static void DestroyProtoType(const string& TagName);
 	static void DestroyProtoType();
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -130,11 +130,13 @@ public:
 	void AddChild(GameObject* child, Scene* scene);
 	void AddChild(GameObject* child, Scene* scene, Layer* layer);
 
-	void AddStaticObject();
 	bool EmptyComponent() { return m_ComponentList.empty(); }
 
 	void Save(BineryWrite& Writer);
 	void Load(BineryRead& Reader);
+
+private:
+	void IamNotDestroy();
 
 private:
 	list<Component_Base*> m_ComponentList;

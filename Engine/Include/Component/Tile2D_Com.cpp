@@ -436,7 +436,7 @@ void JEONG::Tile2D_Com::SetSubTileImage(const string& FileName, size_t ImageCoun
 			case 180:
 			{
 				int RandomPosX = RandomRange(0, (int)TileScale.x);
-				int RandomPosY = RandomRange(TileScale.y, (int)TileScale.y * 2.0f);
+				int RandomPosY = RandomRange((int)TileScale.y, (int)TileScale.y * 2);
 
 				newImageObject->GetTransform()->SetWorldRotZ(180.0f + RandomAngle);
 				newImageObject->GetTransform()->SetWorldPos(TilePos.x + RandomPosX, TilePos.y + RandomPosY, 0.0f);

@@ -12,6 +12,10 @@ SceneComponent::~SceneComponent()
 {
 }
 
+void SceneComponent::AfterInit()
+{
+}
+
 int SceneComponent::Input(float DeltaTime)
 {
 	return 0;

@@ -13,25 +13,24 @@
 
 JEONG_USING
 
-JEONG::Scene::Scene()
+Scene::Scene()
 {
 }
 
-JEONG::Scene::~Scene()
+Scene::~Scene()
 {
-	JEONG::GameObject::DestroyProtoType();
+	GameObject::DestroyProtoType();
 
 	Safe_Release_Map(m_CameraMap);
 	Safe_Release_VecList(m_LayerList);
-	Safe_Release_VecList(m_SceneComponentList);
-
+	SAFE_RELEASE(m_SceneComponent);
 	SAFE_RELEASE(m_MainCamera);
 	SAFE_RELEASE(m_MainCameraObject);
 	SAFE_RELEASE(m_UICamera);
 	SAFE_RELEASE(m_UICameraObject);
 }
 
-bool JEONG::Scene::Init()
+bool Scene::Init()
 {
 	AddLayer("BackGround", INT_MIN);
 	AddLayer("Tile", 0);
@@ -43,11 +42,11 @@ bool JEONG::Scene::Init()
 
 	m_MainCameraObject = CreateCamera("MainCamera", Vector3(0.0f, 0.0f, -5.0f), CT_ORTHO, (float)Device::Get()->GetWinSize().Width, (float)Device::Get()->GetWinSize().Height, 60.0f, 0.03f, 1000.0f);
 	m_MainCameraTransform = m_MainCameraObject->GetTransform();
-	m_MainCamera = m_MainCameraObject->FindComponentFromType<JEONG::Camera_Com>(CT_CAMERA);
+	m_MainCamera = m_MainCameraObject->FindComponentFromType<Camera_Com>(CT_CAMERA);
 
 	m_UICameraObject = CreateCamera("UICamera", Vector3(0.0f, 0.0f, 0.0f), CT_ORTHO, (float)Device::Get()->GetWinSize().Width, (float)Device::Get()->GetWinSize().Height, 60.0f, 0.0f, 1000.0f);
 	m_UICameraTransform = m_UICameraObject->GetTransform();
-	m_UICamera = m_UICameraObject->FindComponentFromType<JEONG::Camera_Com>(CT_CAMERA);
+	m_UICamera = m_UICameraObject->FindComponentFromType<Camera_Com>(CT_CAMERA);
 
 	//CreateCamera함수안에서 카메라 컴포넌트 생성 후 AddComponent
 
@@ -58,31 +57,12 @@ bool JEONG::Scene::Init()
 	return true;
 }
 
-int JEONG::Scene::Input(float DeltaTime)
+int Scene::Input(float DeltaTime)
 {
-	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
-	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
+	m_SceneComponent->Input(DeltaTime);
 
-	for (; StartIter != EndIter ; )
-	{
-		if ((*StartIter)->GetIsActive() == false)
-		{
-			SAFE_RELEASE((*StartIter));
-			StartIter = m_SceneComponentList.erase(StartIter);
-			continue;
-		}
-		else if ((*StartIter)->GetIsShow() == false)
-		{
-			StartIter++;
-			continue;
-		}
-
-		(*StartIter)->Input(DeltaTime);
-		StartIter++;
-	}
-
-	list<JEONG::Layer*>::iterator StartIter1 = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter1 = m_LayerList.end();
+	list<Layer*>::iterator StartIter1 = m_LayerList.begin();
+	list<Layer*>::iterator EndIter1 = m_LayerList.end();
 
 	for (; StartIter1 != EndIter1; )
 	{
@@ -107,31 +87,12 @@ int JEONG::Scene::Input(float DeltaTime)
 	return 0;
 }
 
-int JEONG::Scene::Update(float DeltaTime)
+int Scene::Update(float DeltaTime)
 {
-	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
-	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
+	m_SceneComponent->Update(DeltaTime);
 
-	for (; StartIter != EndIter; )
-	{
-		if ((*StartIter)->GetIsActive() == false)
-		{
-			SAFE_RELEASE((*StartIter));
-			StartIter = m_SceneComponentList.erase(StartIter);
-			continue;
-		}
-		else if ((*StartIter)->GetIsShow() == false)
-		{
-			StartIter++;
-			continue;
-		}
-
-		(*StartIter)->Update(DeltaTime);
-		StartIter++;
-	}
-
-	list<JEONG::Layer*>::iterator StartIter1 = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter1 = m_LayerList.end();
+	list<Layer*>::iterator StartIter1 = m_LayerList.begin();
+	list<Layer*>::iterator EndIter1 = m_LayerList.end();
 
 	for (; StartIter1 != EndIter1; )
 	{
@@ -154,31 +115,12 @@ int JEONG::Scene::Update(float DeltaTime)
 	return 0;
 }
 
-int JEONG::Scene::LateUpdate(float DeltaTime)
+int Scene::LateUpdate(float DeltaTime)
 {
-	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
-	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
+	m_SceneComponent->LateUpdate(DeltaTime);
 
-	for (; StartIter != EndIter; )
-	{
-		if ((*StartIter)->GetIsActive() == false)
-		{
-			SAFE_RELEASE((*StartIter));
-			StartIter = m_SceneComponentList.erase(StartIter);
-			continue;
-		}
-		else if ((*StartIter)->GetIsShow() == false)
-		{
-			StartIter++;
-			continue;
-		}
-
-		(*StartIter)->LateUpdate(DeltaTime);
-		StartIter++;
-	}
-
-	list<JEONG::Layer*>::iterator StartIter1 = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter1 = m_LayerList.end();
+	list<Layer*>::iterator StartIter1 = m_LayerList.begin();
+	list<Layer*>::iterator EndIter1 = m_LayerList.end();
 
 	for (; StartIter1 != EndIter1; )
 	{
@@ -201,31 +143,12 @@ int JEONG::Scene::LateUpdate(float DeltaTime)
 	return 0;
 }
 
-void JEONG::Scene::Collision(float DeltaTime)
+void Scene::Collision(float DeltaTime)
 {
-	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
-	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
+	m_SceneComponent->Collision(DeltaTime);
 
-	for (; StartIter != EndIter; )
-	{
-		if ((*StartIter)->GetIsActive() == false)
-		{
-			SAFE_RELEASE((*StartIter));
-			StartIter = m_SceneComponentList.erase(StartIter);
-			continue;
-		}
-		else if ((*StartIter)->GetIsShow() == false)
-		{
-			StartIter++;
-			continue;
-		}
-
-		(*StartIter)->Collision(DeltaTime);
-		StartIter++;
-	}
-
-	list<JEONG::Layer*>::iterator StartIter1 = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter1 = m_LayerList.end();
+	list<Layer*>::iterator StartIter1 = m_LayerList.begin();
+	list<Layer*>::iterator EndIter1 = m_LayerList.end();
 
 	for (; StartIter1 != EndIter1; )
 	{
@@ -249,30 +172,12 @@ void JEONG::Scene::Collision(float DeltaTime)
 	CollsionManager::Get()->Collsion(DeltaTime);
 }
 
-void JEONG::Scene::CollisionLateUpdate(float DeltaTime)
+void Scene::CollisionLateUpdate(float DeltaTime)
 {
-	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
-	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
+	m_SceneComponent->CollisionLateUpdate(DeltaTime);
 
-	for (; StartIter != EndIter; )
-	{
-		if ((*StartIter)->GetIsActive() == false)
-		{
-			SAFE_RELEASE((*StartIter));
-			StartIter = m_SceneComponentList.erase(StartIter);
-			continue;
-		}
-		else if ((*StartIter)->GetIsShow() == false)
-		{
-			StartIter++;
-			continue;
-		}
-		(*StartIter)->CollisionLateUpdate(DeltaTime);
-		StartIter++;
-	}
-
-	list<JEONG::Layer*>::iterator StartIter1 = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter1 = m_LayerList.end();
+	list<Layer*>::iterator StartIter1 = m_LayerList.begin();
+	list<Layer*>::iterator EndIter1 = m_LayerList.end();
 
 	for (; StartIter1 != EndIter1; )
 	{
@@ -293,33 +198,15 @@ void JEONG::Scene::CollisionLateUpdate(float DeltaTime)
 	}
 }
 
-void JEONG::Scene::Render(float DeltaTime)
+void Scene::Render(float DeltaTime)
 {
+	m_SceneComponent->CollisionLateUpdate(DeltaTime);
+
 	if (m_WaveCBuffer.LiveTime > 0.0f)
 		UpdateWaveCBuffer(DeltaTime);
 
-	list<JEONG::SceneComponent*>::iterator StartIter = m_SceneComponentList.begin();
-	list<JEONG::SceneComponent*>::iterator EndIter = m_SceneComponentList.end();
-
-	for (; StartIter != EndIter; )
-	{
-		if ((*StartIter)->GetIsActive() == false)
-		{
-			SAFE_RELEASE((*StartIter));
-			StartIter = m_SceneComponentList.erase(StartIter);
-			continue;
-		}
-		else if ((*StartIter)->GetIsShow() == false)
-		{
-			StartIter++;
-			continue;
-		}
-		(*StartIter)->Render(DeltaTime);
-		StartIter++;
-	}
-
-	list<JEONG::Layer*>::iterator StartIter1 = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter1 = m_LayerList.end();
+	list<Layer*>::iterator StartIter1 = m_LayerList.begin();
+	list<Layer*>::iterator EndIter1 = m_LayerList.end();
 
 	for (; StartIter1 != EndIter1; )
 	{
@@ -339,9 +226,9 @@ void JEONG::Scene::Render(float DeltaTime)
 	}
 }
 
-void JEONG::Scene::AddLayer(const string & TagName, int ZOrder)
+void Scene::AddLayer(const string & TagName, int ZOrder)
 {
-	JEONG::Layer* newLayer = new JEONG::Layer();
+	Layer* newLayer = new Layer();
 	newLayer->m_Scene = this;
 	newLayer->SetTag(TagName);
 
@@ -356,10 +243,10 @@ void JEONG::Scene::AddLayer(const string & TagName, int ZOrder)
 	SortLayer();
 }
 
-void JEONG::Scene::ChangeLayerZOrder(const string & TagName, int ZOrder)
+void Scene::ChangeLayerZOrder(const string & TagName, int ZOrder)
 {
-	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+	list<Layer*>::iterator StartIter = m_LayerList.begin();
+	list<Layer*>::iterator EndIter = m_LayerList.end();
 
 	for (; StartIter != EndIter; StartIter++)
 	{
@@ -371,15 +258,15 @@ void JEONG::Scene::ChangeLayerZOrder(const string & TagName, int ZOrder)
 	}
 }
 
-void JEONG::Scene::SortLayer()
+void Scene::SortLayer()
 {
 	m_LayerList.sort(Scene::SortLayerFunc);
 }
 
-void JEONG::Scene::SetEnableLayer(const string & TagName, bool isShow)
+void Scene::SetEnableLayer(const string & TagName, bool isShow)
 {
-	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+	list<Layer*>::iterator StartIter = m_LayerList.begin();
+	list<Layer*>::iterator EndIter = m_LayerList.end();
 
 	for (; StartIter != EndIter ; StartIter++)
 	{
@@ -391,10 +278,10 @@ void JEONG::Scene::SetEnableLayer(const string & TagName, bool isShow)
 	}
 }
 
-void JEONG::Scene::SetLayerDie(const string & TagName, bool isActive)
+void Scene::SetLayerDie(const string & TagName, bool isActive)
 {
-	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+	list<Layer*>::iterator StartIter = m_LayerList.begin();
+	list<Layer*>::iterator EndIter = m_LayerList.end();
 
 	for (; StartIter != EndIter; StartIter++)
 	{
@@ -403,10 +290,10 @@ void JEONG::Scene::SetLayerDie(const string & TagName, bool isActive)
 	}
 }
 
-JEONG::Layer * JEONG::Scene::FindLayer(const string & TagName)
+Layer * Scene::FindLayer(const string & TagName)
 {
-	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+	list<Layer*>::iterator StartIter = m_LayerList.begin();
+	list<Layer*>::iterator EndIter = m_LayerList.end();
 
 	for (; StartIter != EndIter; StartIter++)
 	{
@@ -419,10 +306,10 @@ JEONG::Layer * JEONG::Scene::FindLayer(const string & TagName)
 	return NULLPTR;
 }
 
-JEONG::Layer * JEONG::Scene::FindLayerNoneCount(const string & TagName)
+Layer * Scene::FindLayerNoneCount(const string & TagName)
 {
-	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+	list<Layer*>::iterator StartIter = m_LayerList.begin();
+	list<Layer*>::iterator EndIter = m_LayerList.end();
 
 	for (; StartIter != EndIter; StartIter++)
 	{
@@ -434,19 +321,19 @@ JEONG::Layer * JEONG::Scene::FindLayerNoneCount(const string & TagName)
 	return NULLPTR;
 }
 
-bool JEONG::Scene::SortLayerFunc(const JEONG::Layer * Src, const JEONG::Layer * Dest)
+bool Scene::SortLayerFunc(const Layer * Src, const Layer * Dest)
 {
 	return Src->GetZOrder() < Dest->GetZOrder();
 }
 
-JEONG::GameObject * JEONG::Scene::FindObject(const string & TagName)
+GameObject * Scene::FindObject(const string & TagName)
 {
-	list<JEONG::Layer*>::iterator StartIter = m_LayerList.begin();
-	list<JEONG::Layer*>::iterator EndIter = m_LayerList.end();
+	list<Layer*>::iterator StartIter = m_LayerList.begin();
+	list<Layer*>::iterator EndIter = m_LayerList.end();
 
 	for (; StartIter != EndIter; StartIter++)
 	{
-		JEONG::GameObject* getObject = (*StartIter)->FindObject(TagName);
+		GameObject* getObject = (*StartIter)->FindObject(TagName);
 
 		if(getObject != NULLPTR)
 			return getObject;
@@ -454,14 +341,14 @@ JEONG::GameObject * JEONG::Scene::FindObject(const string & TagName)
 	return NULLPTR;
 }
 
-JEONG::GameObject * JEONG::Scene::CreateCamera(const string & TagName, const Vector3 & Pos, CAMERA_TYPE eType, float Width, float Height, float ViewAngle, float Near, float Far)
+GameObject * Scene::CreateCamera(const string & TagName, const Vector3 & Pos, CAMERA_TYPE eType, float Width, float Height, float ViewAngle, float Near, float Far)
 {
-	JEONG::GameObject* newCameraObject = FindCamera(TagName);
+	GameObject* newCameraObject = FindCamera(TagName);
 
 	if (newCameraObject != NULLPTR)
 		return newCameraObject;
 
-	newCameraObject = JEONG::GameObject::CreateObject(TagName);
+	newCameraObject = GameObject::CreateObject(TagName);
 	newCameraObject->GetTransform()->SetWorldPos(Pos);
 
 	Camera_Com* newCameraCom = newCameraObject->AddComponent<Camera_Com>(TagName);
@@ -475,9 +362,9 @@ JEONG::GameObject * JEONG::Scene::CreateCamera(const string & TagName, const Vec
 	return newCameraObject;
 }
 
-void JEONG::Scene::ChangeCamera(const string & TagName)
+void Scene::ChangeCamera(const string & TagName)
 {
-	JEONG::GameObject* getCamera = FindCamera(TagName);
+	GameObject* getCamera = FindCamera(TagName);
 
 	if (getCamera == NULLPTR)
 		return;
@@ -488,12 +375,12 @@ void JEONG::Scene::ChangeCamera(const string & TagName)
 
 	m_MainCameraObject = getCamera;
 	m_MainCameraTransform = getCamera->GetTransform();
-	m_MainCamera = getCamera->FindComponentFromType<JEONG::Camera_Com>(CT_CAMERA);
+	m_MainCamera = getCamera->FindComponentFromType<Camera_Com>(CT_CAMERA);
 }
 
-JEONG::GameObject * JEONG::Scene::FindCamera(const string & TagName)
+GameObject * Scene::FindCamera(const string & TagName)
 {
-	unordered_map<string, JEONG::GameObject*>::iterator FindIter = m_CameraMap.find(TagName);
+	unordered_map<string, GameObject*>::iterator FindIter = m_CameraMap.find(TagName);
 
 	if (FindIter == m_CameraMap.end())
 		return NULLPTR;
@@ -501,7 +388,7 @@ JEONG::GameObject * JEONG::Scene::FindCamera(const string & TagName)
 	return FindIter->second;
 }
 
-void JEONG::Scene::CreateWave(const Vector3 & Pos, float LiveTime, float Range)
+void Scene::CreateWave(const Vector3 & Pos, float LiveTime, float Range)
 {
 	Vector3 pScreenPos;
 	Vector3 cPos = m_MainCameraTransform->GetWorldPos();
@@ -513,7 +400,7 @@ void JEONG::Scene::CreateWave(const Vector3 & Pos, float LiveTime, float Range)
 	m_WaveCBuffer.Range = Range;
 }
 
-void JEONG::Scene::UpdateWaveCBuffer(float DeltaTime)
+void Scene::UpdateWaveCBuffer(float DeltaTime)
 {
 	m_WaveCBuffer.LiveTime -= DeltaTime;
 	m_WaveCBuffer.Range -= DeltaTime / 3.0f;
@@ -522,4 +409,9 @@ void JEONG::Scene::UpdateWaveCBuffer(float DeltaTime)
 
 	if (m_WaveCBuffer.LiveTime <= 0.0f)
 		m_WaveCBuffer.LiveTime = 0.0f;
+}
+
+void Scene::AfterInit()
+{
+	m_SceneComponent->AfterInit();
 }

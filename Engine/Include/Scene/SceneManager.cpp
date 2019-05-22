@@ -1,148 +1,162 @@
 #include "stdafx.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "ObjectManager.h"
 
 #include "../KeyInput.h"
 
 JEONG_USING
-SINGLETON_VAR_INIT(JEONG::SceneManager)
+SINGLETON_VAR_INIT(SceneManager)
 
-JEONG::SceneManager::SceneManager()
-	:m_CurScene(NULLPTR), m_NextScene(NULLPTR), m_isChange(false)
+SceneManager::SceneManager()
+	:m_CurScene(NULLPTR), m_isChange(false)
 {
+	m_isStart = false;
 }
 
-JEONG::SceneManager::~SceneManager()
+SceneManager::~SceneManager()
 {
-	SAFE_RELEASE(m_CurScene);
-	SAFE_RELEASE(m_NextScene);
+	Safe_Delete_VecList(m_vecTemp);
 }
 
-bool JEONG::SceneManager::Init()
+bool SceneManager::Init()
 {
-	m_CurScene = new JEONG::Scene();
-
-	if (m_CurScene->Init() == false)
-		return false;
-
-	JEONG::KeyInput::Get()->ChangeMouseScene(m_CurScene);
-
 	return true;
 }
 
-int JEONG::SceneManager::Input(float DeltaTime)
+int SceneManager::Input(float DeltaTime)
 {
 	m_CurScene->Input(DeltaTime);
-	return ChangeScene();
+	return 0;
 }
 
-int JEONG::SceneManager::Update(float DeltaTime)
+int SceneManager::Update(float DeltaTime)
 {
 	m_CurScene->Update(DeltaTime);
-	return ChangeScene();
+	return 0;
 }
 
-int JEONG::SceneManager::LateUpdate(float DeltaTime)
+int SceneManager::LateUpdate(float DeltaTime)
 {
 	m_CurScene->LateUpdate(DeltaTime);
-	return ChangeScene();
+	return 0;
 }
 
-int JEONG::SceneManager::Collision(float DeltaTime)
+int SceneManager::Collision(float DeltaTime)
 {
 	m_CurScene->Collision(DeltaTime);
-	return ChangeScene();
+	return 0;
 }
 
-int JEONG::SceneManager::CollsionLateUpdate(float DeltaTime)
+int SceneManager::CollsionLateUpdate(float DeltaTime)
 {
 	m_CurScene->CollisionLateUpdate(DeltaTime);
-	return ChangeScene();
+	return 0;
 }
 
-void JEONG::SceneManager::Render(float DeltaTime)
+void SceneManager::Render(float DeltaTime)
 {
 	m_CurScene->Render(DeltaTime);
 }
 
-JEONG::Scene * JEONG::SceneManager::GetCurScene() const
+Scene * SceneManager::GetCurScene() const
 {
 	m_CurScene->AddRefCount();
 
 	return m_CurScene;
 }
 
-JEONG::Scene * JEONG::SceneManager::GetNextScene() const
-{
-	m_NextScene->AddRefCount();
-
-	return m_NextScene;
-}
-
-void JEONG::SceneManager::AddLayer(const string & TagName, int ZOrder, bool isCurrent)
+void SceneManager::AddLayer(const string & TagName, int ZOrder, bool isCurrent)
 {
 	if (isCurrent == true)
 		m_CurScene->AddLayer(TagName, ZOrder);
-	else
-		m_NextScene->AddLayer(TagName, ZOrder);
 }
 
-void JEONG::SceneManager::ChangeLayerZOrder(const string & TagName, int ZOrder, bool isCurrent)
+void SceneManager::ChangeLayerZOrder(const string & TagName, int ZOrder, bool isCurrent)
 {
 	if (isCurrent == true)
 		m_CurScene->ChangeLayerZOrder(TagName, ZOrder);
-	else
-		m_NextScene->ChangeLayerZOrder(TagName, ZOrder);
 }
 
-Layer * JEONG::SceneManager::FindLayer(const string & TagName, bool isCurrent)
+Layer * SceneManager::FindLayer(const string & TagName, bool isCurrent)
 {
 	if (isCurrent == true)
 		return m_CurScene->FindLayer(TagName);
-	else
-		return m_NextScene->FindLayer(TagName);
 }
 
-GameObject * JEONG::SceneManager::FindObject(const string & TagName)
+GameObject * SceneManager::FindObject(const string & TagName)
 {
-	GameObject* getObject = m_CurScene->FindObject(TagName);
-	
-	if (getObject != NULLPTR)
-		return getObject;
-	else if (getObject == NULLPTR)
-		return NULLPTR;
+	if (m_CurScene != NULLPTR)
+		return m_CurScene->FindObject(TagName);
 
-	return m_NextScene->FindObject(TagName);
+	return NULLPTR;
 }
 
-void JEONG::SceneManager::CreateNextScene(bool isChange)
+void SceneManager::ChangeScene(const string & KeyName)
 {
-	SAFE_RELEASE(m_NextScene);
+	Scene* getScene = FindScene(KeyName);
 
-	m_NextScene = new JEONG::Scene();
-	m_NextScene->Init();
-	m_isChange = isChange;
-}
-
-void JEONG::SceneManager::SetIsChange(bool isChange)
-{
-	m_isChange = isChange;
-}
-
-int JEONG::SceneManager::ChangeScene()
-{
-	if (m_NextScene != NULLPTR && m_isChange == true)
+	if (getScene == NULLPTR)
 	{
-		SAFE_RELEASE(m_CurScene);
-		m_CurScene = m_NextScene;
-		m_NextScene = NULLPTR;
-		m_isChange = false;
-
-		JEONG::NumberManager::Get()->SetScene(m_CurScene);
-		JEONG::KeyInput::Get()->ChangeMouseScene(m_CurScene);
-		JEONG::StaticManager::Get()->ChangeScene(m_CurScene);
-		return 1;
+		TrueAssert(true);
+		return;
 	}
 
-	return 0;
+	m_CurScene = getScene;
+
+	auto StartIter = ObjectManager::Get()->GetMap()->begin();
+	auto EndIter = ObjectManager::Get()->GetMap()->end();
+
+	for (; StartIter != EndIter; StartIter++)
+		StartIter->second->SetScene(m_CurScene);
+
+
+	m_isChange = true;
+}
+
+Scene * SceneManager::FindScene(const string & KeyName)
+{
+	auto FindIter = m_SceneMap.find(KeyName);
+
+	if (FindIter == m_SceneMap.end())
+		return NULLPTR;
+
+	return FindIter->second;
+}
+
+void SceneManager::SetIsChange(bool isChange)
+{
+	m_isChange = isChange;
+}
+
+void SceneManager::Access()
+{
+	for (size_t i = 0; i < m_vecTemp.size(); i++)
+	{
+		auto StartIter = m_vecTemp[i]->m_LayerList.begin();
+		auto EndIter = m_vecTemp[i]->m_LayerList.end();
+
+		for (; StartIter != EndIter; StartIter++)
+		{
+			auto StartIter1 = ObjectManager::Get()->GetMap()->begin();
+			auto EndIter1 = ObjectManager::Get()->GetMap()->end();
+
+			for (; StartIter1 != EndIter1; StartIter1++)
+			{
+				if (StartIter1->second->GetScene()->GetTag() == m_vecTemp[i]->GetTag())
+					continue;
+
+				if ((*StartIter)->GetTag() == StartIter1->second->GetLayer()->GetTag())
+					(*StartIter)->GetObjectList()->push_back(StartIter1->second);
+			}
+		}
+	}
+
+	AfterInit();
+}
+
+void SceneManager::AfterInit()
+{
+	for (size_t i = 0; i < m_vecTemp.size(); i++)
+		m_vecTemp[i]->AfterInit();
 }

@@ -199,9 +199,6 @@
     <Filter Include="Core\05. PathManager">
       <UniqueIdentifier>{48f6e9a7-548c-4725-8616-1a4015796c91}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\08. Object\Component\BaseComponent\13. StaticManager">
-      <UniqueIdentifier>{48427f01-addd-4388-abb1-a58a2053d75a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\09. Render\06. RenderTarget">
       <UniqueIdentifier>{3ab1ccf2-4ba5-4d07-80fd-d003e856cf09}</UniqueIdentifier>
     </Filter>
@@ -216,9 +213,6 @@
     </Filter>
     <Filter Include="Core\03. Header">
       <UniqueIdentifier>{642d290c-399b-4462-9eda-78d5c20537d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com">
-      <UniqueIdentifier>{07f17435-ce98-41ad-a82d-57f59ed0145b}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\00. Base">
       <UniqueIdentifier>{1a8c0607-87ad-4974-b685-ecca3ee3ed3d}</UniqueIdentifier>
@@ -273,6 +267,9 @@
     </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\04. EditorMonster\Base">
       <UniqueIdentifier>{abeb8323-7ac0-48ec-b878-02828a2e8873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\19. ObjectManager%28Don%27t Destroy%29">
+      <UniqueIdentifier>{c2d8f235-7944-46e9-a248-352a6c5859d3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -441,9 +438,6 @@
     <ClInclude Include="Component\Tile2D_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\12. Tile2D</Filter>
     </ClInclude>
-    <ClInclude Include="StaticManager.h">
-      <Filter>Core\08. Object\Component\BaseComponent\13. StaticManager</Filter>
-    </ClInclude>
     <ClInclude Include="Render\RenderTarget.h">
       <Filter>Core\09. Render\06. RenderTarget</Filter>
     </ClInclude>
@@ -470,9 +464,6 @@
     </ClInclude>
     <ClInclude Include="UserComponent\UserComponent_Base.h">
       <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
-    </ClInclude>
-    <ClInclude Include="Component\AtlasOneImage_Com.h">
-      <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
     </ClInclude>
     <ClInclude Include="Component\NButton_Com.h">
       <Filter>Core\08. Object\Component\BaseComponent\17. NButton</Filter>
@@ -557,6 +548,9 @@
     </ClInclude>
     <ClInclude Include="UserComponent\EditorMonster_Base.h">
       <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Core\19. ObjectManager%28Don%27t Destroy%29</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -718,9 +712,6 @@
     <ClCompile Include="Component\Tile2D_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\12. Tile2D</Filter>
     </ClCompile>
-    <ClCompile Include="StaticManager.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\13. StaticManager</Filter>
-    </ClCompile>
     <ClCompile Include="Render\RenderTarget.cpp">
       <Filter>Core\09. Render\06. RenderTarget</Filter>
     </ClCompile>
@@ -747,9 +738,6 @@
     </ClCompile>
     <ClCompile Include="UserComponent\UserComponent_Base.cpp">
       <Filter>Core\08. Object\Component\UserComponent\00. Base</Filter>
-    </ClCompile>
-    <ClCompile Include="Component\AtlasOneImage_Com.cpp">
-      <Filter>Core\08. Object\Component\BaseComponent\16. AtlasOneImage_Com</Filter>
     </ClCompile>
     <ClCompile Include="Component\NButton_Com.cpp">
       <Filter>Core\08. Object\Component\BaseComponent\17. NButton</Filter>
@@ -834,6 +822,9 @@
     </ClCompile>
     <ClCompile Include="UserComponent\EditorMonster_Base.cpp">
       <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Core\19. ObjectManager%28Don%27t Destroy%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

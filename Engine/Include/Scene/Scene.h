@@ -61,10 +61,11 @@ public:
 private:
 	class GameObject* FindCamera(const string& TagName);
 	void UpdateWaveCBuffer(float DeltaTime);
+	void AfterInit();
 
 private:
 	list<Layer*> m_LayerList;
-	list<SceneComponent*> m_SceneComponentList;
+	SceneComponent* m_SceneComponent;
 
 	unordered_map<string, GameObject*> m_CameraMap;
 	Camera_Com* m_MainCamera;
@@ -80,7 +81,9 @@ private:
 
 private:
 	Scene();
+public:
 	~Scene();
+
 
 public:
 	static bool SortLayerFunc(const Layer* Src, const Layer* Dest);

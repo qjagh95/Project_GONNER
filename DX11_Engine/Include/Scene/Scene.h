@@ -80,7 +80,9 @@ private:
 
 private:
 	Scene();
+public:
 	~Scene();
+
 
 public:
 	static bool SortLayerFunc(const Layer* Src, const Layer* Dest);

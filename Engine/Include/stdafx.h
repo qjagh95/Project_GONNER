@@ -19,16 +19,16 @@
 #include <process.h>
 
 ///Excel
-#include <enum.h>
-#include <IBookT.h>
-#include <IFontT.h>
-#include <IFormatT.h>
-#include <ISheetT.h>
-#include <setup.h>
-#include <libxl.h>
+#include "enum.h"
+#include "IBookT.h"
+#include "IFontT.h"
+#include "IFormatT.h"
+#include "ISheetT.h"
+#include "setup.h"
+#include "libxl.h"
 ///Excel
 
-#include "MathHeader.h"
+#include <MathHeader.h>
 #include <Vector2.h>
 #include <Vector3.h>
 #include <Vector4.h>
@@ -79,7 +79,6 @@ using namespace libxl;
 #include "SlotManager.h"
 #include "GameObject.h"
 #include "SoundManager.h"
-#include "StaticManager.h"
 #include "ExcelManager.h"
 #include "BineryWriter.h"
 #include "BineryReader.h"

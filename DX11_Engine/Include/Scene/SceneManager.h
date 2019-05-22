@@ -4,6 +4,7 @@ JEONG_BEGIN
 class Scene;
 class Layer;
 class GameObject;
+class SceneComponent;
 class JEONG_DLL SceneManager
 {
 public:
@@ -16,30 +17,65 @@ public:
 	void Render(float DeltaTime);
 
 	Scene* GetCurScene() const;
-	Scene* GetNextScene() const;
-	void CreateNextScene(bool isChange = true);
+	Scene* GetCurSceneNonCount() { return m_CurScene; }
 	void SetIsChange(bool isChange);
 	void AddLayer(const string& TagName, int ZOrder, bool isCurrent = true);
 	void ChangeLayerZOrder(const string& TagName, int ZOrder, bool isCurrent = true);
 	Layer* FindLayer(const string& TagName, bool isCurrent = true);
 	GameObject* FindObject(const string& TagName);
+	void ChangeScene(const string& KeyName);
+	const unordered_map<string, Scene*>* GetSceneMap() { return &m_SceneMap; }
+	Scene* FindScene(const string& KeyName);
 
-	template<typename T>
-	bool AddSceneComponent(const string& TagName, bool isCurrent = true)
+public:
+	template <typename T>
+	void AddScene(const string & SceneKeyName, const string& ComponentTag)
 	{
-		if (isCurrent == true)
-			return m_CurScene->AddSceneComponent<T>(TagName);
+		Scene* newScene = FindScene(SceneKeyName);
+
+		if (newScene != NULLPTR)
+			return;
+
+		newScene = new Scene();
+		m_SceneMap.insert(make_pair(SceneKeyName, newScene));
+		newScene->Init();
+		newScene->SetTag(SceneKeyName);
+		newScene->AddSceneComponent<T>(ComponentTag);
+
+		if (m_isStart == false)
+			m_CurScene = m_SceneMap.begin()->second;
+
+		m_isStart = true;
+
+		KeyInput::Get()->ChangeMouseScene(m_CurScene);
 		
-		return m_NextScene->AddSceneComponent<T>(TagName);
+		m_vecTemp.push_back(newScene);
 	}
 
 private:
-	int ChangeScene();
+	template <typename T>
+	bool AddSceneComponent(const string& SceneKeyName, const string& ComponentTag)
+	{
+		Scene* getScene = FindScene(SceneKeyName);
+
+		if (getScene == NULLPTR)
+		{
+			TrueAssert(true);
+			return false;
+		}
+
+		return getScene->AddSceneComponent<T>(ComponentTag);
+	}
+
+	void Access();
 
 private:
+	unordered_map<string, Scene*> m_SceneMap;
+	vector<Scene*> m_vecTemp;
 	Scene* m_CurScene;
-	Scene* m_NextScene;
+
 	bool m_isChange;
+	bool m_isStart;
 
 public:
 	CLASS_IN_SINGLE(SceneManager)

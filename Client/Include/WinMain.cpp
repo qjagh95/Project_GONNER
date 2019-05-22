@@ -6,9 +6,9 @@
 #include "Scene/Scene.h"
 
 #include "SceneMain/MainScene.h"
-#include "SceneMain/MenuScene.h"
 #include "SceneMain/LogoScene.h"
 #include "SceneMain/MenuScene.h"
+#include "SceneMain/SecondScene.h"
 
 JEONG_USING
 
@@ -26,9 +26,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hIstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	//MainScene추가
 #ifdef _DEBUG
-	SceneManager::Get()->AddSceneComponent<MenuScene>("MenuScene");
+	SceneManager::Get()->AddScene<MenuScene>("MenuScene", "MenuScene");
+	SceneManager::Get()->AddScene<MainScene>("Stage1", "Stage1");
+	SceneManager::Get()->AddScene<SecondScene>("Stage2", "Stage2");
+
 #else
-	SceneManager::Get()->AddSceneComponent<LogoScene>("LogoScene");
+	SceneManager::Get()->AddScene<LogoScene>("LogoScene", "LogoScene");
+	SceneManager::Get()->AddScene<MenuScene>("MenuScene", "MenuScene");
+	SceneManager::Get()->AddScene<MainScene>("Stage1", "Stage1");
+	SceneManager::Get()->AddScene<SecondScene>("Stage2", "Stage2");
 #endif
 	//Run에서 메세지 무한루프를(로직) 돈다.
 	//꺼지면 Delete, Result = 0

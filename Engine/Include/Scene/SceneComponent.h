@@ -7,6 +7,7 @@ class JEONG_DLL SceneComponent : public RefCount
 {
 public:
 	virtual bool Init() = 0;
+	virtual void AfterInit();
 	virtual int Input(float DeltaTime);
 	virtual int Update(float DeltaTime);
 	virtual int LateUpdate(float DeltaTime);
