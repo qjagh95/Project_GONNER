@@ -2,6 +2,8 @@
 #include "Transform_Com.h"
 #include "../GameObject.h"
 
+JEONG_USING
+
 Transform_Com::Transform_Com()
 {
 	m_ComType = CT_TRANSFORM;

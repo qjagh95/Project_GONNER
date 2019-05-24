@@ -67,6 +67,7 @@ bool HeartUI_Com::Init()
 	m_Animation->AddClip("HeartUI", A2D_ATLS, AO_LOOP, 0.4f, vecClipFrame, "HeartUI", L"Monster\\player.png");
 	vecClipFrame.clear();
 
+
 	m_Animation->ChangeClip("HeartUI");
 
 	return true;

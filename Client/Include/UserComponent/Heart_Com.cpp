@@ -66,8 +66,9 @@ bool Heart_Com::Init()
 
 	Layer* UILayer = m_Scene->FindLayer("UI");
 
-	m_HeartUIObject = GameObject::CreateObject("HeartUI", UILayer);
+	m_HeartUIObject = GameObject::CreateObject("HeartUI", UILayer, true);
 	m_HeartUI = m_HeartUIObject->AddComponent<HeartUI_Com>("HeartUI");
+	SceneManager::Get()->AfterAccess(m_HeartUIObject);
 
 	SAFE_RELEASE(UILayer);
 
@@ -97,13 +98,13 @@ int Heart_Com::LateUpdate(float DeltaTime)
 	{
 		case MD_LEFT:
 		{
-			m_Object->GetTransform()->SetWorldPos(m_TargetPos.x + 8.0f, m_TargetPos.y - 5.0f, 1.0f);
+			m_Object->GetTransform()->SetWorldPos(m_TargetPos.x - 8.0f, m_TargetPos.y - 5.0f, 1.0f);
 			m_Animation->SetDir(MD_LEFT);
 		}
 		break;
 		case MD_RIGHT:
 		{
-			m_Object->GetTransform()->SetWorldPos(m_TargetPos.x - 8.0f, m_TargetPos.y - 5.0f, 1.0f);
+			m_Object->GetTransform()->SetWorldPos(m_TargetPos.x + 8.0f, m_TargetPos.y - 5.0f, 1.0f);
 			m_Animation->SetDir(MD_RIGHT);
 		}
 		break;

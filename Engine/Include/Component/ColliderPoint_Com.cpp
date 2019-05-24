@@ -55,7 +55,7 @@ int ColliderPoint_Com::Update(float DeltaTime)
 
 int ColliderPoint_Com::LateUpdate(float DeltaTime)
 {
-	JEONG::Scene* curScene = SceneManager::Get()->GetCurScene();
+	Scene* curScene = SceneManager::Get()->GetCurScene();
 	Vector3 tempPos = m_Transform->GetWorldPos();
 	m_WorldInfo = tempPos + m_Virtual;
 

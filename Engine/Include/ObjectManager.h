@@ -8,7 +8,7 @@ public:
 	GameObject* FindDontDestroyObject(const string& TagName);
 	void PushDontDestoryObject(GameObject* _pObject);
 	bool RemoveDontDestroyObject(GameObject* _pObject);
-	unordered_map<string, GameObject*>* GetMap() { return &m_DontMap; }
+	unordered_map<string, GameObject*>* GetMap();
 
 private:
 	unordered_map<string, GameObject*> m_DontMap;

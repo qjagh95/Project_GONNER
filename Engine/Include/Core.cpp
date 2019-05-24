@@ -121,12 +121,6 @@ bool Core::Init(HINSTANCE hInst, HWND hWnd, unsigned int Width, unsigned int Hei
 		return false;
 	}
 
-	if (NumberManager::Get()->Init() == false)
-	{
-		TrueAssert(true);
-		return false;
-	}
-
 	if (CollsionManager::Get()->Init() == false)
 	{
 		TrueAssert(true);

@@ -6,6 +6,7 @@ JEONG_USING
 SceneComponent::SceneComponent()
 	:m_Scene(NULLPTR)
 {
+	m_isInsert = true;
 }
 
 SceneComponent::~SceneComponent()

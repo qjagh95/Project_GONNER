@@ -27,12 +27,13 @@ void Gonner_Com::GunItemHit(Collider_Com * Src, Collider_Com * Dest, float Delta
 		if (m_GunObject != NULLPTR || m_Gun != NULLPTR)
 			return;
 
- 		m_GunObject = GameObject::CreateObject("GunObject", m_AfterEffectLayer);
+ 		m_GunObject = GameObject::CreateObject("GunObject", m_AfterEffectLayer, true);
 		m_Gun = m_GunObject->AddComponent<Gun_Com>("Gun");
 		m_GunObject->GetTransform()->SetWorldRotZFromNoneAxis(-90.0f);
 		Gun_Com::m_isEquip = true;
 
 		SoundManager::Get()->FindSoundEffect("EatGun")->Play();
+		SceneManager::Get()->AfterAccess(m_GunObject);
 	}
 }
 void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
@@ -49,11 +50,12 @@ void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float Delta
 		
 		Layer* prevLayer = m_Scene->FindLayer("PrevEffectLayer");
 
-		m_HeartObject = GameObject::CreateObject("HeartObject", prevLayer);
+		m_HeartObject = GameObject::CreateObject("HeartObject", prevLayer, true);
 		m_Heart = m_HeartObject->AddComponent<Heart_Com>("Heart");
 
 		SAFE_RELEASE(prevLayer);
 		SoundManager::Get()->FindSoundEffect("ReloadBulletCreate")->Play();
+		SceneManager::Get()->AfterAccess(m_HeartObject);
 	}
 }
 
@@ -70,7 +72,7 @@ void Gonner_Com::ReloadBulletHit(Collider_Com* Src, Collider_Com* Dest, float De
 		int RandNum = RandomRange(8, 15);
 		for (int i = 0; i < RandNum; i++)
 		{
-			GameObject* newEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffectLayer);
+			GameObject* newEffect = GameObject::CreateObject("ReloadEffect", m_AfterEffectLayer, true);
 			BasicEffect_Com* BasicEffect = newEffect->AddComponent<BasicEffect_Com>("ReloadEffect");
 			BasicEffect->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
 			BasicEffect->SetRandomDirection(Vector4(1.0f, 1.0f, 0.0f, 0.3f));
@@ -95,11 +97,13 @@ void Gonner_Com::LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaT
 		if (m_SkullObject != NULLPTR || m_Skull != NULLPTR)
 			return;
 
-		m_SkullObject = GameObject::CreateObject("Life", m_AfterEffectLayer);
+		m_SkullObject = GameObject::CreateObject("Life", m_AfterEffectLayer, true);
 		m_Skull = m_SkullObject->AddComponent<Skull_Com>("Life");
 		
 		SoundManager::Get()->FindSoundEffect("LifeEat")->Play();
 		m_isSkullItem = true;
+
+		SceneManager::Get()->AfterAccess(m_SkullObject);
 	}
 }
 
@@ -115,11 +119,11 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 
 #ifdef _DEBUG
 #else
-		if (m_Skull == NULLPTR)
-		{
-			MessageBox(Core::Get()->GetHwnd(), TEXT("场"), TEXT("场"), MB_OK);
-			return;
-		}
+		//if (m_Skull == NULLPTR)
+		//{
+		//	MessageBox(Core::Get()->GetHwnd(), TEXT("场"), TEXT("场"), MB_OK);
+		//	return;
+		//}
 #endif
 		if (m_isJumpAttack == true)
 		{
@@ -135,7 +139,9 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 			}
 			else
 			{
-				GameObject* newHitEffect = GameObject::CreateObject("Hit", m_AfterEffectLayer);
+				Layer* getLayer = SceneManager::Get()->GetCurSceneNonCount()->FindLayerNoneCount("AfterEffect");
+
+				GameObject* newHitEffect = GameObject::CreateObject("Hit", getLayer);
 				HitEffect_Com* HitEffect = newHitEffect->AddComponent<HitEffect_Com>("Hit");
 				HitEffect->SetPos(Vector3(m_Pos.x, m_Pos.y + m_Scale.y * 0.5f, 1.0f), Vector4(Vector4(1.0f, 80.0f / 255.0f, 79.0f / 255.0f, 0.4f)));
 				SAFE_RELEASE(newHitEffect);
@@ -162,31 +168,22 @@ void Gonner_Com::MonsterHitFirst(Collider_Com* Src, Collider_Com* Dest, float De
 		}
 #ifdef _DEBUG
 #else
-		else if (CountManager::Get()->m_LifeCount == 0)
-			MessageBox(Core::Get()->GetHwnd(), TEXT("场"), TEXT("场"), MB_OK);
+		//else if (CountManager::Get()->m_LifeCount == 0)
+		//	MessageBox(Core::Get()->GetHwnd(), TEXT("场"), TEXT("场"), MB_OK);
 #endif
 	}
 }
 
 void Gonner_Com::MonsterHitDoing(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "MonsterBody")
-	{
-	}
+
 }
 void Gonner_Com::MonsterHitEnd(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "MonsterBody")
-	{
-	}
 }
 
 void Gonner_Com::SnakeHeadHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
 {
-	if (Dest->GetTag() == "SnakeHeadBody")
-	{
-
-	}
 }
 void Gonner_Com::SnakeHeadHitFirst(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
 {

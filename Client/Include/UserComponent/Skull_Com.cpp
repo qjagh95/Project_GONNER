@@ -65,11 +65,12 @@ bool Skull_Com::Init()
 
 	for (int i = 0; i < 5; i++)
 	{
-		GameObject* newLifeUI = GameObject::CreateObject("LifeUI", UILayer);
+		GameObject* newLifeUI = GameObject::CreateObject("LifeUI", UILayer, true);
 		LifeUI_Com* newLifeUICom = newLifeUI->AddComponent<LifeUI_Com>("LifeUI");
 		newLifeUICom->SetIndex(i);
 
 		m_vecLifeObject.push_back(newLifeUI);
+		SceneManager::Get()->AfterAccess(newLifeUI);
 		SAFE_RELEASE(newLifeUICom);
 	}
 
@@ -88,9 +89,9 @@ int Skull_Com::Update(float DeltaTime)
 	m_TargetPos = Gonner_Com::m_GonnerPos;
 
 	if (m_Animation->GetDir() == MD_LEFT)
-		m_Transform->SetWorldPos(m_TargetPos.x - 8.0f, m_TargetPos.y + 8.0f, 1.0f);
-	else
 		m_Transform->SetWorldPos(m_TargetPos.x + 8.0f, m_TargetPos.y + 8.0f, 1.0f);
+	else
+		m_Transform->SetWorldPos(m_TargetPos.x - 8.0f, m_TargetPos.y + 8.0f, 1.0f);
 
 	return 0;
 }

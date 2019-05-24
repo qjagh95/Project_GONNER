@@ -5,21 +5,23 @@
 
 #include "MenuScene.h"
 #include "SecondScene.h"
-#include "GameObject.h"
 
-#include "Scene/Scene.h"
-#include "scene/Layer.h"
+#include <GameObject.h>
+#include <ObjectManager.h>
 
-#include "Component/Component_Base.h"
-#include "Component/ColliderPixel_Com.h"
-#include "Component/Button_Com.h"
-#include "Component/UICon_Com.h"
-#include "Component/IconSlot_Com.h"
-#include "Component/Stage2D_Com.h"
-#include "Component/Tile2D_Com.h"
-#include "Component/CheckBox_Com.h"
-#include "Component/BackColor_Com.h"
-#include "Component/Gravity_Com.h"
+#include <Scene/Scene.h>
+#include <Scene/Layer.h>
+
+#include <Component/Component_Base.h>
+#include <Component/ColliderPixel_Com.h>
+#include <Component/Button_Com.h>
+#include <Component/UICon_Com.h>
+#include <Component/IconSlot_Com.h>
+#include <Component/Stage2D_Com.h>
+#include <Component/Tile2D_Com.h>
+#include <Component/CheckBox_Com.h>
+#include <Component/BackColor_Com.h>
+#include <Component/Gravity_Com.h>
 
 #include "UserComponent/Gonner_Com.h"
 #include "UserComponent/BubbleEffect_Com.h"
@@ -69,7 +71,7 @@ bool SecondScene::Init()
 	BineryRead Reader = BineryRead("TileInfo2.tInfo");
 
 	GameObject*	pStageObj = GameObject::CreateObject("StageObj", TileLayer);
-	Stage2D_Com* pStage = pStageObj->AddComponent<Stage2D_Com>("Stage");
+	Stage2D_Com* pStage = pStageObj->AddComponent<Stage2D_Com>("Stage2");
 	pStage->Load(Reader);
 
 #ifdef _DEBUG
@@ -78,43 +80,37 @@ bool SecondScene::Init()
 	pStage->SetLineOn(false);
 #endif
 
-	StageManager::Get()->SetStageName("SecondStage");
-	StageManager::Get()->InsertStage(pStage);
-
-	GameObject* getGonnerObject = StaticManager::Get()->FindStaticObject("Gonner");
-
 	GameObject* newFade = GameObject::CreateObject("Fade", FadeLayer);
 	Fade_Com* newFadeCom = newFade->AddComponent<Fade_Com>("Fade");
 	newFadeCom->SetFadeColor(Vector3(0.0f, 0.0f, 0.0f), FO_OUT);
 	newFadeCom->SetFadeSpeed(0.6f);
 	newFadeCom->Start();
 
-	GameObject* getGonner = StaticManager::Get()->FindStaticObject("Gonner");
+	GameObject* getGonner = ObjectManager::Get()->FindDontDestroyObject("Gonner");
 	getGonner->GetTransform()->SetWorldPos(Vector3(524.0f, 2000.0f, 1.0f));
 	Gonner_Com* getCom = getGonner->FindComponentFromTypeNoneCount<Gonner_Com>(CT_GONNER);
 	getCom->ChangeState(GS_IDLE, getCom->GetAniName(), getCom->GetAnimation());
-	getCom->SetStage(pStage);
 	mainCamera->SetTarget(getCom);
 
-	Load(Default, getGonnerObject);
+	Load(Default, getGonner);
 
-	GameObject* SnakeObject = GameObject::CreateObject("Head", AfterEffect);
-	SnakeHead_Com* SnakeHead = SnakeObject->AddComponent<SnakeHead_Com>("Head");
-	SnakeHead->GetTransform()->SetWorldPos(Vector3(5012.0f - 720.0f, 1888.0f - 720.0f, 1.0f));
-	SnakeHead_Com::m_isNext = false;
+	//GameObject* SnakeObject = GameObject::CreateObject("Head", AfterEffect);
+	//SnakeHead_Com* SnakeHead = SnakeObject->AddComponent<SnakeHead_Com>("Head");
+	//SnakeHead->GetTransform()->SetWorldPos(Vector3(5012.0f - 720.0f, 1888.0f - 720.0f, 1.0f));
+	//SnakeHead_Com::m_isNext = false;
 
-	for (size_t i = 0; i < 20; i++)
-	{
-		GameObject* SnakeObject = GameObject::CreateObject("Head", AfterEffect);
-		SnakeBody_Com* SnakeBody = SnakeObject->AddComponent<SnakeBody_Com>("Head");
-		SnakeBody->SetPosRange(Vector3(5012.0f, 1828.0f - (i + 1) * 70.0f, 1.0f), (i + 1) * 2.0f);
+	//for (size_t i = 0; i < 20; i++)
+	//{
+	//	GameObject* SnakeObject = GameObject::CreateObject("Head", AfterEffect);
+	//	SnakeBody_Com* SnakeBody = SnakeObject->AddComponent<SnakeBody_Com>("Head");
+	//	SnakeBody->SetPosRange(Vector3(5012.0f, 1828.0f - (i + 1) * 70.0f, 1.0f), (i + 1) * 2.0f);
 
-		SAFE_RELEASE(SnakeObject);
-		SAFE_RELEASE(SnakeBody);
-	}
+	//	SAFE_RELEASE(SnakeObject);
+	//	SAFE_RELEASE(SnakeBody);
+	//}
 
-	SAFE_RELEASE(SnakeObject);
-	SAFE_RELEASE(SnakeHead);
+	//SAFE_RELEASE(SnakeObject);
+	//SAFE_RELEASE(SnakeHead);
 	SAFE_RELEASE(newFade);
 	SAFE_RELEASE(newFadeCom);
 	SAFE_RELEASE(BackCom);

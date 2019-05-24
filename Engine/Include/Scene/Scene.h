@@ -26,6 +26,7 @@ public:
 	Layer* FindLayer(const string& TagName);
 	Layer* FindLayerNoneCount(const string& TagName);
 	GameObject* FindObject(const string& TagName);
+	list<Layer*>* GetLayerList() { return &m_LayerList; }
 
 	template<typename T>
 	bool AddSceneComponent(const string& TagName)
@@ -57,6 +58,7 @@ public:
 	Camera_Com* GetUICamera() const { return m_UICamera; }
 
 	void CreateWave(const Vector3& Pos, float LiveTime, float Range);
+	SceneComponent* GetSceneComponent() const { return m_SceneComponent; }
 
 private:
 	class GameObject* FindCamera(const string& TagName);
@@ -83,7 +85,6 @@ private:
 	Scene();
 public:
 	~Scene();
-
 
 public:
 	static bool SortLayerFunc(const Layer* Src, const Layer* Dest);

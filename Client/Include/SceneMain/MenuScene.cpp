@@ -30,6 +30,7 @@ MenuScene::MenuScene()
 {
 	m_FadeCom = NULLPTR;
 	SetTag("MenuScene");
+	m_isInsert = false;
 }
 
 MenuScene::~MenuScene()
@@ -216,7 +217,7 @@ void MenuScene::StartButtonActive(float DeltaTime)
 	m_FadeCom->Start();
 
 #ifdef _DEBUG
-	SceneManager::Get()->ChangeScene("MainScene");
+	SceneManager::Get()->ChangeScene("Stage1");
 #endif
 
 	SAFE_RELEASE(FadeLayer);

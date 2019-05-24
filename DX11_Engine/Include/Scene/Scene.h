@@ -26,6 +26,7 @@ public:
 	Layer* FindLayer(const string& TagName);
 	Layer* FindLayerNoneCount(const string& TagName);
 	GameObject* FindObject(const string& TagName);
+	list<Layer*>* GetLayerList() { return &m_LayerList; }
 
 	template<typename T>
 	bool AddSceneComponent(const string& TagName)
@@ -41,7 +42,7 @@ public:
 			return false;
 		}
 
-		m_SceneComponentList.push_back(newCom);
+		m_SceneComponent = newCom;
 		return true;
 	}
 
@@ -57,14 +58,16 @@ public:
 	Camera_Com* GetUICamera() const { return m_UICamera; }
 
 	void CreateWave(const Vector3& Pos, float LiveTime, float Range);
+	SceneComponent* GetSceneComponent() const { return m_SceneComponent; }
 
 private:
 	class GameObject* FindCamera(const string& TagName);
 	void UpdateWaveCBuffer(float DeltaTime);
+	void AfterInit();
 
 private:
 	list<Layer*> m_LayerList;
-	list<SceneComponent*> m_SceneComponentList;
+	SceneComponent* m_SceneComponent;
 
 	unordered_map<string, GameObject*> m_CameraMap;
 	Camera_Com* m_MainCamera;
@@ -82,7 +85,6 @@ private:
 	Scene();
 public:
 	~Scene();
-
 
 public:
 	static bool SortLayerFunc(const Layer* Src, const Layer* Dest);

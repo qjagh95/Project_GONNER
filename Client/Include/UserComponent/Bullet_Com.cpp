@@ -72,7 +72,6 @@ bool Bullet_Com::Init()
 	m_LightTimeVar = 0.0f;
 	m_LightTime = 0.2f;
 
-	m_Stage = StageManager::Get()->FindCurStage();
 	m_Animation->ChangeClip("Bullet");
 
 	m_BallonCount = RandomRange(1, 3);
@@ -88,6 +87,9 @@ int Bullet_Com::Input(float DeltaTime)
 
 int Bullet_Com::Update(float DeltaTime)
 {
+	if(m_Stage == NULLPTR)
+		m_Stage = StageManager::Get()->FindCurStage();
+
 	ColorLight(DeltaTime);
 
 	Vector3 leftPos = m_Transform->GetWorldPos();

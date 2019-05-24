@@ -42,8 +42,7 @@ int Gravity_Com::Input(float DeltaTime)
 
 int Gravity_Com::Update(float DeltaTime)
 {
-	if (m_Stage == NULLPTR)
-		m_Stage = StageManager::Get()->FindCurStage();
+	m_Stage = StageManager::Get()->FindCurStage();
 
 	m_DeltaTime = DeltaTime;
 

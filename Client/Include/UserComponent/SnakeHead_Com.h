@@ -20,6 +20,8 @@ public:
 
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
 	string* GetAniName() { return m_AniName; }
+	void SetNextStageTag(const string& KeyName) { m_NextStageTag = KeyName; }
+	void SetPlayerChangePos(const Vector3& Pos) { m_NextStagePos = Pos; }
 
 private:
 	void ChangeColor(float DeltaTime);
@@ -29,6 +31,8 @@ private:
 	Animation2D_Com* m_Animation;
 	string m_AniName[2];
 	Vector4 m_ChangeColor[3];
+	string m_NextStageTag;
+	Vector3 m_NextStagePos;
 
 	float m_ChangeTimeVar;
 	float m_ChangeTime;

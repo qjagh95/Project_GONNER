@@ -1,10 +1,13 @@
 #include "ClientHeader.h"
 #include "SnakeHead_Com.h"
+#include "Gonner_Com.h"
 
 #include "SceneMain/SecondScene.h"
 
 #include <Component/Animation2D_Com.h>
 #include <Component/ColliderRect_Com.h>
+
+#include <ObjectManager.h>
 
 int SnakeHead_Com::m_RandNum = 0;
 bool SnakeHead_Com::m_isNext = false;
@@ -111,9 +114,11 @@ int SnakeHead_Com::Update(float DeltaTime)
 
 		if (m_Animation->GetIsEnd() == true)
 		{
-			//¾ÀÀÌµ¿
-			SceneManager::Get()->CreateNextScene();
-			SceneManager::Get()->AddSceneComponent<SecondScene>("SecondScene", false);
+			GameObject* getGonner = ObjectManager::Get()->FindDontDestroyObject("Gonner");
+			getGonner->GetTransform()->SetWorldPos(m_NextStagePos);
+
+			SceneManager::Get()->ChangeScene(m_NextStageTag);
+			m_isNext = false;
 		}
 	}
 

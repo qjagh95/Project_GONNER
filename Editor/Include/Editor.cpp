@@ -91,7 +91,7 @@ BOOL EditorApp::InitInstance()
 	Core::Get()->Init(m_hInstance, abc->m_hWnd, 1920, 1080, true);
 	Core::Get()->SetGameMode(GM_2D);
 
-	SceneManager::Get()->AddSceneComponent<EditScene>("EditScene");
+	SceneManager::Get()->AddScene<EditScene>("EditScene", "EditScene");
 
 	Scene* CurScene = SceneManager::Get()->GetCurScene();
 	GameObject* mainCameraObject = CurScene->GetMainCameraObject();

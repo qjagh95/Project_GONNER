@@ -69,7 +69,7 @@ public:
 	static Vector3 m_GonnerPos;
 	static Vector3 m_GonnerScale;
 	static Vector3 m_GonnerScaleHalf;
-
+	
 	string* GetAniName() { return m_AniName; }
 	Animation2D_Com* GetAnimation() const { return m_Animation; }
 
@@ -87,7 +87,6 @@ private:
 	void ItemUpdate(float DeltaTime);
 
 	void OutItem();
-
 
 private:
 	Animation2D_Com* m_Animation;

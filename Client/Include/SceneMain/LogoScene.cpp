@@ -12,6 +12,7 @@ LogoScene::LogoScene()
 	m_NextTime = 8.0f;
 	m_NextTimeVar = 0.0f;
 	m_FadeCom = NULLPTR;
+	m_isInsert = false;
 }
 
 LogoScene::~LogoScene()

@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "ObjectManager.h"
+#include "SceneComponent.h"
 
 #include "../KeyInput.h"
 
@@ -66,22 +67,19 @@ Scene * SceneManager::GetCurScene() const
 	return m_CurScene;
 }
 
-void SceneManager::AddLayer(const string & TagName, int ZOrder, bool isCurrent)
+void SceneManager::AddLayer(const string & TagName, int ZOrder)
 {
-	if (isCurrent == true)
-		m_CurScene->AddLayer(TagName, ZOrder);
+	m_CurScene->AddLayer(TagName, ZOrder);
 }
 
-void SceneManager::ChangeLayerZOrder(const string & TagName, int ZOrder, bool isCurrent)
+void SceneManager::ChangeLayerZOrder(const string & TagName, int ZOrder)
 {
-	if (isCurrent == true)
-		m_CurScene->ChangeLayerZOrder(TagName, ZOrder);
+	m_CurScene->ChangeLayerZOrder(TagName, ZOrder);
 }
 
-Layer * SceneManager::FindLayer(const string & TagName, bool isCurrent)
+Layer * SceneManager::FindLayer(const string & TagName)
 {
-	if (isCurrent == true)
-		return m_CurScene->FindLayer(TagName);
+	return m_CurScene->FindLayer(TagName);
 }
 
 GameObject * SceneManager::FindObject(const string & TagName)
@@ -94,23 +92,24 @@ GameObject * SceneManager::FindObject(const string & TagName)
 
 void SceneManager::ChangeScene(const string & KeyName)
 {
-	Scene* getScene = FindScene(KeyName);
+	Scene* newScene = FindScene(KeyName);
 
-	if (getScene == NULLPTR)
+	if (newScene == NULLPTR)
 	{
 		TrueAssert(true);
 		return;
 	}
 
-	m_CurScene = getScene;
-
 	auto StartIter = ObjectManager::Get()->GetMap()->begin();
 	auto EndIter = ObjectManager::Get()->GetMap()->end();
 
 	for (; StartIter != EndIter; StartIter++)
-		StartIter->second->SetScene(m_CurScene);
+	{
+		StartIter->second->SetScene(newScene);
+		StartIter->second->SetLayer(newScene->FindLayerNoneCount(StartIter->second->GetLayer()->GetTag()));
+	}
 
-
+	m_CurScene = newScene;
 	m_isChange = true;
 }
 
@@ -146,6 +145,9 @@ void SceneManager::Access()
 				if (StartIter1->second->GetScene()->GetTag() == m_vecTemp[i]->GetTag())
 					continue;
 
+				if (m_vecTemp[i]->GetSceneComponent()->GetIsInsert() == false)
+					continue;
+
 				if ((*StartIter)->GetTag() == StartIter1->second->GetLayer()->GetTag())
 					(*StartIter)->GetObjectList()->push_back(StartIter1->second);
 			}
@@ -153,6 +155,26 @@ void SceneManager::Access()
 	}
 
 	AfterInit();
+}
+
+void SceneManager::AfterAccess(GameObject * object)
+{
+	//중간에 추가됐을때 경우
+
+	for (size_t i = 1; i < m_vecTemp.size(); i++)
+	{
+		auto StartIter = m_vecTemp[i]->m_LayerList.begin();
+		auto EndIter = m_vecTemp[i]->m_LayerList.end();
+
+		for (; StartIter != EndIter; StartIter++)
+		{
+			if (object->GetScene()->GetTag() == m_vecTemp[i]->GetTag())
+				continue;
+
+			if ((*StartIter)->GetTag() == object->GetLayer()->GetTag())
+					(*StartIter)->GetObjectList()->push_back(object);
+		}
+	}
 }
 
 void SceneManager::AfterInit()

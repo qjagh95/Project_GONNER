@@ -19,13 +19,15 @@ public:
 	Scene* GetCurScene() const;
 	Scene* GetCurSceneNonCount() { return m_CurScene; }
 	void SetIsChange(bool isChange);
-	void AddLayer(const string& TagName, int ZOrder, bool isCurrent = true);
-	void ChangeLayerZOrder(const string& TagName, int ZOrder, bool isCurrent = true);
-	Layer* FindLayer(const string& TagName, bool isCurrent = true);
+	void AddLayer(const string& TagName, int ZOrder);
+	void ChangeLayerZOrder(const string& TagName, int ZOrder);
+	Layer* FindLayer(const string& TagName);
 	GameObject* FindObject(const string& TagName);
 	void ChangeScene(const string& KeyName);
 	const unordered_map<string, Scene*>* GetSceneMap() { return &m_SceneMap; }
 	Scene* FindScene(const string& KeyName);
+	void Access();
+	void AfterAccess(GameObject* object);
 
 public:
 	template <typename T>
@@ -67,7 +69,6 @@ private:
 		return getScene->AddSceneComponent<T>(ComponentTag);
 	}
 
-	void Access();
 	void AfterInit();
 
 private:

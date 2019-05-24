@@ -82,12 +82,14 @@ bool Gun_Com::Init()
 
 	for (int i = 0; i < 20; i++)
 	{
-		GameObject* BulletUIObject = GameObject::CreateObject("BulletUI", UILayer);
+		GameObject* BulletUIObject = GameObject::CreateObject("BulletUI", UILayer, true);
 		BulletUI_Com* newUICom = BulletUIObject->AddComponent<BulletUI_Com>("BulletUI");
 		newUICom->SetIndex(i);
 
 		m_vecBulletUIObject.push_back(BulletUIObject);
 		m_vecBulletUI.push_back(newUICom);
+
+		SceneManager::Get()->AfterAccess(BulletUIObject);
 	}
 
 	m_ReloadTimeVar = 0.0f;
@@ -188,14 +190,17 @@ void Gun_Com::FS_SHOT(float DeltaTime)
 			if (CountManager::Get()->m_BulletCount == 0)
 				return;
 
-			GameObject* newbulletObject = GameObject::CreateObject("Bullet", m_DefaultLayer);
+			Layer* getDefault = SceneManager::Get()->GetCurSceneNonCount()->FindLayerNoneCount("Default");
+			Layer* getAfterEffect = SceneManager::Get()->GetCurSceneNonCount()->FindLayerNoneCount("Default");
+
+			GameObject* newbulletObject = GameObject::CreateObject("Bullet", getDefault);
 			Bullet_Com* newBullet = newbulletObject->AddComponent<Bullet_Com>("Bullet");
 			newbulletObject->GetTransform()->SetWorldPos(m_Pos.x, m_Pos.y, 1.0f);
 			newBullet->GetAnimation()->SetDir(m_Animation->GetDir());
 			newBullet->SetAfterLayer(m_AfterEffectLayer);
 
 			//ÀÌÆåÆ®»ý¼º(Shot)
-			GameObject* newShotEffectObject = GameObject::CreateObject("ShotEffect", m_AfterEffectLayer);
+			GameObject* newShotEffectObject = GameObject::CreateObject("ShotEffect", getAfterEffect);
 			ShotEffect_Com* newEffectCom = newShotEffectObject->AddComponent<ShotEffect_Com>("ShotEffect");
 			newEffectCom->GetAnimation()->SetDir(m_Animation->GetDir());
 

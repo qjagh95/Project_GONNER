@@ -37,9 +37,9 @@ public:
 	GAME_MODE GetGameMode() const { return m_GameMode; }
 
 	RenderState* FindRenderState(const string& KeyName);
-	JEONG::RenderTarget* FindRenderTarget(const string& KeyName);
+	RenderTarget* FindRenderTarget(const string& KeyName);
 
-	void AddRenderObject(JEONG::GameObject* object);
+	void AddRenderObject(GameObject* object);
 	void Render(float DeltaTime);
 	void SetIsZoomMode(bool Value = false) { m_isZoomMode = Value; }
 	bool GetIsZoomMode() const { return m_isZoomMode; }

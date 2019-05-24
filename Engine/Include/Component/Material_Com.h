@@ -10,8 +10,8 @@ struct JEONG_DLL SubsetMaterial
 {
 	MaterialCbuffer MatrialInfo;
 
-	vector<JEONG::Texture*> vecDiffuseTexture;
-	vector<JEONG::Sampler*> vecDiffuseSampler;
+	vector<Texture*> vecDiffuseTexture;
+	vector<Sampler*> vecDiffuseSampler;
 
 	void Save(BineryWrite& Writer);
 	void Load(BineryRead& Reader);

@@ -3,14 +3,14 @@
 
 JEONG_USING
 
-SINGLETON_VAR_INIT(JEONG::Device);
+SINGLETON_VAR_INIT(Device);
 
-JEONG::Device::Device()
+Device::Device()
 	:m_Device(NULLPTR), m_Context(NULLPTR), m_SwapChain(NULLPTR), m_TargerView(NULLPTR), m_DepthView(NULLPTR), m_Hwnd(NULLPTR), m_2DFactory(NULLPTR), m_2DTarget(NULLPTR)
 {
 }
 
-JEONG::Device::~Device()
+Device::~Device()
 {
 	SAFE_RELEASE(m_DepthView);
 	SAFE_RELEASE(m_TargerView);
@@ -32,7 +32,7 @@ JEONG::Device::~Device()
 #endif
 }
 
-bool JEONG::Device::Init(HWND hWnd, unsigned int Width, unsigned int Height, bool isWindowMode)
+bool Device::Init(HWND hWnd, unsigned int Width, unsigned int Height, bool isWindowMode)
 {
 	m_Hwnd = hWnd;
 	m_WinSize.Width = Width;
@@ -168,19 +168,19 @@ bool JEONG::Device::Init(HWND hWnd, unsigned int Width, unsigned int Height, boo
 	return true;
 }
 
-void JEONG::Device::Clear(float ClearColor[4])
+void Device::Clear(float ClearColor[4])
 {
 	//계속해서 화면을 지워줄것이다.
 	m_Context->ClearRenderTargetView(m_TargerView, ClearColor);
 	m_Context->ClearDepthStencilView(m_DepthView, D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
 }
 
-void JEONG::Device::Present()
+void Device::Present()
 {
 	m_SwapChain->Present(0, 0);
 }
 
-Vector2 JEONG::Device::GetWindowToDeviceRatio() const
+Vector2 Device::GetWindowToDeviceRatio() const
 {
 	RECT DeviceSize;
 	GetClientRect(m_Hwnd, &DeviceSize);
@@ -188,7 +188,7 @@ Vector2 JEONG::Device::GetWindowToDeviceRatio() const
 	return Vector2((float)m_WinSize.Width / (float)DeviceSize.right , (float)m_WinSize.Height/ (float)DeviceSize.bottom);
 }
 
-Vector2 JEONG::Device::GetWinSizeVector2() const
+Vector2 Device::GetWinSizeVector2() const
 {
 	Vector2 Temp;
 	Temp.x = (float)m_WinSize.Width;

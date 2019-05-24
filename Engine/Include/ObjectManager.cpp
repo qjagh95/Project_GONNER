@@ -47,3 +47,8 @@ bool ObjectManager::RemoveDontDestroyObject(GameObject * _pObject)
 
 	return true;
 }
+
+unordered_map<string, GameObject*>* ObjectManager::GetMap()
+{
+	return &m_DontMap;
+}

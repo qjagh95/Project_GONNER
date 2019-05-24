@@ -20,7 +20,6 @@
 #include <UserComponent/HeartItem_Com.h>
 #include <UserComponent/LifeItem_Com.h>
 
-
 Vector3 Gonner_Com::m_GonnerPos;
 Vector3 Gonner_Com::m_GonnerScale = Vector3(64.0f, 64.0f, 1.0f);
 Vector3 Gonner_Com::m_GonnerScaleHalf = Vector3(32.0f, 32.0f, 1.0f);
@@ -133,13 +132,15 @@ int Gonner_Com::Update(float DeltaTime)
 	ChangeColor(DeltaTime);
 	CreateBubbleEffect(DeltaTime);
 
+	m_Stage = StageManager::Get()->FindCurStage();
+
 	m_Pos = m_Transform->GetWorldPos();
 	m_GonnerPos = m_Pos;
 
-	m_upPos = Vector3(m_Pos.x, m_Pos.y + m_ScaleHalf.y + 1.0f, 0.0f);
-	m_downPos = Vector3(m_Pos.x, m_Pos.y - m_ScaleHalf.y - 1.0f, 0.0f);
-	m_leftPos = Vector3(m_Pos.x - m_ScaleHalf.x - 1.0f, m_Pos.y, 0.0f);
-	m_rightPos = Vector3(m_Pos.x + m_ScaleHalf.x + 1.0f, m_Pos.y, 0.0f);
+	m_upPos = Vector3(m_Pos.x, m_Pos.y + m_ScaleHalf.y + 1.0f, 1.0f);
+	m_downPos = Vector3(m_Pos.x, m_Pos.y - m_ScaleHalf.y - 1.0f, 1.0f);
+	m_leftPos = Vector3(m_Pos.x - m_ScaleHalf.x - 1.0f, m_Pos.y, 1.0f);
+	m_rightPos = Vector3(m_Pos.x + m_ScaleHalf.x + 1.0f, m_Pos.y, 1.0f);
 
 	m_downTile = m_Stage->GetTile2D(m_downPos);
 	m_upTile = m_Stage->GetTile2D(m_upPos);

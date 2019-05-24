@@ -7,6 +7,7 @@ class JEONG_DLL SceneComponent : public RefCount
 {
 public:
 	virtual bool Init() = 0;
+	virtual void AfterInit();
 	virtual int Input(float DeltaTime);
 	virtual int Update(float DeltaTime);
 	virtual int LateUpdate(float DeltaTime);
@@ -14,8 +15,11 @@ public:
 	virtual void CollisionLateUpdate(float DeltaTime);
 	virtual void Render(float DeltaTime);
 
+	bool GetIsInsert() const { return m_isInsert; }
+
 protected:
 	Scene* m_Scene;
+	bool m_isInsert;
 
 protected:
 	SceneComponent();

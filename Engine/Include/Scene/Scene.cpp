@@ -200,7 +200,7 @@ void Scene::CollisionLateUpdate(float DeltaTime)
 
 void Scene::Render(float DeltaTime)
 {
-	m_SceneComponent->CollisionLateUpdate(DeltaTime);
+	m_SceneComponent->Render(DeltaTime);
 
 	if (m_WaveCBuffer.LiveTime > 0.0f)
 		UpdateWaveCBuffer(DeltaTime);

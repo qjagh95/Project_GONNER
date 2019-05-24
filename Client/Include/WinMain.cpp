@@ -40,6 +40,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hIstance, _In_opt_ HINSTANCE hPrevInstance,
 	//²¨Áö¸é Delete, Result = 0
 	//½Ì±ÛÅæ »èÁ¦
 
+	if (NumberManager::Get()->Init() == false)
+	{
+		TrueAssert(true);
+		return false;
+	}
+
+	SceneManager::Get()->Access();
+
 	int Result = Core::Get()->Run();
 	Core::Delete();
 

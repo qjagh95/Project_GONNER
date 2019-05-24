@@ -219,6 +219,6 @@ void UIBar_Com::SetScale(float x, float y, float z)
 	m_Transform->SetWorldScale(Vector3(x, y, z));
 }
 
-void JEONG::UIBar_Com::MouseHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
+void UIBar_Com::MouseHit(Collider_Com * Src, Collider_Com * Dest, float DeltaTime)
 {
 }

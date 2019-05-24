@@ -6,8 +6,7 @@ JEONG_USING
 
 Stage2D_Com::Stage2D_Com()
 {
-	m_ComType = CT_TILE2D;
-	SetTag("Stage2D");
+	m_ComType = CT_STAGE2D;
 	m_isLineOn = true;
 	m_vecTileObject = NULLPTR;
 	m_vecTile2DCom = NULLPTR;
@@ -261,6 +260,8 @@ void Stage2D_Com::Load(BineryRead & Reader)
 			m_Tile2DComSize++;
 		}
 	}
+
+	StageManager::Get()->InsertStage(this);
 }
 
 int Stage2D_Com::GetTileIndex(const Vector3 & Pos)

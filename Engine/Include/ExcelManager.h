@@ -59,11 +59,11 @@ public:
 	void AddSheet(const string& KeyName, const string& SheetName);
 
 private:
-	JEONG::ExcelData* CreateExcel(const string& KeyName);
+	ExcelData* CreateExcel(const string& KeyName);
 	bool SaveExcel(const string& KeyName, const string& PathKey = DATA_PATH);
 	bool LoadExcel(const string& KeyName, const string& PathKey = DATA_PATH);
 
-	JEONG::ExcelData* FindExcelData(const string& KeyName);
+	ExcelData* FindExcelData(const string& KeyName);
 
 private:
 	unordered_map<string, ExcelData*> m_ExcelDataMap;

@@ -15,8 +15,11 @@ public:
 	virtual void CollisionLateUpdate(float DeltaTime);
 	virtual void Render(float DeltaTime);
 
+	bool GetIsInsert() const { return m_isInsert; }
+
 protected:
 	Scene* m_Scene;
+	bool m_isInsert;
 
 protected:
 	SceneComponent();

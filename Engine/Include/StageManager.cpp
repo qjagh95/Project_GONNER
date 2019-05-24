@@ -14,25 +14,17 @@ StageManager::~StageManager()
 
 void StageManager::InsertStage(Stage2D_Com* stage)
 {
-	if (m_StageName.empty() == true)
-	{
-		TrueAssert(true);
-		return;
-	}
-
 	Stage2D_Com* getStage = FindCurStage();
 
 	if (getStage != NULLPTR)
 		return;
 
-	getStage = stage;
-
-	m_StageMap.insert(make_pair(m_StageName, getStage));
+	m_StageMap.insert(make_pair(stage->GetTag(), stage));
 }
 
 Stage2D_Com * StageManager::FindCurStage()
 {
-	unordered_map<string, Stage2D_Com*>::iterator FindIter = m_StageMap.find(m_StageName);
+	unordered_map<string, Stage2D_Com*>::iterator FindIter = m_StageMap.find(GetCurStageName());
 
 	if (FindIter == m_StageMap.end())
 		return NULLPTR;
@@ -40,7 +32,18 @@ Stage2D_Com * StageManager::FindCurStage()
 	return FindIter->second;
 }
 
-void StageManager::SetStageName(const string & StageName)
+string StageManager::GetCurStageName()
 {
-	m_StageName = StageName;
+	auto StartIter = SceneManager::Get()->GetCurSceneNonCount()->FindLayerNoneCount("Tile")->GetObjectList()->begin();
+	auto EndIter = SceneManager::Get()->GetCurSceneNonCount()->FindLayerNoneCount("Tile")->GetObjectList()->end();
+
+	for (; StartIter != EndIter; StartIter++)
+	{
+		Component_Base* getComponent = dynamic_cast<Component_Base*>((*StartIter)->FindComponentFromTypeNoneCount<Stage2D_Com>(CT_STAGE2D));
+
+		if (getComponent != NULLPTR)
+			return getComponent->GetTag();
+	}
+
+	return string();
 }
