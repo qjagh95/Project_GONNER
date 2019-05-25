@@ -13,6 +13,7 @@ SceneManager::SceneManager()
 	:m_CurScene(NULLPTR), m_isChange(false)
 {
 	m_isStart = false;
+	m_isAccessCompleted = false;
 }
 
 SceneManager::~SceneManager()
@@ -155,6 +156,8 @@ void SceneManager::Access()
 	}
 
 	AfterInit();
+	m_isAccessCompleted = true;
+
 }
 
 void SceneManager::AfterAccess(GameObject * object)

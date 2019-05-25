@@ -50,6 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hIstance, _In_opt_ HINSTANCE hPrevInstance,
 
 	int Result = Core::Get()->Run();
 	Core::Delete();
+	CountManager::Delete();
 
 	return Result;
 }

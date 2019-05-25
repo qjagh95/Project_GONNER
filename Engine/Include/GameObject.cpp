@@ -366,13 +366,9 @@ void GameObject::SetLayer(Layer * layer)
 
 GameObject * GameObject::CreateObject(const string & TagName, Layer * layer, bool isStaticObject)
 {
-	//TODO
 	GameObject*	newObject = new GameObject;
 
 	newObject->SetTag(TagName);
-
-	if (isStaticObject)
-		newObject->IamNotDestroy();
 
 	if (newObject->Init() == false)
 	{
@@ -382,6 +378,14 @@ GameObject * GameObject::CreateObject(const string & TagName, Layer * layer, boo
 
 	if (layer != NULLPTR)
 		layer->AddObject(newObject);
+
+	if (isStaticObject)
+	{
+		newObject->IamNotDestroy();
+
+		if (SceneManager::Get()->GetIsAccessComplected() == true)
+			SceneManager::Get()->AfterAccess(newObject);
+	}
 
 	return newObject;
 }

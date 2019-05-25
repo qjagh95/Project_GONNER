@@ -114,9 +114,7 @@ int SnakeHead_Com::Update(float DeltaTime)
 
 		if (m_Animation->GetIsEnd() == true)
 		{
-			GameObject* getGonner = ObjectManager::Get()->FindDontDestroyObject("Gonner");
-			getGonner->GetTransform()->SetWorldPos(m_NextStagePos);
-
+			CountManager::Get()->m_Gonner->GetTransform()->SetWorldPos(m_NextStagePos);
 			SceneManager::Get()->ChangeScene(m_NextStageTag);
 			m_isNext = false;
 		}

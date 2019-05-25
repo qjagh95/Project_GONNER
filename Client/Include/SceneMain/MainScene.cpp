@@ -77,6 +77,7 @@ bool MainScene::Init()
 
 	GameObject* GonnerObject = GameObject::CreateObject("Gonner", Default, true);
 	Gonner_Com* gonner_Com = GonnerObject->AddComponent<Gonner_Com>("GonnerCom");
+	CountManager::Get()->m_Gonner = gonner_Com;
 	SAFE_RELEASE(gonner_Com);
 
 	mainCamera->SetTarget(GonnerObject);
@@ -140,15 +141,17 @@ bool MainScene::Init()
 	SAFE_RELEASE(FadeLayer);
 	SAFE_RELEASE(AfterEffect);
 
-#ifdef _DEBUG
-#else
-	auto findSound = SoundManager::Get()->FindSoundEffectInstance("LogoBGM");
-	findSound->Stop();
-#endif
+//#ifdef _DEBUG
+//#else
+//	auto findSound = SoundManager::Get()->FindSoundEffectInstance("LogoBGM");
+//	findSound->Stop();
+//#endif
 
-	auto newSound = SoundManager::Get()->FindSoundEffect("StageBGM1")->CreateInstance();
-	newSound->Play(true);
-	SoundManager::Get()->CreateBGMList("StageBGM1", move(newSound));
+	//auto newSound = SoundManager::Get()->FindSoundEffect("StageBGM1")->CreateInstance();
+	//newSound->Play(true);
+	//SoundManager::Get()->CreateBGMList("StageBGM1", move(newSound));
+	//
+	m_BgmName = "StageBGM1";
 
 	return true;
 }
@@ -171,6 +174,17 @@ int MainScene::Input(float DeltaTime)
 
 int MainScene::Update(float DeltaTime)
 {
+#ifdef _DEBUG
+#else
+	if (m_isBgmStart == false)
+	{
+		auto findSound = SoundManager::Get()->FindSoundEffectInstance("LogoBGM");
+		findSound->Stop();
+	}
+#endif
+	SceneComponent::Update(DeltaTime);
+
+
 	return 0;
 }
 

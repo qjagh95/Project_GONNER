@@ -28,6 +28,7 @@ public:
 	Scene* FindScene(const string& KeyName);
 	void Access();
 	void AfterAccess(GameObject* object);
+	bool GetIsAccessComplected() const { return m_isAccessCompleted; }
 
 public:
 	template <typename T>
@@ -78,6 +79,7 @@ private:
 
 	bool m_isChange;
 	bool m_isStart;
+	bool m_isAccessCompleted;
 
 public:
 	CLASS_IN_SINGLE(SceneManager)

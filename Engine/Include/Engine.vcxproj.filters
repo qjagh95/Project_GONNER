@@ -256,9 +256,6 @@
     <Filter Include="Core\08. Object\Component\UserComponent\03. Effect">
       <UniqueIdentifier>{9984f4c8-99c5-4dc6-94d6-a44c2ea160e0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\18. CountManager">
-      <UniqueIdentifier>{90e1fd76-5455-4b11-aede-fe335175a471}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\08. Object\Component\UserComponent\04. EditorMonster">
       <UniqueIdentifier>{ff3e2dde-1acc-495f-98f1-be414064b94a}</UniqueIdentifier>
     </Filter>
@@ -524,9 +521,6 @@
     </ClInclude>
     <ClInclude Include="UserComponent\BallonEffect_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
-    </ClInclude>
-    <ClInclude Include="CountManager.h">
-      <Filter>Core\18. CountManager</Filter>
     </ClInclude>
     <ClInclude Include="UserComponent\AirDownE_Com.h">
       <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster</Filter>
@@ -798,9 +792,6 @@
     </ClCompile>
     <ClCompile Include="UserComponent\BallonEffect_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\03. Effect</Filter>
-    </ClCompile>
-    <ClCompile Include="CountManager.cpp">
-      <Filter>Core\18. CountManager</Filter>
     </ClCompile>
     <ClCompile Include="UserComponent\AirDownE_Com.cpp">
       <Filter>Core\08. Object\Component\UserComponent\04. EditorMonster</Filter>

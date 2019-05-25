@@ -33,7 +33,6 @@ void Gonner_Com::GunItemHit(Collider_Com * Src, Collider_Com * Dest, float Delta
 		Gun_Com::m_isEquip = true;
 
 		SoundManager::Get()->FindSoundEffect("EatGun")->Play();
-		SceneManager::Get()->AfterAccess(m_GunObject);
 	}
 }
 void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaTime)
@@ -55,7 +54,6 @@ void Gonner_Com::HeartItemHit(Collider_Com* Src, Collider_Com* Dest, float Delta
 
 		SAFE_RELEASE(prevLayer);
 		SoundManager::Get()->FindSoundEffect("ReloadBulletCreate")->Play();
-		SceneManager::Get()->AfterAccess(m_HeartObject);
 	}
 }
 
@@ -103,7 +101,6 @@ void Gonner_Com::LifeItemHit(Collider_Com* Src, Collider_Com* Dest, float DeltaT
 		SoundManager::Get()->FindSoundEffect("LifeEat")->Play();
 		m_isSkullItem = true;
 
-		SceneManager::Get()->AfterAccess(m_SkullObject);
 	}
 }
 

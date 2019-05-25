@@ -20,6 +20,8 @@ public:
 protected:
 	Scene* m_Scene;
 	bool m_isInsert;
+	bool m_isBgmStart;
+	string m_BgmName;
 
 protected:
 	SceneComponent();

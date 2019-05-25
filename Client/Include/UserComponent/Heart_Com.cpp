@@ -68,7 +68,7 @@ bool Heart_Com::Init()
 
 	m_HeartUIObject = GameObject::CreateObject("HeartUI", UILayer, true);
 	m_HeartUI = m_HeartUIObject->AddComponent<HeartUI_Com>("HeartUI");
-	SceneManager::Get()->AfterAccess(m_HeartUIObject);
+
 
 	SAFE_RELEASE(UILayer);
 

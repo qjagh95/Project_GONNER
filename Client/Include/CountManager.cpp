@@ -1,7 +1,8 @@
-#include "stdafx.h"
+#include "ClientHeader.h"
 #include "CountManager.h"
 
-JEONG_USING
+#include "UserComponent/Gonner_Com.h"
+
 SINGLETON_VAR_INIT(CountManager)
 
 CountManager::CountManager()

@@ -88,8 +88,6 @@ bool Gun_Com::Init()
 
 		m_vecBulletUIObject.push_back(BulletUIObject);
 		m_vecBulletUI.push_back(newUICom);
-
-		SceneManager::Get()->AfterAccess(BulletUIObject);
 	}
 
 	m_ReloadTimeVar = 0.0f;
@@ -112,10 +110,10 @@ int Gun_Com::Update(float DeltaTime)
 	switch (m_Animation->GetDir())
 	{
 		case MD_LEFT:
-			m_Transform->SetWorldPos(TargetPos.x - 10.0f, TargetPos.y - 10.0f, 1.0f);
+			m_Transform->SetWorldPos(TargetPos.x - 8.0f, TargetPos.y - 10.0f, 1.0f);
 		break;
 		case MD_RIGHT:
-			m_Transform->SetWorldPos(TargetPos.x + 10.0f, TargetPos.y - 10.0f, 1.0f);
+			m_Transform->SetWorldPos(TargetPos.x + 8.0f, TargetPos.y - 10.0f, 1.0f);
 		break;
 	}
 

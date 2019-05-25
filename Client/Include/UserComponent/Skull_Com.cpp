@@ -2,6 +2,7 @@
 #include "Skull_Com.h"
 #include "LifeUI_Com.h"
 #include "Gonner_Com.h"
+#include "CountManager.h"
 
 JEONG_USING
 
@@ -70,7 +71,6 @@ bool Skull_Com::Init()
 		newLifeUICom->SetIndex(i);
 
 		m_vecLifeObject.push_back(newLifeUI);
-		SceneManager::Get()->AfterAccess(newLifeUI);
 		SAFE_RELEASE(newLifeUICom);
 	}
 
@@ -88,10 +88,25 @@ int Skull_Com::Update(float DeltaTime)
 	ChangeColor(DeltaTime);
 	m_TargetPos = Gonner_Com::m_GonnerPos;
 
-	if (m_Animation->GetDir() == MD_LEFT)
-		m_Transform->SetWorldPos(m_TargetPos.x + 8.0f, m_TargetPos.y + 8.0f, 1.0f);
-	else
-		m_Transform->SetWorldPos(m_TargetPos.x - 8.0f, m_TargetPos.y + 8.0f, 1.0f);
+	switch (m_Animation->GetDir())
+	{
+	case MD_LEFT:
+	{
+		if (CountManager::Get()->m_Gonner->GetState() == GS_RUN)
+			m_Transform->SetWorldPos(m_TargetPos.x + 2.0f, m_TargetPos.y + 8.0f, 1.0f);
+		else
+			m_Transform->SetWorldPos(m_TargetPos.x - 2.0f, m_TargetPos.y + 8.0f, 1.0f);
+	}
+		break;
+	case MD_RIGHT:
+	{
+		if (CountManager::Get()->m_Gonner->GetState() == GS_RUN)
+			m_Transform->SetWorldPos(m_TargetPos.x + 2.0f, m_TargetPos.y + 8.0f, 1.0f);
+		else
+			m_Transform->SetWorldPos(m_TargetPos.x - 2.0f, m_TargetPos.y + 8.0f, 1.0f);
+	}
+		break;
+	}
 
 	return 0;
 }

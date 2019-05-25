@@ -219,7 +219,6 @@
     <ClInclude Include="Component\UIBase_Com.h" />
     <ClInclude Include="Component\UICon_Com.h" />
     <ClInclude Include="Core.h" />
-    <ClInclude Include="CountManager.h" />
     <ClInclude Include="Device.h" />
     <ClInclude Include="ExcelManager.h" />
     <ClInclude Include="FontManager.h" />
@@ -314,7 +313,6 @@
     <ClCompile Include="Component\UIBase_Com.cpp" />
     <ClCompile Include="Component\UICon_Com.cpp" />
     <ClCompile Include="Core.cpp" />
-    <ClCompile Include="CountManager.cpp" />
     <ClCompile Include="Device.cpp" />
     <ClCompile Include="ExcelManager.cpp" />
     <ClCompile Include="FontManager.cpp" />

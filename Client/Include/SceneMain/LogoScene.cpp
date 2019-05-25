@@ -42,9 +42,11 @@ bool LogoScene::Init()
 	SAFE_RELEASE(mainCamera);
 
 	//·çÇÁ
-	auto LogoBGM = SoundManager::Get()->FindSoundEffect("LogoBGM")->CreateInstance();
-	LogoBGM->Play(true);
-	SoundManager::Get()->CreateBGMList("LogoBGM", move(LogoBGM));
+	//auto LogoBGM = SoundManager::Get()->FindSoundEffect("LogoBGM")->CreateInstance();
+	//LogoBGM->Play(true);
+	//SoundManager::Get()->CreateBGMList("LogoBGM", move(LogoBGM));
+
+	m_BgmName = "LogoBGM";
 
 	return true;
 }
@@ -56,6 +58,8 @@ int LogoScene::Input(float DeltaTime)
 
 int LogoScene::Update(float DeltaTime)
 {
+	SceneComponent::Update(DeltaTime);
+
 	m_NextTimeVar += DeltaTime;
 
 	Layer* FadeLayer = m_Scene->FindLayer("Fade");

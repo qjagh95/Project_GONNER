@@ -7,7 +7,7 @@ public:
 	RefCount();
 	virtual ~RefCount() = 0;
 
-	string GetTag() const { return m_TagName;}
+	string GetTag() const { return m_TagName; }
 	void SetTag(const string& TagName) { m_TagName = TagName; }
 	int AddRefCount() { ReferanceCount++; return ReferanceCount; }
 	int Release();
